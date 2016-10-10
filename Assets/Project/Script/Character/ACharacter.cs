@@ -17,6 +17,9 @@ public abstract class ACharacter : MonoBehaviour
     }
 
     [SerializeField]
+    private float jumpEfficiency = 4.2f;
+
+    [SerializeField]
     private int baseAttack;
     [SerializeField]
     private int baseDefense;
@@ -57,6 +60,14 @@ public abstract class ACharacter : MonoBehaviour
     #endregion
     */
 
+    private Rigidbody rb = null;
+    private bool bIsGrounded = true;
+    public bool IsGrounded
+    {
+        get { return bIsGrounded; }
+        protected set { bIsGrounded = value; }
+    }
+
     protected virtual void Start()
     {
         /*
@@ -65,6 +76,10 @@ public abstract class ACharacter : MonoBehaviour
                              baseMana, baseSpellPower,
                              basePrecision, baseAttackSpeed);
                              */
+
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+            Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
     }
 
     protected abstract void Update();
@@ -86,9 +101,10 @@ public abstract class ACharacter : MonoBehaviour
         transform.position += new Vector3(xAxis, 0f, zAxis).normalized * Time.deltaTime;
     }
 
-    public virtual void Jump()
+    public virtual void Jump(float xAxis = 0f, float zAxis = 0f)
     {
-        throw new NotImplementedException();
+        Vector3 direction = new Vector3(xAxis, 0f, zAxis).normalized + Vector3.up;
+        rb.AddForce(direction * jumpEfficiency, ForceMode.Impulse);
     }
 
     public virtual void Use()
@@ -126,4 +142,14 @@ public abstract class ACharacter : MonoBehaviour
         throw new NotImplementedException();
     }
     #endregion
+
+    protected virtual void OnTriggerEnter()
+    {
+        bIsGrounded = true;
+    }
+
+    protected virtual void OnTriggerExit()
+    {
+        bIsGrounded = false;
+    }
 }

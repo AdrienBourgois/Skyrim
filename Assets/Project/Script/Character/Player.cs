@@ -10,6 +10,12 @@ public class Player : ACharacter
 
     private void UpdateInput()
     {
-        Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (IsGrounded)
+        {
+            if (Input.GetButtonDown("Jump"))
+                Jump(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            else
+                Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        }
     }
 }
