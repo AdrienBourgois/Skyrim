@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
@@ -31,6 +32,8 @@ public abstract class ACharacter : MonoBehaviour
     private int basePrecision;
     [SerializeField]
     private int baseAttackSpeed;
+    [SerializeField]
+    private int baseMoveSpeed;
     #endregion
 
     /* #region Stats & Inventory
@@ -63,4 +66,64 @@ public abstract class ACharacter : MonoBehaviour
                              basePrecision, baseAttackSpeed);
                              */
     }
+
+    protected abstract void Update();
+
+    #region Controller
+    public virtual void Look(Vector2 axis)
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void Look(float xAxis, float yAxis)
+    {
+        throw new NotImplementedException();
+    }
+    
+    public virtual void Move(float xAxis, float zAxis)
+    {
+        // TODO: add speed
+        transform.position += new Vector3(xAxis, 0f, zAxis).normalized * Time.deltaTime;
+    }
+
+    public virtual void Jump()
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void Use()
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void LeftHand()
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void RightHand()
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void TwoHands()
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void Crouch()
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void SelectMagic(int magicId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void CastSpell()
+    {
+        throw new NotImplementedException();
+    }
+    #endregion
 }
