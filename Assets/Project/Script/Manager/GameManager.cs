@@ -21,15 +21,14 @@ public class GameManager : MonoBehaviour {
         MainMenu,
         InGame,
         Death,
+        StateNb
     }
 
-	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+    {
+        if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
+            DontDestroyOnLoad(this);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
