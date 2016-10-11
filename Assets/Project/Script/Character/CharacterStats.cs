@@ -43,15 +43,15 @@ public class CharacterStats : MonoBehaviour {
 
     void DisplayChara()
     {
-        print(UnitCharacteristics.Attack);
-        print(UnitCharacteristics.Defense);
-        print(UnitCharacteristics.Weight);
-        print(UnitCharacteristics.Health);
-        print(UnitCharacteristics.HealthRegeneration);
-        print(UnitCharacteristics.Mana);
-        print(UnitCharacteristics.SpellPower);
-        print(UnitCharacteristics.Precision);
-        print(UnitCharacteristics.AttackSpeed);
+        //print(UnitCharacteristics.Attack);
+        //print(UnitCharacteristics.Defense);
+        //print(UnitCharacteristics.Weight);
+        //print(UnitCharacteristics.Health);
+        //print(UnitCharacteristics.HealthRegeneration);
+        //print(UnitCharacteristics.Mana);
+        //print(UnitCharacteristics.SpellPower);
+        //print(UnitCharacteristics.Precision);
+        //print(UnitCharacteristics.AttackSpeed);
         
 
     }
