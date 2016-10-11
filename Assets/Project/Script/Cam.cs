@@ -3,14 +3,13 @@ using System.Collections;
 
 public class Cam : MonoBehaviour {
 
-    [SerializeField] float YAngleMin = -70f;
-    [SerializeField] float YAngleMax = 70f;
-
+    [SerializeField] float lookDownMax = -70f;
+    [SerializeField] float lookUpMax = 70f;
     [SerializeField] float sensibility = 1f;
 
     Transform target;
 
-    private float currRotX = 0f;
+    private float rotY = 0f;
 
 	void Start ()
     {
@@ -18,7 +17,6 @@ public class Cam : MonoBehaviour {
         if (player)
         {
             target = player.transform;
-
             transform.rotation = new Quaternion(target.forward.x, target.forward.y, target.forward.z, 0f);
         }
         else
@@ -29,20 +27,14 @@ public class Cam : MonoBehaviour {
 	void Update ()
     {
         if (target)
-            transform.position = target.position; //+ Vector3.up;
+            transform.position = target.position;
 
-        float rotY = Input.GetAxis("Mouse X") * sensibility * Time.deltaTime;
-        float rotX = Input.GetAxis("Mouse Y") * sensibility * Time.deltaTime;
+        float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility * Time.deltaTime;
 
-        Debug.Log(currRotX);
+        rotY += Input.GetAxis("Mouse Y") * sensibility * Time.deltaTime;
+        rotY = Mathf.Clamp(rotY, lookDownMax, lookUpMax);
 
-        currRotX += rotX;
-        currRotX = Mathf.Clamp(currRotX, YAngleMin, YAngleMax);
-
-        if (YAngleMin < currRotX && currRotX < YAngleMax)
-        {
-            target.transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - rotX, transform.localEulerAngles.y + rotY, 0f);
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - rotX, transform.localEulerAngles.y + rotY, 0f);
-        }
+        target.transform.localEulerAngles = new Vector3(-rotY, rotX , 0f);
+        transform.localEulerAngles = new Vector3(-rotY, rotX, 0f);
     }
 }
