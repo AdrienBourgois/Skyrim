@@ -122,7 +122,8 @@ public class Characteristics
         Weight = weight;
         MaxHealth = health;
         Health = health;
-        Mana = mana;
+        MaxMana = mana;
+        Mana = maxMana;
         SpellPower = spellPower;
         Precision = precision;
      

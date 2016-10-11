@@ -1,24 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour {
-
-    Player player;
-
-    RectTransform healthBar;
-    Text healthPoint;
-
-	void Start ()
-    {
-        healthBar = transform.FindChild("HealthBar").GetComponent<RectTransform>();
-        healthPoint = transform.FindChild("HealthPoint").GetComponent<Text>();
-
-        GameObject player_gao = GameObject.FindGameObjectWithTag("Player");
-
-        if (player_gao)
-            player = player_gao.GetComponent<Player>();
-    }
-
+public class HealthBar : Bar {
 
     void Update ()
     {
@@ -27,8 +10,8 @@ public class HealthBar : MonoBehaviour {
 
         if (player_stats.Health >= 0)
         {
-            healthBar.localScale = new Vector3(life_ratio, healthBar.localScale.y, healthBar.localScale.z);
-            healthPoint.text = player_stats.Health.ToString();
+            bar.localScale = new Vector3(life_ratio, bar.localScale.y, bar.localScale.z);
+            point.text = player_stats.Health.ToString();
         }
    }
 }
