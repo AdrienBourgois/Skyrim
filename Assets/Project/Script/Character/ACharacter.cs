@@ -5,6 +5,7 @@ using System;
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
+[RequireComponent (typeof(Rigidbody))]
 public abstract class ACharacter : MonoBehaviour
 {
     #region Serialized Fields
@@ -98,6 +99,8 @@ public abstract class ACharacter : MonoBehaviour
     public virtual void ControllerMove(float xAxis, float zAxis)
     {
         Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
+        direction.y = 0;
+        direction.Normalize();
         // TODO: add stat speed
         transform.position += direction.normalized * baseMoveSpeed * Time.deltaTime;
     }
@@ -105,7 +108,8 @@ public abstract class ACharacter : MonoBehaviour
     public virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
     {
         Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
-        direction = direction.normalized + Vector3.up;
+        direction.Normalize();
+        direction.y = 1;
         rb.AddForce(direction * jumpEfficiency, ForceMode.Impulse);
     }
 
