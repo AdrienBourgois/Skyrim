@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterStats : MonoBehaviour {
-
+public class CharacterStats
+{
     #region Stats
     private Characteristics characteristics;
     public Characteristics UnitCharacteristics
@@ -17,18 +17,20 @@ public class CharacterStats : MonoBehaviour {
     }
 
     #endregion  
+    
+    public void Init(int attack, int defense, float weight, int health, int mana, int spellPower, float precision, float attackSpeed)
+    {
+        characteristics = new Characteristics();
+        attributes = new Attributes();
 
-    void Start () {
+        characteristics.Init(attack, defense,
+                             weight, health,
+                             mana, spellPower,
+                             precision, attackSpeed);
+    }
 
-        DisplayChara();
-	
-	}
-	
-	void Update () {
-	
-	}
 
-    public void SetCharacteristics(ACharacter player)
+    public void SetCharacteristics()
     {
         UnitCharacteristics.Attack = (int)Mathf.Exp((player.UnitLevel/8) * UnitAttributes.Strength);
         UnitCharacteristics.Defense = (int)Mathf.Exp((player.UnitLevel / 8) * UnitAttributes.Constitution);

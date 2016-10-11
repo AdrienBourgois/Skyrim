@@ -46,30 +46,23 @@ public abstract class ACharacter : MonoBehaviour
     private float baseAttackSpeed;
     [SerializeField]
     private float baseMoveSpeed = 3f;
-
-    
     #endregion
 
-    /* #region Stats & Inventory
-    private Characteristics characteristics;
-    public Characteristics UnitCharacteristics
+     #region Stats & Inventory
+    private CharacterStats characterStats;
+    public CharacterStats CharacterStats
     {
-        get { return characteristics; }
+        get { return characterStats; }
     }
-
-    private Attributes attributes;
-    public Attributes UnitAttributes
-    {
-        get { return attributes; }
-    }
-
+    
+    /*
     private Inventory inventory;
     public Inventory UnitInventory
     {
         get { return inventory; }
-    }
+    }*/
     #endregion
-    */
+    
 
     private Rigidbody rb = null;
     private bool bIsGrounded = true;
@@ -83,13 +76,13 @@ public abstract class ACharacter : MonoBehaviour
 
     protected virtual void Start()
     {
-        /*
-        characteristics.Init(baseAttack, baseDefense,
-                             baseWeight, baseHealth,
-                             baseMana, baseSpellPower,
-                             basePrecision, baseAttackSpeed);
-                             */
 
+        characterStats = new CharacterStats();
+        characterStats.Init(baseAttack, baseDefense,
+                            baseWeight, baseHealth,
+                            baseMana, baseSpellPower,
+                            basePrecision, baseAttackSpeed);
+      
         rb = GetComponent<Rigidbody>();
         if (rb == null)
             Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
