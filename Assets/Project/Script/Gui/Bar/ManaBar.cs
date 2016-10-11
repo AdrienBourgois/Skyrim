@@ -25,7 +25,7 @@ public class ManaBar : MonoBehaviour {
         Characteristics player_stats = player.CharacterStats.UnitCharacteristics;
         float mana_ratio = (float)player_stats.Mana / (float)player_stats.MaxMana;
 
-        Debug.Log(mana_ratio);
+        //Debug.Log(mana_ratio);
 
         if (player_stats.Mana >= 0)
         {

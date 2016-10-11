@@ -8,7 +8,7 @@ public class Attributes
     private int constitution = 10;
     private int intelligence = 10;
     private int dexterity = 10;
-    private int maxAttributePoints = 100;
+    private int maxAttributePoints = 110;
     
 
     void Start () {
