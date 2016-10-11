@@ -3,7 +3,6 @@ using System.Collections;
 
 public class CharacterStats
 {
-
     #region Stats
     private Characteristics characteristics;
     public Characteristics UnitCharacteristics
@@ -18,15 +17,18 @@ public class CharacterStats
     }
 
     #endregion  
-
-    void Start ()
+    
+    public void Init(int attack, int defense, float weight, int health, int mana, int spellPower, float precision, float attackSpeed)
     {
+        characteristics = new Characteristics();
+        attributes = new Attributes();
 
+        characteristics.Init(attack, defense,
+                             weight, health,
+                             mana, spellPower,
+                             precision, attackSpeed);
     }
-	
-	void Update () {
-	
-	}
+
 
     public void SetCharacteristics()
     {

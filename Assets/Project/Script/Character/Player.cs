@@ -6,7 +6,10 @@ public class Player : ACharacter
 
     protected override void Update()
     {
-        stats.UnitCharacteristics.Health -= 1;
+        //Debug.Log(CharacterStats);
+
+        CharacterStats.UnitCharacteristics.Health -= 1;
+        CharacterStats.UnitCharacteristics.Mana -= 1;
 
         UpdateInput();
     }
