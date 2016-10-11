@@ -31,6 +31,8 @@ public abstract class ACharacter : MonoBehaviour
     private int basePrecision;
     [SerializeField]
     private int baseAttackSpeed;
+    
+
     #endregion
 
     /* #region Stats & Inventory
@@ -63,4 +65,6 @@ public abstract class ACharacter : MonoBehaviour
                              basePrecision, baseAttackSpeed);
                              */
     }
+
+
 }

@@ -26,10 +26,11 @@ public class CharacterStats : MonoBehaviour {
 	
 	}
 
-    void SetCaracteristics()
+    public void SetCharacteristics()
     {
         UnitCharacteristics.Weight = UnitAttributes.Strength * 10;
         UnitCharacteristics.Attack *= UnitAttributes.Strength;
+        UnitCharacteristics.MaxHealth += UnitAttributes.Constitution;
 
     }
 }

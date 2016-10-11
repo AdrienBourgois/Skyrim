@@ -32,6 +32,7 @@ public class Characteristics : MonoBehaviour {
     [SerializeField]
     private int healthRegeneration;
 
+   
     #endregion
 
     #region Attack
@@ -58,13 +59,12 @@ public class Characteristics : MonoBehaviour {
     #region Health
 
     private int maxHealth;
+
     public int MaxHealth
     { get { return maxHealth; } set { maxHealth = value; } }
 
     public int HealthRegeneration
-    {
-        get { return healthRegeneration; } set { healthRegeneration = value; }
-    }
+    { get { return healthRegeneration; } set { healthRegeneration = value; } }
 
     public int Health
     { get { return health; } set { health = value; } }
@@ -101,13 +101,17 @@ public class Characteristics : MonoBehaviour {
     public float AttackSpeed
     { get { return attackSpeed; } set { attackSpeed = value; } }
 
-    
+
+
+
 
 
 
 
 
     #endregion
+
+
 
 
     public void Init(int attack, int defense, float weight, int health, int mana, int spellPower, float precision, float attackSpeed)
@@ -119,6 +123,7 @@ public class Characteristics : MonoBehaviour {
         Mana = mana;
         SpellPower = spellPower;
         Precision = precision;
+     
     }
 
 
