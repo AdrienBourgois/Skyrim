@@ -13,7 +13,7 @@ public class Cam : MonoBehaviour {
 
 	void Start ()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Player player = FindObjectOfType<Player>();
         if (player)
         {
             target = player.transform;
