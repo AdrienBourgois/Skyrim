@@ -13,11 +13,11 @@ public class Item// : MonoBehaviour
 
     public enum item_rarity
     {
-        common,
-        uncommon,
-        rare,
-        epic,
-        legendary
+        common = 1,
+        uncommon = 2,
+        rare = 3,
+        epic = 4,
+        legendary = 5
     }
 
     protected string name_object = "Unnamed";
@@ -55,9 +55,19 @@ public class Item// : MonoBehaviour
         set { rarity = value; }
     }
 
+    private int level = 1;
+    public int Level
+    {
+        get { return level; }
+        set { level = value; }
+    }
+
     public string GetItemGeneralInformations()
     {
-        return "Name : " + name_object + "\nDescription : " + description + "\nWeight : " + weight + "\nRarity : " + rarity;
+        return "Name : " + name_object + " (LVL " + level + ")" +
+            "\nDescription : " + description +
+            "\nWeight : " + weight +
+            "\nRarity : " + rarity;
     }
 
 }

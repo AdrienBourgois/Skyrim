@@ -38,14 +38,6 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    public void Start()
-    {
-        ItemManager im = gameObject.AddComponent<ItemManager>();
-        AddItem(im.CreateObject<Weapon>(Item.item_type.weapon, Item.item_rarity.epic, "Sword", "Simple Sword"));
-        //DisplayInventory();
-        DisplayList(GetItems<Weapon>());
-    }
-
     public List<Item> GetItems<T>() where T : Item
     {
         List<Item> items_list = new List<Item>();
@@ -69,4 +61,16 @@ public class Inventory : MonoBehaviour {
 
         return items_list;
     }
+
+    public void Start()
+    {
+        ItemManager im = gameObject.AddComponent<ItemManager>();
+        AddItem(im.CreateObject<Weapon>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
+        AddItem(im.CreateObject<Weapon>(Item.item_rarity.rare, "Rare Sword", "Simple Sword"));
+        AddItem(im.CreateObject<Weapon>(Item.item_rarity.common, "Common Sword", "Simple Sword"));
+        AddItem(im.CreateObject<Weapon>());
+        AddItem(im.CreateObject<Armor>());
+        DisplayInventory();
+    }
+
 }
