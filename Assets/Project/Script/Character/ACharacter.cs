@@ -5,6 +5,7 @@ using System;
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
+[RequireComponent (typeof(Rigidbody))]
 public abstract class ACharacter : MonoBehaviour
 {
     #region Serialized Fields
@@ -32,7 +33,7 @@ public abstract class ACharacter : MonoBehaviour
     [SerializeField]
     private int baseDefense;
     [SerializeField]
-    private int baseWeight;
+    private float baseWeight;
     [SerializeField]
     private int baseHealth;
     [SerializeField]
@@ -40,12 +41,13 @@ public abstract class ACharacter : MonoBehaviour
     [SerializeField]
     private int baseSpellPower;
     [SerializeField]
-    private int basePrecision;
+    private float basePrecision;
     [SerializeField]
-    private int baseAttackSpeed;
+    private float baseAttackSpeed;
     [SerializeField]
-    private int baseMoveSpeed;
+    private float baseMoveSpeed = 3f;
 
+    
     #endregion
 
     /* #region Stats & Inventory
@@ -96,59 +98,75 @@ public abstract class ACharacter : MonoBehaviour
     protected abstract void Update();
 
     #region Controller
-    public virtual void Look(Vector2 axis)
+    public virtual void ControllerLook(Vector2 axis)
     {
-        throw new NotImplementedException();
+        transform.localEulerAngles = new Vector3(axis.x, axis.y, 0f);
     }
 
-    public virtual void Look(float xAxis, float yAxis)
+    public virtual void ControllerLook(float xAxis, float yAxis)
     {
-        throw new NotImplementedException();
+        transform.localEulerAngles = new Vector3(xAxis, yAxis, 0f);
     }
     
-    public virtual void Move(float xAxis, float zAxis)
+    public virtual void ControllerMove(float xAxis, float zAxis)
     {
-        // TODO: add speed
-        transform.position += new Vector3(xAxis, 0f, zAxis).normalized * Time.deltaTime;
+        Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
+        direction.y = 0;
+        direction.Normalize();
+        // TODO: add stat speed
+        transform.position += direction.normalized * baseMoveSpeed * Time.deltaTime;
     }
 
-    public virtual void Jump(float xAxis = 0f, float zAxis = 0f)
+    public virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
     {
-        Vector3 direction = new Vector3(xAxis, 0f, zAxis).normalized + Vector3.up;
+        Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
+        direction.Normalize();
+        direction.y = 1;
         rb.AddForce(direction * jumpEfficiency, ForceMode.Impulse);
     }
 
-    public virtual void Use()
+    public virtual void ControllerUse()
+    {
+        RaycastHit hit;
+        // TODO: global(?) variable for max distance
+        float useMaxDistance = 1000f;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
+        {
+            IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
+
+            if (usableCollider != null)
+            {
+                usableCollider.OnUse(this);
+            }
+        }
+    }
+
+    public virtual void ControllerLeftHand()
     {
         throw new NotImplementedException();
     }
 
-    public virtual void LeftHand()
+    public virtual void ControllerRightHand()
     {
         throw new NotImplementedException();
     }
 
-    public virtual void RightHand()
+    public virtual void ControllerTwoHands()
     {
         throw new NotImplementedException();
     }
 
-    public virtual void TwoHands()
+    public virtual void ControllerCrouch()
     {
         throw new NotImplementedException();
     }
 
-    public virtual void Crouch()
+    public virtual void ControllerSelectMagic(int magicId)
     {
         throw new NotImplementedException();
     }
 
-    public virtual void SelectMagic(int magicId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public virtual void CastSpell()
+    public virtual void ControllerCastSpell()
     {
         throw new NotImplementedException();
     }

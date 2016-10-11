@@ -13,9 +13,12 @@ public class Player : ACharacter
         if (IsGrounded)
         {
             if (Input.GetButtonDown("Jump"))
-                Jump(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                ControllerJump(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             else
-                Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
+
+        if (Input.GetButtonDown("Use"))
+            ControllerUse();
     }
 }
