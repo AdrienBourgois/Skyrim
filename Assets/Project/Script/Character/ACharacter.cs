@@ -88,12 +88,12 @@ public abstract class ACharacter : MonoBehaviour
     #region Controller
     public virtual void ControllerLook(Vector2 axis)
     {
-        throw new NotImplementedException();
+        transform.localEulerAngles = new Vector3(axis.x, axis.y, 0f);
     }
 
     public virtual void ControllerLook(float xAxis, float yAxis)
     {
-        throw new NotImplementedException();
+        transform.localEulerAngles = new Vector3(xAxis, yAxis, 0f);
     }
     
     public virtual void ControllerMove(float xAxis, float zAxis)

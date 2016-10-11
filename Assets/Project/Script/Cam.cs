@@ -7,34 +7,32 @@ public class Cam : MonoBehaviour {
     [SerializeField] float lookUpMax = 70f;
     [SerializeField] float sensibility = 1f;
 
-    Transform target;
+    Player player;
 
     private float rotY = 0f;
 
 	void Start ()
     {
-        Player player = FindObjectOfType<Player>();
-        if (player)
-        {
-            target = player.transform;
-            transform.rotation = new Quaternion(target.forward.x, target.forward.y, target.forward.z, 0f);
-        }
-        else
-            Debug.Log("There is no Player :(");
+        player = FindObjectOfType<Player>();
+        if (player == null)
+            Debug.LogError("Cam.Start() - could not find object of type Player");
+        transform.rotation = new Quaternion(player.transform.forward.x,
+                                            player.transform.forward.y,
+                                            player.transform.forward.z,
+                                            0f);
 	}
 	
 
 	void Update ()
     {
-        if (target)
-            transform.position = target.position;
+        transform.position = player.transform.position;
 
         float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility * Time.deltaTime;
 
         rotY += Input.GetAxis("Mouse Y") * sensibility * Time.deltaTime;
         rotY = Mathf.Clamp(rotY, lookDownMax, lookUpMax);
 
-        target.transform.localEulerAngles = new Vector3(-rotY, rotX , 0f);
+        player.ControllerLook(-rotY, rotX);
         transform.localEulerAngles = new Vector3(-rotY, rotX, 0f);
     }
 }
