@@ -7,7 +7,7 @@ public class Attributes : MonoBehaviour {
     private int constitution = 10;
     private int intelligence = 10;
     private int dexterity = 10;
-
+    private int maxAttributePoints = 100;
     
 
     void Start () {
@@ -55,7 +55,10 @@ public class Attributes : MonoBehaviour {
     {
         get { return dexterity; } set { dexterity = value; } }
 
+
+
     #endregion
 
-
+    public int MaxAttributePoints
+    { get { return maxAttributePoints; } set { maxAttributePoints = value; } }
 }

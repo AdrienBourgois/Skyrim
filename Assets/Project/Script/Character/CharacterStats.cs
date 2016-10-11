@@ -26,11 +26,19 @@ public class CharacterStats : MonoBehaviour {
 	
 	}
 
-    public void SetCharacteristics()
+    public void SetCharacteristics(ACharacter player)
     {
-        UnitCharacteristics.Weight = UnitAttributes.Strength * 10;
-        UnitCharacteristics.Attack *= UnitAttributes.Strength;
-        UnitCharacteristics.MaxHealth += UnitAttributes.Constitution;
-
+        UnitCharacteristics.Attack = (int)Mathf.Exp((player.UnitLevel/8) * UnitAttributes.Strength);
+        UnitCharacteristics.Defense = (int)Mathf.Exp((player.UnitLevel / 8) * UnitAttributes.Constitution);
+        UnitCharacteristics.Weight = (UnitAttributes.Strength + player.UnitLevel) * 10;
+        UnitCharacteristics.Health = (int)Mathf.Exp(player.UnitLevel / 6) + UnitAttributes.Constitution + 100;
+        UnitCharacteristics.HealthRegeneration = (int)Mathf.Round(UnitCharacteristics.Health / (50 - (UnitAttributes.Constitution * 0.25f)));
+        UnitCharacteristics.Mana = UnitAttributes.Intelligence * 10;
+        UnitCharacteristics.SpellPower = 1 + (player.UnitLevel * UnitAttributes.Intelligence) / 100;
+        UnitCharacteristics.Precision = 100 - (50 - (UnitCharacteristics.Weight - UnitAttributes.Dexterity) / 10);
+        UnitCharacteristics.AttackSpeed = 1 + (player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 75;
     }
+
+
+
 }

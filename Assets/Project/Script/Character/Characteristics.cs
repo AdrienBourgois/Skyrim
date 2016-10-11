@@ -111,9 +111,6 @@ public class Characteristics : MonoBehaviour {
 
     #endregion
 
-
-
-
     public void Init(int attack, int defense, float weight, int health, int mana, int spellPower, float precision, float attackSpeed)
     {
         Attack = attack;

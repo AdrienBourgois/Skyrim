@@ -16,6 +16,14 @@ public abstract class ACharacter : MonoBehaviour
         protected set { unitName = value; }
     }
 
+    private int unitLevel;
+    public int UnitLevel
+    { get { return unitLevel; } protected set { unitLevel = value; } }
+
+    private int unitMaxLevel;
+    public int MaxUnitLevel
+    { get { return unitMaxLevel; } protected set { unitMaxLevel = value; } }
+
     [SerializeField]
     private float jumpEfficiency = 4.2f;
 
@@ -68,6 +76,8 @@ public abstract class ACharacter : MonoBehaviour
         get { return bIsGrounded; }
         protected set { bIsGrounded = value; }
     }
+
+  
 
     protected virtual void Start()
     {
