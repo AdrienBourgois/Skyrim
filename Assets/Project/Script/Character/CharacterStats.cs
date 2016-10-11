@@ -19,6 +19,8 @@ public class CharacterStats : MonoBehaviour {
     #endregion  
 
     void Start () {
+
+        DisplayChara();
 	
 	}
 	
@@ -39,6 +41,19 @@ public class CharacterStats : MonoBehaviour {
         UnitCharacteristics.AttackSpeed = 1 + (player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 75;
     }
 
+    void DisplayChara()
+    {
+        print(UnitCharacteristics.Attack);
+        print(UnitCharacteristics.Defense);
+        print(UnitCharacteristics.Weight);
+        print(UnitCharacteristics.Health);
+        print(UnitCharacteristics.HealthRegeneration);
+        print(UnitCharacteristics.Mana);
+        print(UnitCharacteristics.SpellPower);
+        print(UnitCharacteristics.Precision);
+        print(UnitCharacteristics.AttackSpeed);
+        
 
+    }
 
 }
