@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item : MonoBehaviour
+public class Item// : MonoBehaviour
 {
     public enum item_type
     {
@@ -55,5 +55,9 @@ public class Item : MonoBehaviour
         set { rarity = value; }
     }
 
+    public string GetItemGeneralInformations()
+    {
+        return "Name : " + name_object + "\nDescription : " + description + "\nWeight : " + weight + "\nRarity : " + rarity;
+    }
 
 }
