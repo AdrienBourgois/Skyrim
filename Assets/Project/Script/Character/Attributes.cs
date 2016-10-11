@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Attributes : MonoBehaviour {
+public class Attributes
+{
 
     private int strength = 10;
     private int constitution = 10;

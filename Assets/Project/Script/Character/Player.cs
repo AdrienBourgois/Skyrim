@@ -3,8 +3,11 @@ using System.Collections;
 
 public class Player : ACharacter
 {
+
     protected override void Update()
     {
+        stats.UnitCharacteristics.Health -= 1;
+
         UpdateInput();
     }
 

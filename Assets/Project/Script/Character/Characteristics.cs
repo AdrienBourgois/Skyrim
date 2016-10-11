@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Characteristics : MonoBehaviour {
+public class Characteristics
+{
 
     #region SerializeField
 
@@ -119,6 +120,7 @@ public class Characteristics : MonoBehaviour {
         Attack = attack;
         Defense = defense;
         Weight = weight;
+        MaxHealth = health;
         Health = health;
         Mana = mana;
         SpellPower = spellPower;

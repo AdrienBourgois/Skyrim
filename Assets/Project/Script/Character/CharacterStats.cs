@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterStats : MonoBehaviour {
+public class CharacterStats
+{
 
     #region Stats
     private Characteristics characteristics;
@@ -18,9 +19,10 @@ public class CharacterStats : MonoBehaviour {
 
     #endregion  
 
-    void Start () {
-	
-	}
+    void Start ()
+    {
+
+    }
 	
 	void Update () {
 	
