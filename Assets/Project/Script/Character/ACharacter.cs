@@ -93,7 +93,7 @@ public abstract class ACharacter : MonoBehaviour
         if (rb == null)
             Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
 
-        characterStats.DisplayChara();
+        //characterStats.DisplayChara();
     }
 
     protected abstract void Update();
@@ -133,11 +133,13 @@ public abstract class ACharacter : MonoBehaviour
         float useMaxDistance = 1000f;
         if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
+            
             IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
 
             if (usableCollider != null)
             {
                 usableCollider.OnUse(this);
+                print("Player collide");
             }
         }
     }

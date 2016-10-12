@@ -34,9 +34,6 @@ public class CharacterStats
 
     public void SetCharacteristics(ACharacter player)
     {
-        Debug.Log("Level : " + player.UnitLevel);
-
-
         UnitCharacteristics.Attack = Mathf.Exp(((float)player.UnitLevel / 8f)) * UnitAttributes.Strength;
         UnitCharacteristics.Defense = Mathf.Exp(((float)player.UnitLevel / 8f)) * UnitAttributes.Constitution;
         UnitCharacteristics.Weight = (UnitAttributes.Strength + player.UnitLevel) * 10;
