@@ -14,9 +14,9 @@ public class Inventory : MonoBehaviour {
     {
         foreach (Item item in inventory)
         {
-            if(item is IInstanciableItem)
+            if (item is ITypeItem)
             {
-                IInstanciableItem instanciable_item = (IInstanciableItem)item;
+                ITypeItem instanciable_item = (ITypeItem)item;
                 Debug.Log(instanciable_item.GetItemInformations());
             }
             else
@@ -28,9 +28,9 @@ public class Inventory : MonoBehaviour {
     {
         foreach (T item in list)
         {
-            if (item is IInstanciableItem)
+            if (item is ITypeItem)
             {
-                IInstanciableItem instanciable_item = (IInstanciableItem)item;
+                ITypeItem instanciable_item = (ITypeItem)item;
                 Debug.Log(instanciable_item.GetItemInformations());
             }
             else
@@ -65,15 +65,15 @@ public class Inventory : MonoBehaviour {
     public void Start()
     {
         ItemManager im = gameObject.AddComponent<ItemManager>();
-        //AddItem(im.CreateObject<Weapon>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
-        //AddItem(im.CreateObject<Weapon>(Item.item_rarity.rare, "Rare Sword", "Simple Sword"));
-        //AddItem(im.CreateObject<Weapon>(Item.item_rarity.common, "Common Sword", "Simple Sword"));
+        //AddItem(im.CreateObject<Sword>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
+        //AddItem(im.CreateObject<Sword>(Item.item_rarity.rare, "Rare Sword", "Simple Sword"));
+        //AddItem(im.CreateObject<Sword>(Item.item_rarity.common, "Common Sword", "Simple Sword"));
         //AddItem(im.CreateObject<Armor>(Item.item_rarity.legendary, "Lengendary Helmet", "Simple Helmet"));
         //AddItem(im.CreateObject<Armor>(Item.item_rarity.uncommon, "Uncommon Helmet", "Simple Helmet"));
         for (int i = 0; i < 10; i++)
-            AddItem(im.CreateObject<Armor>());
+            AddItem(im.CreateObject<Helmet>());
         for (int i = 0; i < 10; i++)
-            AddItem(im.CreateObject<Weapon>());
+            AddItem(im.CreateObject<Sword>());
         DisplayInventory();
     }
 

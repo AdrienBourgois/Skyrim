@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 public class ItemManager : MonoBehaviour {
     
@@ -8,7 +7,7 @@ public class ItemManager : MonoBehaviour {
         T item = new T();
         item.NameObject = _name;
         item.Description = _description;
-        item.Level = UnityEngine.Random.Range(1, 50);
+        item.Level = Random.Range(1, 50);
         item.Rarity = _rarity;
         item.Instantiate();
         return item;
@@ -17,7 +16,7 @@ public class ItemManager : MonoBehaviour {
     public T CreateObject<T>() where T : Item, IInstanciableItem, new()
     {
         T item = new T();
-        item.Level = UnityEngine.Random.Range(1, 50);
+        item.Level = Random.Range(1, 50);
         item.Rarity = GetRandRarity();
         item.SetRandName();
         item.Instantiate();
@@ -26,7 +25,7 @@ public class ItemManager : MonoBehaviour {
 
     Item.item_rarity GetRandRarity()
     {
-        int score = UnityEngine.Random.Range(0, 100);
+        int score = Random.Range(0, 100);
         if (score >= 98)
             return Item.item_rarity.legendary;
         if (score >= 90)

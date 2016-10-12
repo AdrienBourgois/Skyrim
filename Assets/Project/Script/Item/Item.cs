@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class Item// : MonoBehaviour
+﻿public class Item
 {
     public enum item_type
     {
@@ -20,28 +17,28 @@ public class Item// : MonoBehaviour
         legendary = 5
     }
 
-    protected string name_object = "Unnamed";
+    private string name_object = "Unnamed";
     public string NameObject
     {
         get { return name_object; }
         set { name_object = value; }
     }
 
-    protected string description = "Any description";
+    private string description = "Any description";
     public string Description
     {
         get { return description; }
         set { description = value; }
     }
 
-    protected float weight = 0;
+    private float weight = 0;
     public float Weight
     {
         get { return weight; }
         set { weight = value; }
     }
 
-    protected item_type type = item_type.undefined;
+    private item_type type = item_type.undefined;
     public item_type Type
     {
         get { return type; }
@@ -62,6 +59,13 @@ public class Item// : MonoBehaviour
         set { level = value; }
     }
 
+    private int price;
+    public int Price
+    {
+        get { return price; }
+        set { price = value; }
+    }
+
     protected float RangeOfGeneration = 10;
 
     public string GetItemGeneralInformations()
@@ -69,7 +73,8 @@ public class Item// : MonoBehaviour
         return "Name : " + name_object + " (LVL " + level + ")" +
             "\nDescription : " + description +
             "\nWeight : " + weight +
-            "\nRarity : " + rarity;
+            "\nRarity : " + rarity +
+            "\nPrice : " + price;
     }
 
 }

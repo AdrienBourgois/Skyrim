@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
-public class Weapon : Item, IEquipableItem, IInstanciableItem
+public class Sword : Weapon, IEquipableItem, IInstanciableItem
 {
-    float damage_value = 0;
-
     public void Equip()
     {
         throw new NotImplementedException();
@@ -13,21 +10,17 @@ public class Weapon : Item, IEquipableItem, IInstanciableItem
 
     public void Instantiate()
     {
-        type = item_type.weapon;
+        Type = item_type.weapon;
+        WeaponType = weapon_type.Sword;
         float power_lvl = (float)Rarity;
 
         float base_damage_value = Mathf.Floor(Mathf.Exp(Level / (6 - power_lvl / 8)) * 10);
         float min = base_damage_value * (1 - (RangeOfGeneration / 100));
         float max = base_damage_value * (1 + (RangeOfGeneration / 100));
-        damage_value = UnityEngine.Random.Range(min, max);
+        Damage = UnityEngine.Random.Range(min, max);
 
-    }
-
-    public string GetItemInformations()
-    {
-        return GetItemGeneralInformations() +
-            "\n====================================="+
-            "\nDamage : " + damage_value;
+        Price = (int)(Mathf.Sqrt(Damage) * (10 + (power_lvl * 6)));
+        Weight = 15 + (int)Rarity;
     }
 
     public void SetRandName()

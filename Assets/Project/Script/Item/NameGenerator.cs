@@ -14,7 +14,7 @@ public class NameGenerator {
         if (rarity >= 5)
             prefix += prefix_list[Random.Range(0, prefix_list.Count - 1)] + " ";
         if (rarity >= 4)
-            suffix += " " + suffix_list[Random.Range(0, suffix_list.Count - 1)];
+            suffix += " " + suffix_list[Random.Range(0, suffix_list.Count - 1)] + " &";
         if (rarity >= 3)
             prefix += prefix_list[Random.Range(0, prefix_list.Count - 1)] + " ";
         if (rarity >= 2)
@@ -237,9 +237,9 @@ public class NameGenerator {
     {
         List<string> suffix_list = new List<string>();
         suffix_list.Add("Made by Gods");
-        suffix_list.Add("Of Gold");
+        suffix_list.Add("of Gold");
         suffix_list.Add("Cheated");
-        suffix_list.Add("Of Fire");
+        suffix_list.Add("of Fire");
         suffix_list.Add("of Abundance");
         suffix_list.Add("of Acceleration");
         suffix_list.Add("of Accuracy");
