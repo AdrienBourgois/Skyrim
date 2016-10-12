@@ -6,6 +6,7 @@ using System;
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
 [RequireComponent (typeof(Rigidbody))]
+[RequireComponent (typeof(CapsuleCollider))]
 public abstract class ACharacter : MonoBehaviour
 {
     #region Serialized Fields
@@ -62,6 +63,14 @@ public abstract class ACharacter : MonoBehaviour
     */
 
     private Rigidbody rb = null;
+    protected Animator animator = null;
+
+    private CapsuleCollider capCol = null;
+    public CapsuleCollider CapsuleCollider
+    {
+        get { return capCol; }
+    }
+
     private bool bIsGrounded = true;
     public bool IsGrounded
     {
@@ -78,9 +87,15 @@ public abstract class ACharacter : MonoBehaviour
                              basePrecision, baseAttackSpeed);
                              */
 
+        animator = GetComponent<Animator>();
+
         rb = GetComponent<Rigidbody>();
         if (rb == null)
             Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
+
+        capCol = GetComponent<CapsuleCollider>();
+        if (capCol == null)
+            Debug.LogError("ACharacter.Start() - could not get component of type CapsuleCollider");
     }
 
     protected abstract void Update();
