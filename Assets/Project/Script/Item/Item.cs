@@ -62,6 +62,8 @@ public class Item// : MonoBehaviour
         set { level = value; }
     }
 
+    protected float RangeOfGeneration = 10;
+
     public string GetItemGeneralInformations()
     {
         return "Name : " + name_object + " (LVL " + level + ")" +

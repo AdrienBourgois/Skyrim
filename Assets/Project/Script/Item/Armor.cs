@@ -1,8 +1,9 @@
 ﻿using System;
+using UnityEngine;
 
 public class Armor : Item, IEquipableItem, IInstanciableItem
 {
-    protected int armor_value = 0;
+    protected float armor_value = 0;
 
     public void Equip()
     {
@@ -12,9 +13,12 @@ public class Armor : Item, IEquipableItem, IInstanciableItem
     public void Instantiate()
     {
         type = item_type.armor;
-        int power_lvl = (int)type;
+        float power_lvl = (float)Rarity;
 
-        armor_value = UnityEngine.Random.Range(power_lvl * 20, (power_lvl + 1) * 20);
+        float base_damage_value = Mathf.Floor(Mathf.Exp(Level / (6 - power_lvl / 8)) * 3);
+        float min = base_damage_value * (1 - (RangeOfGeneration / 100));
+        float max = base_damage_value * (1 + (RangeOfGeneration / 100));
+        armor_value = UnityEngine.Random.Range(min, max);
     }
 
     public string GetItemInformations()
@@ -22,5 +26,15 @@ public class Armor : Item, IEquipableItem, IInstanciableItem
         return GetItemGeneralInformations() +
             "\n=====================================" +
             "\nDamage : " + armor_value;
+    }
+
+    public void SetRandName()
+    {
+        NameObject = NameGenerator.GenerateNewName((int)Rarity, "Helmet");
+    }
+
+    public void SetRandDescription()
+    {
+        throw new NotImplementedException();
     }
 }

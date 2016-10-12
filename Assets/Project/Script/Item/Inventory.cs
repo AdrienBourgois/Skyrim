@@ -65,11 +65,15 @@ public class Inventory : MonoBehaviour {
     public void Start()
     {
         ItemManager im = gameObject.AddComponent<ItemManager>();
-        AddItem(im.CreateObject<Weapon>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
-        AddItem(im.CreateObject<Weapon>(Item.item_rarity.rare, "Rare Sword", "Simple Sword"));
-        AddItem(im.CreateObject<Weapon>(Item.item_rarity.common, "Common Sword", "Simple Sword"));
-        AddItem(im.CreateObject<Weapon>());
-        AddItem(im.CreateObject<Armor>());
+        //AddItem(im.CreateObject<Weapon>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
+        //AddItem(im.CreateObject<Weapon>(Item.item_rarity.rare, "Rare Sword", "Simple Sword"));
+        //AddItem(im.CreateObject<Weapon>(Item.item_rarity.common, "Common Sword", "Simple Sword"));
+        //AddItem(im.CreateObject<Armor>(Item.item_rarity.legendary, "Lengendary Helmet", "Simple Helmet"));
+        //AddItem(im.CreateObject<Armor>(Item.item_rarity.uncommon, "Uncommon Helmet", "Simple Helmet"));
+        for (int i = 0; i < 10; i++)
+            AddItem(im.CreateObject<Armor>());
+        for (int i = 0; i < 10; i++)
+            AddItem(im.CreateObject<Weapon>());
         DisplayInventory();
     }
 

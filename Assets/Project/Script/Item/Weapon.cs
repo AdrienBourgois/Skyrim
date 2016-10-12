@@ -16,7 +16,11 @@ public class Weapon : Item, IEquipableItem, IInstanciableItem
         type = item_type.weapon;
         float power_lvl = (float)Rarity;
 
-        damage_value = Mathf.Floor(Mathf.Exp(Level / (6 - power_lvl / 8)) * 10);
+        float base_damage_value = Mathf.Floor(Mathf.Exp(Level / (6 - power_lvl / 8)) * 10);
+        float min = base_damage_value * (1 - (RangeOfGeneration / 100));
+        float max = base_damage_value * (1 + (RangeOfGeneration / 100));
+        damage_value = UnityEngine.Random.Range(min, max);
+
     }
 
     public string GetItemInformations()
@@ -24,5 +28,15 @@ public class Weapon : Item, IEquipableItem, IInstanciableItem
         return GetItemGeneralInformations() +
             "\n====================================="+
             "\nDamage : " + damage_value;
+    }
+
+    public void SetRandName()
+    {
+        NameObject = NameGenerator.GenerateNewName((int)Rarity, "Sword");
+    }
+
+    public void SetRandDescription()
+    {
+        throw new NotImplementedException();
     }
 }
