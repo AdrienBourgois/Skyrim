@@ -6,27 +6,59 @@ public class Compass : MonoBehaviour {
     //Transform[] targets;
     Transform target;
     Transform player;
+    Transform needle;
 
+    GameObject arrow1;
+    GameObject arrow2;
 
     void Start ()
     {
         target = GameObject.FindGameObjectWithTag("CompassTarget").transform;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject player_gao = GameObject.FindGameObjectWithTag("Player");
+        if (player_gao == null)
+            Debug.LogError("Compass.Start() - could not find player GameObject");
+        else
+            player = player_gao.transform;
 
-        //Use this to create compass with multiple target
+        Transform compassCylinder = transform.FindChild("CompassCylinder");
 
-        //GameObject[] target_gao = GameObject.FindGameObjectsWithTag("CompassTarget");
-        //targets = new Transform[target_gao.Length];
-
-        //for (int i = 0; i < targets.Length; i++)
-        //    targets[i] = target_gao[i].transform;
+        needle = compassCylinder.FindChild("Needle");
+        arrow1 = compassCylinder.FindChild("Arrow1").gameObject;
+        arrow2 = compassCylinder.FindChild("Arrow2").gameObject;
     }
 
 
     void Update()
     {
-        //needle.position = player.position;
-        //needle.forward = Vector3.forward;
+        if (!CheckTarget())
+            return;
 
+        if (arrow1.GetComponent<SpriteRenderer>().enabled == false)
+        {
+            needle.position = player.position;
+            needle.LookAt(target);
+
+            arrow1.GetComponent<SpriteRenderer>().enabled = true;
+            arrow2.GetComponent<SpriteRenderer>().enabled = true;
+            needle.forward = new Vector3(needle.forward.x, 0f, needle.forward.z);
+            arrow1.transform.position += needle.forward /1.9f;
+            arrow2.transform.position -= needle.forward /1.9f;
+        }
+    }
+
+    bool CheckTarget()
+    {
+        GameObject target_gao = GameObject.FindGameObjectWithTag("CompassTarget");
+        if (target_gao == null)
+            return false;
+
+        target = target_gao.transform;
+        return true;
+    }
+
+    void DisableArrow()
+    {
+        arrow1.GetComponent<SpriteRenderer>().enabled = false;
+        arrow2.GetComponent<SpriteRenderer>().enabled = false;
     }
 }
