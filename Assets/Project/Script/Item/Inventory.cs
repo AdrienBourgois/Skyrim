@@ -50,13 +50,13 @@ public class Inventory : MonoBehaviour {
         return items_list;
     }
 
-    public List<T> GetItemsByType<T>() where T : Item
+    public List<Item> GetItemsByType<T>() where T : Item
     {
-        List<T> items_list = new List<T>();
+        List<Item> items_list = new List<Item>();
         foreach (Item item in inventory)
         {
             if (item is T)
-                items_list.Add((T)item);
+                items_list.Add(item);
         }
 
         return items_list;
@@ -65,16 +65,13 @@ public class Inventory : MonoBehaviour {
     public void Start()
     {
         ItemManager im = gameObject.AddComponent<ItemManager>();
-        //AddItem(im.CreateObject<Sword>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
-        //AddItem(im.CreateObject<Sword>(Item.item_rarity.rare, "Rare Sword", "Simple Sword"));
-        //AddItem(im.CreateObject<Sword>(Item.item_rarity.common, "Common Sword", "Simple Sword"));
-        //AddItem(im.CreateObject<Armor>(Item.item_rarity.legendary, "Lengendary Helmet", "Simple Helmet"));
-        //AddItem(im.CreateObject<Armor>(Item.item_rarity.uncommon, "Uncommon Helmet", "Simple Helmet"));
-        for (int i = 0; i < 10; i++)
-            AddItem(im.CreateObject<Helmet>());
-        for (int i = 0; i < 10; i++)
-            AddItem(im.CreateObject<Sword>());
-        DisplayInventory();
+        AddItem(im.CreateObject<Sword>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
+        AddItem(im.CreateObject<Axe>(Item.item_rarity.rare, "Rare Axe", "Simple Axe"));
+        AddItem(im.CreateObject<Boots>(Item.item_rarity.common, "Common Boots", "Simple Boots"));
+        AddItem(im.CreateObject<Torso>(Item.item_rarity.legendary, "Lengendary Torso", "Simple Torso"));
+        AddItem(im.CreateObject<Shield>(Item.item_rarity.uncommon, "Uncommon Shield", "Simple Shield"));
+        //DisplayInventory();
+        DisplayList(GetItemsByType<Armor>());
     }
 
 }
