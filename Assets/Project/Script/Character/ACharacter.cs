@@ -9,6 +9,10 @@ using System;
 [RequireComponent (typeof(Rigidbody))]
 public abstract class ACharacter : MonoBehaviour
 {
+    private int unitMaxLevel;
+    public int MaxUnitLevel
+    { get { return unitMaxLevel; } protected set { unitMaxLevel = value; } }
+
     #region Serialized Fields
     [SerializeField]
     private string unitName;
@@ -17,6 +21,12 @@ public abstract class ACharacter : MonoBehaviour
         get { return unitName; }
         protected set { unitName = value; }
     }
+    [SerializeField]
+    private int unitLevel;
+    public int UnitLevel
+    { get { return unitLevel; } protected set { unitLevel = value; } }
+
+    
 
     [SerializeField]
     private float jumpEfficiency = 4.2f;
@@ -28,7 +38,7 @@ public abstract class ACharacter : MonoBehaviour
     [SerializeField]
     private float baseWeight;
     [SerializeField]
-    private int baseHealth;
+    private float baseHealth;
     [SerializeField]
     private int baseMana;
     [SerializeField]
@@ -65,6 +75,8 @@ public abstract class ACharacter : MonoBehaviour
         protected set { bIsGrounded = value; }
     }
 
+  
+
     protected virtual void Start()
     {
 
@@ -73,10 +85,15 @@ public abstract class ACharacter : MonoBehaviour
                             baseWeight, baseHealth,
                             baseMana, baseSpellPower,
                             basePrecision, baseAttackSpeed);
-      
+
+        characterStats.SetCharacteristics(this);
+
+
         rb = GetComponent<Rigidbody>();
         if (rb == null)
             Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
+
+        characterStats.DisplayChara();
     }
 
     protected abstract void Update();

@@ -8,7 +8,7 @@ public class Attributes
     private int constitution = 10;
     private int intelligence = 10;
     private int dexterity = 10;
-
+    private int maxAttributePoints = 110;
     
 
     void Start () {
@@ -56,7 +56,10 @@ public class Attributes
     {
         get { return dexterity; } set { dexterity = value; } }
 
+
+
     #endregion
 
-
+    public int MaxAttributePoints
+    { get { return maxAttributePoints; } set { maxAttributePoints = value; } }
 }

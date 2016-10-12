@@ -7,22 +7,22 @@ public class Characteristics
     #region SerializeField
 
     [SerializeField]
-    private int attack;
+    private float attack;
 
     [SerializeField]
-    private int defense;
+    private float defense;
 
     [SerializeField]
     private float weight;
 
     [SerializeField]
-    private int health;
+    private float health;
 
     [SerializeField]
-    private int mana;
+    private float mana;
 
     [SerializeField]
-    private int spellPower;
+    private float spellPower;
 
     [SerializeField]
     private float precision;
@@ -31,26 +31,32 @@ public class Characteristics
     private float attackSpeed;
 
     [SerializeField]
-    private int healthRegeneration;
+    private float healthRegeneration;
+
+    [SerializeField]
+    private float playerWeight;
 
    
     #endregion
 
     #region Attack
 
-    public int Attack
+    public float Attack
     { get { return attack; } set { attack = value; } }
 
     #endregion
 
     #region Defense
 
-    public int Defense
+    public float Defense
     { get { return defense; } set { defense = value; } }
 
     #endregion
 
     #region Weight
+
+    public float PlayerWeight
+    { get { return playerWeight; } set { playerWeight = value; } }
 
     public float Weight
     { get { return weight; } set { weight = value; } }
@@ -59,33 +65,33 @@ public class Characteristics
 
     #region Health
 
-    private int maxHealth;
+    private float maxHealth;
 
-    public int MaxHealth
+    public float MaxHealth
     { get { return maxHealth; } set { maxHealth = value; } }
 
-    public int HealthRegeneration
+    public float HealthRegeneration
     { get { return healthRegeneration; } set { healthRegeneration = value; } }
 
-    public int Health
+    public float Health
     { get { return health; } set { health = value; } }
 
     #endregion
 
     #region Mana
 
-    private int maxMana;
-    public int MaxMana
+    private float maxMana;
+    public float MaxMana
     { get { return maxMana; } set { maxMana = value; } }
 
-    public int Mana
+    public float Mana
     { get { return mana; } set { mana = value; } }
 
     #endregion
 
     #region SpellPower
 
-    public int SpellPower
+    public float SpellPower
     { get { return spellPower; } set { spellPower = value; } }
 
     #endregion
@@ -102,6 +108,8 @@ public class Characteristics
     public float AttackSpeed
     { get { return attackSpeed; } set { attackSpeed = value; } }
 
+   
+
 
 
 
@@ -114,8 +122,7 @@ public class Characteristics
 
 
 
-
-    public void Init(int attack, int defense, float weight, int health, int mana, int spellPower, float precision, float attackSpeed)
+    public void Init(float attack, float defense, float weight, float health, float mana, float spellPower, float precision, float attackSpeed)
     {
         Attack = attack;
         Defense = defense;
