@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Shield : Armor, IEquipableItem, IInstanciableItem
 {
-    protected float armor_value = 0;
-
     public void Equip()
     {
         throw new NotImplementedException();

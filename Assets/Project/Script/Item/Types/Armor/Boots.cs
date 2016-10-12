@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Boots : Armor, IEquipableItem, IInstanciableItem
 {
-    protected float armor_value = 0;
-
     public void Equip()
     {
         throw new NotImplementedException();
