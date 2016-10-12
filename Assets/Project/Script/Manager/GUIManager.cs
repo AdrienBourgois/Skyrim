@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GUIManager : MonoBehaviour {
-
-    private GUIManager instance;
-
-    public GUIManager Instance
+public class GUIManager : MonoBehaviour
+{
+    static private GUIManager instance;
+    static public GUIManager Instance
     {
         get
         {
@@ -18,24 +17,25 @@ public class GUIManager : MonoBehaviour {
 
     [SerializeField]
     private GameObject panel;
+    [SerializeField]
+    private MenuButton buttonNewGame;
+    [SerializeField]
+    private MenuButton buttonLoadGame;
+    [SerializeField]
+    private MenuButton buttonExitGame;
 
-
-    public delegate void Action();
-    public event Action onNewGameButtonPressed;
-    public event Action onLoadGameButtonPressed;
-    public event Action onExitGameButtonPressed;
-
-
-    void Start () {
-        
-	}
-	
-	void Update () {
-	
-	}
-
-    public void DisplayConfirmationPanel()
+    void Start()
     {
+        buttonNewGame.OnClick += DisplayConfirmationPanel;
+        buttonLoadGame.OnClick += DisplayConfirmationPanel;
+        buttonExitGame.OnClick += DisplayConfirmationPanel;
+    }
+
+    public void DisplayConfirmationPanel(MenuButton.MenuButtonId id)
+    {
+        
         panel.SetActive(true);
+        panel.GetComponent<ConfirmationPanel>().SetButtons(id);
+        panel.GetComponent<ConfirmationPanel>().SetText(id);
     }
 }

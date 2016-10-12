@@ -1,20 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class NewGameButton : MonoBehaviour
+﻿public class NewGameButton : MenuButton
 {
-
-
-    void Start()
+    public override void OnButtonClick()
     {
-        
-    }
-
-    void Update()
-    {
-
-
-    }
-
-
+        OnButtonClick(MenuButtonId.NewGame);
+    }  
 }
