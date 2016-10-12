@@ -108,16 +108,13 @@ public abstract class ACharacter : MonoBehaviour
 
     public virtual void ControllerLook(float xAxis, float yAxis)
     {
-        transform.localEulerAngles = new Vector3(xAxis, yAxis, 0f);
+        transform.localEulerAngles = new Vector3(0f, yAxis, 0f);
     }
     
     public virtual void ControllerMove(float xAxis, float zAxis)
     {
-        Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
-        direction.y = 0;
-        direction.Normalize();
-        // TODO: add stat speed
-        transform.position += direction.normalized * baseMoveSpeed * Time.deltaTime;
+        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 6, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 6, Time.deltaTime);
     }
 
     public virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
@@ -125,7 +122,7 @@ public abstract class ACharacter : MonoBehaviour
         Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
         direction.Normalize();
         direction.y = 1;
-        rb.AddForce(direction * jumpEfficiency, ForceMode.Impulse);
+        //rb.AddForce(direction * jumpEfficiency, ForceMode.Impulse);
     }
 
     public virtual void ControllerUse()
@@ -159,9 +156,9 @@ public abstract class ACharacter : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    public virtual void ControllerCrouch()
+    public virtual void ControllerCrouch(bool bIsCrouch)
     {
-        throw new NotImplementedException();
+        animator.SetBool("IsCrouching", bIsCrouch);
     }
 
     public virtual void ControllerSelectMagic(int magicId)
