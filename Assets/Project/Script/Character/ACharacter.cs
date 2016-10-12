@@ -57,7 +57,7 @@ public abstract class ACharacter : MonoBehaviour
     #endregion
     
 
-    private Rigidbody rb = null;
+    protected Rigidbody rb = null;
     private bool bIsGrounded = true;
     public bool IsGrounded
     {

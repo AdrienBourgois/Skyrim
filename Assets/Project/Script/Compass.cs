@@ -5,18 +5,14 @@ public class Compass : MonoBehaviour {
 
     //Transform[] targets;
     Transform target;
+    Transform player;
 
-    Transform needle_transform;
 
-    Slider slider;
-
-	void Start ()
+    void Start ()
     {
-        slider = transform.GetComponentInChildren<Slider>();
-
         target = GameObject.FindGameObjectWithTag("CompassTarget").transform;
-        needle_transform = transform.FindChild("Needle");
-        
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
         //Use this to create compass with multiple target
 
         //GameObject[] target_gao = GameObject.FindGameObjectsWithTag("CompassTarget");
@@ -25,14 +21,12 @@ public class Compass : MonoBehaviour {
         //for (int i = 0; i < targets.Length; i++)
         //    targets[i] = target_gao[i].transform;
     }
-	
 
-	void Update ()
+
+    void Update()
     {
-        needle_transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
+        //needle.position = player.position;
+        //needle.forward = Vector3.forward;
 
-        needle_transform.LookAt(target);
-        Debug.Log(needle_transform.forward);
-        slider.value = needle_transform.forward.x;
     }
 }

@@ -16,6 +16,7 @@ public class Cam : MonoBehaviour {
         player = FindObjectOfType<Player>();
         if (player == null)
             Debug.LogError("Cam.Start() - could not find object of type Player");
+
         transform.rotation = new Quaternion(player.transform.forward.x,
                                             player.transform.forward.y,
                                             player.transform.forward.z,
@@ -34,5 +35,6 @@ public class Cam : MonoBehaviour {
 
         player.ControllerLook(-rotY, rotX);
         transform.localEulerAngles = new Vector3(-rotY, rotX, 0f);
+        GameObject.FindGameObjectWithTag("Compass").transform.localEulerAngles = new Vector3(0f, rotX /2, 0f);
     }
 }

@@ -5,7 +5,7 @@ public class XPBar : Bar
 {
     void Update()
     {
-        Characteristics player_stats = player.CharacterStats.UnitCharacteristics;
+        //Characteristics player_stats = player.CharacterStats.UnitCharacteristics;
         //float xp_ratio = (float)player_stats.Xp / (float)player_stats.XpToLevelUp;
 
         //if (player_stats.Xp <= player_stats.XpToLevelUp)

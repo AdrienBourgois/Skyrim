@@ -4,6 +4,13 @@ using System.Collections;
 public class Player : ACharacter
 {
 
+    protected override void Start()
+    {
+        base.Start();
+
+        rb.freezeRotation = true;
+    }
+
     protected override void Update()
     {
         CharacterStats.UnitCharacteristics.Health -= 1;
