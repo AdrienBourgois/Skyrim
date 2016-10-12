@@ -37,7 +37,7 @@ public abstract class ACharacter : MonoBehaviour
     [SerializeField]
     private float baseWeight;
     [SerializeField]
-    private int baseHealth;
+    private float baseHealth;
     [SerializeField]
     private int baseMana;
     [SerializeField]

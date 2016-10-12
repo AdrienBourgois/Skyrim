@@ -37,10 +37,10 @@ public class CharacterStats
         Debug.Log("Level : " + player.UnitLevel);
 
 
-        UnitCharacteristics.Attack = Mathf.Exp(((float)player.UnitLevel / 8)) * UnitAttributes.Strength;
-        UnitCharacteristics.Defense = Mathf.Exp(((float)player.UnitLevel / 8)) * UnitAttributes.Constitution;
+        UnitCharacteristics.Attack = Mathf.Exp(((float)player.UnitLevel / 8f)) * UnitAttributes.Strength;
+        UnitCharacteristics.Defense = Mathf.Exp(((float)player.UnitLevel / 8f)) * UnitAttributes.Constitution;
         UnitCharacteristics.Weight = (UnitAttributes.Strength + player.UnitLevel) * 10;
-        UnitCharacteristics.Health = Mathf.Exp((float)player.UnitLevel / 6) + UnitAttributes.Constitution + 100;
+        UnitCharacteristics.Health = Mathf.Exp((float)player.UnitLevel / 6f) * UnitAttributes.Constitution + 100;
         UnitCharacteristics.HealthRegeneration = Mathf.Round(UnitCharacteristics.Health / (50 - (UnitAttributes.Constitution * 0.25f)));
         UnitCharacteristics.Mana = UnitAttributes.Intelligence * 10;
         UnitCharacteristics.SpellPower = 1 + ((float)player.UnitLevel * UnitAttributes.Intelligence) / 100;
