@@ -5,6 +5,7 @@ using System;
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
+
 [RequireComponent (typeof(Rigidbody))]
 public abstract class ACharacter : MonoBehaviour
 {
