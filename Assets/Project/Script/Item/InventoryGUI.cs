@@ -33,15 +33,15 @@ public class InventoryGUI : MonoBehaviour {
         inventory = gameObject.AddComponent<Inventory>();
         DisplayInventory<Item>();
 
-        types_conversion.Add(" -> All <- ", typeof(Item));
-        types_conversion.Add("---- Armor ----", typeof(Armor));
-        types_conversion.Add("Boots", typeof(Boots));
-        types_conversion.Add("Shield", typeof(Shield));
-        types_conversion.Add("Torso", typeof(Torso));
-        types_conversion.Add("Helmet", typeof(Helmet));
-        types_conversion.Add("---- Weapon ----", typeof(Weapon));
-        types_conversion.Add("Sword", typeof(Sword));
-        types_conversion.Add("Axe", typeof(Axe));
+        types_conversion.Add("<color=olive><b> -> All <- </b></color>", typeof(Item));
+        types_conversion.Add("<color=teal><b>---- Armor ----</b></color>", typeof(Armor));
+        types_conversion.Add("<color=teal>Boots</color>", typeof(Boots));
+        types_conversion.Add("<color=teal>Shield</color>", typeof(Shield));
+        types_conversion.Add("<color=teal>Torso</color>", typeof(Torso));
+        types_conversion.Add("<color=teal>Helmet</color>", typeof(Helmet));
+        types_conversion.Add("<color=orange><b>---- Weapon ----</b></color>", typeof(Weapon));
+        types_conversion.Add("<color=orange>Sword</color>", typeof(Sword));
+        types_conversion.Add("<color=orange>Axe</color>", typeof(Axe));
         filter_list.ClearOptions();
         filter_list.AddOptions(new List<string>(types_conversion.Keys));
         filter_list.onValueChanged.AddListener(delegate {
