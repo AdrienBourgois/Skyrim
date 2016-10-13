@@ -55,17 +55,19 @@ public class Compass : MonoBehaviour {
         if (Vector3.Angle(player.right, needle.forward) > 90f)
             rotAngle *= -1;
 
+        Debug.Log("Update");
+
         arrowRotator.transform.eulerAngles = new Vector3(0f, -(rotAngle / 2f), 0f);
     }
 
     void FindPlayer()
     {
-        GameObject player_gao = GameObject.FindGameObjectWithTag("Player");
+        Player player_tmp = FindObjectOfType<Player>();
 
-        if (player_gao == null)
-            Debug.LogError("Compass.Start() - could not find player GameObject");
+        if (player_tmp == null)
+            Debug.LogError("Compass.Start() - could not find player");
         else
-            player = player_gao.transform;
+            player = player_tmp.transform;
     }
     bool CheckTarget()
     {
