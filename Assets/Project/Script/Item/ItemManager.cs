@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ItemManager : MonoBehaviour {
+public class ItemManager {
     
     public T CreateObject<T>(Item.item_rarity _rarity, string _name, string _description) where T : Item, IInstanciableItem, new()
     {

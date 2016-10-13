@@ -543,6 +543,8 @@ public class NameGenerator {
         suffix_list.Add("of Wisdom");
         suffix_list.Add("of Wounding");
         suffix_list.Add("of Youth");
+        suffix_list.Add("of Marc");
+        suffix_list.Add("of 42");
 
         return suffix_list;
     }
