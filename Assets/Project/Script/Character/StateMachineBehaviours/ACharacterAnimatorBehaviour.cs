@@ -40,6 +40,10 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
         get { return character; }
     }
 
+    private float moveX = 0f;
+    private float moveZ = 0f;
+    private float lastUpdateTime = 0f;
+
     #region Capsule Trigger
     private CapsuleCollider capsuleTrigger = null;
     protected CapsuleCollider CapsuleTrigger
@@ -67,17 +71,25 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
     {
         character = animator.gameObject.GetComponent<ACharacter>();
 
+        moveX = animator.GetFloat("MoveX");
+        moveZ = animator.GetFloat("MoveZ");
+        lastUpdateTime = stateInfo.normalizedTime;
+
+        #region CapsuleTrigger
         capsuleTrigger = character.CapsuleTrigger;
         originalTriggerValues = new CapsuleColliderCopy(capsuleTrigger.center,
                                                          capsuleTrigger.radius,
                                                          capsuleTrigger.height);
         finalTriggerValues = originalTriggerValues;
+        #endregion
 
+        #region CapsuleCollider
         capsuleCollider = character.CapsuleCollider;
         originalColliderValues = new CapsuleColliderCopy(capsuleCollider.center,
                                                          capsuleCollider.radius,
                                                          capsuleCollider.height);
         finalColliderValues = originalColliderValues;
+        #endregion
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -85,6 +97,21 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
     {
         UpdateTriggerCapsule(stateInfo);
         UpdateColliderCapsule(stateInfo);
+    }
+    
+    protected void UpdateMove(AnimatorStateInfo stateInfo)
+    {
+        float deltaTime = stateInfo.normalizedTime - lastUpdateTime;
+        lastUpdateTime = stateInfo.normalizedTime;
+
+        Vector3 forwardTimesX = character.transform.right * moveX;
+        Vector3 forwardTimesZ = character.transform.forward * moveZ;
+
+        Vector3 direction = forwardTimesX + forwardTimesZ;
+
+        Debug.Log("deltaTime == " + deltaTime + " || moveX == " + moveX + " || moveZ == " + moveZ);
+
+        character.transform.position += Vector3.Lerp(Vector3.zero, direction, deltaTime);
     }
 
     protected void UpdateTriggerCapsule(AnimatorStateInfo stateInfo)
