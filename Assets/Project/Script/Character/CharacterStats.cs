@@ -47,15 +47,15 @@ public class CharacterStats
 
     public void DisplayChara()
     {
-        Debug.Log(UnitCharacteristics.Attack);
-        Debug.Log(UnitCharacteristics.Defense);
-        Debug.Log(UnitCharacteristics.Weight);
-        Debug.Log(UnitCharacteristics.Health);
-        Debug.Log(UnitCharacteristics.HealthRegeneration);
-        Debug.Log(UnitCharacteristics.Mana);
-        Debug.Log(UnitCharacteristics.SpellPower);
-        Debug.Log(UnitCharacteristics.Precision);
-        Debug.Log(UnitCharacteristics.AttackSpeed.ToString("F2"));
+        //Debug.Log(UnitCharacteristics.Attack);
+        //Debug.Log(UnitCharacteristics.Defense);
+        //Debug.Log(UnitCharacteristics.Weight);
+        //Debug.Log(UnitCharacteristics.Health);
+        //Debug.Log(UnitCharacteristics.HealthRegeneration);
+        //Debug.Log(UnitCharacteristics.Mana);
+        //Debug.Log(UnitCharacteristics.SpellPower);
+        //Debug.Log(UnitCharacteristics.Precision);
+        //Debug.Log(UnitCharacteristics.AttackSpeed.ToString("F2"));
 
     }
 
