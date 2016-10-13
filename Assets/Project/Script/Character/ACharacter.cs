@@ -109,7 +109,7 @@ public abstract class ACharacter : MonoBehaviour
         Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
         direction.Normalize();
         direction.y = 1;
-        rb.AddForce(direction * jumpEfficiency, ForceMode.Impulse);
+        rb.AddForce(transform.up * jumpEfficiency, ForceMode.Impulse);
         animator.SetFloat("JumpEfficiency", jumpEfficiency);
     }
 
