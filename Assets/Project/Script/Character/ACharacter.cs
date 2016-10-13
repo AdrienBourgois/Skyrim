@@ -7,6 +7,7 @@ using System;
 /// </summary>
 [RequireComponent (typeof(Rigidbody))]
 [RequireComponent (typeof(CapsuleCollider))]
+[RequireComponent (typeof(CapsuleCollider))]
 public abstract class ACharacter : MonoBehaviour
 {
     #region Serialized Fields
@@ -39,37 +40,24 @@ public abstract class ACharacter : MonoBehaviour
     private float baseAttackSpeed;
     [SerializeField]
     private float baseMoveSpeed = 3f;
-    #endregion
 
-    /* #region Stats & Inventory
-    private Characteristics characteristics;
-    public Characteristics UnitCharacteristics
+    [SerializeField]
+    private CapsuleCollider capTrig = null;
+    public CapsuleCollider CapsuleTrigger
     {
-        get { return characteristics; }
+        get { return capTrig; }
     }
 
-    private Attributes attributes;
-    public Attributes UnitAttributes
-    {
-        get { return attributes; }
-    }
-
-    private Inventory inventory;
-    public Inventory UnitInventory
-    {
-        get { return inventory; }
-    }
-    #endregion
-    */
-
-    private Rigidbody rb = null;
-    protected Animator animator = null;
-
+    [SerializeField]
     private CapsuleCollider capCol = null;
     public CapsuleCollider CapsuleCollider
     {
         get { return capCol; }
     }
+    #endregion
+
+    private Rigidbody rb = null;
+    protected Animator animator = null;
 
     private bool bIsGrounded = true;
     public bool IsGrounded
@@ -92,10 +80,6 @@ public abstract class ACharacter : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         if (rb == null)
             Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
-
-        capCol = GetComponent<CapsuleCollider>();
-        if (capCol == null)
-            Debug.LogError("ACharacter.Start() - could not get component of type CapsuleCollider");
     }
 
     protected abstract void Update();
@@ -119,10 +103,14 @@ public abstract class ACharacter : MonoBehaviour
 
     public virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
     {
+        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 6, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 6, Time.deltaTime);
+        animator.SetTrigger("TriggerJump");
         Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
         direction.Normalize();
         direction.y = 1;
-        //rb.AddForce(direction * jumpEfficiency, ForceMode.Impulse);
+        rb.AddForce(direction * jumpEfficiency, ForceMode.Impulse);
+        animator.SetFloat("JumpEfficiency", jumpEfficiency);
     }
 
     public virtual void ControllerUse()
@@ -175,10 +163,12 @@ public abstract class ACharacter : MonoBehaviour
     protected virtual void OnTriggerEnter()
     {
         bIsGrounded = true;
+        animator.SetBool("IsGrounded", true);
     }
 
     protected virtual void OnTriggerExit()
     {
         bIsGrounded = false;
+        animator.SetBool("IsGrounded", false);
     }
 }
