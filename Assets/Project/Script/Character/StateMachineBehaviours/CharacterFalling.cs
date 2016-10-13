@@ -24,7 +24,6 @@ public class CharacterFalling : ACharacterAnimatorBehaviour
     {
         finalColliderValues = new CapsuleColliderCopy(new Vector3(0.0f, 0.9f, 0.0f), 0.3f, 1.7f);
         base.OnStateExit(animator, stateInfo, layerIndex);
-        Debug.Log("THIS IS A TEST");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

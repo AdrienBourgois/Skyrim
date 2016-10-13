@@ -109,8 +109,6 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
 
         Vector3 direction = forwardTimesX + forwardTimesZ;
 
-        Debug.Log("deltaTime == " + deltaTime + " || moveX == " + moveX + " || moveZ == " + moveZ);
-
         character.transform.position += Vector3.Lerp(Vector3.zero, direction, deltaTime);
     }
 
