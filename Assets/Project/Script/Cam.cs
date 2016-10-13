@@ -29,7 +29,7 @@ public class Cam : MonoBehaviour {
 
 	void Update ()
     {
-        transform.position = player.transform.position;
+        transform.position = player.transform.position + (Vector3.up * 1.5f) + player.transform.forward;
 
         float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility * Time.deltaTime;
 
