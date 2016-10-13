@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour {
 
 	void Start ()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(this);
 	}
