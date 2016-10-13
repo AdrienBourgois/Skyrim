@@ -16,13 +16,14 @@ public class Door : MonoBehaviour, IUsableObject
 
         if (hasBeenOpen == false)
         {
-            print("test");
-            anim.Play("CloseDoor");
+            
+            anim.Play("OpenDoor");
             hasBeenOpen = true;
         }
         else if (hasBeenOpen == true)
         {
             anim.Play("CloseDoor");
+            hasBeenOpen = false;
         }
     }
 
