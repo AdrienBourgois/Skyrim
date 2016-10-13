@@ -3,6 +3,32 @@ guid: 9cd037fec582e4242a076518695774b5
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: chest_epic
+    100002: //RootNode
+    100004: chest_epic_chest
+    100006: chest_epic_gold
+    100008: chest_epic_hinges
+    100010: chest_epic_insideshadow
+    100012: chest_epic_lid
+    100014: chest_epic_lid 1
+    100016: chest_epic_lid_spiderwebs
+    100018: chest_epic_root
+    100020: chest_epic_shadow_floor
+    100022: chest_epic_spiderweb
+    400000: //RootNode
+    400002: chest_epic
+    400004: chest_epic_chest
+    400006: chest_epic_gold
+    400008: chest_epic_hinges
+    400010: chest_epic_insideshadow
+    400012: chest_epic_lid
+    400014: chest_epic_lid 1
+    400016: chest_epic_lid_spiderwebs
+    400018: chest_epic_root
+    400020: chest_epic_shadow_floor
+    400022: chest_epic_spiderweb
+    2300000: chest_epic_shadow_floor
+    3300000: chest_epic_shadow_floor
     4300000: chest_epic_gold
     4300002: chest_epic_insideshadow
     4300004: chest_epic_spiderweb
@@ -10,6 +36,16 @@ ModelImporter:
     4300008: chest_epic
     4300010: chest_epic_lid_spiderwebs
     4300012: chest_epic_shadow_floor
+    7400000: idle
+    7400002: open
+    7400004: close
+    11100000: //RootNode
+    13700000: chest_epic
+    13700002: chest_epic_gold
+    13700004: chest_epic_insideshadow
+    13700006: chest_epic_lid
+    13700008: chest_epic_lid_spiderwebs
+    13700010: chest_epic_spiderweb
   materials:
     importMaterials: 0
     materialName: 0
