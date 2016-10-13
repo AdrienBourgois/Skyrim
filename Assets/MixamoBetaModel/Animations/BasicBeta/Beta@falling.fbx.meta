@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c4971838b8c9ba4419cc96be3150170f
-timeCreated: 1476194222
+guid: 6c7929df5877ebf4e934ef301dad2fe6
+timeCreated: 1476345318
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -139,7 +139,7 @@ ModelImporter:
     400128: Spine
     400130: Spine1
     400132: Spine2
-    7400000: sword_and_shield_jump
+    7400000: jump
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -166,10 +166,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: sword_and_shield_jump
+      name: jump
       takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 25
+      firstFrame: 31
+      lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -177,10 +177,10 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
