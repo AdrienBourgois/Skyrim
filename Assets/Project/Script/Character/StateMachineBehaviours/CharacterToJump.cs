@@ -9,7 +9,6 @@ public class CharacterToJump : ACharacterAnimatorBehaviour
         base.OnStateEnter(animator, stateInfo, layerIndex);
         finalTriggerValues = new CapsuleColliderCopy(new Vector3(-0.05f, 1.28f, 0.05f), 0.35f, 1.4f);
         finalColliderValues = new CapsuleColliderCopy(new Vector3(-0.05f, 1.28f, 0.05f), 0.35f, 1.3f);
-        Debug.Log("ENTERED JUMPING");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
