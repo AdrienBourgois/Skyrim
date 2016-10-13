@@ -9,6 +9,8 @@ public class InventoryGUI : MonoBehaviour {
     GameObject items_list = null;
     [SerializeField]
     GameObject item_template = null;
+    [SerializeField]
+    Dropdown filter_list = null;
 
     //Right Panel
     [SerializeField]
@@ -23,14 +25,34 @@ public class InventoryGUI : MonoBehaviour {
         set { inventory = value; }
     }
 
+    List<GameObject> item_displayed = new List<GameObject>();
+    Dictionary<string, System.Type> types_conversion = new Dictionary<string, System.Type>();
+
     void Start ()
     {
         inventory = gameObject.AddComponent<Inventory>();
         DisplayInventory<Item>();
-	}
 
-    void DisplayInventory<T>() where T : Item
+        types_conversion.Add(" -> All <- ", typeof(Item));
+        types_conversion.Add("---- Armor ----", typeof(Armor));
+        types_conversion.Add("Boots", typeof(Boots));
+        types_conversion.Add("Shield", typeof(Shield));
+        types_conversion.Add("Torso", typeof(Torso));
+        types_conversion.Add("Helmet", typeof(Helmet));
+        types_conversion.Add("---- Weapon ----", typeof(Weapon));
+        types_conversion.Add("Sword", typeof(Sword));
+        types_conversion.Add("Axe", typeof(Axe));
+        filter_list.ClearOptions();
+        filter_list.AddOptions(new List<string>(types_conversion.Keys));
+        filter_list.onValueChanged.AddListener(delegate {
+            System.Type type = types_conversion[(filter_list.options[filter_list.value].text)];
+            typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(new[] { type }).Invoke(this, null);
+        });
+    }
+
+    public void DisplayInventory<T>() where T : Item
     {
+        ResetDisplay();
         foreach (Item item in inventory.GetItems<T>())
         {
             AddItem(item);
@@ -54,6 +76,8 @@ public class InventoryGUI : MonoBehaviour {
         price_label.text = item.Price.ToString();
         template.name = item.NameObject;
         ColorItem(template, item);
+
+        item_displayed.Add(template);
     }
 
     public void DisplayItem(Item item)
@@ -77,5 +101,13 @@ public class InventoryGUI : MonoBehaviour {
             image.color = new Color(0.09f, 0.4f, 0.77f);
         else
             image.color = new Color(1f, 0.4f, 0f);
+    }
+
+    public void ResetDisplay()
+    {
+        foreach (GameObject item in item_displayed)
+            Destroy(item);
+
+        item_displayed.Clear();
     }
 }
