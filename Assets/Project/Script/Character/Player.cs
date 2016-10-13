@@ -3,11 +3,9 @@ using System.Collections;
 
 public class Player : ACharacter
 {
+
     protected override void Update()
     {
-        CharacterStats.UnitCharacteristics.Health -= 1;
-        CharacterStats.UnitCharacteristics.Mana -= 1;
-
         UpdateInput();
     }
 
