@@ -3,14 +3,6 @@ using System.Collections;
 
 public class Player : ACharacter
 {
-
-    protected override void Start()
-    {
-        base.Start();
-
-        rb.freezeRotation = true;
-    }
-
     protected override void Update()
     {
         CharacterStats.UnitCharacteristics.Health -= 1;
@@ -31,5 +23,13 @@ public class Player : ACharacter
 
         if (Input.GetButtonDown("Use"))
             ControllerUse();
+
+        ControllerCrouch(Input.GetButton("Crouch"));
+    }
+
+    public override void ControllerUse()
+    {
+        base.ControllerUse();
+        animator.SetBool("IsUsingMagic", true);
     }
 }
