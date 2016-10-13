@@ -6,18 +6,6 @@ using System.Collections;
 /// </summary>
 public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
 {
-    private ACharacter character = null;
-    protected ACharacter Character
-    {
-        get { return character; }
-    }
-
-    private CapsuleCollider capsuleCollider = null;
-    protected CapsuleCollider CapsuleCollider
-    {
-        get { return capsuleCollider; }
-    }
-
     protected class CapsuleColliderCopy
     {
         private Vector3 center;
@@ -45,44 +33,93 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
             height = _height;
         }
     }
-    protected CapsuleColliderCopy originalColliderValues = null;
 
-    [SerializeField]
+    private ACharacter character = null;
+    protected ACharacter Character
+    {
+        get { return character; }
+    }
+
+    #region Capsule Trigger
+    private CapsuleCollider capsuleTrigger = null;
+    protected CapsuleCollider CapsuleTrigger
+    {
+        get { return capsuleTrigger; }
+    }
+
+    protected CapsuleColliderCopy originalTriggerValues = null;
+    protected CapsuleColliderCopy finalTriggerValues = null;
+    #endregion
+
+    #region Capsule Collider
+    private CapsuleCollider capsuleCollider = null;
+    protected CapsuleCollider CapsuleCollider
+    {
+        get { return capsuleCollider; }
+    }
+
+    protected CapsuleColliderCopy originalColliderValues = null;
     protected CapsuleColliderCopy finalColliderValues = null;
+    #endregion
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         character = animator.gameObject.GetComponent<ACharacter>();
+
+        capsuleTrigger = character.CapsuleTrigger;
+        originalTriggerValues = new CapsuleColliderCopy(capsuleTrigger.center,
+                                                         capsuleTrigger.radius,
+                                                         capsuleTrigger.height);
+        finalTriggerValues = originalTriggerValues;
+
         capsuleCollider = character.CapsuleCollider;
         originalColliderValues = new CapsuleColliderCopy(capsuleCollider.center,
                                                          capsuleCollider.radius,
                                                          capsuleCollider.height);
-        Debug.Log("ENTERED ANIMATOR");
+        finalColliderValues = originalColliderValues;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("UPDATE ANIMATOR");
+        UpdateTriggerCapsule(stateInfo);
+        UpdateColliderCapsule(stateInfo);
+    }
+
+    protected void UpdateTriggerCapsule(AnimatorStateInfo stateInfo)
+    {
+        capsuleTrigger.center = Vector3.Lerp(originalTriggerValues.Center, finalTriggerValues.Center, stateInfo.normalizedTime);
+        capsuleTrigger.radius = Mathf.Lerp(originalTriggerValues.Radius, finalTriggerValues.Radius, stateInfo.normalizedTime);
+        capsuleTrigger.height = Mathf.Lerp(originalTriggerValues.Height, finalTriggerValues.Height, stateInfo.normalizedTime);
+    }
+
+    protected void UpdateColliderCapsule(AnimatorStateInfo stateInfo)
+    {
         capsuleCollider.center = Vector3.Lerp(originalColliderValues.Center, finalColliderValues.Center, stateInfo.normalizedTime);
-        Debug.Log("POSITIONS : " + capsuleCollider.center);
         capsuleCollider.radius = Mathf.Lerp(originalColliderValues.Radius, finalColliderValues.Radius, stateInfo.normalizedTime);
-        Debug.Log("RADIUS : " + capsuleCollider.radius);
         capsuleCollider.height = Mathf.Lerp(originalColliderValues.Height, finalColliderValues.Height, stateInfo.normalizedTime);
-        Debug.Log("HEIGHT : " + capsuleCollider.height);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("EXIT ANIMATOR");
+        SetTriggerCapsule();
+        SetColliderCapsule();
+    }
+
+    protected void SetTriggerCapsule()
+    {
+        capsuleTrigger.center = finalTriggerValues.Center;
+        capsuleTrigger.radius = finalTriggerValues.Radius;
+        capsuleTrigger.height = finalTriggerValues.Height;
+    }
+
+    protected void SetColliderCapsule()
+    {
         capsuleCollider.center = finalColliderValues.Center;
-        Debug.Log("POSITIONS : " + capsuleCollider.center);
         capsuleCollider.radius = finalColliderValues.Radius;
-        Debug.Log("RADIUS : " + capsuleCollider.radius);
         capsuleCollider.height = finalColliderValues.Height;
-        Debug.Log("HEIGHT : " + capsuleCollider.height);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

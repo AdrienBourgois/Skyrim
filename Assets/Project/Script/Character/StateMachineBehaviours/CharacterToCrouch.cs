@@ -7,8 +7,8 @@ public class CharacterToCrouch : ACharacterAnimatorBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
+        finalTriggerValues = new CapsuleColliderCopy(new Vector3(0.08f, 0.7f, 0.14f), 0.38f, 1.6f);
         finalColliderValues = new CapsuleColliderCopy(new Vector3(0.08f, 0.7f, 0.14f), 0.38f, 1.5f);
-        Debug.Log("ENTERED TO CROUCH");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

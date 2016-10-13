@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterToStanding : ACharacterAnimatorBehaviour
+public class CharacterFromJump : ACharacterAnimatorBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         finalTriggerValues = new CapsuleColliderCopy(new Vector3(0.0f, 0.9f, 0.0f), 0.3f, 1.9f);
+        SetTriggerCapsule();
         finalColliderValues = new CapsuleColliderCopy(new Vector3(0.0f, 0.9f, 0.0f), 0.3f, 1.7f);
+        Debug.Log("ENTERED FROM JUMP");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        UpdateColliderCapsule(stateInfo);
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
