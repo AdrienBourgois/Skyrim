@@ -7,7 +7,6 @@ using System;
 /// </summary>
 [RequireComponent (typeof(Rigidbody))]
 [RequireComponent (typeof(CapsuleCollider))]
-[RequireComponent (typeof(CapsuleCollider))]
 public abstract class ACharacter : MonoBehaviour
 {
     #region Serialized Fields
@@ -41,12 +40,14 @@ public abstract class ACharacter : MonoBehaviour
     [SerializeField]
     private float baseMoveSpeed = 3f;
 
+    /*
     [SerializeField]
     private CapsuleCollider capTrig = null;
     public CapsuleCollider CapsuleTrigger
     {
         get { return capTrig; }
     }
+    */
 
     [SerializeField]
     private CapsuleCollider capCol = null;
@@ -160,13 +161,14 @@ public abstract class ACharacter : MonoBehaviour
     }
     #endregion
 
-    protected virtual void OnTriggerEnter()
+    protected virtual void OnCollisionEnter(Collision collision)
     {
+        //if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
         bIsGrounded = true;
         animator.SetBool("IsGrounded", true);
     }
 
-    protected virtual void OnTriggerExit()
+    protected virtual void OnCollisionExit(Collision collision)
     {
         bIsGrounded = false;
         animator.SetBool("IsGrounded", false);

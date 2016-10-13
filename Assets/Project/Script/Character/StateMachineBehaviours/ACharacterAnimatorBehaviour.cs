@@ -43,18 +43,7 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
     private float moveX = 0f;
     private float moveZ = 0f;
     private float lastUpdateTime = 0f;
-
-    #region Capsule Trigger
-    private CapsuleCollider capsuleTrigger = null;
-    protected CapsuleCollider CapsuleTrigger
-    {
-        get { return capsuleTrigger; }
-    }
-
-    protected CapsuleColliderCopy originalTriggerValues = null;
-    protected CapsuleColliderCopy finalTriggerValues = null;
-    #endregion
-
+    
     #region Capsule Collider
     private CapsuleCollider capsuleCollider = null;
     protected CapsuleCollider CapsuleCollider
@@ -75,14 +64,6 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
         moveZ = animator.GetFloat("MoveZ");
         lastUpdateTime = stateInfo.normalizedTime;
 
-        #region CapsuleTrigger
-        capsuleTrigger = character.CapsuleTrigger;
-        originalTriggerValues = new CapsuleColliderCopy(capsuleTrigger.center,
-                                                         capsuleTrigger.radius,
-                                                         capsuleTrigger.height);
-        finalTriggerValues = originalTriggerValues;
-        #endregion
-
         #region CapsuleCollider
         capsuleCollider = character.CapsuleCollider;
         originalColliderValues = new CapsuleColliderCopy(capsuleCollider.center,
@@ -95,7 +76,6 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        UpdateTriggerCapsule(stateInfo);
         UpdateColliderCapsule(stateInfo);
     }
     
@@ -112,13 +92,6 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
         character.transform.position += Vector3.Lerp(Vector3.zero, direction, deltaTime);
     }
 
-    protected void UpdateTriggerCapsule(AnimatorStateInfo stateInfo)
-    {
-        capsuleTrigger.center = Vector3.Lerp(originalTriggerValues.Center, finalTriggerValues.Center, stateInfo.normalizedTime);
-        capsuleTrigger.radius = Mathf.Lerp(originalTriggerValues.Radius, finalTriggerValues.Radius, stateInfo.normalizedTime);
-        capsuleTrigger.height = Mathf.Lerp(originalTriggerValues.Height, finalTriggerValues.Height, stateInfo.normalizedTime);
-    }
-
     protected void UpdateColliderCapsule(AnimatorStateInfo stateInfo)
     {
         capsuleCollider.center = Vector3.Lerp(originalColliderValues.Center, finalColliderValues.Center, stateInfo.normalizedTime);
@@ -129,15 +102,7 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        SetTriggerCapsule();
         SetColliderCapsule();
-    }
-
-    protected void SetTriggerCapsule()
-    {
-        capsuleTrigger.center = finalTriggerValues.Center;
-        capsuleTrigger.radius = finalTriggerValues.Radius;
-        capsuleTrigger.height = finalTriggerValues.Height;
     }
 
     protected void SetColliderCapsule()
