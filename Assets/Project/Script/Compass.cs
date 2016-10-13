@@ -8,12 +8,14 @@ public class Compass : MonoBehaviour {
     Transform player;
     Transform needle;
 
-    GameObject arrow1;
-    GameObject arrow2;
+    Transform arrowRotator;
+    Transform arrow1;
+    Transform arrow2;
 
-    void Start ()
+    void Start()
     {
-        target = GameObject.FindGameObjectWithTag("CompassTarget").transform;
+        CheckTarget();
+
         GameObject player_gao = GameObject.FindGameObjectWithTag("Player");
         if (player_gao == null)
             Debug.LogError("Compass.Start() - could not find player GameObject");
@@ -21,8 +23,10 @@ public class Compass : MonoBehaviour {
             player = player_gao.transform;
 
         needle = transform.FindChild("Needle");
-        arrow1 = transform.FindChild("CompassCylinder").FindChild("Arrow1").gameObject;
-        arrow2 = transform.FindChild("CompassCylinder").FindChild("Arrow2").gameObject;
+
+        arrowRotator = transform.FindChild("ArrowRotator");
+        arrow1 = arrowRotator.FindChild("Arrow1");
+        arrow2 = arrowRotator.FindChild("Arrow2");
     }
 
 
@@ -34,24 +38,28 @@ public class Compass : MonoBehaviour {
             return;
         }
 
+        needle.position = player.position;
+        needle.LookAt(target);
+
+        needle.forward = new Vector3(needle.forward.x, 0f, needle.forward.z);
+        Vector3 player_fwd_cpy = new Vector3(player.forward.x, 0f, player.forward.z);
+
+        float rotAngle = Vector3.Angle(player_fwd_cpy, needle.forward);
+
+        if (Vector3.Angle(player.right, needle.forward) > 90f)
+            rotAngle *= -1;
+
+
         if (arrow1.GetComponent<SpriteRenderer>().enabled == false)
         {
-
-            needle.position = player.position;
-            needle.LookAt(target);
-            needle.forward = new Vector3(needle.forward.x, 0f, needle.forward.z);
-
-            Vector3 player_fwd_cpy = new Vector3(player.forward.x, 0f, player.forward.z);
-
-            float rotAngle = Vector3.Angle(player_fwd_cpy, needle.forward);
-
-            Debug.Log(rotAngle);
             arrow1.GetComponent<SpriteRenderer>().enabled = true;
             arrow2.GetComponent<SpriteRenderer>().enabled = true;
-            arrow1.transform.position = transform.position + player_fwd_cpy /2f;
-            arrow1.transform.RotateAround(transform.position, Vector3.up, -rotAngle);
+            arrow1.transform.position = transform.FindChild("CompassCylinder").position + player_fwd_cpy / 1.9f;
+            arrow2.transform.position = transform.FindChild("CompassCylinder").position - player_fwd_cpy / 1.9f;
+            // Bug when player is looking up or down
         }
-        
+
+        arrowRotator.transform.eulerAngles = new Vector3(0f, -(rotAngle /2f), 0f);
     }
 
     bool CheckTarget()
