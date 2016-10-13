@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
         Intro = 0,
         MainMenu,
         InGame,
+        Pause,
         Death,
         StateNb
     }
