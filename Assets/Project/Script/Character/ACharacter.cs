@@ -7,6 +7,8 @@ using System;
 /// </summary>
 
 [RequireComponent (typeof(Rigidbody))]
+[RequireComponent (typeof(CapsuleCollider))]
+[RequireComponent (typeof(CapsuleCollider))]
 public abstract class ACharacter : MonoBehaviour
 {
     private int unitMaxLevel;
@@ -49,9 +51,23 @@ public abstract class ACharacter : MonoBehaviour
     private float baseAttackSpeed;
     [SerializeField]
     private float baseMoveSpeed = 3f;
+
+    [SerializeField]
+    private CapsuleCollider capTrig = null;
+    public CapsuleCollider CapsuleTrigger
+    {
+        get { return capTrig; }
+    }
+
+    [SerializeField]
+    private CapsuleCollider capCol = null;
+    public CapsuleCollider CapsuleCollider
+    {
+        get { return capCol; }
+    }
     #endregion
 
-     #region Stats & Inventory
+    #region Stats & Inventory
     private CharacterStats characterStats;
     public CharacterStats CharacterStats
     {
@@ -65,9 +81,11 @@ public abstract class ACharacter : MonoBehaviour
         get { return inventory; }
     }*/
     #endregion
-    
+ 
+    private Rigidbody rb = null;
+    protected Animator animator = null;
 
-    protected Rigidbody rb = null;
+
     private bool bIsGrounded = true;
     public bool IsGrounded
     {
@@ -89,6 +107,8 @@ public abstract class ACharacter : MonoBehaviour
         characterStats.SetCharacteristics(this);
 
 
+        animator = GetComponent<Animator>();
+
         rb = GetComponent<Rigidbody>();
         if (rb == null)
             Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
@@ -106,24 +126,25 @@ public abstract class ACharacter : MonoBehaviour
 
     public virtual void ControllerLook(float xAxis, float yAxis)
     {
-        transform.localEulerAngles = new Vector3(xAxis, yAxis, 0f);
+        transform.localEulerAngles = new Vector3(0f, yAxis, 0f);
     }
     
     public virtual void ControllerMove(float xAxis, float zAxis)
     {
-        Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
-        direction.y = 0;
-        direction.Normalize();
-        // TODO: add stat speed
-        transform.position += direction.normalized * baseMoveSpeed * Time.deltaTime;
+        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 6, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 6, Time.deltaTime);
     }
 
     public virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
     {
+        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 6, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 6, Time.deltaTime);
+        animator.SetTrigger("TriggerJump");
         Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
         direction.Normalize();
         direction.y = 1;
-        rb.AddForce(direction * jumpEfficiency, ForceMode.Impulse);
+        rb.AddForce(transform.up * jumpEfficiency, ForceMode.Impulse);
+        animator.SetFloat("JumpEfficiency", jumpEfficiency);
     }
 
     public virtual void ControllerUse()
@@ -157,9 +178,9 @@ public abstract class ACharacter : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    public virtual void ControllerCrouch()
+    public virtual void ControllerCrouch(bool bIsCrouch)
     {
-        throw new NotImplementedException();
+        animator.SetBool("IsCrouching", bIsCrouch);
     }
 
     public virtual void ControllerSelectMagic(int magicId)
@@ -176,11 +197,13 @@ public abstract class ACharacter : MonoBehaviour
     protected virtual void OnTriggerEnter()
     {
         bIsGrounded = true;
+        animator.SetBool("IsGrounded", true);
     }
 
     protected virtual void OnTriggerExit()
     {
         bIsGrounded = false;
+        animator.SetBool("IsGrounded", false);
     }
 
 

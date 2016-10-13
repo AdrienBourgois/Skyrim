@@ -31,5 +31,13 @@ public class Player : ACharacter
 
         if (Input.GetButtonDown("Use"))
             ControllerUse();
+
+        ControllerCrouch(Input.GetButton("Crouch"));
+    }
+
+    public override void ControllerUse()
+    {
+        base.ControllerUse();
+        animator.SetBool("IsUsingMagic", true);
     }
 }
