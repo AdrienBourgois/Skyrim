@@ -30,6 +30,8 @@ public class ConfirmationPanel : MonoBehaviour
 
     private void SetPanelConfirmText(MenuButton.MenuButtonId id)
     {
+        if (panelText == null)
+            panelText = GetComponent<Text>();
         switch (id)
         {
             case MenuButton.MenuButtonId.NewGame:

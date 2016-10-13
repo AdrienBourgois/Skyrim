@@ -93,7 +93,7 @@ public abstract class ACharacter : MonoBehaviour
         if (rb == null)
             Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
 
-        //characterStats.DisplayChara();
+        
     }
 
     protected abstract void Update();
