@@ -5,14 +5,14 @@ using System;
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
-
-[RequireComponent (typeof(Rigidbody))]
-[RequireComponent (typeof(CapsuleCollider))]
 public abstract class ACharacter : MonoBehaviour
-{
+{    
     private int unitMaxLevel;
     public int MaxUnitLevel
-    { get { return unitMaxLevel; } protected set { unitMaxLevel = value; } }
+    {
+        get { return unitMaxLevel; }
+        protected set { unitMaxLevel = value; }
+    }
 
     #region Serialized Fields
     [SerializeField]
@@ -22,15 +22,30 @@ public abstract class ACharacter : MonoBehaviour
         get { return unitName; }
         protected set { unitName = value; }
     }
+
     [SerializeField]
     private int unitLevel;
     public int UnitLevel
-    { get { return unitLevel; } protected set { unitLevel = value; } }
-
-    
+    {
+        get { return unitLevel; }
+        protected set { unitLevel = value; }
+    }    
 
     [SerializeField]
     private float jumpEfficiency = 4.2f;
+    public float JumpEfficiency
+    {
+        get { return jumpEfficiency; }
+        protected set { jumpEfficiency = value; }
+    }
+
+    [SerializeField]
+    private float baseMoveSpeed = 3f;
+    public float MoveSpeed
+    {
+        get { return baseMoveSpeed; }
+        protected set { baseMoveSpeed = value; }
+    }
 
     [SerializeField]
     private int baseAttack;
@@ -39,33 +54,15 @@ public abstract class ACharacter : MonoBehaviour
     [SerializeField]
     private float baseWeight;
     [SerializeField]
-    private float baseHealth;
+    private float baseHealth = 100f;
     [SerializeField]
-    private int baseMana;
+    private int baseMana = 100;
     [SerializeField]
     private int baseSpellPower;
     [SerializeField]
     private float basePrecision;
     [SerializeField]
     private float baseAttackSpeed;
-    [SerializeField]
-    private float baseMoveSpeed = 3f;
-
-    /*
-    [SerializeField]
-    private CapsuleCollider capTrig = null;
-    public CapsuleCollider CapsuleTrigger
-    {
-        get { return capTrig; }
-    }
-    */
-
-    [SerializeField]
-    private CapsuleCollider capCol = null;
-    public CapsuleCollider CapsuleCollider
-    {
-        get { return capCol; }
-    }
     #endregion
 
     #region Stats & Inventory
@@ -82,143 +79,15 @@ public abstract class ACharacter : MonoBehaviour
         get { return inventory; }
     }*/
     #endregion
- 
-    private Rigidbody rb = null;
-    protected Animator animator = null;
-
-
-    private bool bIsGrounded = true;
-    public bool IsGrounded
-    {
-        get { return bIsGrounded; }
-        protected set { bIsGrounded = value; }
-    }
-
-  
-
+    
     protected virtual void Start()
     {
-
         characterStats = new CharacterStats();
         characterStats.Init(baseAttack, baseDefense,
                             baseWeight, baseHealth,
                             baseMana, baseSpellPower,
                             basePrecision, baseAttackSpeed);
 
-        characterStats.SetCharacteristics(this);
-
-
-        animator = GetComponent<Animator>();
-
-        rb = GetComponent<Rigidbody>();
-        if (rb == null)
-            Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
-
-        
+        characterStats.SetCharacteristics(this);        
     }
-
-    protected abstract void Update();
-
-    #region Controller
-    public virtual void ControllerLook(Vector2 axis)
-    {
-        transform.localEulerAngles = new Vector3(axis.x, axis.y, 0f);
-    }
-
-    public virtual void ControllerLook(float xAxis, float yAxis)
-    {
-        float lookY = yAxis - transform.localEulerAngles.y;
-        transform.localEulerAngles = new Vector3(0f, yAxis, 0f);
-        animator.SetFloat("LookY", lookY);
-    }
-    
-    public virtual void ControllerMove(float xAxis, float zAxis)
-    {
-        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 10, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 10, Time.deltaTime);
-    }
-
-    public virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
-    {
-        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 10, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 10, Time.deltaTime);
-        animator.SetTrigger("TriggerJump");
-        Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
-        direction.Normalize();
-        direction.y = 1;
-        rb.AddForce(transform.up * jumpEfficiency, ForceMode.Impulse);
-        animator.SetFloat("JumpEfficiency", jumpEfficiency);
-    }
-
-    public virtual void ControllerUse()
-    {
-        RaycastHit hit;
-        // TODO: global(?) variable for max distance
-        float useMaxDistance = 2f;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
-        {
-            
-            IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
-
-            if (usableCollider != null)
-            {
-                usableCollider.OnUse(this);
-                print("Player collide");
-            }
-        }
-    }
-
-    public virtual void ControllerLeftHand()
-    {
-        throw new NotImplementedException();
-    }
-
-    public virtual void ControllerRightHand()
-    {
-        throw new NotImplementedException();
-    }
-
-    public virtual void ControllerTwoHands()
-    {
-        throw new NotImplementedException();
-    }
-
-    public virtual void ControllerCrouch(bool bIsCrouch)
-    {
-        animator.SetBool("IsCrouching", bIsCrouch);
-    }
-
-    public virtual void ControllerSelectMagic(int magicId)
-    {
-        animator.SetBool("IsUsingMagic", true);
-        Debug.Log("Selected magic num [" + magicId + "]");
-    }
-
-    public virtual void ControllerUnselectMagic()
-    {
-        animator.SetBool("IsUsingMagic", false);
-        Debug.Log("Unselected Magic");
-    }
-
-    public virtual void ControllerCastSpell()
-    {
-        throw new NotImplementedException();
-    }
-    #endregion
-
-    protected virtual void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Character"))
-            return;
-        bIsGrounded = true;
-        animator.SetBool("IsGrounded", true);
-    }
-
-    protected virtual void OnCollisionExit(Collision collision)
-    {
-        bIsGrounded = false;
-        animator.SetBool("IsGrounded", false);
-    }
-
-
 }

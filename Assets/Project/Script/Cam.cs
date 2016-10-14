@@ -7,14 +7,14 @@ public class Cam : MonoBehaviour {
     [SerializeField] float lookUpMax = 70f;
     [SerializeField] float sensibility = 1f;
 
-    Player player;
+    PlayerController player;
     Transform compass;
 
     private float rotY = 0f;
 
 	void Start ()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerController>();
         if (player == null)
             Debug.LogError("Cam.Start() - could not find object of type Player");
 

@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : ACharacter
+public class PlayerController : ACharacterController
 {
-
     protected override void Update()
     {
         UpdateInput();
