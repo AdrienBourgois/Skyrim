@@ -122,19 +122,21 @@ public abstract class ACharacterController : MonoBehaviour
 
     public virtual void ControllerSelectMagic(int magicId)
     {
+        animator.SetInteger("SpellType", magicId);
         animator.SetBool("IsUsingMagic", true);
         Debug.Log("Selected magic num [" + magicId + "]");
     }
 
     public virtual void ControllerUnselectMagic()
     {
+        animator.SetInteger("SpellType", 0);
         animator.SetBool("IsUsingMagic", false);
         Debug.Log("Unselected Magic");
     }
 
     public virtual void ControllerCastSpell()
     {
-        throw new NotImplementedException();
+        animator.SetTrigger("TriggerSpell");
     }
     #endregion
 

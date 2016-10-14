@@ -6,17 +6,24 @@ public class Cam : MonoBehaviour {
     [SerializeField] float lookDownMax = -70f;
     [SerializeField] float lookUpMax = 70f;
     [SerializeField] float sensibility = 1f;
+    [SerializeField]
+    private float ratioOverHips = 0.75f;
 
     PlayerController player;
+    Transform playerAnchor;
     Transform compass;
 
     private float rotY = 0f;
-
-	void Start ()
+    
+    void Start()
     {
         player = FindObjectOfType<PlayerController>();
         if (player == null)
             Debug.LogError("Cam.Start() - could not find object of type Player");
+
+        playerAnchor = player.transform.FindChild("Hips");
+        if (playerAnchor == null)
+            Debug.LogError("Cam.Start() - could not find child of name Hips in player");
 
         compass = GameObject.FindGameObjectWithTag("Compass").transform;
 
@@ -26,10 +33,9 @@ public class Cam : MonoBehaviour {
                                             0f);
 	}
 	
-
-	void Update ()
+	void Update()
     {
-        transform.position = player.transform.position + (Vector3.up * 1.5f);
+        transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
 
         float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility * Time.deltaTime;
 

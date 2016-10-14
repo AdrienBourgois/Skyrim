@@ -10,6 +10,7 @@ public class PlayerController : ACharacterController
 
     private void UpdateInput()
     {
+        #region Movement / Locomotion
         if (IsGrounded)
         {
             if (Input.GetButtonDown("Jump"))
@@ -18,6 +19,10 @@ public class PlayerController : ACharacterController
                 ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
 
+        ControllerCrouch(Input.GetButton("Crouch"));
+        #endregion
+
+        #region Magic
         for (int i = 1; i <= 9; i++)
         {
             if (Input.GetButtonDown("Magic " + i))
@@ -26,12 +31,15 @@ public class PlayerController : ACharacterController
                 break;
             }
         }
+
         if (Input.GetButtonDown("No Magic"))
             ControllerUnselectMagic();
 
+        if (Input.GetButtonDown("CastSpell"))
+            ControllerCastSpell();
+        #endregion
+
         if (Input.GetButtonDown("Use"))
             ControllerUse();
-
-        ControllerCrouch(Input.GetButton("Crouch"));
     }
 }

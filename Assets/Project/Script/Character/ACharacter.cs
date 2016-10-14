@@ -32,7 +32,7 @@ public abstract class ACharacter : MonoBehaviour
     }    
 
     [SerializeField]
-    private float jumpEfficiency = 4.2f;
+    private float jumpEfficiency = 5.5f;
     public float JumpEfficiency
     {
         get { return jumpEfficiency; }
