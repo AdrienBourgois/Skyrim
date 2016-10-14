@@ -74,8 +74,7 @@ public class ConfirmationPanel : MonoBehaviour
 
     private void StartNewGame()
     {
-        SceneManager.LoadSceneAsync("BaseScene");
-        
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame);
     }
 
     private void LoadSaveGame()

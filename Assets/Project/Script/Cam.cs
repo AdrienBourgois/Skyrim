@@ -13,18 +13,14 @@ public class Cam : MonoBehaviour {
     [SerializeField] float TpslookDownMax = -50f;
     [SerializeField] float TpslookUpMax = 50f;
     [SerializeField] float distance = 10f;
-    //[SerializeField] float height = 10f;
-    [SerializeField] float heightDamp = 3f;
-    [SerializeField] float rotationDamp = 3f;
+//    [SerializeField] float rotationDamp = 3f;
     #endregion
-
 
     Player player;
     Transform compass;
 
     private float rotY = 0f;
-
-    bool fpsCam = true;
+    private bool fpsCam = true;
 
 	void Start ()
     {
@@ -40,14 +36,16 @@ public class Cam : MonoBehaviour {
                                             0f);
 	}
 	
-
-	void FixedUpdate ()
+	void Update ()
     {
+        //if (GameManager.Instance.CurrGameState == GameManager.GameState.Pause)
+        //    return;
+
         if (Input.GetKeyDown(KeyCode.C))
             ChangeCameraMode();
 
         transform.position = player.transform.position + (Vector3.up * 1.5f);
-
+        
         FpsCamUpdate();
 
         if (fpsCam)

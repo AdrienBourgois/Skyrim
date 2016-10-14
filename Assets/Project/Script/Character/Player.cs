@@ -6,6 +6,11 @@ public class Player : ACharacter
 
     protected override void Update()
     {
+        //if (GameManager.Instance.CurrGameState == GameManager.GameState.Pause)
+        //    return;
+
+        CharacterStats.UnitCharacteristics.Health -= 1f;
+
         UpdateInput();
     }
 
