@@ -65,38 +65,7 @@ public class Inventory : MonoBehaviour {
     public void Awake()
     {
         ItemManager im = new ItemManager();
-        AddItem(im.CreateObject<Sword>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
-        AddItem(im.CreateObject<Axe>(Item.item_rarity.rare, "Rare Axe", "Simple Axe"));
-        AddItem(im.CreateObject<Boots>(Item.item_rarity.common, "Common Boots", "Simple Boots"));
-        AddItem(im.CreateObject<Torso>(Item.item_rarity.legendary, "Lengendary Torso", "Simple Torso"));
-        AddItem(im.CreateObject<Shield>(Item.item_rarity.uncommon, "Uncommon Shield", "Simple Shield"));
-        AddItem(im.CreateObject<Sword>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
-        AddItem(im.CreateObject<Axe>(Item.item_rarity.rare, "Rare Axe", "Simple Axe"));
-        AddItem(im.CreateObject<Boots>(Item.item_rarity.common, "Common Boots", "Simple Boots"));
-        AddItem(im.CreateObject<Torso>(Item.item_rarity.legendary, "Lengendary Torso", "Simple Torso"));
-        AddItem(im.CreateObject<Shield>(Item.item_rarity.uncommon, "Uncommon Shield", "Simple Shield"));
-        AddItem(im.CreateObject<Sword>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
-        AddItem(im.CreateObject<Axe>(Item.item_rarity.rare, "Rare Axe", "Simple Axe"));
-        AddItem(im.CreateObject<Boots>(Item.item_rarity.common, "Common Boots", "Simple Boots"));
-        AddItem(im.CreateObject<Torso>(Item.item_rarity.legendary, "Lengendary Torso", "Simple Torso"));
-        AddItem(im.CreateObject<Shield>(Item.item_rarity.uncommon, "Uncommon Shield", "Simple Shield"));
-        AddItem(im.CreateObject<Sword>(Item.item_rarity.epic, "Epic Sword", "Simple Sword"));
-        AddItem(im.CreateObject<Axe>(Item.item_rarity.rare, "Rare Axe", "Simple Axe"));
-        AddItem(im.CreateObject<Boots>(Item.item_rarity.common, "Common Boots", "Simple Boots"));
-        AddItem(im.CreateObject<Torso>(Item.item_rarity.legendary, "Lengendary Torso", "Simple Torso"));
-        AddItem(im.CreateObject<Shield>(Item.item_rarity.uncommon, "Uncommon Shield", "Simple Shield"));
-        for (int i = 0; i < 10; i++)
-            AddItem(im.CreateObject<Axe>());
-        for (int i = 0; i < 10; i++)
-            AddItem(im.CreateObject<Boots>());
-        for (int i = 0; i < 10; i++)
-            AddItem(im.CreateObject<Shield>());
-        for (int i = 0; i < 10; i++)
-            AddItem(im.CreateObject<Sword>());
-        for (int i = 0; i < 10; i++)
-            AddItem(im.CreateObject<Torso>());
-        //DisplayInventory();
-        //DisplayList(GetItemsByType<Armor>());
+        inventory = im.GenerateInventory(ItemManager.flags_generation.Helmet | ItemManager.flags_generation.Axe, 10);
     }
 
 }
