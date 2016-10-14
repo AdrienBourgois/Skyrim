@@ -18,15 +18,20 @@ public class Player : ACharacter
                 ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
 
+        for (int i = 1; i <= 9; i++)
+        {
+            if (Input.GetButtonDown("Magic " + i))
+            {
+                ControllerSelectMagic(i);
+                break;
+            }
+        }
+        if (Input.GetButtonDown("No Magic"))
+            ControllerUnselectMagic();
+
         if (Input.GetButtonDown("Use"))
             ControllerUse();
 
         ControllerCrouch(Input.GetButton("Crouch"));
-    }
-
-    public override void ControllerUse()
-    {
-        base.ControllerUse();
-        animator.SetBool("IsUsingMagic", true);
     }
 }

@@ -100,14 +100,14 @@ public abstract class ACharacter : MonoBehaviour
     
     public virtual void ControllerMove(float xAxis, float zAxis)
     {
-        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 6, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 6, Time.deltaTime);
+        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 10, Time.deltaTime);
     }
 
     public virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
     {
-        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 6, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 6, Time.deltaTime);
+        animator.SetFloat("MoveX", xAxis, baseMoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, baseMoveSpeed / 10, Time.deltaTime);
         animator.SetTrigger("TriggerJump");
         Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
         direction.Normalize();
@@ -120,7 +120,7 @@ public abstract class ACharacter : MonoBehaviour
     {
         RaycastHit hit;
         // TODO: global(?) variable for max distance
-        float useMaxDistance = 1000f;
+        float useMaxDistance = 2f;
         if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
             IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
@@ -154,7 +154,14 @@ public abstract class ACharacter : MonoBehaviour
 
     public virtual void ControllerSelectMagic(int magicId)
     {
-        throw new NotImplementedException();
+        animator.SetBool("IsUsingMagic", true);
+        Debug.Log("Selected magic num [" + magicId + "]");
+    }
+
+    public virtual void ControllerUnselectMagic()
+    {
+        animator.SetBool("IsUsingMagic", false);
+        Debug.Log("Unselected Magic");
     }
 
     public virtual void ControllerCastSpell()
@@ -165,7 +172,8 @@ public abstract class ACharacter : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        //if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Character"))
+            return;
         bIsGrounded = true;
         animator.SetBool("IsGrounded", true);
     }
