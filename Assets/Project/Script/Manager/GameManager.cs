@@ -20,12 +20,16 @@ public class GameManager : MonoBehaviour {
         Intro = 0,
         MainMenu,
         InGame,
+        Pause,
         Death,
         StateNb
     }
 
 	void Start ()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(this);
 	}

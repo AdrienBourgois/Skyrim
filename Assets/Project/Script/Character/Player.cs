@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Player : ACharacter
 {
+
     protected override void Update()
     {
         UpdateInput();

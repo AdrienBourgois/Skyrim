@@ -5,10 +5,15 @@ using System;
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
+
 [RequireComponent (typeof(Rigidbody))]
 [RequireComponent (typeof(CapsuleCollider))]
 public abstract class ACharacter : MonoBehaviour
 {
+    private int unitMaxLevel;
+    public int MaxUnitLevel
+    { get { return unitMaxLevel; } protected set { unitMaxLevel = value; } }
+
     #region Serialized Fields
     [SerializeField]
     private string unitName;
@@ -17,6 +22,12 @@ public abstract class ACharacter : MonoBehaviour
         get { return unitName; }
         protected set { unitName = value; }
     }
+    [SerializeField]
+    private int unitLevel;
+    public int UnitLevel
+    { get { return unitLevel; } protected set { unitLevel = value; } }
+
+    
 
     [SerializeField]
     private float jumpEfficiency = 4.2f;
@@ -28,7 +39,7 @@ public abstract class ACharacter : MonoBehaviour
     [SerializeField]
     private float baseWeight;
     [SerializeField]
-    private int baseHealth;
+    private float baseHealth;
     [SerializeField]
     private int baseMana;
     [SerializeField]
@@ -57,8 +68,24 @@ public abstract class ACharacter : MonoBehaviour
     }
     #endregion
 
+    #region Stats & Inventory
+    private CharacterStats characterStats;
+    public CharacterStats CharacterStats
+    {
+        get { return characterStats; }
+    }
+    
+    /*
+    private Inventory inventory;
+    public Inventory UnitInventory
+    {
+        get { return inventory; }
+    }*/
+    #endregion
+ 
     private Rigidbody rb = null;
     protected Animator animator = null;
+
 
     private bool bIsGrounded = true;
     public bool IsGrounded
@@ -67,20 +94,27 @@ public abstract class ACharacter : MonoBehaviour
         protected set { bIsGrounded = value; }
     }
 
+  
+
     protected virtual void Start()
     {
-        /*
-        characteristics.Init(baseAttack, baseDefense,
-                             baseWeight, baseHealth,
-                             baseMana, baseSpellPower,
-                             basePrecision, baseAttackSpeed);
-                             */
+
+        characterStats = new CharacterStats();
+        characterStats.Init(baseAttack, baseDefense,
+                            baseWeight, baseHealth,
+                            baseMana, baseSpellPower,
+                            basePrecision, baseAttackSpeed);
+
+        characterStats.SetCharacteristics(this);
+
 
         animator = GetComponent<Animator>();
 
         rb = GetComponent<Rigidbody>();
         if (rb == null)
             Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
+
+        
     }
 
     protected abstract void Update();
@@ -123,11 +157,13 @@ public abstract class ACharacter : MonoBehaviour
         float useMaxDistance = 2f;
         if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
+            
             IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
 
             if (usableCollider != null)
             {
                 usableCollider.OnUse(this);
+                print("Player collide");
             }
         }
     }
@@ -183,4 +219,6 @@ public abstract class ACharacter : MonoBehaviour
         bIsGrounded = false;
         animator.SetBool("IsGrounded", false);
     }
+
+
 }
