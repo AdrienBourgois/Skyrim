@@ -8,9 +8,10 @@ public class InventoryGUI : MonoBehaviour {
     [SerializeField]
     GameObject items_list = null;
     [SerializeField]
-    GameObject item_template = null;
+    GameObject item_panel_template = null;
     [SerializeField]
     Dropdown filter_list = null;
+    public List<GameObject> item_panel_list = new List<GameObject>();
 
     //Right Panel
     [SerializeField]
@@ -25,7 +26,6 @@ public class InventoryGUI : MonoBehaviour {
         set { inventory = value; }
     }
 
-    List<GameObject> item_displayed = new List<GameObject>();
     Dictionary<string, System.Type> types_conversion = new Dictionary<string, System.Type>();
 
     void Start ()
@@ -52,7 +52,6 @@ public class InventoryGUI : MonoBehaviour {
 
     public void ResetInventory()
     {
-        ResetDisplay();
         inventory = gameObject.AddComponent<Inventory>();
         DisplayInventory<Item>();
     }
@@ -61,35 +60,54 @@ public class InventoryGUI : MonoBehaviour {
     {
         System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
 
-        ResetDisplay();
-        foreach (Item item in inventory.GetItems<T>())
+        int panel_id = 0;
+        List<Item> list_to_display = inventory.GetItems<T>();
+        ManageItemPanels(list_to_display.Count);
+        foreach (Item item in list_to_display)
         {
-            AddItem(item);
+            FillPanel(item_panel_list[panel_id], item);
+            panel_id++;
         }
 
         watch.Stop();
         Debug.Log("Inventory displayed in " + watch.ElapsedMilliseconds + " ms");
     }
 
-    void AddItem(Item item)
+    void ManageItemPanels(int panel_count_needed)
     {
-        GameObject template = Instantiate(item_template);
-        template.transform.SetParent(items_list.transform);
-        Text name_label = template.transform.FindChild("Name").GetComponent<Text>();
-        Text lvl_label = template.transform.FindChild("LVL").GetComponent<Text>();
-        Text weight_label = template.transform.FindChild("Weight").GetComponent<Text>();
-        Text price_label = template.transform.FindChild("Price").GetComponent<Text>();
-        Button button = template.GetComponent<Button>();
+        Debug.Log(panel_count_needed);
+        int panel_count_to_generate = panel_count_needed - item_panel_list.Count;
+        if (item_panel_list.Count < panel_count_needed)
+        {
+            for (int i = 0; i < panel_count_to_generate; i++)
+            {
+                GameObject item_panel = Instantiate(item_panel_template);
+                item_panel_list.Add(item_panel);
+                item_panel.transform.SetParent(items_list.transform);
+            }
+        }
+        for (int i = 0; i < panel_count_needed; i++)
+            item_panel_list[i].SetActive(true);
+        for (int i = panel_count_needed; i < item_panel_list.Count; i++)
+            item_panel_list[i].SetActive(false);
+    }
+
+    void FillPanel(GameObject panel, Item item)
+    {
+        Text name_label = panel.transform.FindChild("Name").GetComponent<Text>();
+        Text lvl_label = panel.transform.FindChild("LVL").GetComponent<Text>();
+        Text weight_label = panel.transform.FindChild("Weight").GetComponent<Text>();
+        Text price_label = panel.transform.FindChild("Price").GetComponent<Text>();
+        Button button = panel.GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(delegate { DisplayItem(item); });
 
         name_label.text = item.NameObject;
         lvl_label.text = item.Level.ToString();
         weight_label.text = item.Weight.ToString();
         price_label.text = item.Price.ToString();
-        template.name = item.NameObject;
-        ColorItem(template, item);
-
-        item_displayed.Add(template);
+        panel.name = item.NameObject;
+        ColorItem(panel, item);
     }
 
     public void DisplayItem(Item item)
@@ -113,13 +131,5 @@ public class InventoryGUI : MonoBehaviour {
             image.color = new Color(0.09f, 0.4f, 0.77f);
         else
             image.color = new Color(1f, 0.4f, 0f);
-    }
-
-    public void ResetDisplay()
-    {
-        foreach (GameObject item in item_displayed)
-            Destroy(item);
-
-        item_displayed.Clear();
     }
 }

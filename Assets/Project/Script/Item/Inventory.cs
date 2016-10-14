@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour {
     public void Awake()
     {
         ItemManager im = new ItemManager();
-        inventory = im.GenerateInventory(ItemManager.flags_generation.All_Type, 100);
+        inventory = im.GenerateInventory(ItemManager.flags_generation.All_Type, 1000);
     }
 
 }
