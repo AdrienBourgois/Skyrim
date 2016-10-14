@@ -93,7 +93,9 @@ public abstract class ACharacter : MonoBehaviour
 
     public virtual void ControllerLook(float xAxis, float yAxis)
     {
+        float lookY = yAxis - transform.localEulerAngles.y;
         transform.localEulerAngles = new Vector3(0f, yAxis, 0f);
+        animator.SetFloat("LookY", lookY);
     }
     
     public virtual void ControllerMove(float xAxis, float zAxis)
