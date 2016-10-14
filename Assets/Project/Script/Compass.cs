@@ -55,8 +55,6 @@ public class Compass : MonoBehaviour {
         if (Vector3.Angle(player.right, needle.forward) > 90f)
             rotAngle *= -1;
 
-
-
         arrowRotator.transform.eulerAngles = new Vector3(0f, -(rotAngle / 2f), 0f);
     }
 

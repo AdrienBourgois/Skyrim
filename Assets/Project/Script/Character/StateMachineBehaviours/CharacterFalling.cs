@@ -7,9 +7,7 @@ public class CharacterFalling : ACharacterAnimatorBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        finalTriggerValues = new CapsuleColliderCopy(new Vector3(0.0f, 0.9f, 0.0f), 0.3f, 1.9f);
-        finalColliderValues = new CapsuleColliderCopy(new Vector3(-0.05f, 1.28f, 0.05f), 0.35f, 1.3f);
-
+        finalColliderValues = new CapsuleColliderCopy(new Vector3(0.1f, 1f, 0.1f), 0.35f, 1.3f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -17,14 +15,20 @@ public class CharacterFalling : ACharacterAnimatorBehaviour
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         UpdateMove(stateInfo);
+
+        RaycastHit hit;
+        float distanceToLand = 1f;
+        if (Physics.Raycast(CharacterController.transform.position, -CharacterController.transform.up, out hit, distanceToLand, ~(1 << LayerMask.NameToLayer("Player"))))
+        {
+            animator.SetBool("IsGrounded", true);
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        finalColliderValues = new CapsuleColliderCopy(new Vector3(0.0f, 0.9f, 0.0f), 0.3f, 1.7f);
-        base.OnStateExit(animator, stateInfo, layerIndex);
-    }
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+
+    //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {

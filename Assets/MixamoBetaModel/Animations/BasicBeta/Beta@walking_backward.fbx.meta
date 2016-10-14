@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: a43e9ee99d69cc9429e947d88c8719f4
-timeCreated: 1476194221
+guid: a7b526985115d634eb41a6fc7b5c97c1
+timeCreated: 1476369159
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -139,7 +139,7 @@ ModelImporter:
     400128: Spine
     400130: Spine1
     400132: Spine2
-    7400000: Standing_Turn_Left_90
+    7400000: walking_backward
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -166,10 +166,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Standing_Turn_Left_90
+      name: walking_backward
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 56
+      lastFrame: 37
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -180,7 +180,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
