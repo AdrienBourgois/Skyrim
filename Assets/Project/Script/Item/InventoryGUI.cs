@@ -50,6 +50,13 @@ public class InventoryGUI : MonoBehaviour {
         });
     }
 
+    public void ResetInventory()
+    {
+        ResetDisplay();
+        inventory = gameObject.AddComponent<Inventory>();
+        DisplayInventory<Item>();
+    }
+
     public void DisplayInventory<T>() where T : Item
     {
         ResetDisplay();
