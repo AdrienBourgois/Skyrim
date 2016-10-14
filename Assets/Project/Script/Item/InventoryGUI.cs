@@ -59,11 +59,16 @@ public class InventoryGUI : MonoBehaviour {
 
     public void DisplayInventory<T>() where T : Item
     {
+        System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
+
         ResetDisplay();
         foreach (Item item in inventory.GetItems<T>())
         {
             AddItem(item);
         }
+
+        watch.Stop();
+        Debug.Log("Inventory displayed in " + watch.ElapsedMilliseconds + " ms");
     }
 
     void AddItem(Item item)
