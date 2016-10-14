@@ -133,7 +133,7 @@ public class Characteristics
         Mana = maxMana;
         SpellPower = spellPower;
         Precision = precision;
-     
+        AttackSpeed = attackSpeed;
     }
 
 
