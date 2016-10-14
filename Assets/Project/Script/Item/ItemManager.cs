@@ -50,6 +50,8 @@ public class ItemManager {
             for (int i = 0; i < objects_by_type; i++)
                 inventory.Add(CreateObject<Axe>());
 
+        inventory.Sort();
+
         watch.Stop();
         Debug.Log(inventory.Count + " objects generated in " + watch.ElapsedMilliseconds + " ms");
 
@@ -61,7 +63,7 @@ public class ItemManager {
         T item = new T();
         item.NameObject = _name;
         item.Description = _description;
-        item.Level = UnityEngine.Random.Range(1, 50);
+        item.Level = UnityEngine.Random.Range(1, 51);
         item.Rarity = _rarity;
         item.Instantiate();
         return item;
@@ -70,7 +72,7 @@ public class ItemManager {
     public T CreateObject<T>() where T : Item, IInstanciableItem, new()
     {
         T item = new T();
-        item.Level = UnityEngine.Random.Range(1, 50);
+        item.Level = UnityEngine.Random.Range(1, 51);
         item.Rarity = GetRandRarity();
         item.SetRandName();
         item.Instantiate();

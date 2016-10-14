@@ -1,4 +1,6 @@
-﻿public class Item
+﻿using System;
+
+public class Item : IComparable<Item>
 {
     public enum item_type
     {
@@ -75,6 +77,15 @@
             "\nWeight : " + weight +
             "\nRarity : " + rarity +
             "\nPrice : " + price;
+    }
+
+    public int CompareTo(Item item)
+    {
+        if (Level > item.Level)
+            return 1;
+        if (Level == item.Level)
+            return 0;
+        return - 1;
     }
 
 }
