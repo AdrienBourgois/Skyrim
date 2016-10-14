@@ -52,6 +52,19 @@ public abstract class ACharacterController : MonoBehaviour
     }
 
     protected abstract void Update();
+
+    /// <summary>
+    /// Function called to reset every trigger that may be activated in linked Animator.
+    /// </summary>
+    protected void ResetTriggers()
+    {
+        animator.ResetTrigger("TriggerJump");
+        animator.ResetTrigger("TriggerSpell");
+        animator.ResetTrigger("TriggerRightHand");
+        animator.ResetTrigger("TriggerLeftHand");
+        animator.ResetTrigger("TriggerWeapon");
+        animator.ResetTrigger("TriggerDeath");
+    }
     
     #region Controller
     public virtual void ControllerLook(Vector2 axis)
@@ -100,14 +113,17 @@ public abstract class ACharacterController : MonoBehaviour
         }
     }
 
-    public virtual void ControllerLeftHand()
+    public virtual void ControllerLeftHand(bool bIsPressed = true)
     {
-        throw new NotImplementedException();
+        if (animator.GetBool("IsUsingSwordAndShield"))
+            animator.SetBool("IsBlocking", bIsPressed);
+        else
+            animator.SetTrigger("TriggerLeftHand");
     }
 
     public virtual void ControllerRightHand()
     {
-        throw new NotImplementedException();
+        animator.SetTrigger("TriggerRightHand");
     }
 
     public virtual void ControllerTwoHands()
@@ -137,6 +153,11 @@ public abstract class ACharacterController : MonoBehaviour
     public virtual void ControllerCastSpell()
     {
         animator.SetTrigger("TriggerSpell");
+    }
+
+    public virtual void ControllerDrawSheathSword()
+    {
+        animator.SetTrigger("TriggerWeapon");
     }
     #endregion
 

@@ -5,6 +5,7 @@ public class PlayerController : ACharacterController
 {
     protected override void Update()
     {
+        ResetTriggers();
         UpdateInput();
     }
 
@@ -37,6 +38,19 @@ public class PlayerController : ACharacterController
 
         if (Input.GetButtonDown("CastSpell"))
             ControllerCastSpell();
+        #endregion
+
+        #region Hands actions
+        if (Input.GetButtonDown("RightHand"))
+            ControllerRightHand();
+
+        if (Input.GetButtonDown("LeftHand"))
+            ControllerLeftHand(true);
+        else if (Input.GetButtonUp("LeftHand"))
+            ControllerLeftHand(false);
+
+        if (Input.GetButtonDown("SwitchWeapon"))
+            ControllerDrawSheathSword();
         #endregion
 
         if (Input.GetButtonDown("Use"))
