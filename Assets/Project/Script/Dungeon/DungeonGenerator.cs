@@ -32,6 +32,7 @@ public class DungeonGenerator : MonoBehaviour {
                 string newTag = GetRandom(pendingConnection.Tags);
                 Module newModulePrefab = GetRandomWithTag(modules, newTag);
                 Module newModule = Instantiate(newModulePrefab);
+                print(newModule);
                 ModuleConnector[] newModuleConnection = newModule.GetExits();
                 ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnection);
                 MatchConnection(pendingConnection, connectionToMatch);
