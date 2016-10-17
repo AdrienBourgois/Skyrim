@@ -14,6 +14,8 @@ public class Sword : Weapon, IEquipableItem, IInstanciableItem
         WeaponType = weapon_type.Sword;
         float power_lvl = (float)Rarity;
 
+        SetRandAttributes();
+
         float base_damage_value = Mathf.Floor(Mathf.Exp(Level / (6 - power_lvl / 8)) * 10);
         float min = base_damage_value * (1 - (RangeOfGeneration / 100));
         float max = base_damage_value * (1 + (RangeOfGeneration / 100));

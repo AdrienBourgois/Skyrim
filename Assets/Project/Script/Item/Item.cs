@@ -68,6 +68,13 @@ public class Item : IComparable<Item>
         set { price = value; }
     }
 
+    private bool is_equipped;
+    public bool Equipped
+    {
+        get { return is_equipped; }
+        set { is_equipped = value; }
+    }
+
     protected float RangeOfGeneration = 10;
 
     public string GetItemGeneralInformations()

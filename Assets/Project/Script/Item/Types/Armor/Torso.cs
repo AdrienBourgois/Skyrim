@@ -14,6 +14,8 @@ public class Torso : Armor, IEquipableItem, IInstanciableItem
         ArmorType = armor_type.Torso;
         float power_lvl = (float)Rarity;
 
+        SetRandAttributes();
+
         float base_armor_value = Mathf.Floor(Mathf.Exp(Level / (6 - power_lvl / 8)) * 6);
         float min = base_armor_value * (1 - (RangeOfGeneration / 100));
         float max = base_armor_value * (1 + (RangeOfGeneration / 100));
