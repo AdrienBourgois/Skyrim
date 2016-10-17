@@ -65,7 +65,27 @@ public class Inventory : MonoBehaviour {
     public void Awake()
     {
         ItemManager im = new ItemManager();
-        inventory = im.GenerateInventory(ItemManager.flags_generation.All_Type, 1000);
+        inventory = im.GenerateInventory(ItemManager.flags_generation.All_Type, 20);
     }
 
+    public List<Item> GetItemsByTypeSorted<T>(string sort_type)
+    {
+        List<Item> items_list = new List<Item>();
+        foreach (Item item in inventory)
+        {
+            if (item is T)
+                items_list.Add(item);
+        }
+
+        if (sort_type == "LVL")
+            items_list.Sort(new ItemLVLComparer());
+        else if (sort_type == "Name")
+            items_list.Sort(new ItemNameComparer());
+        else if (sort_type == "Weight")
+            items_list.Sort(new ItemWeightComparer());
+        else if (sort_type == "Price")
+            items_list.Sort(new ItemPriceComparer());
+
+        return items_list;
+    }
 }

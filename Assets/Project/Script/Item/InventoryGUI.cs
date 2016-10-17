@@ -11,6 +11,8 @@ public class InventoryGUI : MonoBehaviour {
     GameObject item_panel_template = null;
     [SerializeField]
     Dropdown filter_list = null;
+    [SerializeField]
+    Dropdown sort_list = null;
     public List<GameObject> item_panel_list = new List<GameObject>();
 
     //Right Panel
@@ -44,10 +46,15 @@ public class InventoryGUI : MonoBehaviour {
         types_conversion.Add("<color=orange>Axe</color>", typeof(Axe));
         filter_list.ClearOptions();
         filter_list.AddOptions(new List<string>(types_conversion.Keys));
-        filter_list.onValueChanged.AddListener(delegate {
-            System.Type type = types_conversion[(filter_list.options[filter_list.value].text)];
-            typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(new[] { type }).Invoke(this, null);
-        });
+
+        filter_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
+        sort_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
+    }
+
+    void ApplyFilterAndSort()
+    {
+        System.Type type = types_conversion[(filter_list.options[filter_list.value].text)];
+        typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(new[] { type }).Invoke(this, null);
     }
 
     public void ResetInventory()
@@ -61,13 +68,17 @@ public class InventoryGUI : MonoBehaviour {
         System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
 
         int panel_id = 0;
-        List<Item> list_to_display = inventory.GetItems<T>();
+        List<Item> list_to_display = inventory.GetItemsByTypeSorted<T>(sort_list.options[sort_list.value].text);
         ManageItemPanels(list_to_display.Count);
         foreach (Item item in list_to_display)
         {
             FillPanel(item_panel_list[panel_id], item);
             panel_id++;
         }
+
+        Vector3 list_position = items_list.transform.position;
+        //list_position.y = 0;
+        items_list.transform.position = list_position;
 
         watch.Stop();
         Debug.Log("Inventory displayed in " + watch.ElapsedMilliseconds + " ms");

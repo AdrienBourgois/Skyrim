@@ -81,11 +81,7 @@ public class Item : IComparable<Item>
 
     public int CompareTo(Item item)
     {
-        if (Level > item.Level)
-            return 1;
-        if (Level == item.Level)
-            return 0;
-        return - 1;
+        return (NameObject.CompareTo(item.NameObject));
     }
 
 }
