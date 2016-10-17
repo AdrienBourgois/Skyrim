@@ -30,9 +30,9 @@ public class DungeonGenerator : MonoBehaviour {
             foreach (ModuleConnector pendingConnection in pendingConnections)
             {
                 string newTag = GetRandom(pendingConnection.Tags);
+                print("Module : " + modules.Length);
                 Module newModulePrefab = GetRandomWithTag(modules, newTag);
                 Module newModule = Instantiate(newModulePrefab);
-                print(newModule);
                 ModuleConnector[] newModuleConnection = newModule.GetExits();
                 ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnection);
                 MatchConnection(pendingConnection, connectionToMatch);
@@ -54,14 +54,39 @@ public class DungeonGenerator : MonoBehaviour {
         newModule.transform.position += correctiveTranslation;
     }
 
-    private static T GetRandom<T>(T[] array)
+    #region GetRandom
+
+    private static Module GetRandom(Module[] array)
     {
+        if (array.Length <= 0)
+            return null;
+
         return array[Random.Range(0, array.Length)];
     }
 
+    private static string GetRandom(string[] array)
+    {
+        if (array.Length <= 0)
+            return null;
+
+        return array[Random.Range(0, array.Length)];
+    }
+
+   
+
+    private static ModuleConnector GetRandom(ModuleConnector[] array)
+    {
+        if (array.Length <= 0)
+            return null;
+
+        return array[Random.Range(0, array.Length)];
+    }
+
+    #endregion
+
     private static Module GetRandomWithTag(IEnumerable<Module> modules, string tagToMatch)
     {
-        Module[] matchingModules = modules.Where(m => m.Tags.Contains(tagToMatch)).ToArray();
+        Module[] matchingModules = modules.Where(module => module.Tags.Contains(tagToMatch)).ToArray();
         return GetRandom(matchingModules);
     }
 
