@@ -65,16 +65,16 @@ public class Cam : MonoBehaviour {
 
     void FpsCamUpdate()
     {
-        
-        float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility * Time.deltaTime;
 
-        rotY += Input.GetAxis("Mouse Y") * sensibility * Time.deltaTime;
+        float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility;
+
+        rotY += Input.GetAxis("Mouse Y") * sensibility;
         rotY = Mathf.Clamp(rotY, lookDownMax, lookUpMax);
 
         player.ControllerLook(-rotY, rotX);
         transform.localEulerAngles = new Vector3(-rotY, rotX, 0f);
 
-        rotX = compass.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility / 2 * Time.deltaTime;
+        rotX = compass.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility / 2;
         GameObject.FindGameObjectWithTag("Compass").transform.localEulerAngles = new Vector3(0f, rotX, 0f);
     }
 

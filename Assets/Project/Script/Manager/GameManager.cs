@@ -22,11 +22,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject dataMgrPrefab;
     [SerializeField] GameObject guiMgrPrefab;
- 
+    [SerializeField] GameObject levelMgrPrefab;
+
     #endregion
 
     private DataManager dataMgr;
     private GUIManager guiMgr;
+    private LevelManager levelMgr;
 
     public enum GameState
     {
@@ -126,6 +128,9 @@ public class GameManager : MonoBehaviour
     {
         loadLevel = currGameState == GameState.Pause ? false : true;
         currGameState = GameState.InGame;
+
+        if (!LevelManager.Instance)
+            levelMgr = Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
     }
 
     void PauseInit()
