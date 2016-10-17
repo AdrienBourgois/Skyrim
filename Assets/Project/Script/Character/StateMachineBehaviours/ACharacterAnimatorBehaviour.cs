@@ -6,6 +6,18 @@ using System.Collections;
 /// </summary>
 public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
 {
+    #region Collider values
+    protected static readonly CapsuleColliderCopy colliderStanding   = new CapsuleColliderCopy(new Vector3(  0.0f,  0.9f,  0.0f),  0.3f, 1.9f);
+    protected static readonly CapsuleColliderCopy colliderToJump     = new CapsuleColliderCopy(new Vector3(-0.05f, 1.28f, 0.05f), 0.35f, 1.3f);
+    protected static readonly CapsuleColliderCopy colliderFalling    = new CapsuleColliderCopy(new Vector3(  0.1f,  1.0f,  0.1f), 0.35f, 1.3f);
+    protected static readonly CapsuleColliderCopy colliderCrouching  = new CapsuleColliderCopy(new Vector3( 0.08f,  0.7f, 0.14f), 0.38f, 1.5f);
+
+    protected static readonly CapsuleColliderCopy colliderSwordShield            = new CapsuleColliderCopy(new Vector3(0.05f, 0.85f, 0.06f),  0.3f, 1.75f);
+    protected static readonly CapsuleColliderCopy colliderSwordShieldBlock       = new CapsuleColliderCopy(new Vector3(0.04f,  0.8f, 0.07f),  0.3f,  1.6f);
+    protected static readonly CapsuleColliderCopy colliderSwordShieldCrouch      = new CapsuleColliderCopy(new Vector3(0.05f,  0.6f, 0.02f), 0.38f, 1.25f);
+    protected static readonly CapsuleColliderCopy colliderSwordShieldCrouchBlock = new CapsuleColliderCopy(new Vector3(0.14f,  0.6f, 0.16f), 0.42f, 1.25f);
+    #endregion
+
     protected class CapsuleColliderCopy
     {
         private Vector3 center;

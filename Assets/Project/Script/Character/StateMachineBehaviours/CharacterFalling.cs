@@ -7,7 +7,7 @@ public class CharacterFalling : ACharacterAnimatorBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        finalColliderValues = new CapsuleColliderCopy(new Vector3(0.1f, 1f, 0.1f), 0.35f, 1.3f);
+        finalColliderValues = colliderFalling;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
