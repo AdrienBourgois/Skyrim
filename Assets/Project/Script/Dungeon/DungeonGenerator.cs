@@ -22,24 +22,27 @@ public class DungeonGenerator : MonoBehaviour {
     {
         Module firstModule = (Module)Instantiate(startModule, transform.position, transform.rotation);
         List<ModuleConnector> pendingConnections = new List<ModuleConnector>(startModule.GetExits());
+ 
 
         for (int iteration = 0; iteration < iterations; iteration++)
         {
-            List<ModuleConnector> newConnection = new List<ModuleConnector>();
+            List<ModuleConnector> newConnections = new List<ModuleConnector>();
 
             foreach (ModuleConnector pendingConnection in pendingConnections)
             {
                 string newTag = GetRandom(pendingConnection.Tags);
-                print("Module : " + modules.Length);
                 Module newModulePrefab = GetRandomWithTag(modules, newTag);
                 Module newModule = Instantiate(newModulePrefab);
                 ModuleConnector[] newModuleConnection = newModule.GetExits();
                 ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnection);
+               // print("ConnectionToMatch : " + connectionToMatch + " | " + connectionToMatch.transform.parent.name);
                 MatchConnection(pendingConnection, connectionToMatch);
-                newConnection.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
+                newConnections.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
+                print("Module " + newModulePrefab.name + " position: " + newModulePrefab.transform.position);
+
             }
 
-            pendingConnections = newConnection;
+            pendingConnections = newConnections;
         }
     }
 
