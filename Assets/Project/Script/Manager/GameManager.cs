@@ -49,14 +49,10 @@ public class GameManager : MonoBehaviour
     {
         if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
             Destroy(gameObject);
-    }
 
-	void Start ()
-    {
-        if (!DataManager.Instance)
-            dataMgr = Instantiate(dataMgrPrefab).GetComponent<DataManager>();
-        if (!GUIManager.Instance)
-            guiMgr = Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
+        instance = this;
+        dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
+        guiMgr = GUIManager.Instance ? GUIManager.Instance : Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
 
         UpdateGameState();
 
@@ -129,8 +125,8 @@ public class GameManager : MonoBehaviour
         loadLevel = currGameState == GameState.Pause ? false : true;
         currGameState = GameState.InGame;
 
-        if (!LevelManager.Instance)
-            levelMgr = Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+
+        levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
     }
 
     void PauseInit()

@@ -73,7 +73,7 @@ public abstract class ACharacter : MonoBehaviour
     {
         get { return characterStats; }
     }
-    
+
     /*
     private Inventory inventory;
     public Inventory UnitInventory
@@ -81,7 +81,7 @@ public abstract class ACharacter : MonoBehaviour
         get { return inventory; }
     }*/
     #endregion
- 
+
     private Rigidbody rb = null;
     protected Animator animator = null;
 
@@ -93,19 +93,12 @@ public abstract class ACharacter : MonoBehaviour
         protected set { bIsGrounded = value; }
     }
 
-  
-
     protected virtual void Start()
     {
-
         characterStats = new CharacterStats();
-        characterStats.Init(baseAttack, baseDefense,
-                            baseWeight, baseHealth,
-                            baseMana, baseSpellPower,
-                            basePrecision, baseAttackSpeed);
-
+        characterStats.Init();
         characterStats.SetCharacteristics(this);
-
+        CharacterStats.UnitCharacteristics.RegenHealthAndMana();
 
         animator = GetComponent<Animator>();
 

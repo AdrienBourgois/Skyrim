@@ -4,13 +4,18 @@ using System.Collections;
 public class Player : ACharacter
 {
 
+    int attributePointToAssign = 10;
+    public int AttributePointToAssign
+    {
+        get { return attributePointToAssign; }
+        set {
+                if (value >= 0)
+                    attributePointToAssign = value;
+            }
+    }
+
     protected override void Update()
     {
-        //if (GameManager.Instance.CurrGameState == GameManager.GameState.Pause)
-        //    return;
-
-        CharacterStats.UnitCharacteristics.Health -= 1f;
-
         UpdateInput();
     }
 

@@ -14,5 +14,7 @@ public class SkillButton : MonoBehaviour
     public void OnClick()
     {
         panel.SetActive(true);
+        panel.transform.FindChild("AttribPanel").GetComponent<AttribPanel>().Init();
+        panel.transform.FindChild("CharacPanel").GetComponent<CharacPanel>().Init();
     }
 }

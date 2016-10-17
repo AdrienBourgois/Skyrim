@@ -25,14 +25,22 @@ public class LevelManager : MonoBehaviour {
                 GameObject gao = GameObject.FindGameObjectWithTag("LevelManager");
                 if (gao)
                     instance = gao.GetComponent<LevelManager>();
+
+                //Debug.Log(gao);
             }
 
             return instance;
         }
     }
 
-    void Start () {
-	
+    void Awake()
+    {
+        instance = this;
+    }
+
+    void Start ()
+    {
+        player = FindObjectOfType<Player>();
 	}
 	
 	void Update () {

@@ -37,6 +37,7 @@ public class GUIManager : MonoBehaviour
     void Awake()
     {
         gameMgr = GameManager.Instance;
+        instance = this;
     }
 
     public void UpdateGui()

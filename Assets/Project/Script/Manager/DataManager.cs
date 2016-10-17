@@ -24,12 +24,17 @@ public class DataManager : MonoBehaviour {
 
 
     public string getActiveSceneName
-    { get { return SceneManager.GetActiveScene().name; } }
+    {
+        get { return SceneManager.GetActiveScene().name; }
+    }
     public int getActiveSceneID
-    { get { return SceneManager.GetActiveScene().buildIndex; } }
+    {
+        get { return SceneManager.GetActiveScene().buildIndex; }
+    }
 
     void Awake()
     {
+        instance = this;
         gameMgr = GameManager.Instance;
     }
 

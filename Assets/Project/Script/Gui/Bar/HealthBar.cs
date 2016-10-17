@@ -5,8 +5,10 @@ public class HealthBar : Bar {
 
     void Update ()
     {
+        
         Characteristics player_stats = player.CharacterStats.UnitCharacteristics;
-        float life_ratio = (float)player_stats.Health / (float)player_stats.MaxHealth;
+        float life_ratio = player_stats.Health / player_stats.MaxHealth;
+
 
         if (player_stats.Health >= 0)
         {
