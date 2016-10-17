@@ -10,6 +10,11 @@ public class Inventory : MonoBehaviour {
         inventory.Add(item);
     }
 
+    public void RemoveItem(Item item)
+    {
+        inventory.Remove(item);
+    }
+
     public void DisplayInventory()
     {
         foreach (Item item in inventory)
@@ -62,12 +67,6 @@ public class Inventory : MonoBehaviour {
         return items_list;
     }
 
-    public void Awake()
-    {
-        ItemManager im = new ItemManager();
-        inventory = im.GenerateInventory(ItemManager.flags_generation.All_Type, 20);
-    }
-
     public List<Item> GetItemsByTypeSorted<T>(string sort_type)
     {
         List<Item> items_list = new List<Item>();
@@ -87,5 +86,11 @@ public class Inventory : MonoBehaviour {
             items_list.Sort(new ItemPriceComparer());
 
         return items_list;
+    }
+
+    public void Awake()
+    {
+        ItemManager im = new ItemManager();
+        inventory = im.GenerateInventory(ItemManager.flags_generation.All_Type, 50);
     }
 }
