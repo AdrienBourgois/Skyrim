@@ -1,35 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class AttribPanel : MonoBehaviour {
 
     Player player;
     Attributes attrib;
-    public int bonusToAssign;
-
-    public void Init()
+    int bonusToAssign;
+    public int BonusToAssign
     {
-        if (!player)
-        {
-            player = LevelManager.Instance.Player;
-            attrib = player.CharacterStats.UnitAttributes;
-            bonusToAssign = player.AttributePointToAssign;
-        }
-
-        UpdateStats();
+        get { return bonusToAssign; }
+        set { bonusToAssign = value; }
     }
 
-    void UpdateStats()
+    void Start()
     {
-        if (!player)
-            return;
+        player = LevelManager.Instance.Player;
+        attrib = player.CharacterStats.UnitAttributes;
+        bonusToAssign = player.AttributePointToAssign;
+    }
+
+    public void UpdateStats()
+    {
+        attrib.UpdateAttribDict();
 
         foreach (Transform child in transform)
-        {
             if (child.GetComponent<AttribGui>())
                 child.FindChild("Curr").GetComponent<Text>().text = attrib.GetAttribFromString(child.name).ToString();
-        }
-
+        
         UpdateBonusPoint();
     }
 
@@ -38,10 +36,8 @@ public class AttribPanel : MonoBehaviour {
         transform.FindChild("PointLeft").GetChild(0).GetComponent<Text>().text = bonusToAssign.ToString();
 
         foreach (Transform child in transform)
-        {
             if (child.GetComponent<AttribGui>())
                 child.GetComponent<AttribGui>().Actualize();
-        }
     }
 
     public void Validate()
@@ -78,5 +74,17 @@ public class AttribPanel : MonoBehaviour {
 
         bonusToAssign += bonusToRecover;
         UpdateBonusPoint();
+    }
+
+    public Dictionary<string, int> GetBonusAttrib()
+    {
+        Dictionary<string, int> bonusAttribDic = new Dictionary<string, int>();
+
+
+        foreach (Transform child in transform)
+            if (child.GetComponent<AttribGui>())
+                bonusAttribDic[child.name] = int.Parse(child.FindChild("Bonus").GetComponent<Text>().text);
+
+        return bonusAttribDic;
     }
 }

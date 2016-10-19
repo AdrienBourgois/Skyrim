@@ -1,28 +1,22 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterStats
 {
     #region Stats
-    private Characteristics characteristics;
+    private Characteristics characteristics = new Characteristics();
     public Characteristics UnitCharacteristics
     {
         get { return characteristics; }
     }
 
-    private Attributes attributes;
+    private Attributes attributes = new Attributes();
     public Attributes UnitAttributes
     {
         get { return attributes; }
     }
 
     #endregion  
-    
-    public void Init()
-    {
-        characteristics = new Characteristics();
-        attributes = new Attributes();
-    }
 
     public void SetCharacteristics(ACharacter player)
     {
@@ -30,11 +24,13 @@ public class CharacterStats
         UnitCharacteristics.Defense = Mathf.Exp(((float)player.UnitLevel / 8f)) * UnitAttributes.Constitution;
         UnitCharacteristics.Weight = (UnitAttributes.Strength + player.UnitLevel) * 10;
         UnitCharacteristics.MaxHealth = Mathf.Exp((float)player.UnitLevel / 6f) * UnitAttributes.Constitution + 100;
-        UnitCharacteristics.HealthRegeneration = Mathf.Round(UnitCharacteristics.Health / (50 - (UnitAttributes.Constitution * 0.25f)));
+        UnitCharacteristics.HealthRegeneration = Mathf.Round(UnitCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f)));
         UnitCharacteristics.MaxMana = UnitAttributes.Intelligence * 10;
         UnitCharacteristics.SpellPower = 1 + ((float)player.UnitLevel * UnitAttributes.Intelligence) / 100;
         UnitCharacteristics.Precision = Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3);
         UnitCharacteristics.AttackSpeed = 1 + ((float)player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 100;
+
+        characteristics.UpdateCharacDict();
     }
 
     public void DisplayChara()
@@ -49,6 +45,23 @@ public class CharacterStats
         Debug.Log(UnitCharacteristics.Precision);
         Debug.Log(UnitCharacteristics.AttackSpeed.ToString("F2"));
 
+    }
+
+    public Dictionary<string, float> SimulateCharac(int level,float playerWeigth, int strength, int constit, int intel, int dexterity)
+    {
+        Dictionary<string, float> SimulDict = new Dictionary<string, float>();
+
+        SimulDict["Attack"] = Mathf.Exp(((float)level / 8f)) * strength;
+        SimulDict["Defense"] = Mathf.Exp(((float)level / 8f)) * constit;
+        SimulDict["Weight"] = (strength + level) * 10;
+        SimulDict["MaxHealth"] = Mathf.Exp((float)level / 6f) * constit + 100;
+        SimulDict["HealthRegeneration"] = Mathf.Round(SimulDict["MaxHealth"] / (50 - (constit * 0.25f)));
+        SimulDict["MaxMana"] = intel * 10;
+        SimulDict["SpellPower"] = 1 + ((float)level * intel) / 100;
+        SimulDict["Precision"] = Mathf.Min(100, 100 - (50 - (SimulDict["Weight"] - playerWeigth) / 10) + dexterity / 3);
+        SimulDict["AttackSpeed"] = 1 + ((float)level + (dexterity / 2)) / 100;
+
+        return SimulDict;
     }
 
 }

@@ -68,7 +68,7 @@ public abstract class ACharacter : MonoBehaviour
     #endregion
 
     #region Stats & Inventory
-    private CharacterStats characterStats;
+    private CharacterStats characterStats = new CharacterStats();
     public CharacterStats CharacterStats
     {
         get { return characterStats; }
@@ -95,18 +95,14 @@ public abstract class ACharacter : MonoBehaviour
 
     protected virtual void Start()
     {
-        characterStats = new CharacterStats();
-        characterStats.Init();
         characterStats.SetCharacteristics(this);
-        CharacterStats.UnitCharacteristics.RegenHealthAndMana();
+        CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
 
         animator = GetComponent<Animator>();
 
         rb = GetComponent<Rigidbody>();
         if (rb == null)
             Debug.LogError("ACharacter.Start() - could not get component of type Rigidbody");
-
-        
     }
 
     protected abstract void Update();

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Characteristics
 {
+    Dictionary<string, float> characDict = new Dictionary<string, float>();
 
     #region Attack
 
@@ -84,10 +85,36 @@ public class Characteristics
 
     #endregion
 
-    public void RegenHealthAndMana()
+    public void UpdateCharacDict()
+    {
+        characDict["Attack"] = attack;
+        characDict["Defense"] = defense;
+        characDict["PlayerWeigth"] = playerWeight;
+        characDict["Weight"] = weight;
+        characDict["MaxHealth"] = maxHealth;
+        characDict["Health"] = health;
+        characDict["HealthRegeneration"] = healthRegeneration;
+        characDict["MaxMana"] = maxMana;
+        characDict["Mana"] = mana;
+        characDict["SpellPower"] = spellPower;
+        characDict["Precision"] = precision;
+        characDict["AttackSpeed"] = attackSpeed;
+    }
+
+    public void RegenFullHealthAndMana()
     {
         Health = MaxHealth;
         Mana = MaxMana;
     }
 
+    public float GetCharacFromString(string characName)
+    {
+        if (!characDict.ContainsKey(characName))
+        {
+            Debug.Log("Characteristics.GetCharacFromString() try to call CharacDict with invalid key : " + characName);
+            return -1;
+        }
+
+        return characDict[characName];
+    }
 }
