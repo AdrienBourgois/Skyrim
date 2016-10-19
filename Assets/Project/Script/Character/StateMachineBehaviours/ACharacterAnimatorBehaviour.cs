@@ -15,6 +15,7 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
     protected static readonly CapsuleColliderCopy colliderSwordShield             = new CapsuleColliderCopy(new Vector3( 0.05f, 0.85f, 0.06f),  0.3f, 1.75f);
     protected static readonly CapsuleColliderCopy colliderSwordShieldBlock        = new CapsuleColliderCopy(new Vector3( 0.04f,  0.8f, 0.07f),  0.3f,  1.6f);
     protected static readonly CapsuleColliderCopy colliderSwordShieldAttack       = new CapsuleColliderCopy(new Vector3(-0.11f,  0.7f, 0.55f), 0.38f,  1.5f);
+    protected static readonly CapsuleColliderCopy colliderSwordShieldToJump       = new CapsuleColliderCopy(new Vector3( 0.14f, 1.43f, 0.16f),  0.4f,  1.3f);
     protected static readonly CapsuleColliderCopy colliderSwordShieldCrouch       = new CapsuleColliderCopy(new Vector3( 0.05f,  0.6f, 0.02f), 0.38f, 1.25f);
     protected static readonly CapsuleColliderCopy colliderSwordShieldCrouchBlock  = new CapsuleColliderCopy(new Vector3( 0.14f,  0.6f, 0.16f), 0.42f, 1.25f);
     protected static readonly CapsuleColliderCopy colliderSwordShieldCrouchAttack = new CapsuleColliderCopy(new Vector3(-0.24f,  0.6f, 0.68f), 0.38f, 1.25f);
