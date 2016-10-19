@@ -23,7 +23,7 @@ public class InventoryGUI : MonoBehaviour {
         VendorInventory,
         EnemyInventory,
     }
-    Inventory_Gui_Type current_gui_action = Inventory_Gui_Type.PlayerInventory;
+    public Inventory_Gui_Type current_gui_action = Inventory_Gui_Type.PlayerInventory;
 
     //Left Panel
     [SerializeField]
