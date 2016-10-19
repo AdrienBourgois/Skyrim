@@ -15,6 +15,7 @@ public class DungeonGenerator : MonoBehaviour {
     [SerializeField]
     private int iterations = 5;
 
+    
 
     #endregion
 
@@ -38,7 +39,8 @@ public class DungeonGenerator : MonoBehaviour {
                // print("ConnectionToMatch : " + connectionToMatch + " | " + connectionToMatch.transform.parent.name);
                 MatchConnection(pendingConnection, connectionToMatch);
                 newConnections.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
-                print("Module " + newModulePrefab.name + " position: " + newModulePrefab.transform.position);
+                print("Module " + newModulePrefab.name + " position: " + connectionToMatch.transform.parent.position);
+               
 
             }
 
@@ -55,6 +57,7 @@ public class DungeonGenerator : MonoBehaviour {
         newModule.RotateAround(newConnection.transform.position, Vector3.up, correctiveRotation);
         Vector3 correctiveTranslation = oldConnection.transform.position - newConnection.transform.position;
         newModule.transform.position += correctiveTranslation;
+        //print("Module positon : " + newModule.transform.position + " | Module name : " + newModule.name );
     }
 
     #region GetRandom
