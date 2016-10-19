@@ -5,6 +5,18 @@ using System;
 
 public class InventoryGUI : MonoBehaviour {
 
+    private static InventoryGUI instance = null;
+    public static InventoryGUI Instance
+    {
+        get
+        {
+            if (instance != null)
+                return instance;
+            instance = GameObject.Find("InventoryGUI").GetComponent<InventoryGUI>();
+            return instance;
+        }
+    }
+
     public enum Inventory_Gui_Type
     {
         PlayerInventory,
@@ -33,6 +45,8 @@ public class InventoryGUI : MonoBehaviour {
     Button equip_button = null;
     [SerializeField]
     Button action_button = null;
+    [SerializeField]
+    Button quit_button = null;
 
     Item selected_item = null;
 
@@ -43,13 +57,26 @@ public class InventoryGUI : MonoBehaviour {
         set { inventory = value; }
     }
 
+    private bool is_show;
+    public bool Show
+    {
+        get { return is_show; }
+        set
+        {
+            if (is_show != value)
+            {
+                is_show = value;
+                gameObject.SetActive(is_show);
+                if (is_show)
+                    ApplyFilterAndSort();
+            }
+        }
+    }
+
     Dictionary<string, Type> types_conversion = new Dictionary<string, Type>();
 
-    void Start ()
+    void Awake()
     {
-        inventory = gameObject.AddComponent<Inventory>();
-        DisplayInventory<Item>();
-
         types_conversion.Add("<color=olive><b> -> All <- </b></color>", typeof(Item));
         types_conversion.Add("<color=teal><b>---- Armor ----</b></color>", typeof(Armor));
         types_conversion.Add("<color=teal>Boots</color>", typeof(Boots));
@@ -64,18 +91,18 @@ public class InventoryGUI : MonoBehaviour {
 
         filter_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
         sort_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
+        quit_button.onClick.AddListener(delegate { Show = false; });
+    }
+
+    void Start()
+    {
+        gameObject.SetActive(false);
     }
 
     void ApplyFilterAndSort()
     {
-        System.Type type = types_conversion[(filter_list.options[filter_list.value].text)];
+        Type type = types_conversion[(filter_list.options[filter_list.value].text)];
         typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(new[] { type }).Invoke(this, null);
-    }
-
-    public void ResetInventory()
-    {
-        inventory = gameObject.AddComponent<Inventory>();
-        DisplayInventory<Item>();
     }
 
     public void DisplayInventory<T>() where T : Item
@@ -116,6 +143,7 @@ public class InventoryGUI : MonoBehaviour {
     {
         Text name_label = panel.transform.FindChild("Name").GetComponent<Text>();
         Text lvl_label = panel.transform.FindChild("LVL").GetComponent<Text>();
+        Text value_label = panel.transform.FindChild("Value").GetComponent<Text>();
         Text weight_label = panel.transform.FindChild("Weight").GetComponent<Text>();
         Text price_label = panel.transform.FindChild("Price").GetComponent<Text>();
         Button button = panel.GetComponent<Button>();
@@ -124,6 +152,12 @@ public class InventoryGUI : MonoBehaviour {
 
         name_label.text = item.NameObject;
         lvl_label.text = item.Level.ToString();
+        if (item is Armor)
+            value_label.text = ((Armor)item).Defense.ToString();
+        else if (item is Weapon)
+            value_label.text = ((Weapon)item).Damage.ToString();
+        else
+            value_label.text = "-";
         weight_label.text = item.Weight.ToString();
         price_label.text = item.Price.ToString();
         panel.name = item.NameObject;

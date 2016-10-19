@@ -10,8 +10,8 @@ public class Weapon : Item, ITypeItem {
     public weapon_type WeaponType;
     public Characteristics characteristics = new Characteristics();
 
-    private float damage_value;
-    public float Damage
+    private int damage_value;
+    public int Damage
     {
         get { return damage_value; }
         set { damage_value = value; }

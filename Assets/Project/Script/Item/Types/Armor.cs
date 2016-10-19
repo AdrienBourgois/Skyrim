@@ -12,8 +12,8 @@ public enum armor_type
     public armor_type ArmorType;
     public Characteristics characteristics = new Characteristics();
 
-    private float defense_value;
-    public float Defense
+    private int defense_value;
+    public int Defense
     {
         get { return defense_value; }
         set { defense_value = value; }

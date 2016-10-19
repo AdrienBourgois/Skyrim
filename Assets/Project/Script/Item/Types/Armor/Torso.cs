@@ -19,7 +19,7 @@ public class Torso : Armor, IEquipableItem, IInstanciableItem
         float base_armor_value = Mathf.Floor(Mathf.Exp(Level / (6 - power_lvl / 8)) * 6);
         float min = base_armor_value * (1 - (RangeOfGeneration / 100));
         float max = base_armor_value * (1 + (RangeOfGeneration / 100));
-        Defense = UnityEngine.Random.Range(min, max);
+        Defense = (int)UnityEngine.Random.Range(min, max);
 
         Price = (int)(Mathf.Sqrt(Defense) * (10 + (power_lvl * 6)));
 
