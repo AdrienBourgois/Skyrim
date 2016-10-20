@@ -32,6 +32,9 @@ public class PlayerWeapons : MonoBehaviour
         if (rightHand == null)
             Debug.LogError("PlayerWeapons.Start() - couldn't get component of type WeaponAnchor in rightHandObject");
 
+        leftHand.SetWeapon(ItemManager.CreateObject<Shield>());
+        rightHand.SetWeapon(ItemManager.CreateObject<Sword>());
+
         leftHand.gameObject.SetActive(false);
         rightHand.gameObject.SetActive(false);
     }
