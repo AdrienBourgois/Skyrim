@@ -3,16 +3,26 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
 
-    List<Item> inventory = new List<Item>();
+    private List<Item> list;
+    public List<Item> List
+    {
+        get { return list; }
+        set { list = value; }
+    }
 
     public void AddItem<T>(T item) where T : Item
     {
-        inventory.Add(item);
+        list.Add(item);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        list.Remove(item);
     }
 
     public void DisplayInventory()
     {
-        foreach (Item item in inventory)
+        foreach (Item item in list)
         {
             if (item is ITypeItem)
             {
@@ -41,7 +51,7 @@ public class Inventory : MonoBehaviour {
     public List<Item> GetItems<T>() where T : Item
     {
         List<Item> items_list = new List<Item>();
-        foreach (Item item in inventory)
+        foreach (Item item in list)
         {
             if (item is T)
                 items_list.Add(item);
@@ -53,7 +63,7 @@ public class Inventory : MonoBehaviour {
     public List<Item> GetItemsByType<T>() where T : Item
     {
         List<Item> items_list = new List<Item>();
-        foreach (Item item in inventory)
+        foreach (Item item in list)
         {
             if (item is T)
                 items_list.Add(item);
@@ -62,15 +72,10 @@ public class Inventory : MonoBehaviour {
         return items_list;
     }
 
-    public void Awake()
-    {
-        inventory = ItemManager.GenerateInventory(ItemManager.flags_generation.All_Type, 20);
-    }
-
     public List<Item> GetItemsByTypeSorted<T>(string sort_type)
     {
         List<Item> items_list = new List<Item>();
-        foreach (Item item in inventory)
+        foreach (Item item in list)
         {
             if (item is T)
                 items_list.Add(item);

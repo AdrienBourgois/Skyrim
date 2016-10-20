@@ -27,10 +27,6 @@ public class ItemManager
         int flags_count = GetFlagsCount(flags);
         int objects_by_type = (int)Math.Ceiling((float)(size / flags_count));
 
-        Debug.Log("Generate " + size + " objects of type(s) : " + flags.ToString() + " (" + objects_by_type + " per type)");
-
-        System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
-
         if ((flags & flags_generation.Helmet) != 0)
             for (int i = 0; i < objects_by_type; i++)
                 inventory.Add(CreateObject<Helmet>());
@@ -51,9 +47,6 @@ public class ItemManager
                 inventory.Add(CreateObject<Axe>());
 
         inventory.Sort();
-
-        watch.Stop();
-        Debug.Log(inventory.Count + " objects generated in " + watch.ElapsedMilliseconds + " ms");
 
         return inventory;
     }
