@@ -3,6 +3,14 @@ using System.Collections;
 
 public class PlayerController : ACharacterController
 {
+    #region Delegates and events
+    public delegate void DelegateAction();
+    public event DelegateAction OnLeftDown;
+    public event DelegateAction OnLeftUp;
+    public event DelegateAction OnRightDown;
+    public event DelegateAction OnSwitchWeapon;
+    #endregion
+
     protected override void Update()
     {
         ResetTriggers();
@@ -55,5 +63,29 @@ public class PlayerController : ACharacterController
 
         if (Input.GetButtonDown("Use"))
             ControllerUse();
+    }
+
+    public override void ControllerRightHand()
+    {
+        base.ControllerRightHand();
+
+        if (OnRightDown != null)
+            OnRightDown.Invoke();
+    }
+
+    public override void ControllerLeftHand(bool bIsPressed = true)
+    {
+        base.ControllerLeftHand(bIsPressed);
+
+        if (bIsPressed == true)
+        {
+            if (OnLeftDown != null)
+                OnLeftDown.Invoke();
+        }
+        else
+        {
+            if (OnLeftUp != null)
+                OnLeftUp.Invoke();
+        }
     }
 }

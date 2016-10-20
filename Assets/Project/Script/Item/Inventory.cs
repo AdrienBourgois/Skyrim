@@ -64,8 +64,7 @@ public class Inventory : MonoBehaviour {
 
     public void Awake()
     {
-        ItemManager im = new ItemManager();
-        inventory = im.GenerateInventory(ItemManager.flags_generation.All_Type, 20);
+        inventory = ItemManager.GenerateInventory(ItemManager.flags_generation.All_Type, 20);
     }
 
     public List<Item> GetItemsByTypeSorted<T>(string sort_type)
