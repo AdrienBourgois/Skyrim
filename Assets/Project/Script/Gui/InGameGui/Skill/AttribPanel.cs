@@ -13,7 +13,7 @@ public class AttribPanel : MonoBehaviour {
         set { bonusToAssign = value; }
     }
 
-    void Start()
+    void Awake()
     {
         player = LevelManager.Instance.Player;
         attrib = player.CharacterStats.UnitAttributes;

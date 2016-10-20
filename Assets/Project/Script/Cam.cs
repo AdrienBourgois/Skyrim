@@ -38,8 +38,8 @@ public class Cam : MonoBehaviour {
 	
 	void Update ()
     {
-        //if (GameManager.Instance.CurrGameState == GameManager.GameState.Pause)
-        //    return;
+        if (GameManager.Instance.CurrGameState == GameManager.GameState.Pause)
+            return;
 
         if (Input.GetKeyDown(KeyCode.C))
             ChangeCameraMode();

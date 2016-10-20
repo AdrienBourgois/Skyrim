@@ -4,16 +4,19 @@ using System.Collections;
 public class IGGui : MonoBehaviour
 {
     GameObject pausePanel;
+    GameObject igPanel;
+    InventoryGUI invGui;
 
-    void Start()
+    void Awake()
     {
+        invGui = InventoryGUI.Instance;
         pausePanel = transform.FindChild("PausePanel").gameObject;
         pausePanel.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (GameManager.Instance.CurrGameState != GameManager.GameState.Pause)
                 Pause();
@@ -33,7 +36,7 @@ public class IGGui : MonoBehaviour
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame);
         pausePanel.SetActive(false);
         pausePanel.transform.FindChild("SkillPanel").gameObject.SetActive(false);
-        pausePanel.transform.FindChild("InventoryPanel").gameObject.SetActive(false);
         pausePanel.transform.FindChild("MagicPanel").gameObject.SetActive(false);
+        invGui.Show = false;
     }
 }

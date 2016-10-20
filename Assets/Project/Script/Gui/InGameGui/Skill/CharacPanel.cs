@@ -7,7 +7,7 @@ public class CharacPanel : MonoBehaviour
     Player player;
     Characteristics charac;
 
-    void Start()
+    void Awake()
     {
         player = LevelManager.Instance.Player;
         charac = player.CharacterStats.UnitCharacteristics;

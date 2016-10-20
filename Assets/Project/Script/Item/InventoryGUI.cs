@@ -12,10 +12,13 @@ public class InventoryGUI : MonoBehaviour {
         {
             if (instance != null)
                 return instance;
+
             instance = GameObject.Find("InventoryGUI").GetComponent<InventoryGUI>();
             return instance;
         }
     }
+
+    IGGui igGui;
 
     public enum Inventory_Gui_Type
     {
@@ -77,6 +80,8 @@ public class InventoryGUI : MonoBehaviour {
 
     void Awake()
     {
+        igGui = FindObjectOfType<IGGui>();
+
         types_conversion.Add("<color=olive><b> -> All <- </b></color>", typeof(Item));
         types_conversion.Add("<color=teal><b>---- Armor ----</b></color>", typeof(Armor));
         types_conversion.Add("<color=teal>Boots</color>", typeof(Boots));
@@ -91,7 +96,9 @@ public class InventoryGUI : MonoBehaviour {
 
         filter_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
         sort_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
-        quit_button.onClick.AddListener(delegate { Show = false; });
+        quit_button.onClick.AddListener(delegate {  Show = false;
+                                                    igGui.gameObject.SetActive(true);
+                                                    igGui.transform.FindChild("PausePanel").gameObject.SetActive(true); });
     }
 
     void Start()
@@ -123,6 +130,7 @@ public class InventoryGUI : MonoBehaviour {
 
     void ManageItemPanels(int panel_count_needed)
     {
+        Vector3 default_scale = new Vector3(1f, 1f, 1f);
         int panel_count_to_generate = panel_count_needed - item_panel_list.Count;
         if (item_panel_list.Count < panel_count_needed)
         {
@@ -131,6 +139,7 @@ public class InventoryGUI : MonoBehaviour {
                 GameObject item_panel = Instantiate(item_panel_template);
                 item_panel_list.Add(item_panel);
                 item_panel.transform.SetParent(items_list.transform);
+                item_panel.transform.localScale = default_scale;
             }
         }
         for (int i = 0; i < panel_count_needed; i++)

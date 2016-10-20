@@ -13,7 +13,7 @@ public class HealthBar : Bar {
         if (player_stats.Health >= 0)
         {
             bar.localScale = new Vector3(life_ratio, bar.localScale.y, bar.localScale.z);
-            point.text = player_stats.Health.ToString();
+            point.text = player_stats.Health.ToString("0");
         }
    }
 }

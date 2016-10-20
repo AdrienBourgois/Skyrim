@@ -3,16 +3,24 @@ using System.Collections;
 
 public class InventoryButton : MonoBehaviour
 {
-    GameObject panel;
+    InventoryGUI invGui;
+    GameObject pausePanel;
 
     void Start()
     {
-        panel = transform.parent.FindChild("InventoryPanel").gameObject;
-        panel.SetActive(false);
+        invGui = InventoryGUI.Instance;
+        pausePanel = GameObject.Find("PausePanel");
     }
 	
     public void OnClick()
     {
-        panel.SetActive(true);
+        pausePanel.SetActive(false);
+        Inventory inventory = gameObject.AddComponent<Inventory>();
+
+        ItemManager itemMgr = new ItemManager();
+        inventory.List = itemMgr.GenerateInventory(ItemManager.flags_generation.All_Type, 50);
+
+        invGui.Inventory = inventory;
+        invGui.Show = true;
     }
 }
