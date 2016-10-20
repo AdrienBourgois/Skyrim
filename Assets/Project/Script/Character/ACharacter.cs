@@ -24,7 +24,7 @@ public abstract class ACharacter : MonoBehaviour
         protected set { unitName = value; }
     }
     [SerializeField]
-    private int unitLevel;
+    private int unitLevel = 1;
     public int UnitLevel
     { get { return unitLevel; } protected set { unitLevel = value; } }
 

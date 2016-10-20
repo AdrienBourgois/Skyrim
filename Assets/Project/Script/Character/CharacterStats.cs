@@ -24,7 +24,7 @@ public class CharacterStats
         UnitCharacteristics.Defense = Mathf.Exp(((float)player.UnitLevel / 8f)) * UnitAttributes.Constitution;
         UnitCharacteristics.Weight = (UnitAttributes.Strength + player.UnitLevel) * 10;
         UnitCharacteristics.MaxHealth = Mathf.Exp((float)player.UnitLevel / 6f) * UnitAttributes.Constitution + 100;
-        UnitCharacteristics.HealthRegeneration = Mathf.Round(UnitCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f)));
+        UnitCharacteristics.HealthRegeneration = UnitCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f));
         UnitCharacteristics.MaxMana = UnitAttributes.Intelligence * 10;
         UnitCharacteristics.SpellPower = 1 + ((float)player.UnitLevel * UnitAttributes.Intelligence) / 100;
         UnitCharacteristics.Precision = Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3);
@@ -47,21 +47,23 @@ public class CharacterStats
 
     }
 
-    public Dictionary<string, float> SimulateCharac(int level,float playerWeigth, int strength, int constit, int intel, int dexterity)
+    public Characteristics SimulateCharac(int level,float playerWeigth, int strength, int constit, int intel, int dexterity)
     {
-        Dictionary<string, float> SimulDict = new Dictionary<string, float>();
+        Characteristics characs = new Characteristics();
 
-        SimulDict["Attack"] = Mathf.Exp(((float)level / 8f)) * strength;
-        SimulDict["Defense"] = Mathf.Exp(((float)level / 8f)) * constit;
-        SimulDict["Weight"] = (strength + level) * 10;
-        SimulDict["MaxHealth"] = Mathf.Exp((float)level / 6f) * constit + 100;
-        SimulDict["HealthRegeneration"] = Mathf.Round(SimulDict["MaxHealth"] / (50 - (constit * 0.25f)));
-        SimulDict["MaxMana"] = intel * 10;
-        SimulDict["SpellPower"] = 1 + ((float)level * intel) / 100;
-        SimulDict["Precision"] = Mathf.Min(100, 100 - (50 - (SimulDict["Weight"] - playerWeigth) / 10) + dexterity / 3);
-        SimulDict["AttackSpeed"] = 1 + ((float)level + (dexterity / 2)) / 100;
+        characs.Attack = Mathf.Exp(((float)level / 8f)) * strength;
+        characs.Defense = Mathf.Exp(((float)level / 8f)) * constit;
+        characs.Weight = (strength + level) * 10;
+        characs.MaxHealth = Mathf.Exp((float)level / 6f) * constit + 100;
+        characs.HealthRegeneration = characs.MaxHealth / (50 - (constit * 0.25f));
+        characs.MaxMana = intel * 10;
+        characs.SpellPower = 1 + ((float)level * intel) / 100;
+        characs.Precision = Mathf.Min(100, 100 - (50 - (characs.Weight - playerWeigth) / 10) + dexterity / 3);
+        characs.AttackSpeed = 1 + ((float)level + (dexterity / 2)) / 100;
 
-        return SimulDict;
+        characs.UpdateCharacDict();
+
+        return characs;
     }
 
 }
