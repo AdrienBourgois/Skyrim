@@ -5,6 +5,11 @@ using System;
 public class WeaponAnchor : MonoBehaviour
 {
     private Item weapon = null;
+    private bool bIsBlocking = false;
+    public bool IsBlocking
+    {
+        get { return bIsBlocking; }
+    }
 
     private delegate void DelegateItemType();
     private event DelegateItemType OnUpdate = () => { };
@@ -47,17 +52,18 @@ public class WeaponAnchor : MonoBehaviour
 
     private void TriggerShield()
     {
-        throw new NotImplementedException();
+        bIsBlocking = true;
+        //TODO: set Shield block
     }
 
     private void TriggerSword()
     {
-        throw new NotImplementedException();
+        //TODO: make Sword attack
     }
 
     private void TriggerAxe()
     {
-        throw new NotImplementedException();
+        //TODO: make Axe attack
     }
     #endregion
 
@@ -71,7 +77,8 @@ public class WeaponAnchor : MonoBehaviour
 
     private void TriggerBackShield()
     {
-        throw new NotImplementedException();
+        bIsBlocking = false;
+        //TODO: set Shield back
     }
 
     private void TriggerBackSword()
