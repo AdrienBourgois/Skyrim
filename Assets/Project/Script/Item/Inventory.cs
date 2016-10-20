@@ -3,20 +3,30 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
 
-    List<Item> inventory = new List<Item>();
+    private List<Item> list;
+    public List<Item> List
+    {
+        get { return list; }
+        set { list = value; }
+    }
 
     public void AddItem<T>(T item) where T : Item
     {
-        inventory.Add(item);
+        list.Add(item);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        list.Remove(item);
     }
 
     public void DisplayInventory()
     {
-        foreach (Item item in inventory)
+        foreach (Item item in list)
         {
-            if(item is IInstanciableItem)
+            if (item is ITypeItem)
             {
-                IInstanciableItem instanciable_item = (IInstanciableItem)item;
+                ITypeItem instanciable_item = (ITypeItem)item;
                 Debug.Log(instanciable_item.GetItemInformations());
             }
             else
@@ -28,9 +38,9 @@ public class Inventory : MonoBehaviour {
     {
         foreach (T item in list)
         {
-            if (item is IInstanciableItem)
+            if (item is ITypeItem)
             {
-                IInstanciableItem instanciable_item = (IInstanciableItem)item;
+                ITypeItem instanciable_item = (ITypeItem)item;
                 Debug.Log(instanciable_item.GetItemInformations());
             }
             else
@@ -38,18 +48,10 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    public void Start()
-    {
-        ItemManager im = gameObject.AddComponent<ItemManager>();
-        AddItem(im.CreateObject<Weapon>(Item.item_type.weapon, Item.item_rarity.epic, "Sword", "Simple Sword"));
-        //DisplayInventory();
-        DisplayList(GetItems<Weapon>());
-    }
-
     public List<Item> GetItems<T>() where T : Item
     {
         List<Item> items_list = new List<Item>();
-        foreach (Item item in inventory)
+        foreach (Item item in list)
         {
             if (item is T)
                 items_list.Add(item);
@@ -58,14 +60,35 @@ public class Inventory : MonoBehaviour {
         return items_list;
     }
 
-    public List<T> GetItemsByType<T>() where T : Item
+    public List<Item> GetItemsByType<T>() where T : Item
     {
-        List<T> items_list = new List<T>();
-        foreach (Item item in inventory)
+        List<Item> items_list = new List<Item>();
+        foreach (Item item in list)
         {
             if (item is T)
-                items_list.Add((T)item);
+                items_list.Add(item);
         }
+
+        return items_list;
+    }
+
+    public List<Item> GetItemsByTypeSorted<T>(string sort_type)
+    {
+        List<Item> items_list = new List<Item>();
+        foreach (Item item in list)
+        {
+            if (item is T)
+                items_list.Add(item);
+        }
+
+        if (sort_type == "LVL")
+            items_list.Sort(new ItemLVLComparer());
+        else if (sort_type == "Name")
+            items_list.Sort(new ItemNameComparer());
+        else if (sort_type == "Weight")
+            items_list.Sort(new ItemWeightComparer());
+        else if (sort_type == "Price")
+            items_list.Sort(new ItemPriceComparer());
 
         return items_list;
     }
