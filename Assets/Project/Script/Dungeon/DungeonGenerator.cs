@@ -21,26 +21,31 @@ public class DungeonGenerator : MonoBehaviour {
 
     void Start()
     {
+     
+
         Module firstModule = (Module)Instantiate(startModule, transform.position, transform.rotation);
         List<ModuleConnector> pendingConnections = new List<ModuleConnector>(startModule.GetExits());
- 
+        print(firstModule);
 
         for (int iteration = 0; iteration < iterations; iteration++)
         {
             List<ModuleConnector> newConnections = new List<ModuleConnector>();
 
+
+
             foreach (ModuleConnector pendingConnection in pendingConnections)
             {
                 string newTag = GetRandom(pendingConnection.Tags);
+                //print(newTag);
+                
                 Module newModulePrefab = GetRandomWithTag(modules, newTag);
                 Module newModule = Instantiate(newModulePrefab);
                 ModuleConnector[] newModuleConnection = newModule.GetExits();
                 ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnection);
-               // print("ConnectionToMatch : " + connectionToMatch + " | " + connectionToMatch.transform.parent.name);
                 MatchConnection(pendingConnection, connectionToMatch);
                 newConnections.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
-                print("Module " + newModulePrefab.name + " position: " + connectionToMatch.transform.parent.position);
-               
+                //print("Module " + newModulePrefab.name + " position: " + connectionToMatch.transform.parent.position);
+                
 
             }
 
@@ -57,7 +62,6 @@ public class DungeonGenerator : MonoBehaviour {
         newModule.RotateAround(newConnection.transform.position, Vector3.up, correctiveRotation);
         Vector3 correctiveTranslation = oldConnection.transform.position - newConnection.transform.position;
         newModule.transform.position += correctiveTranslation;
-        //print("Module positon : " + newModule.transform.position + " | Module name : " + newModule.name );
     }
 
     #region GetRandom
