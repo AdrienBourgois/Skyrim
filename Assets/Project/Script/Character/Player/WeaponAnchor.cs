@@ -11,14 +11,21 @@ public class WeaponAnchor : MonoBehaviour
         get { return bIsBlocking; }
     }
 
+    private Animation animat = null;
+
+    #region Delegates and events
     private delegate void DelegateItemType();
     private event DelegateItemType OnUpdate = () => { };
     private event DelegateItemType OnTrigger = () => { };
     private event DelegateItemType OnTriggerBack = () => { };
+    #endregion
 
-    void Start()
+    private void Start()
     {
-        weapon = ItemManager.CreateObject<Sword>();
+        // TODO: Change this and instanciate when setting weapon
+        animat = GetComponent<Animation>();
+        if (animat == null)
+            Debug.LogError("WeaponAnchor.Start() - could not get componentn of type Animation");
     }
 
     public void SetWeapon(Item _weapon)
@@ -53,11 +60,13 @@ public class WeaponAnchor : MonoBehaviour
     private void TriggerShield()
     {
         bIsBlocking = true;
+        animat.Play("ShieldToBlock");
         //TODO: set Shield block
     }
 
     private void TriggerSword()
     {
+        animat.Play("SwordAttack");
         //TODO: make Sword attack
     }
 
@@ -78,6 +87,7 @@ public class WeaponAnchor : MonoBehaviour
     private void TriggerBackShield()
     {
         bIsBlocking = false;
+        animat.Play("ShieldFromBlock");
         //TODO: set Shield back
     }
 

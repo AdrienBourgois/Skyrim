@@ -8,7 +8,6 @@ public class PlayerController : ACharacterController
     public event DelegateAction OnLeftDown;
     public event DelegateAction OnLeftUp;
     public event DelegateAction OnRightDown;
-    public event DelegateAction OnSwitchWeapon;
     #endregion
 
     protected override void Update()
