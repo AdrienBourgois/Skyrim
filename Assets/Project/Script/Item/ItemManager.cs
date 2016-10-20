@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 
-public class ItemManager {
-
+public class ItemManager
+{
     [Flags] public enum flags_generation
     {
         None = 0,
@@ -21,7 +21,7 @@ public class ItemManager {
         All_Type = Armor|Weapon,
     }
 
-    public List<Item> GenerateInventory(flags_generation flags = flags_generation.All_Type, int size = 60)
+    static public List<Item> GenerateInventory(flags_generation flags = flags_generation.All_Type, int size = 60)
     {
         List<Item> inventory = new List<Item>();
         int flags_count = GetFlagsCount(flags);
@@ -50,8 +50,8 @@ public class ItemManager {
 
         return inventory;
     }
-    
-    public T CreateObject<T>(Item.item_rarity _rarity, string _name, string _description) where T : Item, IInstanciableItem, new()
+
+    static public T CreateObject<T>(Item.item_rarity _rarity, string _name, string _description) where T : Item, IInstanciableItem, new()
     {
         T item = new T();
         item.NameObject = _name;
@@ -62,7 +62,7 @@ public class ItemManager {
         return item;
     }
 
-    public T CreateObject<T>() where T : Item, IInstanciableItem, new()
+    static public T CreateObject<T>() where T : Item, IInstanciableItem, new()
     {
         T item = new T();
         item.Level = UnityEngine.Random.Range(1, 51);
@@ -72,7 +72,7 @@ public class ItemManager {
         return item;
     }
 
-    Item.item_rarity GetRandRarity()
+    static Item.item_rarity GetRandRarity()
     {
         int score = UnityEngine.Random.Range(0, 100);
         if (score >= 98)
@@ -86,7 +86,7 @@ public class ItemManager {
         return Item.item_rarity.common;
     }
 
-    int GetFlagsCount(flags_generation flags)
+    static int GetFlagsCount(flags_generation flags)
     {
         int flags_count = 0;
 

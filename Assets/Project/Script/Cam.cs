@@ -1,42 +1,58 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cam : MonoBehaviour {
-
+public class Cam : MonoBehaviour
+{
     [SerializeField] float lookDownMax = -70f;
     [SerializeField] float lookUpMax = 70f;
     [SerializeField] float sensibility = 1f;
+    [SerializeField]
+    private float ratioOverHips = 0.75f;
 
-    Player player;
+    PlayerController playerController;
+    Transform playerAnchor;
     Transform compass;
 
     private float rotY = 0f;
-
-	void Start ()
+    
+    void Awake()
     {
-        player = FindObjectOfType<Player>();
+        PlayerWeapons playerWeapons = transform.FindChild("FPSWeapons").GetComponent<PlayerWeapons>();
+        if (playerWeapons == null)
+            Debug.LogError("Cam.Awake() - could not find child of name \"FPSWeapons\" of type PlayerWeapons");
+
+        playerController = FindObjectOfType<PlayerController>();
+        if (playerController == null)
+            Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
+        playerWeapons.SetController(playerController);
+
+        Player player = playerController.GetComponent<Player>();
         if (player == null)
-            Debug.LogError("Cam.Start() - could not find object of type Player");
+            Debug.LogError("Cam.Awake() - could not find object of type Player");
+        playerWeapons.SetPlayer(player);
+
+        playerAnchor = playerController.transform.FindChild("Hips");
+        if (playerAnchor == null)
+            Debug.LogError("Cam.Awake() - could not find child of name Hips in playerController");
 
         compass = GameObject.FindGameObjectWithTag("Compass").transform;
 
-        transform.rotation = new Quaternion(player.transform.forward.x,
-                                            player.transform.forward.y,
-                                            player.transform.forward.z,
+        transform.rotation = new Quaternion(playerController.transform.forward.x,
+                                            playerController.transform.forward.y,
+                                            playerController.transform.forward.z,
                                             0f);
 	}
 	
-
-	void Update ()
+	void Update()
     {
-        transform.position = player.transform.position + (Vector3.up * 1.5f);
+        transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
 
         float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility * Time.deltaTime;
 
         rotY += Input.GetAxis("Mouse Y") * sensibility * Time.deltaTime;
         rotY = Mathf.Clamp(rotY, lookDownMax, lookUpMax);
 
-        player.ControllerLook(-rotY, rotX);
+        playerController.ControllerLook(-rotY, rotX);
         transform.localEulerAngles = new Vector3(-rotY, rotX, 0f);
 
         rotX = compass.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility /2 * Time.deltaTime;

@@ -7,8 +7,7 @@ public class CharacterToJump : ACharacterAnimatorBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        finalTriggerValues = new CapsuleColliderCopy(new Vector3(-0.05f, 1.28f, 0.05f), 0.35f, 1.4f);
-        finalColliderValues = new CapsuleColliderCopy(new Vector3(-0.05f, 1.28f, 0.05f), 0.35f, 1.3f);
+        finalColliderValues = colliderToJump;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

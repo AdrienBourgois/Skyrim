@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterToStanding : ACharacterAnimatorBehaviour
+public class CharacterSwordShieldToCrouch : ACharacterAnimatorBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        finalTriggerValues = new CapsuleColliderCopy(new Vector3(0.0f, 0.9f, 0.0f), 0.3f, 1.9f);
-        finalColliderValues = new CapsuleColliderCopy(new Vector3(0.0f, 0.9f, 0.0f), 0.3f, 1.7f);
+        finalColliderValues = colliderSwordShieldCrouch;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

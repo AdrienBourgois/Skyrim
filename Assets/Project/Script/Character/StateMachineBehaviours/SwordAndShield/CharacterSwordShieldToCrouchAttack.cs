@@ -1,22 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterFromJump : ACharacterAnimatorBehaviour
+public class CharacterSwordShieldToCrouchAttack : ACharacterAnimatorBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        finalTriggerValues = new CapsuleColliderCopy(new Vector3(0.0f, 0.9f, 0.0f), 0.3f, 1.9f);
-        SetTriggerCapsule();
-        finalColliderValues = new CapsuleColliderCopy(new Vector3(0.0f, 0.9f, 0.0f), 0.3f, 1.7f);
+        finalColliderValues = colliderSwordShieldCrouchAttack;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        UpdateColliderCapsule(stateInfo);
-        UpdateMove(stateInfo);
+        float customTimer = stateInfo.normalizedTime;
+
+        if (customTimer > 0.5f)
+            customTimer = 1f - customTimer;
+        UpdateColliderCapsule(customTimer * 2f);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

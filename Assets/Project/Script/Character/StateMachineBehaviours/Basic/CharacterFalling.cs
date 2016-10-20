@@ -1,25 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterToCrouch : ACharacterAnimatorBehaviour
+public class CharacterFalling : ACharacterAnimatorBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        finalTriggerValues = new CapsuleColliderCopy(new Vector3(0.08f, 0.7f, 0.14f), 0.38f, 1.6f);
-        finalColliderValues = new CapsuleColliderCopy(new Vector3(0.08f, 0.7f, 0.14f), 0.38f, 1.5f);
+        finalColliderValues = colliderFalling;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-        //Debug.Log("UPDATE ANIMATOR");
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        base.OnStateUpdate(animator, stateInfo, layerIndex);
+        UpdateMove(stateInfo);
+
+        RaycastHit hit;
+        float distanceToLand = 1f;
+        if (Physics.Raycast(CharacterController.transform.position, -CharacterController.transform.up, out hit, distanceToLand, ~(1 << LayerMask.NameToLayer("Player"))))
+        {
+            animator.SetBool("IsGrounded", true);
+        }
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+
     //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
