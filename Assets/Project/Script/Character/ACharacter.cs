@@ -72,7 +72,7 @@ public abstract class ACharacter : MonoBehaviour
         get { return characterStats; }
     }
 
-    private Inventory inventory;
+    private Inventory inventory = new Inventory();
     public Inventory UnitInventory
     {
         get { return inventory; }

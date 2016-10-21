@@ -28,12 +28,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject dataMgrPrefab;
     [SerializeField] GameObject guiMgrPrefab;
     [SerializeField] GameObject levelMgrPrefab;
+    [SerializeField] GameObject itemMgrPrefab;
 
     #endregion
 
     private DataManager dataMgr;
     private GUIManager guiMgr;
     private LevelManager levelMgr;
+    private ItemManager itemMgr;
 
     public enum GameState
     {
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
         guiMgr = GUIManager.Instance ? GUIManager.Instance : Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
+        itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
 
         UpdateGameState();
 

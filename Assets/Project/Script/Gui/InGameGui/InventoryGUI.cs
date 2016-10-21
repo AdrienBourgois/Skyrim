@@ -14,7 +14,7 @@ public class InventoryGUI : MonoBehaviour
             if (instance != null)
                 return instance;
 
-            instance = GameObject.Find("InventoryGUI").GetComponent<InventoryGUI>();
+            instance = GameObject.FindObjectOfType<InventoryGUI>();
             return instance;
         }
     }
@@ -79,8 +79,6 @@ public class InventoryGUI : MonoBehaviour
 
     void Awake()
     {
-        LevelManager.Instance.Player.gameObject.AddComponent<Inventory>();
-
         types_conversion.Add("<color=olive><b> -> All <- </b></color>", typeof(Item));
         types_conversion.Add("<color=teal><b>---- Armor ----</b></color>", typeof(Armor));
         types_conversion.Add("<color=teal>Boots</color>", typeof(Boots));
@@ -240,7 +238,7 @@ public class InventoryGUI : MonoBehaviour
             {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
-                Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory;
                 player_inventory.AddItem(selected_item);
                 DisplayItem(null);
             });

@@ -10,8 +10,12 @@ public class PlayerController : ACharacterController
     public event DelegateAction OnRightDown;
     #endregion
 
+    Transform camTransform;
+
     protected void Start()
     {
+        camTransform = FindObjectOfType<Cam>().transform;
+
         PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
         if (playerWeapons == null)
             Debug.LogError("PlayerController.Start() - could not find child of name \"" + GameManager.c_weaponChildName + "\" of type PlayerWeapons");
@@ -21,7 +25,8 @@ public class PlayerController : ACharacterController
     protected override void Update()
     {
         ResetTriggers();
-        UpdateInput();
+        if (GameManager.Instance.CurrGameState != GameManager.GameState.Pause)
+            UpdateInput();
     }
 
     private void UpdateInput()
@@ -93,6 +98,22 @@ public class PlayerController : ACharacterController
         {
             if (OnLeftUp != null)
                 OnLeftUp.Invoke();
+        }
+    }
+
+    public override void ControllerUse()
+    {
+        RaycastHit hit;
+        // TODO: global(?) variable for max distance
+        float useMaxDistance = 3f;
+        if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
+        {
+            IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
+
+            if (usableCollider != null)
+            {
+                usableCollider.OnUse(character);
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ public class InventoryButton : MonoBehaviour
     public void OnClick()
     {
         pausePanel.SetActive(false);
-        Inventory inventory = player.GetComponent<Inventory>();
+        Inventory inventory = player.UnitInventory;
         invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.PlayerInventory;
         invGui.Inventory = inventory;
         invGui.Show = true;

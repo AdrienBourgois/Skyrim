@@ -35,6 +35,9 @@ public class Cam : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.CurrGameState == GameManager.GameState.Pause)
+            return;
+
         transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
 
         FpsCamUpdate();
