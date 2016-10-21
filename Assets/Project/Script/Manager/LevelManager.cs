@@ -3,6 +3,8 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
+    
+
     private LevelManager instance;
     public LevelManager Instance
     {

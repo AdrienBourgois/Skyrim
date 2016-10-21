@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour {
+
+    public event Action onStateChanged;
+
+    private GameState _state;
 
     private GameManager instance;
     public GameManager Instance
@@ -20,10 +25,17 @@ public class GameManager : MonoBehaviour {
         Intro = 0,
         MainMenu,
         InGame,
+        EnterDungeon,
         Pause,
         Death,
         StateNb
     }
+
+    public bool isEnterDungeon
+    {
+        get { return _state == GameState.EnterDungeon; }
+    }
+
 
 	void Start ()
     {

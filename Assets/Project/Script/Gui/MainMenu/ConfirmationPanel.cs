@@ -85,11 +85,11 @@ public class ConfirmationPanel : MonoBehaviour
 
     private void ExitGame()
     {
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#else
+    #else
         Application.Quit();
-#endif
+    #endif
     }
 
     private void SetNoButton(MenuButton.MenuButtonId id)

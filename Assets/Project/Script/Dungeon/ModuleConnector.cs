@@ -1,12 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
 public class ModuleConnector : MonoBehaviour {
 
     public string[] Tags;
     public bool IsDefault;
 
     private bool isConnected;
+
+    void Awake()
+    {
+
+        // transform.parent is the Module, this ModuleConnector is connected to
+        GameObject mGO = transform.parent.gameObject;
+        Module m = mGO.GetComponent<Module>();
+        if (m != null)
+            m.AddConnector(this);
+    }
+
 
     public bool IsConnected
     {

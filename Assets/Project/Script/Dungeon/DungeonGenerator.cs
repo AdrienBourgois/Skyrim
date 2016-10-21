@@ -19,23 +19,19 @@ public class DungeonGenerator : MonoBehaviour {
 
     #endregion
 
-   // private List<ModuleConnector> newConnections = null;
+    private GameObject dungeonPath = null;
 
     void Start()
     {
+        dungeonPath = GameObject.Find("DungeonMgr");
         GenerateDungeon();
        
     }
 
-    void Update()
-    {
-
-    }
-
-
     private void GenerateDungeon()
     {
         Module firstModule = (Module)Instantiate(startModule, transform.position, transform.rotation);
+        firstModule.transform.SetParent(dungeonPath.transform);
         List<ModuleConnector> pendingConnections = new List<ModuleConnector>(startModule.GetExits());
 
         for (int iteration = 0; iteration < iterations; iteration++)
@@ -44,34 +40,44 @@ public class DungeonGenerator : MonoBehaviour {
 
             foreach (ModuleConnector pendingConnection in pendingConnections)
             {
-                string newTag = GetRandom(pendingConnection.Tags);
-                Module newModulePrefab = GetRandomWithTag(modules, newTag);
-                ModuleCreation(newModulePrefab, pendingConnection, newConnections);
+                if (pendingConnection.Tags.Length > 0)
+                {
+                    string newTag = GetRandom(pendingConnection.Tags);
+                    Module newModulePrefab = GetRandomWithTag(modules, newTag);
+                    ModuleCreation(newModulePrefab, pendingConnection, newConnections);
+                }
             }
             pendingConnections = newConnections;
         }
 
+        CheckEmptyConnection(pendingConnections, firstModule);
+    }
+
+    private void ModuleCreation(Module module, ModuleConnector pendingConnection, List<ModuleConnector> newConnections)
+    {
+        
+            Module newModule = Instantiate(module);
+            ModuleConnector[] newModuleConnection = newModule.GetExits();
+            ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnection);
+            MatchConnection(pendingConnection, connectionToMatch);
+            newConnections.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
+            connectionToMatch.IsConnected = true;
+            newModule.transform.SetParent(dungeonPath.transform);
+        
+    }
+
+
+    private void CheckEmptyConnection(List<ModuleConnector> pendingConnections, Module fillingModule)
+    {
         foreach (ModuleConnector connection in pendingConnections)
         {
             if (connection.IsConnected == false)
             {
                 List<ModuleConnector> newConnections = new List<ModuleConnector>();
-                ModuleCreation(firstModule, connection, newConnections);
+                ModuleCreation(fillingModule, connection, newConnections);
             }
         }
     }
-
-    private void ModuleCreation(Module module, ModuleConnector pendingConnection, List<ModuleConnector> newConnections)
-    {
-        Module newModule = Instantiate(module);
-        ModuleConnector[] newModuleConnection = newModule.GetExits();
-        ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnection);
-        MatchConnection(pendingConnection, connectionToMatch);
-        newConnections.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
-        connectionToMatch.IsConnected = true;
-
-    }
-
 
     private void MatchConnection(ModuleConnector oldConnection, ModuleConnector newConnection)
     {
