@@ -5,7 +5,7 @@ public class Torso : Armor, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        throw new NotImplementedException();
+        LevelManager.Instance.Player.Torso = this;
     }
 
     public void Instantiate()

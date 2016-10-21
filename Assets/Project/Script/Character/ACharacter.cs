@@ -74,17 +74,15 @@ public abstract class ACharacter : MonoBehaviour
         get { return characterStats; }
     }
 
-    /*
     private Inventory inventory;
     public Inventory UnitInventory
     {
         get { return inventory; }
-    }*/
+    }
     #endregion
 
     private Rigidbody rb = null;
     protected Animator animator = null;
-
 
     private bool bIsGrounded = true;
     public bool IsGrounded

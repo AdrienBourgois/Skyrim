@@ -5,7 +5,7 @@ public class Sword : Weapon, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        throw new NotImplementedException();
+        LevelManager.Instance.Player.RightHand = this;
     }
 
     public void Instantiate()

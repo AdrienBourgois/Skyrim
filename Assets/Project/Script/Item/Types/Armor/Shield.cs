@@ -5,7 +5,7 @@ public class Shield : Armor, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        throw new NotImplementedException();
+        LevelManager.Instance.Player.LeftHand = this;
     }
 
     public void Instantiate()
