@@ -2,8 +2,25 @@
 using System;
 using System.Collections.Generic;
 
-public class ItemManager
+public class ItemManager : MonoBehaviour
 {
+    static private ItemManager instance;
+    static public ItemManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<ItemManager>();
+                if (instance == null)
+                    Debug.LogWarning("ItemManager.Instance - failed to find object of type ItemManager");
+            }
+            return instance;
+        }
+    }
+
+    private Dictionary<string, WeaponInstance> mapCachePrefab = new Dictionary<string, WeaponInstance>();
+
     [Flags] public enum flags_generation
     {
         None = 0,
@@ -12,16 +29,16 @@ public class ItemManager
         Torso = 2,
         Shield = 4,
         Boots = 8,
-        Armor = Helmet|Torso|Shield|Boots,
+        Armor = Helmet | Torso | Shield | Boots,
 
         Sword = 16,
         Axe = 32,
-        Weapon = Sword|Axe,
+        Weapon = Sword | Axe,
 
-        All_Type = Armor|Weapon,
+        All_Type = Armor | Weapon,
     }
 
-    static public List<Item> GenerateInventory(flags_generation flags = flags_generation.All_Type, int size = 60)
+    public List<Item> GenerateInventory(flags_generation flags = flags_generation.All_Type, int size = 60)
     {
         List<Item> inventory = new List<Item>();
         int flags_count = GetFlagsCount(flags);
@@ -51,7 +68,25 @@ public class ItemManager
         return inventory;
     }
 
-    static public T CreateObject<T>(Item.item_rarity _rarity, string _name, string _description) where T : Item, IInstanciableItem, new()
+    public WeaponInstance InstantiateItem(Item item)
+    {
+        WeaponInstance itemPrefab;
+
+        if (!mapCachePrefab.TryGetValue(item.PrefabPath, out itemPrefab))
+        {
+            itemPrefab = Resources.Load<WeaponInstance>(item.PrefabPath);
+            if (itemPrefab == null)
+            {
+                Debug.LogError("ItemManager.InstantiateItem() couldn't load prefab with path \"" + item.PrefabPath + "\"");
+                return null;
+            }
+            mapCachePrefab.Add(item.PrefabPath, itemPrefab);
+        }
+
+        return Instantiate(itemPrefab);
+    }
+       
+    public T CreateObject<T>(Item.item_rarity _rarity, string _name, string _description) where T : Item, IInstanciableItem, new()
     {
         T item = new T();
         item.NameObject = _name;
@@ -62,7 +97,7 @@ public class ItemManager
         return item;
     }
 
-    static public T CreateObject<T>() where T : Item, IInstanciableItem, new()
+    public T CreateObject<T>() where T : Item, IInstanciableItem, new()
     {
         T item = new T();
         item.Level = UnityEngine.Random.Range(1, 51);
@@ -72,7 +107,7 @@ public class ItemManager
         return item;
     }
 
-    static Item.item_rarity GetRandRarity()
+    private Item.item_rarity GetRandRarity()
     {
         int score = UnityEngine.Random.Range(0, 100);
         if (score >= 98)
@@ -86,7 +121,7 @@ public class ItemManager
         return Item.item_rarity.common;
     }
 
-    static int GetFlagsCount(flags_generation flags)
+    private int GetFlagsCount(flags_generation flags)
     {
         int flags_count = 0;
 

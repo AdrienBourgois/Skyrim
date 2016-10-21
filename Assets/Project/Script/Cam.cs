@@ -17,19 +17,9 @@ public class Cam : MonoBehaviour
     
     void Awake()
     {
-        PlayerWeapons playerWeapons = transform.FindChild("FPSWeapons").GetComponent<PlayerWeapons>();
-        if (playerWeapons == null)
-            Debug.LogError("Cam.Awake() - could not find child of name \"FPSWeapons\" of type PlayerWeapons");
-
         playerController = FindObjectOfType<PlayerController>();
         if (playerController == null)
             Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
-        playerWeapons.SetController(playerController);
-
-        Player player = playerController.GetComponent<Player>();
-        if (player == null)
-            Debug.LogError("Cam.Awake() - could not find object of type Player");
-        playerWeapons.SetPlayer(player);
 
         playerAnchor = playerController.transform.FindChild("Hips");
         if (playerAnchor == null)

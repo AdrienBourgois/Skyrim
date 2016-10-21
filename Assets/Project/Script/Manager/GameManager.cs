@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+    [SerializeField]
+    static public readonly string c_weaponChildName = "Weapons";
 
-    private GameManager instance;
-    public GameManager Instance
+    static private GameManager instance;
+    static public GameManager Instance
     {
         get
         {
-            if (!instance)
-                instance = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+                if (instance == null)
+                    Debug.LogWarning("GameManager.Instance - failed to find object of type GameManager");
+            }
             return instance;
         }
     }

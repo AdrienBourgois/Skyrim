@@ -10,6 +10,14 @@ public class PlayerController : ACharacterController
     public event DelegateAction OnRightDown;
     #endregion
 
+    protected void Start()
+    {
+        PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
+        if (playerWeapons == null)
+            Debug.LogError("PlayerController.Start() - could not find child of name \"" + GameManager.c_weaponChildName + "\" of type PlayerWeapons");
+        playerWeapons.SetController(this);
+    }
+
     protected override void Update()
     {
         ResetTriggers();

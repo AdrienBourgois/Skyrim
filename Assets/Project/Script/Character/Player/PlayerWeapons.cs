@@ -9,10 +9,10 @@ public class PlayerWeapons : MonoBehaviour
 {
     #region Serialized Fields
     [SerializeField]
-    private GameObject leftHandObject = null;
+    private GameObject leftHandAnchor = null;
 
     [SerializeField]
-    private GameObject rightHandObject = null;
+    private GameObject rightHandAnchor = null;
     #endregion
 
     private WeaponAnchor leftHand = null;
@@ -21,33 +21,27 @@ public class PlayerWeapons : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (leftHandObject == null || rightHandObject == null)
-            Debug.LogError("PlayerWeapons.Start() - leftHandObject and rightHandObject should be initialized.");
+        if (leftHandAnchor == null || rightHandAnchor == null)
+            Debug.LogError("PlayerWeapons.Start() - leftHandAnchor and rightHandAnchor should be initialized.");
 
-        leftHand = leftHandObject.GetComponent<WeaponAnchor>();
+        leftHand = leftHandAnchor.AddComponent<WeaponAnchor>();
         if (leftHand == null)
-            Debug.LogError("PlayerWeapons.Start() - couldn't get component of type WeaponAnchor in leftHandObject");
+            Debug.LogError("PlayerWeapons.Start() - couldn't get component of type WeaponAnchor in leftHandAnchor");
 
-        rightHand = rightHandObject.GetComponent<WeaponAnchor>();
+        rightHand = rightHandAnchor.AddComponent<WeaponAnchor>();
         if (rightHand == null)
-            Debug.LogError("PlayerWeapons.Start() - couldn't get component of type WeaponAnchor in rightHandObject");
+            Debug.LogError("PlayerWeapons.Start() - couldn't get component of type WeaponAnchor in rightHandAnchor");
 
-        leftHand.SetWeapon(ItemManager.CreateObject<Shield>());
-        rightHand.SetWeapon(ItemManager.CreateObject<Sword>());
-
-        leftHand.gameObject.SetActive(false);
-        rightHand.gameObject.SetActive(false);
+        leftHand.SetWeapon(ItemManager.Instance.CreateObject<Shield>());
+        rightHand.SetWeapon(ItemManager.Instance.CreateObject<Sword>());
     }
 
     public void SetController(PlayerController playerController)
     {
-        playerController.OnLeftDown += LeftDown;
-        playerController.OnLeftUp += LeftUp;
-        playerController.OnRightDown += RightDown;
-
         Animator playerAnimator = playerController.GetComponent<Animator>();
         if (playerAnimator == null)
             Debug.LogError("PlayerWeapons.SetController() - couldn't get component of type Animator in PlayerController");
+
         CharacterSwitchWeapon[] smb = playerAnimator.GetBehaviours<CharacterSwitchWeapon>();
         if (smb == null)
             Debug.LogError("PlayerWeapons.SetController() - couldn't get behaviours of type CharacterSwitchWeapon in playerAnimator");
@@ -64,21 +58,6 @@ public class PlayerWeapons : MonoBehaviour
     {
         leftHand.SetWeapon(leftWeapon);
         rightHand.SetWeapon(rightWeapon);
-    }
-
-    private void LeftDown()
-    {
-        leftHand.Trigger();
-    }
-
-    private void LeftUp()
-    {
-        leftHand.TriggerBack();
-    }
-
-    private void RightDown()
-    {
-        rightHand.Trigger();
     }
 
     private void SwitchWeapon()
