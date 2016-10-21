@@ -178,11 +178,13 @@ public class InventoryGUI : MonoBehaviour
         if (item != null)
         {
             item_name.text = item.NameObject;
-            if(item is IInstanciableItem)
+            if (item is IInstanciableItem)
                 item_caracteristics.text = ((ITypeItem)item).GetItemInformations();
             else
                 item.GetItemGeneralInformations();
         }
+        else
+            ResetSelectedItemGui();
 
         if (selected_item is IEquipableItem)
         {
@@ -213,6 +215,7 @@ public class InventoryGUI : MonoBehaviour
             action_button.onClick.AddListener(delegate {
                 Inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
+                DisplayItem(null);
             });
         }
         else if (current_gui_action == Inventory_Gui_Type.EnemyInventory)
@@ -225,6 +228,7 @@ public class InventoryGUI : MonoBehaviour
                 ApplyFilterAndSort();
                 Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
                 player_inventory.AddItem(selected_item);
+                DisplayItem(null);
             });
         }
         else if (current_gui_action == Inventory_Gui_Type.VendorInventory)
@@ -236,11 +240,17 @@ public class InventoryGUI : MonoBehaviour
             {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
-                Debug.Log(selected_item);
                 Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
                 player_inventory.AddItem(selected_item);
+                DisplayItem(null);
             });
         }
+    }
+
+    void ResetSelectedItemGui()
+    {
+        item_name.text = "";
+        item_caracteristics.text = "";
     }
 
     void ColorItem(GameObject template, Item item)

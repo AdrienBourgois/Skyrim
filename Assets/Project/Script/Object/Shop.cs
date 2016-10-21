@@ -12,8 +12,6 @@ public class Shop : MonoBehaviour, IUsableObject
 
     public void OnUse(ACharacter character)
     {
-        Debug.Log("Used");
-
         Inventory inventory = GetComponent<Inventory>() 
                                 ? GetComponent<Inventory>() 
                                 : gameObject.AddComponent<Inventory>();

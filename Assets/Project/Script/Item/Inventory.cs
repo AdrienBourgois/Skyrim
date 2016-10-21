@@ -12,7 +12,6 @@ public class Inventory : MonoBehaviour {
 
     public void AddItem<T>(T item) where T : Item
     {
-        Debug.Log(item);
         list.Add(item);
     }
 

@@ -5,10 +5,14 @@ using System;
 [RequireComponent (typeof(Animation))]
 public class TreasureChest : MonoBehaviour, IUsableObject
 {
-
     private Animation anim = null;
     private bool hasBeenOpen = false;
 
+
+    void Awake()
+    {
+        anim = GetComponent<Animation>();
+    }
 
     public void OnUse(ACharacter character)
     {
@@ -17,17 +21,10 @@ public class TreasureChest : MonoBehaviour, IUsableObject
             anim.Play("open");
             hasBeenOpen = true;
         }
-
+        else
+        {
+            anim.Play("close");
+            hasBeenOpen = false;
+        }
     }
-
-
-    void Awake()
-    {
-        anim = GetComponent<Animation>();
-    }
-
-    void Start()
-    {
-	    
-    }	
 }
