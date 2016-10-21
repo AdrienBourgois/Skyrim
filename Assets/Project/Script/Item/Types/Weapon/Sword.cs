@@ -23,6 +23,8 @@ public class Sword : Weapon, IEquipableItem, IInstanciableItem
 
         Price = (int)(Mathf.Sqrt(Damage) * (10 + (power_lvl * 6)));
         Weight = 15 + (int)Rarity;
+
+        PrefabPath = "Weapons/Sword";
     }
 
     public void SetRandName()

@@ -3,15 +3,20 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    //Singleton
+    [SerializeField]
+    static public readonly string c_weaponChildName = "Weapons";
+
     static private GameManager instance;
     static public GameManager Instance
     {
         get
         {
-            if (!instance)
-                instance = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+                if (instance == null)
+                    Debug.LogWarning("GameManager.Instance - failed to find object of type GameManager");
+            }
             return instance;
         }
     }
@@ -47,6 +52,11 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        if (!Debug.isDebugBuild)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
         if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
             Destroy(gameObject);
 

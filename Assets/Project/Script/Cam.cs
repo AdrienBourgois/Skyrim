@@ -1,96 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cam : MonoBehaviour {
-
-    #region SerializeField
-    [Header("FpsCamera")]
+public class Cam : MonoBehaviour
+{
     [SerializeField] float lookDownMax = -70f;
     [SerializeField] float lookUpMax = 70f;
     [SerializeField] float sensibility = 1f;
+    [SerializeField]
+    private float ratioOverHips = 0.75f;
 
-    [Header("TpsCamera")]
-    [SerializeField] float TpslookDownMax = -50f;
-    [SerializeField] float TpslookUpMax = 50f;
-    [SerializeField] float distance = 10f;
-//    [SerializeField] float rotationDamp = 3f;
-    #endregion
-
-    Player player;
+    PlayerController playerController;
+    Transform playerAnchor;
     Transform compass;
 
     private float rotY = 0f;
-    private bool fpsCam = true;
-
-	void Start ()
+    
+    void Awake()
     {
-        player = FindObjectOfType<Player>();
-        if (player == null)
-            Debug.LogError("Cam.Start() - could not find object of type Player");
+        playerController = FindObjectOfType<PlayerController>();
+        if (playerController == null)
+            Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
+
+        playerAnchor = playerController.transform.FindChild("Hips");
+        if (playerAnchor == null)
+            Debug.LogError("Cam.Awake() - could not find child of name Hips in playerController");
 
         compass = GameObject.FindGameObjectWithTag("Compass").transform;
 
-        transform.rotation = new Quaternion(player.transform.forward.x,
-                                            player.transform.forward.y,
-                                            player.transform.forward.z,
+        transform.rotation = new Quaternion(playerController.transform.forward.x,
+                                            playerController.transform.forward.y,
+                                            playerController.transform.forward.z,
                                             0f);
 	}
-	
-	void Update ()
+
+    void Update()
     {
-        if (GameManager.Instance.CurrGameState == GameManager.GameState.Pause)
-            return;
+        transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
 
-        if (Input.GetKeyDown(KeyCode.C))
-            ChangeCameraMode();
-
-        transform.position = player.transform.position + (Vector3.up * 1.5f);
-        
         FpsCamUpdate();
-
-        if (fpsCam)
-            FpsCamUpdate();
-        else
-            TpsCamUpdate();
-    }
-
-    void ChangeCameraMode()
-    {
-        fpsCam = !fpsCam;
-        if (!fpsCam)
-            GetComponent<Camera>().cullingMask |= (1 << LayerMask.NameToLayer("Player"));
-        else
-            GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Player")); 
     }
 
     void FpsCamUpdate()
     {
-
         float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility;
 
         rotY += Input.GetAxis("Mouse Y") * sensibility;
         rotY = Mathf.Clamp(rotY, lookDownMax, lookUpMax);
 
-        player.ControllerLook(-rotY, rotX);
+        playerController.ControllerLook(-rotY, rotX);
         transform.localEulerAngles = new Vector3(-rotY, rotX, 0f);
 
         rotX = compass.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility / 2;
         GameObject.FindGameObjectWithTag("Compass").transform.localEulerAngles = new Vector3(0f, rotX, 0f);
-    }
-
-    void TpsCamUpdate()
-    {
-        float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility * Time.deltaTime;
-
-        rotY += Input.GetAxis("Mouse Y") * sensibility * Time.deltaTime;
-        rotY = Mathf.Clamp(rotY, TpslookDownMax, TpslookUpMax);
-
-        player.ControllerLook(-rotY, rotX);
-        transform.localEulerAngles = new Vector3(-rotY, rotX, 0f);
-
-        rotX = compass.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility / 2 * Time.deltaTime;
-        GameObject.FindGameObjectWithTag("Compass").transform.localEulerAngles = new Vector3(0f, rotX, 0f);
-
-        transform.position -= player.transform.forward * distance;
     }
 }

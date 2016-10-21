@@ -75,6 +75,13 @@ public class Item : IComparable<Item>
         set { is_equipped = value; }
     }
 
+    private string prefabPath = "";
+    public string PrefabPath
+    {
+        get { return prefabPath; }
+        protected set { prefabPath = value; }
+    }
+
     protected float RangeOfGeneration = 10;
 
     public string GetItemGeneralInformations()
@@ -90,5 +97,4 @@ public class Item : IComparable<Item>
     {
         return (NameObject.CompareTo(item.NameObject));
     }
-
 }
