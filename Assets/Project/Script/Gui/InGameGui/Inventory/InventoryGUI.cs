@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 
-public class InventoryGUI : MonoBehaviour {
+public class InventoryGUI : MonoBehaviour
+{
 
     private static InventoryGUI instance = null;
     public static InventoryGUI Instance
@@ -17,8 +18,6 @@ public class InventoryGUI : MonoBehaviour {
             return instance;
         }
     }
-
-    IGGui igGui;
 
     public enum Inventory_Gui_Type
     {
@@ -80,7 +79,7 @@ public class InventoryGUI : MonoBehaviour {
 
     void Awake()
     {
-        igGui = FindObjectOfType<IGGui>();
+        LevelManager.Instance.Player.gameObject.AddComponent<Inventory>();
 
         types_conversion.Add("<color=olive><b> -> All <- </b></color>", typeof(Item));
         types_conversion.Add("<color=teal><b>---- Armor ----</b></color>", typeof(Armor));
@@ -97,8 +96,8 @@ public class InventoryGUI : MonoBehaviour {
         filter_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
         sort_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
         quit_button.onClick.AddListener(delegate {  Show = false;
-                                                    igGui.gameObject.SetActive(true);
-                                                    igGui.transform.FindChild("PausePanel").gameObject.SetActive(true); });
+                                                    FindObjectOfType<IGGui>().gameObject.SetActive(true);
+                                                    GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame); });
     }
 
     void Start()
@@ -208,6 +207,7 @@ public class InventoryGUI : MonoBehaviour {
 
         if (current_gui_action == Inventory_Gui_Type.PlayerInventory)
         {
+            equip_button.enabled = true;
             action_button.GetComponentInChildren<Text>().text = "Drop";
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate {
@@ -217,25 +217,28 @@ public class InventoryGUI : MonoBehaviour {
         }
         else if (current_gui_action == Inventory_Gui_Type.EnemyInventory)
         {
+            equip_button.enabled = false;
             action_button.GetComponentInChildren<Text>().text = "Take";
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
-                throw new NotImplementedException("Fix when an inventory is attach to player !");
-                /*Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
-                player_inventory.AddItem(selected_item);*/
+                Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+                player_inventory.AddItem(selected_item);
             });
         }
-        else if (current_gui_action == Inventory_Gui_Type.EnemyInventory)
+        else if (current_gui_action == Inventory_Gui_Type.VendorInventory)
         {
-            action_button.GetComponentInChildren<Text>().text = "Take";
+            equip_button.enabled = false;
+            action_button.GetComponentInChildren<Text>().text = "Buy (Steal)";
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate
             {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
-                throw new NotImplementedException("Fix when an inventory is attach to player !");
+                Debug.Log(selected_item);
+                Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+                player_inventory.AddItem(selected_item);
             });
         }
     }

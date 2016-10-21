@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
 
-    private List<Item> list;
+    private List<Item> list = new List<Item>();
     public List<Item> List
     {
         get { return list; }
@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour {
 
     public void AddItem<T>(T item) where T : Item
     {
+        Debug.Log(item);
         list.Add(item);
     }
 

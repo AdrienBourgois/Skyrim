@@ -138,17 +138,15 @@ public abstract class ACharacter : MonoBehaviour
     {
         RaycastHit hit;
         // TODO: global(?) variable for max distance
-        float useMaxDistance = 1000f;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
+        float useMaxDistance = 3f;
+        Transform cam_transform = FindObjectOfType<Cam>().transform;
+        if (Physics.Raycast(cam_transform.position, cam_transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
-            
             IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
 
             if (usableCollider != null)
-            {
                 usableCollider.OnUse(this);
-                print("Player collide");
-            }
+
         }
     }
 

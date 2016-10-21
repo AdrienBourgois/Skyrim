@@ -25,6 +25,7 @@ public class Shop : MonoBehaviour, IUsableObject
         ItemManager itemMgr = new ItemManager();
         inventory.List = itemMgr.GenerateInventory(ItemManager.flags_generation.All_Type, 50);
 
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
         invGui.Show = true;
     }
 }

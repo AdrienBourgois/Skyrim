@@ -12,8 +12,6 @@ public class Door : MonoBehaviour, IUsableObject
 
     public void OnUse(ACharacter character)
     {
-        print("OnUse");
-
         if (hasBeenOpen == false)
         {
             
