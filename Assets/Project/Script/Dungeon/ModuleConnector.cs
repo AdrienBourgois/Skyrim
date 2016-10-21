@@ -6,6 +6,21 @@ public class ModuleConnector : MonoBehaviour {
     public string[] Tags;
     public bool IsDefault;
 
+    private bool isConnected;
+
+    public bool IsConnected
+    {
+        get
+        {
+            return isConnected;
+        }
+
+        set
+        {
+            isConnected = value;
+        }
+    }
+
     void OnDrawGizmos()
     {
         var scale = 1.0f;

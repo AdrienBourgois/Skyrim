@@ -15,11 +15,25 @@ public class DungeonGenerator : MonoBehaviour {
     [SerializeField]
     private int iterations = 5;
 
-    
+
 
     #endregion
 
+   // private List<ModuleConnector> newConnections = null;
+
     void Start()
+    {
+        GenerateDungeon();
+       
+    }
+
+    void Update()
+    {
+
+    }
+
+
+    private void GenerateDungeon()
     {
         Module firstModule = (Module)Instantiate(startModule, transform.position, transform.rotation);
         List<ModuleConnector> pendingConnections = new List<ModuleConnector>(startModule.GetExits());
@@ -32,18 +46,29 @@ public class DungeonGenerator : MonoBehaviour {
             {
                 string newTag = GetRandom(pendingConnection.Tags);
                 Module newModulePrefab = GetRandomWithTag(modules, newTag);
-                Module newModule = Instantiate(newModulePrefab);
-                ModuleConnector[] newModuleConnection = newModule.GetExits();
-                ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnection);
-                MatchConnection(pendingConnection, connectionToMatch);
-                newConnections.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
+                ModuleCreation(newModulePrefab, pendingConnection, newConnections);
             }
             pendingConnections = newConnections;
         }
+
+        foreach (ModuleConnector connection in pendingConnections)
+        {
+            if (connection.IsConnected == false)
+            {
+                List<ModuleConnector> newConnections = new List<ModuleConnector>();
+                ModuleCreation(firstModule, connection, newConnections);
+            }
+        }
     }
 
-    void Update()
+    private void ModuleCreation(Module module, ModuleConnector pendingConnection, List<ModuleConnector> newConnections)
     {
+        Module newModule = Instantiate(module);
+        ModuleConnector[] newModuleConnection = newModule.GetExits();
+        ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnection);
+        MatchConnection(pendingConnection, connectionToMatch);
+        newConnections.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
+        connectionToMatch.IsConnected = true;
 
     }
 
@@ -56,6 +81,7 @@ public class DungeonGenerator : MonoBehaviour {
         newModule.RotateAround(newConnection.transform.position, Vector3.up, correctiveRotation);
         Vector3 correctiveTranslation = oldConnection.transform.position - newConnection.transform.position;
         newModule.transform.position += correctiveTranslation;
+        
     }
 
     #region GetRandom
