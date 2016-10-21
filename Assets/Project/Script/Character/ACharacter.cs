@@ -46,23 +46,6 @@ public abstract class ACharacter : MonoBehaviour
         get { return baseMoveSpeed; }
         protected set { baseMoveSpeed = value; }
     }
-
-    [SerializeField]
-    private int baseAttack;
-    [SerializeField]
-    private int baseDefense;
-    [SerializeField]
-    private float baseWeight;
-    [SerializeField]
-    private float baseHealth = 100f;
-    [SerializeField]
-    private int baseMana = 100;
-    [SerializeField]
-    private int baseSpellPower;
-    [SerializeField]
-    private float basePrecision;
-    [SerializeField]
-    private float baseAttackSpeed;
     #endregion
 
     #region Stats & Inventory

@@ -28,7 +28,7 @@ public class PlayerController : ACharacterController
         if (GameManager.Instance.CurrGameState != GameManager.GameState.Pause)
         {
             UpdateInput();
-            ControllerMove(0f, 0f);
+            rb.velocity = Vector3.zero;
         }
     }
 
