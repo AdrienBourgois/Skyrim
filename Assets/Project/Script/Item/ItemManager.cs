@@ -10,11 +10,7 @@ public class ItemManager : MonoBehaviour
         get
         {
             if (instance == null)
-            {
                 instance = FindObjectOfType<ItemManager>();
-                if (instance == null)
-                    Debug.LogWarning("ItemManager.Instance - failed to find object of type ItemManager");
-            }
             return instance;
         }
     }
