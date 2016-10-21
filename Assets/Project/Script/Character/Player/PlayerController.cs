@@ -26,7 +26,10 @@ public class PlayerController : ACharacterController
     {
         ResetTriggers();
         if (GameManager.Instance.CurrGameState != GameManager.GameState.Pause)
+        {
             UpdateInput();
+            ControllerMove(0f, 0f);
+        }
     }
 
     private void UpdateInput()
