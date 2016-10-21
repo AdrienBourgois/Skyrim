@@ -17,14 +17,12 @@ public class WeaponAnchor : MonoBehaviour
         weaponInstance.gameObject.transform.parent = gameObject.transform;
         weaponInstance.gameObject.transform.localPosition = Vector3.zero;
         weaponInstance.gameObject.SetActive(false);
-        Debug.Log("LOLOLol");
     }
 
     public void Switch()
     {
         if (weapon == null)
             return;
-        Debug.Log("LALALAl");
 
         weaponInstance.gameObject.SetActive(!weaponInstance.gameObject.activeSelf);        
     }

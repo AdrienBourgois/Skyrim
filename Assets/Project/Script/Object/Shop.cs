@@ -15,7 +15,6 @@ public class Shop : MonoBehaviour, IUsableObject
 
     public void OnUse(ACharacter character)
     {
-        Debug.Log(invGui);
         invGui.Inventory = inv;
         invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.VendorInventory;
 
