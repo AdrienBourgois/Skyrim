@@ -13,15 +13,19 @@ public class AttribPanel : MonoBehaviour {
         set { bonusToAssign = value; }
     }
 
-    void Awake()
+    void Start()
     {
         player = LevelManager.Instance.Player;
         attrib = player.CharacterStats.UnitAttributes;
         bonusToAssign = player.AttributePointToAssign;
+        UpdateStats();
     }
 
     public void UpdateStats()
     {
+        if (attrib == null)
+            return;
+
         attrib.UpdateAttribDict();
 
         foreach (Transform child in transform)
@@ -53,6 +57,11 @@ public class AttribPanel : MonoBehaviour {
                 child.GetComponent<AttribGui>().ResetBonus();
             }
         }
+
+        player.CharacterStats.SetCharacteristics(player);
+
+        if (player.AttributePointToAssign != bonusToAssign)
+            player.CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
 
         player.AttributePointToAssign = bonusToAssign;
         UpdateStats();

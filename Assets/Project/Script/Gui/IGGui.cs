@@ -37,6 +37,7 @@ public class IGGui : MonoBehaviour
         pausePanel.SetActive(false);
         pausePanel.transform.FindChild("SkillPanel").gameObject.SetActive(false);
         pausePanel.transform.FindChild("MagicPanel").gameObject.SetActive(false);
-        invGui.Show = false;
+        if (invGui)
+            invGui.Show = false;
     }
 }

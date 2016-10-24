@@ -51,7 +51,6 @@ public class CharacPanel : MonoBehaviour
 
     public void Validate()
     {
-        player.CharacterStats.SetCharacteristics(player);
         UpdateStats();
         Reset();
     }

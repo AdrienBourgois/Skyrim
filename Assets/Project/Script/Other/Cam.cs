@@ -37,10 +37,10 @@ public class Cam : APausableObject
 
     void Update()
     {
+        transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
+
         if (paused)
             return;
-
-        transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
 
         FpsCamUpdate();
     }

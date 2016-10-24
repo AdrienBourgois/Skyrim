@@ -48,7 +48,7 @@ public abstract class ACharacter : APausableObject
     }
     #endregion
 
-    #region Stats & Inventory
+    #region Stats & Inventory & Spell
     private CharacterStats characterStats = new CharacterStats();
     public CharacterStats CharacterStats
     {
@@ -59,6 +59,12 @@ public abstract class ACharacter : APausableObject
     public Inventory UnitInventory
     {
         get { return inventory; }
+    }
+
+    private SpellInventory spells = new SpellInventory();
+    public SpellInventory UnitSpells
+    {
+        get { return spells; }
     }
     #endregion
    
