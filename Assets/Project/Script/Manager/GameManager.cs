@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    enum GameState
+    public enum GameState
     {
         Intro = 0,
         MainMenu,
