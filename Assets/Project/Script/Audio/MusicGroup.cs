@@ -83,6 +83,7 @@ public class MusicGroup : MonoBehaviour {
         source.clip = clip;
         source.outputAudioMixerGroup = MixerGroup;
         source.volume = 0f;
+        source.dopplerLevel = 0f;
         source.Play();
 
         if (main_source == null)

@@ -5,6 +5,18 @@ using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour {
 
+    private AudioManager instance;
+    public AudioManager Instance
+    {
+        get
+        {
+            if (!instance)
+                instance = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+
+            return instance;
+        }
+    }
+
     public enum EMusic_Type
     {
         Menu,
@@ -21,14 +33,9 @@ public class AudioManager : MonoBehaviour {
     [SerializeField]
     AudioClip menu_music = null;
     [SerializeField]
-    AudioClip game_music = null;
+    AudioClip game_calm_music = null;
     [SerializeField]
-    AudioClip fight_music = null;
-
-    [SerializeField]
-    AudioClip sample1 = null;
-    [SerializeField]
-    AudioClip sample2 = null;
+    AudioClip game_fight_music = null;
 
     //Sounds
     [SerializeField]
@@ -42,7 +49,7 @@ public class AudioManager : MonoBehaviour {
     [SerializeField]
     AudioMixerGroup sounds_mixer_group = null;
 
-    List<AudioSource> sources = new List<AudioSource>();
+    List<AudioSource> sound_sources = new List<AudioSource>();
 
     MusicGroup current_music_group = null;
 
@@ -51,14 +58,14 @@ public class AudioManager : MonoBehaviour {
         DontDestroyOnLoad(this);
     }
 
-    public void Play(EMusic_Type music)
+    public void PlayMusic(EMusic_Type music)
     {
-        if (music == EMusic_Type.Menu)
+        /*if (music == EMusic_Type.Menu)
             ChangeMusic(menu_music);
         else if (music == EMusic_Type.Game)
             ChangeMusic(game_music);
         else if (music == EMusic_Type.Fight)
-            ChangeMusic(fight_music);
+            ChangeMusic(fight_music);*/
     }
 
     public void AddMusic(AudioClip clip)
@@ -86,18 +93,13 @@ public class AudioManager : MonoBehaviour {
         if (Input.GetKeyDown("m"))
             ChangeMusic(menu_music);
         else if (Input.GetKeyDown("g"))
-            ChangeMusic(game_music);
-        else if (Input.GetKeyDown("f"))
-            ChangeMusic(fight_music);
-
-        else if (Input.GetKeyDown("1"))
         {
-            ChangeMusic(sample1);
-            AddMusic(sample2);
+            ChangeMusic(game_calm_music);
+            AddMusic(game_fight_music);
         }
-        if (Input.GetKeyDown("o"))
+        else if (Input.GetKeyDown("f"))
             current_music_group.State = MusicGroup.EPlayState.PlayFull;
-        else if (Input.GetKeyDown("p"))
+        else if (Input.GetKeyDown("c"))
             current_music_group.State = MusicGroup.EPlayState.PlaySingle;
 
         if (Input.GetMouseButtonDown(1))
@@ -122,8 +124,9 @@ public class AudioManager : MonoBehaviour {
             go.name = "Sound : " + source.clip.name;
             source.outputAudioMixerGroup = sounds_mixer_group;
             source.spatialBlend = 1.0f;
+            source.dopplerLevel = 0f;
             source.Play();
-            sources.Add(source);
+            sound_sources.Add(source);
             StartCoroutine(ManageSourceDestruct(source));
         }
         else
@@ -139,7 +142,7 @@ public class AudioManager : MonoBehaviour {
     {
         while (source.isPlaying)
             yield return new WaitUntil(delegate { return source.isPlaying; });
-        sources.Remove(source);
+        sound_sources.Remove(source);
         Destroy(source.gameObject);
     }
     
