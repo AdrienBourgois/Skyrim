@@ -38,26 +38,13 @@ public class AudioManager : MonoBehaviour {
 
     //Mixer Groups
     [SerializeField]
-    AudioMixerGroup music_group = null;
+    AudioMixerGroup music_mixer_group = null;
     [SerializeField]
-    AudioMixerGroup sounds_group = null;
+    AudioMixerGroup sounds_mixer_group = null;
 
     List<AudioSource> sources = new List<AudioSource>();
 
-    List<AudioSource> current_music_group = null;
-    List<AudioSource> next_music_group = null;
-
-    AudioSource NextMusicSource
-    {
-        get {
-            next_music_group = new List<AudioSource>();
-            AudioSource source = gameObject.AddComponent<AudioSource>();
-            next_music_group.Add(source);
-            source.loop = true;
-            source.outputAudioMixerGroup = music_group;
-            return source;
-        }
-    }
+    MusicGroup current_music_group = null;
 
     void Start()
     {
@@ -74,7 +61,26 @@ public class AudioManager : MonoBehaviour {
             ChangeMusic(fight_music);
     }
 
-    public void Play(ESound_Type sound, Vector3 position)
+    public void AddMusic(AudioClip clip)
+    {
+        if (current_music_group == null)
+            current_music_group = gameObject.AddComponent<MusicGroup>();
+
+        current_music_group.MixerGroup = music_mixer_group;
+        current_music_group.Add(clip);
+    }
+
+    public void ChangeMusic(AudioClip clip)
+    {
+        if (current_music_group != null)
+            current_music_group.Stop();
+
+        current_music_group = gameObject.AddComponent<MusicGroup>();
+        current_music_group.MixerGroup = music_mixer_group;
+        current_music_group.Add(clip);
+    }
+
+    public void PlaySound(ESound_Type sound, Vector3 position)
     {
         AudioClip clip = null;
         if (sound == ESound_Type.Sword)
@@ -87,7 +93,7 @@ public class AudioManager : MonoBehaviour {
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = clip;
             go.name = "Sound : " + source.clip.name;
-            source.outputAudioMixerGroup = sounds_group;
+            source.outputAudioMixerGroup = sounds_mixer_group;
             source.spatialBlend = 1.0f;
             source.Play();
             sources.Add(source);
@@ -95,23 +101,6 @@ public class AudioManager : MonoBehaviour {
         }
         else
             throw new UnassignedReferenceException("Sound Missing !");
-    }
-
-    void ChangeMusic(AudioClip clip)
-    {
-        AudioSource next_source = NextMusicSource;
-        next_source.clip = clip;
-        next_source.Play();
-        StartCoroutine(CrossFade(current_music_group, next_music_group));
-    }
-
-    void AddMusic(AudioClip clip)
-    {
-        AudioSource source = gameObject.AddComponent<AudioSource>();
-        source.clip = clip;
-        source.outputAudioMixerGroup = music_group;
-        source.loop = true;
-        current_music_group.Add(source);
     }
 
     void Update()
@@ -129,52 +118,11 @@ public class AudioManager : MonoBehaviour {
             AddMusic(sample2);
 
         if (Input.GetMouseButtonDown(1))
-            Play(ESound_Type.Sword, new Vector3(0f, 0f, 0f));
+            PlaySound(ESound_Type.Sword, new Vector3(0f, 0f, 0f));
     }
 
-    private IEnumerator CrossFade(List<AudioSource> group_out, List<AudioSource> group_in)
-    {
-        float previous_time = Time.time;
-        float delta = 0f;
-        bool done = false;
 
-        while (!done)
-        {
-            done = true;
-
-            delta += Time.time - previous_time;
-            if (group_out != null)
-            {
-                foreach (AudioSource source_out in group_out)
-                {
-                    if (source_out.volume != 0f)
-                    {
-                        source_out.volume = 1f - delta;
-                        done = false;
-                    }
-                }
-            }
-            foreach (AudioSource source_in in group_in)
-            {
-                if (source_in.volume != 1f)
-                {
-                    source_in.volume = delta;
-                    done = false;
-                }
-            }
-
-            previous_time = Time.time;
-            yield return new WaitForEndOfFrame();
-        }
-
-        if(group_out != null)
-            foreach (AudioSource source_out in group_out)
-                Destroy(source_out);
-
-        current_music_group = next_music_group;
-
-        StopCoroutine("ChangeMusic");
-    }
+    #region sounds
 
     private AudioClip GetRandClip(List<AudioClip> clips)
     {
@@ -188,6 +136,9 @@ public class AudioManager : MonoBehaviour {
         sources.Remove(source);
         Destroy(source.gameObject);
     }
+    
+    #endregion
+
 }
 
 
