@@ -53,10 +53,7 @@ public class Module : MonoBehaviour {
         return GetComponentsInChildren<ModuleConnector>();
     }
 
-    void OnTriggerEnter(Collider collider)
-    {
-        print("Collider : " + collider.name);
-    }
+ 
 
     public void AddConnector(ModuleConnector mC)
     {

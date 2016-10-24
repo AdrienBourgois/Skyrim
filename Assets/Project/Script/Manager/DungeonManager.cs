@@ -34,7 +34,7 @@ public class DungeonManager : MonoBehaviour {
 
         GameManager.Instance.onStateChanged += OnStateChanged;
         StartCoroutine(CreateDungeon());
-        CheckSlot();
+       // CheckSlot();
     }
 
     void Update () {
@@ -53,23 +53,21 @@ public class DungeonManager : MonoBehaviour {
         foreach (Module m in modules)
             foreach (ModuleConnector slot in m.ModuleConnectorList)
                 if (slot.IsConnected == false)
-                {
                     print(slot.transform.position);
-                }
+                
     }
 
     void OnStateChanged(GameManager.GameState state)
     {
-        if (state == GameManager.GameState.EnterDungeon)
-        {
-            print("EnterDungeon");
-            StartCoroutine(CreateDungeon());
-        }
+        //if (state == GameManager.GameState.EnterDungeon)
+        //    StartCoroutine(CreateDungeon());
+        
     }
 
     IEnumerator CreateDungeon()
     {
         yield return new WaitForSeconds(0.1f);
         dungeonGenerator.GenerateDungeon();
+        CheckSlot();
     }
 }
