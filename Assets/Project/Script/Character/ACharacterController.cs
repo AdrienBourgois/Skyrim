@@ -149,21 +149,23 @@ public abstract class ACharacterController : MonoBehaviour
 
     public virtual void ControllerSelectMagic(int magicId)
     {
+        // TODO: select magic in Character and set SpellType from magicType
+        characterWeapons.SetActiveMagic( (MagicManager.MagicID)magicId );
         animator.SetInteger("SpellType", magicId);
         animator.SetBool("IsUsingMagic", true);
-        Debug.Log("Selected magic num [" + magicId + "]");
     }
 
     public virtual void ControllerUnselectMagic()
     {
+        characterWeapons.SetActiveMagic(MagicManager.MagicID.NONE);
         animator.SetInteger("SpellType", 0);
         animator.SetBool("IsUsingMagic", false);
-        Debug.Log("Unselected Magic");
     }
 
     public virtual void ControllerCastSpell()
     {
         animator.SetTrigger("TriggerSpell");
+        characterWeapons.InstanciateMagic();
     }
 
     public virtual void ControllerDrawSheathSword()
@@ -171,6 +173,11 @@ public abstract class ACharacterController : MonoBehaviour
         animator.SetTrigger("TriggerWeapon");
     }
     #endregion
+
+    public virtual void MagicActivation()
+    {
+        characterWeapons.ActivateMagic();
+    }
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
