@@ -19,16 +19,11 @@ public class DungeonGenerator : MonoBehaviour {
 
     #endregion
 
-    private float spawnPointX = 2.5f;
+    private float spawnPointX = 3.5f;
     private float spawnPointY = 1f;
     private float spawnPointZ = 6f;
 
-    void Start()
-    {
-        GenerateDungeon();
-    }
-
-    private void GenerateDungeon()
+    public void GenerateDungeon()
     {
         Module firstModule = (Module)Instantiate(startModule, transform.position, transform.rotation);
         firstModule.transform.SetParent(transform);
@@ -51,7 +46,7 @@ public class DungeonGenerator : MonoBehaviour {
             pendingConnections = newConnections;
         }
 
-        CheckEmptyConnection(pendingConnections, firstModule);
+        CheckEmptyConnection(pendingConnections, modules[2]);
     }
 
     private void ModuleCreation(Module module, ModuleConnector pendingConnection, List<ModuleConnector> newConnections)

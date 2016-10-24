@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     static public readonly string c_weaponChildName = "Weapons";
 
-    public event Action onStateChanged;
+    public delegate void DelegateState(GameState state);
+    public event DelegateState onStateChanged;
 
     private GameState _state;
 
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject guiMgrPrefab;
     [SerializeField] GameObject levelMgrPrefab;
     [SerializeField] GameObject itemMgrPrefab;
+    [SerializeField] GameObject dungeonMgrPrefab;
+    
 
     #endregion
 
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
     private GUIManager guiMgr;
     private LevelManager levelMgr;
     private ItemManager itemMgr;
+    private DungeonManager dungeonMgr;
 
     public enum GameState
     {
@@ -49,11 +53,14 @@ public class GameManager : MonoBehaviour
         MainMenu,
         InGame,
         EnterDungeon,
+        PopulateDungeon,
         Pause,
         Death,
         StateNb
     }
+
     private GameState currGameState;
+
     public GameState CurrGameState
     {
         get { return currGameState; }
@@ -74,6 +81,7 @@ public class GameManager : MonoBehaviour
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
         guiMgr = GUIManager.Instance ? GUIManager.Instance : Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
+        //dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
 
         UpdateGameState();
 
@@ -97,6 +105,10 @@ public class GameManager : MonoBehaviour
                 InGameInit(); 
                 break;
 
+            case "DungeonGenerator":
+                EnterDungeonInit();
+                break;
+
             default:
                 break;
         }
@@ -118,6 +130,14 @@ public class GameManager : MonoBehaviour
                 InGameInit();
                 break;
 
+            case GameState.EnterDungeon:
+                EnterDungeonInit();
+                break;
+
+            case GameState.PopulateDungeon:
+                PopulateDungeonInit();
+                break;
+
             case GameState.Pause:
                 PauseInit();
                 break;
@@ -125,6 +145,9 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+
+        if (onStateChanged != null)
+            onStateChanged.Invoke(currGameState);
 
         if (loadLevel)
             dataMgr.LoadLevelFromGameState();
@@ -146,8 +169,19 @@ public class GameManager : MonoBehaviour
         loadLevel = currGameState == GameState.Pause ? false : true;
         currGameState = GameState.InGame;
 
-
         levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+    }
+
+    void EnterDungeonInit()
+    {
+        currGameState = GameState.EnterDungeon;
+
+        dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
+    }
+
+    void PopulateDungeonInit()
+    {
+        currGameState = GameState.PopulateDungeon;
     }
 
     void PauseInit()

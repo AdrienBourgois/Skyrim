@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class DungeonManager : MonoBehaviour {
 
     List<Module> modules = new List<Module>();
-
+    DungeonGenerator dungeonGenerator = null;
 
     static private DungeonManager instance;
     static public DungeonManager Instance
@@ -13,19 +13,34 @@ public class DungeonManager : MonoBehaviour {
         get
         {
             if (!instance)
-                instance = GameObject.FindGameObjectWithTag("DungeonManager").GetComponent<DungeonManager>();
+            {
+                GameObject gao = GameObject.FindGameObjectWithTag("DungeonManager");
+                if (gao)
+                    instance = gao.GetComponent<DungeonManager>();
+
+                //Debug.Log(gao);
+            }
 
             return instance;
         }
     }
 
+    void Awake()
+    {
+        dungeonGenerator = GetComponent<DungeonGenerator>();
+    }
+
     void Start () {
 
+        GameManager.Instance.onStateChanged += OnStateChanged;
+
+        dungeonGenerator.GenerateDungeon();
 
 	}
 	
 	void Update () {
-	
+
+        
 	}
 
 
@@ -35,7 +50,7 @@ public class DungeonManager : MonoBehaviour {
     }
 
 
-    void test()
+    void CheckSlot()
     {
         foreach (Module m in modules)
             foreach (ModuleConnector slot in m.ModuleConnectorList)
@@ -44,4 +59,15 @@ public class DungeonManager : MonoBehaviour {
                     print(slot.transform.position);
                 }
     }
+
+    void OnStateChanged(GameManager.GameState state)
+    {
+        if (state == GameManager.GameState.EnterDungeon)
+        {
+            print("EnterDungeon");
+            dungeonGenerator.GenerateDungeon();
+        }
+    }
+
+
 }
