@@ -25,6 +25,11 @@ public class AudioManager : MonoBehaviour {
     [SerializeField]
     AudioClip fight_music = null;
 
+    [SerializeField]
+    AudioClip sample1 = null;
+    [SerializeField]
+    AudioClip sample2 = null;
+
     //Sounds
     [SerializeField]
     List<AudioClip> sword_clips = new List<AudioClip>();
@@ -39,31 +44,24 @@ public class AudioManager : MonoBehaviour {
 
     List<AudioSource> sources = new List<AudioSource>();
 
-    AudioSource music1 = null;
-    AudioSource music2 = null;
+    List<AudioSource> current_music_group = null;
+    List<AudioSource> next_music_group = null;
 
-    AudioSource current_music_source = null;
     AudioSource NextMusicSource
     {
         get {
-            if (current_music_source == music1)
-                current_music_source = music2;
-            else
-                current_music_source = music1;
-            return current_music_source;
+            next_music_group = new List<AudioSource>();
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            next_music_group.Add(source);
+            source.loop = true;
+            source.outputAudioMixerGroup = music_group;
+            return source;
         }
     }
 
     void Start()
     {
         DontDestroyOnLoad(this);
-        music1 = gameObject.AddComponent<AudioSource>();
-        music2 = gameObject.AddComponent<AudioSource>();
-        music1.outputAudioMixerGroup = music_group;
-        music2.outputAudioMixerGroup = music_group;
-        music1.loop = true;
-        music2.loop = true;
-        current_music_source = music1;
     }
 
     public void Play(EMusic_Type music)
@@ -101,11 +99,19 @@ public class AudioManager : MonoBehaviour {
 
     void ChangeMusic(AudioClip clip)
     {
-        AudioSource current_source = current_music_source;
         AudioSource next_source = NextMusicSource;
         next_source.clip = clip;
         next_source.Play();
-        StartCoroutine(CrossFade(current_source, next_source));
+        StartCoroutine(CrossFade(current_music_group, next_music_group));
+    }
+
+    void AddMusic(AudioClip clip)
+    {
+        AudioSource source = gameObject.AddComponent<AudioSource>();
+        source.clip = clip;
+        source.outputAudioMixerGroup = music_group;
+        source.loop = true;
+        current_music_group.Add(source);
     }
 
     void Update()
@@ -117,23 +123,55 @@ public class AudioManager : MonoBehaviour {
         else if (Input.GetKeyDown("f"))
             ChangeMusic(fight_music);
 
+        else if (Input.GetKeyDown("1"))
+            ChangeMusic(sample1);
+        if (Input.GetKeyDown("2"))
+            AddMusic(sample2);
+
         if (Input.GetMouseButtonDown(1))
             Play(ESound_Type.Sword, new Vector3(0f, 0f, 0f));
     }
 
-    private IEnumerator CrossFade(AudioSource source_out, AudioSource source_in)
+    private IEnumerator CrossFade(List<AudioSource> group_out, List<AudioSource> group_in)
     {
         float previous_time = Time.time;
         float delta = 0f;
+        bool done = false;
 
-        while (source_out.volume > 0f || source_in.volume < 1f)
+        while (!done)
         {
+            done = true;
+
             delta += Time.time - previous_time;
-            source_out.volume = 1f - delta;
-            source_in.volume = delta;
+            if (group_out != null)
+            {
+                foreach (AudioSource source_out in group_out)
+                {
+                    if (source_out.volume != 0f)
+                    {
+                        source_out.volume = 1f - delta;
+                        done = false;
+                    }
+                }
+            }
+            foreach (AudioSource source_in in group_in)
+            {
+                if (source_in.volume != 1f)
+                {
+                    source_in.volume = delta;
+                    done = false;
+                }
+            }
+
             previous_time = Time.time;
             yield return new WaitForEndOfFrame();
         }
+
+        if(group_out != null)
+            foreach (AudioSource source_out in group_out)
+                Destroy(source_out);
+
+        current_music_group = next_music_group;
 
         StopCoroutine("ChangeMusic");
     }
