@@ -16,6 +16,7 @@ public class ACharacterWeapons : MonoBehaviour
     private WeaponAnchor rightHand = null;
 
     private MagicManager.MagicID magicID = MagicManager.MagicID.NONE;
+    public MagicManager.MagicID ActiveMagic { get { return magicID; } }
     private AMagic magic = null;
 
     // Use this for initialization
@@ -66,10 +67,11 @@ public class ACharacterWeapons : MonoBehaviour
         if (magic != null)
             return;
         if (magicID != MagicManager.MagicID.NONE)
+        {
             magic = MagicManager.Instance.CreateSpell(magicID);
-
-        magic.gameObject.transform.parent = rightHandAnchor.transform;
-        magic.gameObject.transform.localPosition = Vector3.zero;
+            magic.gameObject.transform.parent = rightHandAnchor.transform;
+            magic.gameObject.transform.localPosition = Vector3.zero;
+        }
     }
 
     public void ActivateMagic()
