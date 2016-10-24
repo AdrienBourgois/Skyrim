@@ -1,46 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Characteristics
 {
-
-    #region SerializeField
-
-    [SerializeField]
-    private float attack;
-
-    [SerializeField]
-    private float defense;
-
-    [SerializeField]
-    private float weight;
-
-    [SerializeField]
-    private float health;
-
-    [SerializeField]
-    private float mana;
-
-    [SerializeField]
-    private float spellPower;
-
-    [SerializeField]
-    private float precision;
-
-    [SerializeField]
-    private float attackSpeed;
-
-    [SerializeField]
-    private float healthRegeneration;
-
-    [SerializeField]
-    private float playerWeight;
-
-   
-    #endregion
+    Dictionary<string, float> characDict = new Dictionary<string, float>();
 
     #region Attack
 
+    private float attack;
     public float Attack
     { get { return attack; } set { attack = value; } }
 
@@ -48,6 +15,7 @@ public class Characteristics
 
     #region Defense
 
+    private float defense;
     public float Defense
     { get { return defense; } set { defense = value; } }
 
@@ -55,9 +23,11 @@ public class Characteristics
 
     #region Weight
 
+    private float playerWeight;
     public float PlayerWeight
     { get { return playerWeight; } set { playerWeight = value; } }
 
+    private float weight;
     public float Weight
     { get { return weight; } set { weight = value; } }
 
@@ -66,13 +36,14 @@ public class Characteristics
     #region Health
 
     private float maxHealth;
-
     public float MaxHealth
     { get { return maxHealth; } set { maxHealth = value; } }
 
+    private float healthRegeneration;
     public float HealthRegeneration
     { get { return healthRegeneration; } set { healthRegeneration = value; } }
 
+    private float health;
     public float Health
     { get { return health; } set { health = value; } }
 
@@ -84,6 +55,7 @@ public class Characteristics
     public float MaxMana
     { get { return maxMana; } set { maxMana = value; } }
 
+    private float mana;
     public float Mana
     { get { return mana; } set { mana = value; } }
 
@@ -91,6 +63,7 @@ public class Characteristics
 
     #region SpellPower
 
+    private float spellPower;
     public float SpellPower
     { get { return spellPower; } set { spellPower = value; } }
 
@@ -98,6 +71,7 @@ public class Characteristics
 
     #region Precision
 
+    private float precision;
     public float Precision
     { get { return precision; } set { precision = value; } }
 
@@ -105,37 +79,42 @@ public class Characteristics
 
     #region AttackSpeed
 
+    private float attackSpeed;
     public float AttackSpeed
     { get { return attackSpeed; } set { attackSpeed = value; } }
 
-   
-
-
-
-
-
-
-
-
-
     #endregion
 
-
-
-    public void Init(float attack, float defense, float weight, float health, float mana, float spellPower, float precision, float attackSpeed)
+    public void UpdateCharacDict()
     {
-        Attack = attack;
-        Defense = defense;
-        Weight = weight;
-        MaxHealth = health;
-        Health = health;
-        MaxMana = mana;
-        Mana = maxMana;
-        SpellPower = spellPower;
-        Precision = precision;
-     
+        characDict["Attack"] = attack;
+        characDict["Defense"] = defense;
+        characDict["PlayerWeigth"] = playerWeight;
+        characDict["Weight"] = weight;
+        characDict["MaxHealth"] = maxHealth;
+        characDict["Health"] = health;
+        characDict["HealthRegeneration"] = healthRegeneration;
+        characDict["MaxMana"] = maxMana;
+        characDict["Mana"] = mana;
+        characDict["SpellPower"] = spellPower;
+        characDict["Precision"] = precision;
+        characDict["AttackSpeed"] = attackSpeed;
     }
 
+    public void RegenFullHealthAndMana()
+    {
+        Health = MaxHealth;
+        Mana = MaxMana;
+    }
 
+    public float GetCharacFromString(string characName)
+    {
+        if (!characDict.ContainsKey(characName))
+        {
+            Debug.Log("Characteristics.GetCharacFromString() try to call CharacDict with invalid key : " + characName);
+            return -1;
+        }
 
+        return characDict[characName];
+    }
 }

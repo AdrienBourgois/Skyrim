@@ -5,7 +5,7 @@ public class Axe : Weapon, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        throw new NotImplementedException();
+        LevelManager.Instance.Player.RightHand = this;
     }
 
     public void Instantiate()
@@ -23,6 +23,8 @@ public class Axe : Weapon, IEquipableItem, IInstanciableItem
 
         Price = (int)(Mathf.Sqrt(Damage) * (10 + (power_lvl * 6)));
         Weight = 25 + (int)Rarity;
+
+        PrefabPath = "Weapons/Axe";
     }
 
     public void SetRandName()

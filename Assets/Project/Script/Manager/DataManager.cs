@@ -1,26 +1,50 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour {
 
-    private DataManager instance;
-    public DataManager Instance
+    static private DataManager instance;
+    static public DataManager Instance
     {
         get
         {
             if (!instance)
-                instance = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
+            {
+                GameObject gao = GameObject.FindGameObjectWithTag("DataManager");
+                if (gao)
+                    instance = gao.GetComponent<DataManager>();
+            }
 
             return instance;
         }
     }
 
 
-    void Start () {
-	
-	}
-	
-	void Update () {
-	
-	}
+    GameManager gameMgr;
+
+
+    public string getActiveSceneName
+    {
+        get { return SceneManager.GetActiveScene().name; }
+    }
+    public int getActiveSceneID
+    {
+        get { return SceneManager.GetActiveScene().buildIndex; }
+    }
+
+    void Awake()
+    {
+        instance = this;
+        gameMgr = GameManager.Instance;
+    }
+
+    public void LoadLevelFromGameState()
+    {
+        if (!gameMgr)
+            return;
+
+        SceneManager.LoadSceneAsync((int)GameManager.GameState.MainMenu);
+    }
+
+
 }

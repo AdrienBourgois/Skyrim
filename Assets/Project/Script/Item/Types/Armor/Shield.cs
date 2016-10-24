@@ -5,7 +5,7 @@ public class Shield : Armor, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        throw new NotImplementedException();
+        LevelManager.Instance.Player.LeftHand = this;
     }
 
     public void Instantiate()
@@ -24,6 +24,8 @@ public class Shield : Armor, IEquipableItem, IInstanciableItem
         Price = (int)(Mathf.Sqrt(Defense) * (10 + (power_lvl * 6)));
 
         Weight = 15 + (int)Rarity;
+
+        PrefabPath = "Weapons/Shield";
     }
 
     public void SetRandName()

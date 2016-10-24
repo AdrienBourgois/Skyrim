@@ -6,7 +6,7 @@ public class ManaBar : Bar {
     void Update()
     {
         Characteristics player_stats = player.CharacterStats.UnitCharacteristics;
-        float mana_ratio = (float)player_stats.Mana / (float)player_stats.MaxMana;
+        float mana_ratio = player_stats.Mana / player_stats.MaxMana;
 
         if (player_stats.Mana >= 0)
         {

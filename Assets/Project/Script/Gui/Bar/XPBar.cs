@@ -5,13 +5,12 @@ public class XPBar : Bar
 {
     void Update()
     {
-        //Characteristics player_stats = player.CharacterStats.UnitCharacteristics;
-        //float xp_ratio = (float)player_stats.Xp / (float)player_stats.XpToLevelUp;
+        float xp_ratio = (float)player.Xp / (float)player.XpToLevelUp;
 
-        //if (player_stats.Xp <= player_stats.XpToLevelUp)
-        //{
-        //    bar.localScale = new Vector3(xp_ratio, bar.localScale.y, bar.localScale.z);
-        //    point.text = player_stats.Xp.ToString() + " / " + player_stats.XpToLevelUp.ToString();
-        //}
+        if (player.Xp <= player.XpToLevelUp)
+        {
+            bar.localScale = new Vector3(xp_ratio, bar.localScale.y, bar.localScale.z);
+            point.text = player.Xp.ToString() + " / " + player.XpToLevelUp.ToString();
+        }
     }
 }

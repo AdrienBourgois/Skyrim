@@ -5,7 +5,13 @@ public class Boots : Armor, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        throw new NotImplementedException();
+        Player player = LevelManager.Instance.Player;
+        if (player.Boots != null)
+            player.CharacterStats.UnitCharacteristics.Defense -= player.Boots.Defense;
+
+        player.Boots = this;
+        player.CharacterStats.UnitCharacteristics.Defense += this.Defense;
+        //need to adjust characteristics for equipable item  
     }
 
     public void Instantiate()

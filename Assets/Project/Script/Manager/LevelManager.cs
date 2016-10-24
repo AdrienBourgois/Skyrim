@@ -3,22 +3,44 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
-    
+    Player player;
+    public Player Player
+    {
+        get
+        {
+            if (!player)
+                player = FindObjectOfType<Player>();
 
-    private LevelManager instance;
-    public LevelManager Instance
+            return player;
+        }
+    }
+
+    static private LevelManager instance;
+    static public LevelManager Instance
     {
         get
         {
             if (!instance)
-                instance = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+            {
+                GameObject gao = GameObject.FindGameObjectWithTag("LevelManager");
+                if (gao)
+                    instance = gao.GetComponent<LevelManager>();
+
+                //Debug.Log(gao);
+            }
 
             return instance;
         }
     }
 
-    void Start () {
-	
+    void Awake()
+    {
+        instance = this;
+    }
+
+    void Start ()
+    {
+        player = FindObjectOfType<Player>();
 	}
 	
 	void Update () {

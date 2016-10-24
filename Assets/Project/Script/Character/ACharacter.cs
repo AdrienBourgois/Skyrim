@@ -24,7 +24,7 @@ public abstract class ACharacter : MonoBehaviour
     }
 
     [SerializeField]
-    private int unitLevel;
+    private int unitLevel = 1;
     public int UnitLevel
     {
         get { return unitLevel; }
@@ -46,48 +46,25 @@ public abstract class ACharacter : MonoBehaviour
         get { return baseMoveSpeed; }
         protected set { baseMoveSpeed = value; }
     }
-
-    [SerializeField]
-    private int baseAttack;
-    [SerializeField]
-    private int baseDefense;
-    [SerializeField]
-    private float baseWeight;
-    [SerializeField]
-    private float baseHealth = 100f;
-    [SerializeField]
-    private int baseMana = 100;
-    [SerializeField]
-    private int baseSpellPower;
-    [SerializeField]
-    private float basePrecision;
-    [SerializeField]
-    private float baseAttackSpeed;
     #endregion
 
     #region Stats & Inventory
-    private CharacterStats characterStats;
+    private CharacterStats characterStats = new CharacterStats();
     public CharacterStats CharacterStats
     {
         get { return characterStats; }
     }
-    
-    /*
-    private Inventory inventory;
+
+    private Inventory inventory = new Inventory();
     public Inventory UnitInventory
     {
         get { return inventory; }
-    }*/
+    }
     #endregion
     
     protected virtual void Start()
     {
-        characterStats = new CharacterStats();
-        characterStats.Init(baseAttack, baseDefense,
-                            baseWeight, baseHealth,
-                            baseMana, baseSpellPower,
-                            basePrecision, baseAttackSpeed);
-
-        characterStats.SetCharacteristics(this);        
+        characterStats.SetCharacteristics(this);
+        CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
     }
 }

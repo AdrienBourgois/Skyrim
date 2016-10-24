@@ -5,7 +5,7 @@ public class Helmet : Armor, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        throw new NotImplementedException();
+        LevelManager.Instance.Player.Helmet = this;
     }
 
     public void Instantiate()
