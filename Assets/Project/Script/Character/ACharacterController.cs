@@ -26,6 +26,7 @@ public abstract class ACharacterController : MonoBehaviour
 
     [SerializeField]
     protected ACharacter character = null;
+    public ACharacter Character { get { return character; } }
 
     [SerializeField]
     protected ACharacterWeapons characterWeapons = null;

@@ -5,23 +5,41 @@ public abstract class AMagic : MonoBehaviour
 {
     #region Serialized Fields
     [SerializeField]
-    float power = 10f;
+    private float power = 10f;
+    public float Power
+    {
+        get { return power; }
+        protected set { power = value; }
+    }
 
     [SerializeField]
-    float lifeTime = 10f;
+    private float lifeTime = 10f;
 
     [SerializeField]
-    MagicManager.MagicID id = MagicManager.MagicID.NONE;
+    private MagicManager.MagicID id = MagicManager.MagicID.NONE;
+    public MagicManager.MagicID ID
+    {
+        get { return id; }
+    }
 
     [SerializeField]
-    MagicManager.MagicType type = MagicManager.MagicType.None;
+    private MagicManager.MagicType type = MagicManager.MagicType.None;
+    public MagicManager.MagicType Type
+    {
+        get { return type; }
+    }
     #endregion
 
-    protected ACharacter selfCharacter = null;
+    protected ACharacterController selfController = null;
 
     protected virtual void Start()
     {
         Destroy(gameObject, lifeTime);
+    }
+
+    public void SetController(ACharacterController controller)
+    {
+        selfController = controller;
     }
     
     protected virtual void OnDestroy()

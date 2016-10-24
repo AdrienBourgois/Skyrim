@@ -7,6 +7,9 @@ using System;
 /// </summary>
 public abstract class ACharacter : MonoBehaviour
 {
+    public delegate void DelegateWeapons(Item leftWeapon, Item rightWeapon);
+    public event DelegateWeapons OnChangedWeapons;
+
     private int unitMaxLevel;
     public int MaxUnitLevel
     {
@@ -101,5 +104,12 @@ public abstract class ACharacter : MonoBehaviour
 
         // HACK: debug
         equipType = EquipType.SwordAndShield;
+    }
+
+    protected virtual void EquippedItemChanged()
+    {
+        // TODO: implemement event when equipped items changed
+        //if (OnChangedWeapons != null)
+        //  OnChangedWeapons.Invoke(inventory.);
     }
 }

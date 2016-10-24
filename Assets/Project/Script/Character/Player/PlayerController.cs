@@ -10,12 +10,13 @@ public class PlayerController : ACharacterController
     public event DelegateAction OnRightDown;
     #endregion
 
+    // TODO: need one for enemy, to be able to shoot other than straight
     Transform camTransform;
 
     protected override void Start()
     {
         base.Start();
-        (characterWeapons as PlayerWeapons).SetPlayer(character as Player);
+        characterWeapons.SetCharacter(character);
         camTransform = FindObjectOfType<Cam>().transform;
     }
 
