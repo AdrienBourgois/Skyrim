@@ -31,21 +31,30 @@ public class GameManager : MonoBehaviour
     bool loadLevel = true;
 
     #region SerializeField
-
     [SerializeField] GameObject dataMgrPrefab;
     [SerializeField] GameObject guiMgrPrefab;
     [SerializeField] GameObject levelMgrPrefab;
     [SerializeField] GameObject itemMgrPrefab;
+<<<<<<< HEAD
     [SerializeField] GameObject dungeonMgrPrefab;
     
 
+=======
+    [SerializeField] GameObject magicMgrPrefab;
+    [SerializeField] GameObject resourceMgrPrefab;
+>>>>>>> Dev_MagicAttacks
     #endregion
 
     private DataManager dataMgr;
     private GUIManager guiMgr;
     private LevelManager levelMgr;
     private ItemManager itemMgr;
+<<<<<<< HEAD
     private DungeonManager dungeonMgr;
+=======
+    private MagicManager magicMgr;
+    private ResourceManager resourceMgr;
+>>>>>>> Dev_MagicAttacks
 
     public enum GameState
     {
@@ -81,7 +90,12 @@ public class GameManager : MonoBehaviour
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
         guiMgr = GUIManager.Instance ? GUIManager.Instance : Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
+<<<<<<< HEAD
         //dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
+=======
+        magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
+        resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
+>>>>>>> Dev_MagicAttacks
 
         UpdateGameState();
 
