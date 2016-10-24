@@ -33,10 +33,7 @@ public class DungeonManager : MonoBehaviour {
     void Start () {
 
         GameManager.Instance.onStateChanged += OnStateChanged;
-
-        dungeonGenerator.GenerateDungeon();
-
-	}
+    }
 	
 	void Update () {
 

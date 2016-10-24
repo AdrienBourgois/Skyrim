@@ -13,13 +13,13 @@ public class Door : MonoBehaviour, IUsableObject
 
     public void OnUse(ACharacter character)
     {
-        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.EnterDungeon);
         if (hasBeenOpen == false)
         {
             anim.Play("OpenDoor");
             hasBeenOpen = true;
-            
-            StartCoroutine(Test());
+            GameManager.Instance.ChangeGameStateTo(GameManager.GameState.EnterDungeon);
+            DontDestroyOnLoad(FindObjectOfType<DungeonManager>());
+            SceneManager.LoadSceneAsync("DungeonGeneration");
             
         }
         else if (hasBeenOpen == true)
@@ -43,12 +43,5 @@ public class Door : MonoBehaviour, IUsableObject
         player.transform.position = transform.FindChild("SpawnPoint").transform.position;
     }
 
-    IEnumerator Test()
-    {
-        AsyncOperation async = SceneManager.LoadSceneAsync("DungeonGeneration");
-        yield return async;
-        Debug.Log("Complete");
-        //yield return new WaitForSeconds(1f);
-        //SceneManager.LoadSceneAsync("DungeonGeneration");
-    }
+    
 }
