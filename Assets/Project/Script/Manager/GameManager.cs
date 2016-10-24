@@ -52,6 +52,9 @@ public class GameManager : MonoBehaviour
         get { return currGameState; }
     }
 
+    public delegate void Pause();
+    public static event Pause OnPause;
+
     void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
@@ -62,13 +65,13 @@ public class GameManager : MonoBehaviour
         guiMgr = GUIManager.Instance ? GUIManager.Instance : Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
 
-        UpdateGameState();
+        RecoverGameState();
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
 	}
 	
-    void UpdateGameState()
+    void RecoverGameState()
     {   
         switch (dataMgr.getActiveSceneName)
         {
@@ -133,6 +136,8 @@ public class GameManager : MonoBehaviour
         loadLevel = currGameState == GameState.Pause ? false : true;
         currGameState = GameState.InGame;
 
+        if (!loadLevel)
+            OnPause();
 
         levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
     }
@@ -141,6 +146,9 @@ public class GameManager : MonoBehaviour
     {
         loadLevel = currGameState == GameState.InGame ? false : true;
         currGameState = GameState.Pause;
+
+        if (!loadLevel)
+            OnPause();
     }
 
 }

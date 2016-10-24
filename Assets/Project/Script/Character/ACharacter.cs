@@ -5,7 +5,7 @@ using System;
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
-public abstract class ACharacter : MonoBehaviour
+public abstract class ACharacter : APausableObject
 {    
     private int unitMaxLevel;
     public int MaxUnitLevel
@@ -61,7 +61,8 @@ public abstract class ACharacter : MonoBehaviour
         get { return inventory; }
     }
     #endregion
-    
+   
+
     protected virtual void Start()
     {
         characterStats.SetCharacteristics(this);
