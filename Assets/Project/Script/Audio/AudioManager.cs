@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour {
 
-    private AudioManager instance;
-    public AudioManager Instance
+    static private AudioManager instance;
+    static public AudioManager Instance
     {
         get
         {
             if (!instance)
-                instance = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+                instance = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 
             return instance;
         }
@@ -109,20 +109,6 @@ public class AudioManager : MonoBehaviour {
         current_music_group.Add(clip);
         current_music_group.State = MusicGroup.EPlayState.PlaySingle;
     }
-
-    void Update()
-    {
-        if (Input.GetKeyDown("m"))
-            PlayMusic(EMusic_Type.Menu);
-        else if (Input.GetKeyDown("g"))
-            PlayMusic(EMusic_Type.Game);
-        else if (Input.GetKeyDown("f"))
-            PlayMusic(EMusic_Type.Fight);
-
-        if (Input.GetMouseButtonDown(1))
-            PlaySound(ESound_Type.Sword, new Vector3(0f, 0f, 0f));
-    }
-
 
     #region sounds
 

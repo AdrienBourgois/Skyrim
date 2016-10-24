@@ -124,8 +124,8 @@ public class GameManager : MonoBehaviour
 
     void MainMenuInit()
     {
-        
         currGameState = GameState.MainMenu;
+        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Menu);
     }
 
     void InGameInit()
