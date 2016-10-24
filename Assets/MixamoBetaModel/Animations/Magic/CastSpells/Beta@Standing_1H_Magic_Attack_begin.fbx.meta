@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5dbd17710d998ae48a9161b2f4af02c3
-timeCreated: 1476194216
+guid: 9a02424a509406e489052dc5ef0d951c
+timeCreated: 1476194220
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -139,7 +139,7 @@ ModelImporter:
     400128: Spine
     400130: Spine1
     400132: Spine2
-    7400000: standing_1H_cast_spell_01
+    7400000: Standing_1H_Magic_Attack_begin
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -166,17 +166,17 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: standing_1H_cast_spell_01
+      name: Standing_1H_Magic_Attack_begin
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 68
+      lastFrame: 35
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1

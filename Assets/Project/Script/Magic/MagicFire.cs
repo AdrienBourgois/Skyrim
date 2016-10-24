@@ -3,6 +3,11 @@ using System.Collections;
 
 public class MagicFire : AMagic
 {
+    public override void Activate()
+    {
+        Debug.Log("FIRE");
+    }
+
     protected override void OnDestroy()
     {
         // TODO: Make Explosion ?

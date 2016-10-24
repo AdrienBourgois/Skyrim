@@ -23,14 +23,11 @@ public abstract class AMagic : MonoBehaviour
     {
         Destroy(gameObject, lifeTime);
     }
-
-    public virtual void Activate()
-    {
-
-    }
-
+    
     protected virtual void OnDestroy()
     {
 
     }
+
+    public abstract void Activate();
 }
