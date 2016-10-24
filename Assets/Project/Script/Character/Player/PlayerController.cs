@@ -12,14 +12,11 @@ public class PlayerController : ACharacterController
 
     Transform camTransform;
 
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
+        (characterWeapons as PlayerWeapons).SetPlayer(character as Player);
         camTransform = FindObjectOfType<Cam>().transform;
-
-        PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
-        if (playerWeapons == null)
-            Debug.LogError("PlayerController.Start() - could not find child of name \"" + GameManager.c_weaponChildName + "\" of type PlayerWeapons");
-        playerWeapons.SetController(this);
     }
 
     protected override void Update()

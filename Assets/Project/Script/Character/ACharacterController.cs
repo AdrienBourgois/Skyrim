@@ -26,6 +26,9 @@ public abstract class ACharacterController : MonoBehaviour
 
     [SerializeField]
     protected ACharacter character = null;
+
+    [SerializeField]
+    protected ACharacterWeapons characterWeapons = null;
     #endregion
     
     private bool bIsGrounded = true;
@@ -49,6 +52,14 @@ public abstract class ACharacterController : MonoBehaviour
 
         if (character == null)
             Debug.LogError("ACharacterController.Awake() - ACharacter should not be null!");
+
+        if (characterWeapons == null)
+            Debug.LogError("ACharacterController.Awake() - ACharacterWeapons should not be null!");
+    }
+    
+    protected virtual void Start()
+    {
+        characterWeapons.SetController(this);
     }
 
     protected abstract void Update();
