@@ -54,9 +54,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-            Cursor.lockState = CursorLockMode.Confined;
-            //Cursor.visible = false;
-
         if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
             Destroy(gameObject);
 
