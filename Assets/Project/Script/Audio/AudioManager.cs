@@ -21,8 +21,11 @@ public class AudioManager : MonoBehaviour {
     {
         Menu,
         Game,
-        Fight
+        Fight,
+        Any
     }
+    [SerializeField]
+    public EMusic_Type current_music_type = EMusic_Type.Any;
     public enum ESound_Type
     {
         Sword,
@@ -60,12 +63,31 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayMusic(EMusic_Type music)
     {
-        /*if (music == EMusic_Type.Menu)
-            ChangeMusic(menu_music);
-        else if (music == EMusic_Type.Game)
-            ChangeMusic(game_music);
-        else if (music == EMusic_Type.Fight)
-            ChangeMusic(fight_music);*/
+        if (music != current_music_type)
+        {
+            if (music == EMusic_Type.Menu)
+            {
+                ChangeMusic(menu_music);
+                current_music_type = EMusic_Type.Menu;
+            }
+            else if (music == EMusic_Type.Game)
+            {
+                if (current_music_type != EMusic_Type.Fight)
+                {
+                    ChangeMusic(game_calm_music);
+                    AddMusic(game_fight_music);
+                }
+                else
+                    current_music_group.State = MusicGroup.EPlayState.PlaySingle;
+                current_music_type = EMusic_Type.Game;
+            }
+            else if (music == EMusic_Type.Fight)
+                if (current_music_type == EMusic_Type.Game)
+                {
+                    current_music_group.State = MusicGroup.EPlayState.PlayFull;
+                    current_music_type = EMusic_Type.Fight;
+                }
+        }
     }
 
     public void AddMusic(AudioClip clip)
@@ -91,16 +113,11 @@ public class AudioManager : MonoBehaviour {
     void Update()
     {
         if (Input.GetKeyDown("m"))
-            ChangeMusic(menu_music);
+            PlayMusic(EMusic_Type.Menu);
         else if (Input.GetKeyDown("g"))
-        {
-            ChangeMusic(game_calm_music);
-            AddMusic(game_fight_music);
-        }
+            PlayMusic(EMusic_Type.Game);
         else if (Input.GetKeyDown("f"))
-            current_music_group.State = MusicGroup.EPlayState.PlayFull;
-        else if (Input.GetKeyDown("c"))
-            current_music_group.State = MusicGroup.EPlayState.PlaySingle;
+            PlayMusic(EMusic_Type.Fight);
 
         if (Input.GetMouseButtonDown(1))
             PlaySound(ESound_Type.Sword, new Vector3(0f, 0f, 0f));
@@ -114,6 +131,8 @@ public class AudioManager : MonoBehaviour {
         AudioClip clip = null;
         if (sound == ESound_Type.Sword)
             clip = GetRandClip(sword_clips);
+        else if (sound == ESound_Type.SwordSwish)
+            clip = GetRandClip(sword_swish_clips);
 
         if (clip)
         {
