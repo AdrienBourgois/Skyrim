@@ -17,9 +17,7 @@ public class Door : MonoBehaviour, IUsableObject
         {
             anim.Play("OpenDoor");
             hasBeenOpen = true;
-            GameManager.Instance.ChangeGameStateTo(GameManager.GameState.EnterDungeon);
-            DontDestroyOnLoad(FindObjectOfType<DungeonManager>());
-            SceneManager.LoadSceneAsync("DungeonGeneration");
+            LoadLevel();
             
         }
         else if (hasBeenOpen == true)
@@ -43,5 +41,10 @@ public class Door : MonoBehaviour, IUsableObject
         player.transform.position = transform.FindChild("SpawnPoint").transform.position;
     }
 
-    
+    void LoadLevel()
+    {
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.EnterDungeon);
+        DontDestroyOnLoad(FindObjectOfType<DungeonManager>());
+        SceneManager.LoadSceneAsync("DungeonGeneration");
+    }
 }

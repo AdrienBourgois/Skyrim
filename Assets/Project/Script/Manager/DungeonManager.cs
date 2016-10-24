@@ -33,11 +33,12 @@ public class DungeonManager : MonoBehaviour {
     void Start () {
 
         GameManager.Instance.onStateChanged += OnStateChanged;
+        StartCoroutine(CreateDungeon());
+        CheckSlot();
     }
-	
-	void Update () {
 
-        
+    void Update () {
+
 	}
 
 
@@ -62,9 +63,13 @@ public class DungeonManager : MonoBehaviour {
         if (state == GameManager.GameState.EnterDungeon)
         {
             print("EnterDungeon");
-            dungeonGenerator.GenerateDungeon();
+            StartCoroutine(CreateDungeon());
         }
     }
 
-
+    IEnumerator CreateDungeon()
+    {
+        yield return new WaitForSeconds(0.1f);
+        dungeonGenerator.GenerateDungeon();
+    }
 }
