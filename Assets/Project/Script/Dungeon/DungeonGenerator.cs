@@ -19,19 +19,20 @@ public class DungeonGenerator : MonoBehaviour {
 
     #endregion
 
-    private GameObject dungeonPath = null;
+    private float spawnPointX = 2.5f;
+    private float spawnPointY = 1f;
+    private float spawnPointZ = 6f;
 
     void Start()
     {
-        dungeonPath = GameObject.Find("DungeonMgr");
         GenerateDungeon();
-       
     }
 
     private void GenerateDungeon()
     {
         Module firstModule = (Module)Instantiate(startModule, transform.position, transform.rotation);
-        firstModule.transform.SetParent(dungeonPath.transform);
+        firstModule.transform.SetParent(transform);
+        AddSpawnPoint(firstModule);
         List<ModuleConnector> pendingConnections = new List<ModuleConnector>(startModule.GetExits());
 
         for (int iteration = 0; iteration < iterations; iteration++)
@@ -62,10 +63,23 @@ public class DungeonGenerator : MonoBehaviour {
             MatchConnection(pendingConnection, connectionToMatch);
             newConnections.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
             connectionToMatch.IsConnected = true;
-            newModule.transform.SetParent(dungeonPath.transform);
+            newModule.transform.SetParent(transform);
         
     }
 
+    private void AddSpawnPoint(Module module)
+    {
+        Transform moduleTransform = module.transform;
+        Vector3 modulePosition = moduleTransform.position;
+        Object spawPointPrefab = Resources.Load("Door");
+        GameObject spawPoint = 
+            (GameObject)Instantiate(spawPointPrefab, 
+            new Vector3(modulePosition.x + spawnPointX, modulePosition.y + spawnPointY, modulePosition.z + spawnPointZ), 
+            moduleTransform.rotation);
+
+        spawPoint.transform.SetParent(moduleTransform);
+        
+    }
 
     private void CheckEmptyConnection(List<ModuleConnector> pendingConnections, Module fillingModule)
     {

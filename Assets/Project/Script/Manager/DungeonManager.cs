@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class DungeonManager : MonoBehaviour {
 
-    //public delegate
     List<Module> modules = new List<Module>();
 
 
@@ -22,7 +21,6 @@ public class DungeonManager : MonoBehaviour {
 
     void Start () {
 
-       // test();
 
 	}
 	
