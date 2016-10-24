@@ -73,12 +73,39 @@ public class AudioManager : MonoBehaviour {
     public void ChangeMusic(AudioClip clip)
     {
         if (current_music_group != null)
-            current_music_group.Stop();
+            current_music_group.State = MusicGroup.EPlayState.Stop;
 
         current_music_group = gameObject.AddComponent<MusicGroup>();
         current_music_group.MixerGroup = music_mixer_group;
         current_music_group.Add(clip);
+        current_music_group.State = MusicGroup.EPlayState.PlaySingle;
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown("m"))
+            ChangeMusic(menu_music);
+        else if (Input.GetKeyDown("g"))
+            ChangeMusic(game_music);
+        else if (Input.GetKeyDown("f"))
+            ChangeMusic(fight_music);
+
+        else if (Input.GetKeyDown("1"))
+        {
+            ChangeMusic(sample1);
+            AddMusic(sample2);
+        }
+        if (Input.GetKeyDown("o"))
+            current_music_group.State = MusicGroup.EPlayState.PlayFull;
+        else if (Input.GetKeyDown("p"))
+            current_music_group.State = MusicGroup.EPlayState.PlaySingle;
+
+        if (Input.GetMouseButtonDown(1))
+            PlaySound(ESound_Type.Sword, new Vector3(0f, 0f, 0f));
+    }
+
+
+    #region sounds
 
     public void PlaySound(ESound_Type sound, Vector3 position)
     {
@@ -102,27 +129,6 @@ public class AudioManager : MonoBehaviour {
         else
             throw new UnassignedReferenceException("Sound Missing !");
     }
-
-    void Update()
-    {
-        if (Input.GetKeyDown("m"))
-            ChangeMusic(menu_music);
-        else if (Input.GetKeyDown("g"))
-            ChangeMusic(game_music);
-        else if (Input.GetKeyDown("f"))
-            ChangeMusic(fight_music);
-
-        else if (Input.GetKeyDown("1"))
-            ChangeMusic(sample1);
-        if (Input.GetKeyDown("2"))
-            AddMusic(sample2);
-
-        if (Input.GetMouseButtonDown(1))
-            PlaySound(ESound_Type.Sword, new Vector3(0f, 0f, 0f));
-    }
-
-
-    #region sounds
 
     private AudioClip GetRandClip(List<AudioClip> clips)
     {

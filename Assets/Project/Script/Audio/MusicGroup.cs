@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 public class MusicGroup : MonoBehaviour {
 
-    List<AudioSource> sources = new List<AudioSource>();
-    List<AudioClip> clips_to_add = new List<AudioClip>();
-    bool ready_to_destruct = false;
-    bool is_playing_subclips = false;
+    List<AudioSource> sub_sources = new List<AudioSource>();
+    List<AudioClip> sub_clips = new List<AudioClip>();
+    AudioClip main_clip = null;
+    AudioSource main_source = null;
 
     private AudioMixerGroup mixer_group;
     public AudioMixerGroup MixerGroup
@@ -17,52 +17,97 @@ public class MusicGroup : MonoBehaviour {
         set { mixer_group = value; }
     }
 
+    public enum EPlayState
+    {
+        PlaySingle,
+        PlayFull,
+        Stop,
+    }
+
+    private EPlayState state = EPlayState.PlaySingle;
+    public EPlayState State
+    {
+        get { return state; }
+        set
+        {
+            state = value;
+            if (value == EPlayState.Stop)
+                StartCoroutine(Stop());
+            else if (value == EPlayState.PlaySingle)
+                ToSinglePlay();
+            else if (value == EPlayState.PlayFull)
+                ToFullPlay();
+        }
+    }
 
     public void Add(AudioClip clip)
     {
-        clips_to_add.Add(clip);
+        if (main_clip == null)
+            main_clip = clip;
+        else
+            sub_clips.Add(clip);
     }
 
-    void Update()
+    private void ToSinglePlay()
     {
-        if(clips_to_add.Count != 0)
+        if (sub_sources.Count > 0)
         {
-            foreach (AudioClip clip in clips_to_add)
-                Sync(clip);
-
-            clips_to_add.Clear();
+            foreach (AudioSource source in sub_sources)
+            {
+                StartCoroutine(CrossFadeDownAndDestroy(source));
+            }
         }
+        if(main_source == null)
+            Sync(main_clip);
+    }
 
-        if (ready_to_destruct)
-            Destruct();
+    void ToFullPlay()
+    {
+        if (!main_source.isPlaying)
+            Sync(main_clip);
+        foreach (AudioClip clip in sub_clips)
+            Sync(clip);
     }
 
     private void Sync(AudioClip clip)
     {
         AudioSource source = gameObject.AddComponent<AudioSource>();
 
-        if (sources.Count != 0)
-            source.timeSamples = sources[0].timeSamples;
+        if (main_source != null)
+        {
+            if (main_source.isPlaying)
+                source.timeSamples = main_source.timeSamples;
+        }
 
         source.loop = true;
         source.clip = clip;
         source.outputAudioMixerGroup = MixerGroup;
-        source.Play();
         source.volume = 0f;
-        StartCoroutine(CrossFade_Up(source));
+        source.Play();
 
-        sources.Add(source);
+        if (main_source == null)
+            main_source = source;
+        else
+            sub_sources.Add(source);
+
+        StartCoroutine(CrossFadeUp(source));
     }
 
-    public void Stop()
+    public IEnumerator Stop()
     {
-        foreach (AudioSource source in sources)
+        if (sub_sources.Count > 0)
         {
-            StartCoroutine(CrossFade_Down(source));
+            foreach (AudioSource source in sub_sources)
+            {
+                StartCoroutine(CrossFadeDownAndDestroy(source));
+            }
         }
+        StartCoroutine(CrossFadeDownAndDestroy(main_source));
+        yield return new WaitForSeconds(1.0f);
+        Destruct();
     }
 
-    private IEnumerator CrossFade_Up(AudioSource source)
+    private IEnumerator CrossFadeUp(AudioSource source)
     {
         float previous_time = Time.time;
         float delta = 0f;
@@ -77,26 +122,28 @@ public class MusicGroup : MonoBehaviour {
         }
     }
 
-    private IEnumerator CrossFade_Down(AudioSource source)
+    private IEnumerator CrossFadeDownAndDestroy(AudioSource source)
     {
         float previous_time = Time.time;
         float delta = 0f;
 
         while (source.volume > 0f)
         {
-            ready_to_destruct = false;
             delta += Time.time - previous_time;
             source.volume = 1f - delta;
 
             previous_time = Time.time;
             yield return new WaitForEndOfFrame();
         }
-        ready_to_destruct = true;
+
+        sub_sources.Remove(source);
+        Destroy(source);
     }
 
     void Destruct()
     {
-        foreach (AudioSource source in sources)
+        Destroy(main_source);
+        foreach (AudioSource source in sub_sources)
             Destroy(source);
 
         Destroy(this);
