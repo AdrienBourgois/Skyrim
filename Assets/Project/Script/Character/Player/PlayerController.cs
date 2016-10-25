@@ -23,8 +23,14 @@ public class PlayerController : ACharacterController
     protected override void Update()
     {
         ResetTriggers();
-        if (GameManager.Instance.CurrGameState != GameManager.GameState.Pause)
-            UpdateInput();
+
+        if (paused)
+        {
+            ControllerMove(0f, 0f);
+            return;
+        }
+
+        UpdateInput();
     }
 
     private void UpdateInput()
@@ -75,6 +81,8 @@ public class PlayerController : ACharacterController
             ControllerUse();
     }
 
+    #region Controller
+
     public override void ControllerRightHand()
     {
         base.ControllerRightHand();
@@ -114,4 +122,7 @@ public class PlayerController : ACharacterController
             }
         }
     }
+
+    #endregion
+
 }

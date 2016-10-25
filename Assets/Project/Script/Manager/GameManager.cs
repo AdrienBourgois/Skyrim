@@ -52,6 +52,9 @@ public class GameManager : MonoBehaviour
         get { return currGameState; }
     }
 
+    public delegate void Pause();
+    public static event Pause OnPause;
+
     void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
@@ -62,14 +65,15 @@ public class GameManager : MonoBehaviour
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
         magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
         resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
+        levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
 
-        UpdateGameState();
+        RecoverGameState();
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
 	}
 	
-    void UpdateGameState()
+    void RecoverGameState()
     {   
         switch (dataMgr.getActiveSceneName)
         {
@@ -134,8 +138,8 @@ public class GameManager : MonoBehaviour
         loadLevel = currGameState == GameState.Pause ? false : true;
         currGameState = GameState.InGame;
 
-        levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
-
+        if (!loadLevel)
+            OnPause();
         AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
     }
 
@@ -143,6 +147,9 @@ public class GameManager : MonoBehaviour
     {
         loadLevel = currGameState == GameState.InGame ? false : true;
         currGameState = GameState.Pause;
+
+        if (!loadLevel)
+            OnPause();
     }
 
 }

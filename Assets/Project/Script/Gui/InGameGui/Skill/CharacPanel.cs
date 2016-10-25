@@ -7,14 +7,18 @@ public class CharacPanel : MonoBehaviour
     Player player;
     Characteristics charac;
 
-    void Awake()
+    void Start()
     {
         player = LevelManager.Instance.Player;
         charac = player.CharacterStats.UnitCharacteristics;
+        UpdateStats();
     }
 
     public void UpdateStats()
     {
+        if (!player)
+            return;
+
         player.CharacterStats.SetCharacteristics(player);
 
         foreach (Transform child in transform)
@@ -51,7 +55,6 @@ public class CharacPanel : MonoBehaviour
 
     public void Validate()
     {
-        player.CharacterStats.SetCharacteristics(player);
         UpdateStats();
         Reset();
     }

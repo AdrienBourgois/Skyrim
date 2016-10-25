@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cam : MonoBehaviour
+public class Cam : APausableObject
 {
     [SerializeField] float lookDownMax = -70f;
     [SerializeField] float lookUpMax = 70f;
@@ -14,9 +14,11 @@ public class Cam : MonoBehaviour
     Transform compass;
 
     private float rotY = 0f;
-    
+
     void Awake()
     {
+        GameManager.OnPause += PutPause;
+
         playerController = FindObjectOfType<PlayerController>();
         if (playerController == null)
             Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
@@ -35,10 +37,10 @@ public class Cam : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.CurrGameState == GameManager.GameState.Pause)
-            return;
-
         transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
+
+        if (paused)
+            return;
 
         FpsCamUpdate();
     }

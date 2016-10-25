@@ -5,8 +5,8 @@ using System;
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
-public abstract class ACharacter : MonoBehaviour
-{
+public abstract class ACharacter : APausableObject
+{    
     public delegate void DelegateWeapons(Item leftWeapon, Item rightWeapon);
     public event DelegateWeapons OnChangedWeapons;
 
@@ -49,26 +49,9 @@ public abstract class ACharacter : MonoBehaviour
         get { return baseMoveSpeed; }
         protected set { baseMoveSpeed = value; }
     }
-
-    [SerializeField]
-    private int baseAttack;
-    [SerializeField]
-    private int baseDefense;
-    [SerializeField]
-    private float baseWeight;
-    [SerializeField]
-    private float baseHealth = 100f;
-    [SerializeField]
-    private int baseMana = 100;
-    [SerializeField]
-    private int baseSpellPower;
-    [SerializeField]
-    private float basePrecision;
-    [SerializeField]
-    private float baseAttackSpeed;
     #endregion
 
-    #region Stats & Inventory
+    #region Stats & Inventory & Spell
     private CharacterStats characterStats = new CharacterStats();
     public CharacterStats CharacterStats
     {
@@ -79,6 +62,12 @@ public abstract class ACharacter : MonoBehaviour
     public Inventory UnitInventory
     {
         get { return inventory; }
+    }
+
+    private SpellInventory spells = new SpellInventory();
+    public SpellInventory UnitSpells
+    {
+        get { return spells; }
     }
     #endregion
     

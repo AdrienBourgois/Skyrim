@@ -8,7 +8,7 @@ using System;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Animator))]
-public abstract class ACharacterController : MonoBehaviour
+public abstract class ACharacterController : APausableObject
 {
     #region Serialized Fields
     [SerializeField]
@@ -39,9 +39,10 @@ public abstract class ACharacterController : MonoBehaviour
         protected set { bIsGrounded = value; }
     }
 
-    // Use this for initialization
     protected void Awake()
     {
+        GameManager.OnPause += PutPause;
+
         if (capCol == null)
             Debug.LogError("ACharacterController.Awake() - CapsuleCollider should not be null!");
 
@@ -61,6 +62,12 @@ public abstract class ACharacterController : MonoBehaviour
     protected virtual void Start()
     {
         characterWeapons.SetController(this);
+    }
+
+    protected override void PutPause()
+    {
+        base.PutPause();
+        ControllerMove(0f, 0f);
     }
 
     protected abstract void Update();

@@ -27,6 +27,8 @@ public class InventoryGUI : MonoBehaviour
     }
     public Inventory_Gui_Type current_gui_action = Inventory_Gui_Type.PlayerInventory;
 
+    Player player;
+
     //Left Panel
     [SerializeField]
     GameObject items_list = null;
@@ -100,6 +102,7 @@ public class InventoryGUI : MonoBehaviour
 
     void Start()
     {
+        player = LevelManager.Instance.Player;
         gameObject.SetActive(false);
     }
 
@@ -238,8 +241,7 @@ public class InventoryGUI : MonoBehaviour
             {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
-                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory;
-                player_inventory.AddItem(selected_item);
+                player.UnitInventory.AddItem(selected_item);
                 DisplayItem(null);
             });
         }
