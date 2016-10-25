@@ -24,18 +24,20 @@ public class GameManager : MonoBehaviour
     bool loadLevel = true;
 
     #region SerializeField
-
     [SerializeField] GameObject dataMgrPrefab;
     [SerializeField] GameObject guiMgrPrefab;
     [SerializeField] GameObject levelMgrPrefab;
     [SerializeField] GameObject itemMgrPrefab;
-
+    [SerializeField] GameObject magicMgrPrefab;
+    [SerializeField] GameObject resourceMgrPrefab;
     #endregion
 
     private DataManager dataMgr;
     private GUIManager guiMgr;
     private LevelManager levelMgr;
     private ItemManager itemMgr;
+    private MagicManager magicMgr;
+    private ResourceManager resourceMgr;
 
     public enum GameState
     {
@@ -64,6 +66,8 @@ public class GameManager : MonoBehaviour
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
         guiMgr = GUIManager.Instance ? GUIManager.Instance : Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
+        magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
+        resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
         levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
 
         RecoverGameState();
@@ -128,8 +132,8 @@ public class GameManager : MonoBehaviour
 
     void MainMenuInit()
     {
-        
         currGameState = GameState.MainMenu;
+        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Menu);
     }
 
     void InGameInit()
@@ -139,6 +143,7 @@ public class GameManager : MonoBehaviour
 
         if (!loadLevel)
             OnPause();
+        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
     }
 
     void PauseInit()

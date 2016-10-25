@@ -15,7 +15,8 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    private Dictionary<string, WeaponInstance> mapCachePrefab = new Dictionary<string, WeaponInstance>();
+    //TODO: to changed with IDs ?
+    //private Dictionary<string, WeaponInstance> mapCachePrefab = new Dictionary<string, WeaponInstance>();
 
     [Flags] public enum flags_generation
     {
@@ -66,18 +67,7 @@ public class ItemManager : MonoBehaviour
 
     public WeaponInstance InstantiateItem(Item item)
     {
-        WeaponInstance itemPrefab;
-
-        if (!mapCachePrefab.TryGetValue(item.PrefabPath, out itemPrefab))
-        {
-            itemPrefab = Resources.Load<WeaponInstance>(item.PrefabPath);
-            if (itemPrefab == null)
-            {
-                Debug.LogError("ItemManager.InstantiateItem() couldn't load prefab with path \"" + item.PrefabPath + "\"");
-                return null;
-            }
-            mapCachePrefab.Add(item.PrefabPath, itemPrefab);
-        }
+        WeaponInstance itemPrefab = ResourceManager.Instance.Load<WeaponInstance>(item.PrefabPath);
 
         return Instantiate(itemPrefab);
     }

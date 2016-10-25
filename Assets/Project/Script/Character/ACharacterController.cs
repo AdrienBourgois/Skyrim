@@ -26,6 +26,10 @@ public abstract class ACharacterController : APausableObject
 
     [SerializeField]
     protected ACharacter character = null;
+    public ACharacter Character { get { return character; } }
+
+    [SerializeField]
+    protected ACharacterWeapons characterWeapons = null;
     #endregion
     
     private bool bIsGrounded = true;
@@ -50,6 +54,14 @@ public abstract class ACharacterController : APausableObject
 
         if (character == null)
             Debug.LogError("ACharacterController.Awake() - ACharacter should not be null!");
+
+        if (characterWeapons == null)
+            Debug.LogError("ACharacterController.Awake() - ACharacterWeapons should not be null!");
+    }
+    
+    protected virtual void Start()
+    {
+        characterWeapons.SetController(this);
     }
 
     protected override void PutPause()
@@ -69,7 +81,6 @@ public abstract class ACharacterController : APausableObject
         animator.ResetTrigger("TriggerSpell");
         animator.ResetTrigger("TriggerRightHand");
         animator.ResetTrigger("TriggerLeftHand");
-        animator.ResetTrigger("TriggerWeapon");
         animator.ResetTrigger("TriggerDeath");
     }
     
@@ -145,28 +156,40 @@ public abstract class ACharacterController : APausableObject
 
     public virtual void ControllerSelectMagic(int magicId)
     {
+        if (animator.GetBool("IsUsing" + character.StuffType.ToString())
+            || !Enum.IsDefined(typeof(MagicManager.MagicID), magicId))
+            return;
+        // TODO: select magic in Character and set SpellType from magicType
+        characterWeapons.SetActiveMagic( (MagicManager.MagicID)magicId );
         animator.SetInteger("SpellType", magicId);
         animator.SetBool("IsUsingMagic", true);
-        Debug.Log("Selected magic num [" + magicId + "]");
     }
 
     public virtual void ControllerUnselectMagic()
     {
+        characterWeapons.SetActiveMagic(MagicManager.MagicID.NONE);
         animator.SetInteger("SpellType", 0);
         animator.SetBool("IsUsingMagic", false);
-        Debug.Log("Unselected Magic");
     }
 
     public virtual void ControllerCastSpell()
     {
         animator.SetTrigger("TriggerSpell");
+        if (!animator.GetBool("IsUsing" + character.StuffType.ToString()))
+            characterWeapons.InstanciateMagic();
     }
 
     public virtual void ControllerDrawSheathSword()
     {
-        animator.SetTrigger("TriggerWeapon");
+        string animBoolName = "IsUsing" + character.StuffType.ToString();
+        animator.SetBool(animBoolName, !animator.GetBool(animBoolName));
     }
     #endregion
+
+    public virtual void MagicActivation()
+    {
+        characterWeapons.ActivateMagic();
+    }
 
     protected virtual void OnCollisionEnter(Collision collision)
     {

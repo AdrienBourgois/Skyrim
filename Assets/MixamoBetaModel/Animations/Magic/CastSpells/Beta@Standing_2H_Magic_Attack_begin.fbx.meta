@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 9a02424a509406e489052dc5ef0d951c
-timeCreated: 1476194220
+guid: fa0d51087289266428672408bcab0f36
+timeCreated: 1476194225
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -139,7 +139,7 @@ ModelImporter:
     400128: Spine
     400130: Spine1
     400132: Spine2
-    7400000: Standing_1H_Magic_Attack_01
+    7400000: Standing_2H_Magic_Attack_04
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -166,17 +166,17 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Standing_1H_Magic_Attack_01
+      name: Standing_2H_Magic_Attack_04
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 69
+      lastFrame: 35
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1

@@ -10,16 +10,14 @@ public class PlayerController : ACharacterController
     public event DelegateAction OnRightDown;
     #endregion
 
+    // TODO: need one for enemy, to be able to shoot other than straight
     Transform camTransform;
 
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
+        characterWeapons.SetCharacter(character);
         camTransform = FindObjectOfType<Cam>().transform;
-
-        PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
-        if (playerWeapons == null)
-            Debug.LogError("PlayerController.Start() - could not find child of name \"" + GameManager.c_weaponChildName + "\" of type PlayerWeapons");
-        playerWeapons.SetController(this);
     }
 
     protected override void Update()
