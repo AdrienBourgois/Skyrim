@@ -50,6 +50,7 @@ public class InventoryGUI : MonoBehaviour
     Button action_button = null;
     [SerializeField]
     Button quit_button = null;
+    public Button.ButtonClickedEvent OnQuitButton = null;
 
     Item selected_item = null;
 
@@ -94,9 +95,12 @@ public class InventoryGUI : MonoBehaviour
 
         filter_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
         sort_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
-        quit_button.onClick.AddListener(delegate {  Show = false;
-                                                    FindObjectOfType<IGGui>().gameObject.SetActive(true);
-                                                    GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame); });
+        OnQuitButton = quit_button.onClick;
+        OnQuitButton.AddListener(delegate { Show = false;
+                                            FindObjectOfType<IGGui>().gameObject.SetActive(true);
+                                            GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame); });
+
+        instance = this;
     }
 
     void Start()
@@ -255,7 +259,7 @@ public class InventoryGUI : MonoBehaviour
             {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
-                Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory; 
                 player_inventory.AddItem(selected_item);
                 DisplayItem(null);
             });

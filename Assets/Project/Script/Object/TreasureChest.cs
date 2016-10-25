@@ -6,27 +6,40 @@ public class TreasureChest : MonoBehaviour, IUsableObject
 {
     private Animation anim = null;
     private bool hasBeenOpen = false;
-    InventoryGUI gui = null;
-    Inventory inventory = new Inventory();
+    InventoryGUI invGui = null;
+    Inventory inv = new Inventory();
 
     void Awake()
     {
-        gui = ResourceManager.Instance.Load<InventoryGUI>("Gui/InventoryGUI");
+        Debug.Log("LOLOLOLOL");
+        //invGui = ResourceManager.Instance.Load<InventoryGUI>("Gui/InventoryGUI");
         anim = GetComponent<Animation>();
-        gui = InventoryGUI.Instance;
-       
+
+        invGui = InventoryGUI.Instance;
+        Debug.Log(invGui);
     }
+
+    void Start()
+    {
+        Debug.Log("LALALALA");
+        invGui.Inventory = inv;
+        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, 10);
+
+        invGui.OnQuitButton.AddListener(delegate { OnUse(null); });
+    }
+
+
 
     public void OnUse(ACharacter character)
     {
         if (hasBeenOpen == false)
         {
-            gui.Inventory = inventory;
-            gui.current_gui_action = InventoryGUI.Inventory_Gui_Type.ChestInventory;
-            int score = Random.Range(0, 5);
-            inventory.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, score);
+           
+            invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.ChestInventory;
+            
+           
             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
-            gui.Show = true;
+            invGui.Show = true;
             
             anim.Play("open");
             hasBeenOpen = true;

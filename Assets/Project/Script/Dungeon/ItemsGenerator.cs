@@ -41,19 +41,16 @@ public class ItemsGenerator : MonoBehaviour {
 
     public void CreateRandItem()
     {
-        print("OnCreateRandItem");
         int score = Random.Range(0, 100);
 
         if (score >= 90)
         {
-            print("Chest Created");
             Object chestPrefab = ResourceManager.Instance.Load("Dungeon/chest_epic");
             GameObject chest = Instantiate(chestPrefab, transform.position, transform.rotation) as GameObject;
             chest.transform.SetParent(transform);
         }
         else if (score >= 60)
         {
-            print("Torch Created");
             Object torchPrefab = ResourceManager.Instance.Load("Dungeon/Torch");
             GameObject torch = (GameObject)Instantiate(torchPrefab, transform.position, transform.rotation);
             torch.transform.SetParent(transform);
