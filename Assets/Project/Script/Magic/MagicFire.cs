@@ -6,7 +6,7 @@ public class MagicFire : AMagic
     {
         transform.parent = null;
         Debug.Log("FIRE");
-        // TODO: launch using line of sight from selfController
+        //selfController;
     }
 
     protected override void OnDestroy()

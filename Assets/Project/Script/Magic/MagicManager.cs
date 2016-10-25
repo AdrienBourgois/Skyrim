@@ -14,6 +14,7 @@ public class MagicManager : MonoBehaviour
         NONE = 0,
         Heal = 1,
         Fire = 2,
+        HeavyFire = 3,
         COUNT,
     }
 
