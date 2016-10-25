@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MagicFire : AMagic
+public class FireSpell : ASpell
 {
     public override void Activate()
     {
-        transform.parent = null;
+     //   gao = new GameObject();
         Debug.Log("FIRE");
+        // Destroy (gao, lifetime)
         // TODO: launch using line of sight from selfController
     }
 
-    protected override void OnDestroy()
-    {
-        // TODO: Make Explosion ?
-    }
+    //protected override void OnDestroy()
+    //{
+    //    // TODO: Make Explosion ?
+    //}
 
     protected virtual void OnTriggerEnter(Collider collider)
     {
@@ -21,11 +22,11 @@ public class MagicFire : AMagic
 
         if (character != null)
         {
-            if (character == selfController.Character)
-                return;
-            // TODO: damages
+            //if (character == selfController.Character)
+            //    return;
+            //// TODO: damages
             Debug.Log("DAMAGES");
         }
-        Destroy(gameObject);
+        //Destroy(gao);
     }
 }

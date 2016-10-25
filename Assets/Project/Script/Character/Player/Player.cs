@@ -56,10 +56,10 @@ public class Player : ACharacter
     {
         base.Start();
 
-        PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
-        if (playerWeapons == null)
-            Debug.LogError("Player.Start() - could not find child of name \"" + GameManager.c_weaponChildName + "\" of type PlayerWeapons");
-        playerWeapons.SetPlayer(this);
+        //PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
+        //if (playerWeapons == null)
+        //    Debug.LogError("Player.Start() - could not find child of name \"" + GameManager.c_weaponChildName + "\" of type PlayerWeapons");
+        //playerWeapons.SetPlayer(this);
 
         UnitSpells.PlayerBasicSpellInit();
     }

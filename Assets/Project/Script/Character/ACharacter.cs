@@ -64,8 +64,8 @@ public abstract class ACharacter : APausableObject
         get { return inventory; }
     }
 
-    private SpellInventory spells = new SpellInventory();
-    public SpellInventory UnitSpells
+    private MagicInventory spells = new MagicInventory();
+    public MagicInventory UnitSpells
     {
         get { return spells; }
     }
