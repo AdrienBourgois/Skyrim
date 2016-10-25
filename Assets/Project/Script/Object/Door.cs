@@ -16,7 +16,7 @@ public class Door : MonoBehaviour, IUsableObject
             anim.Play("OpenDoor");
             hasBeenOpen = true;
         }
-        else if (hasBeenOpen == true)
+        else if (hasBeenOpen)
         {
             anim.Play("CloseDoor");
             hasBeenOpen = false;

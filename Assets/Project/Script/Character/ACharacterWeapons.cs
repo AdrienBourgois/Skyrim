@@ -57,7 +57,7 @@ public class ACharacterWeapons : MonoBehaviour
             oneCharSwitchBehaviour.OnSwitch += SwitchWeapon;
     }
 
-    protected void SetWeapons(Item leftWeapon, Item rightWeapon)
+    private void SetWeapons(Item leftWeapon, Item rightWeapon)
     {
         leftHand.SetWeapon(leftWeapon);
         rightHand.SetWeapon(rightWeapon);

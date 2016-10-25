@@ -43,7 +43,7 @@ public class DataManager : MonoBehaviour {
         if (!gameMgr)
             return;
 
-        SceneManager.LoadSceneAsync((int)gameMgr.CurrGameState);
+        SceneManager.LoadSceneAsync((int)GameManager.GameState.MainMenu);
     }
 
 

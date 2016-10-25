@@ -1,49 +1,22 @@
-﻿using UnityEngine;
-
-public class Player : ACharacter
+﻿public class Player : ACharacter
 {
     #region Equipement
 
-    Weapon rightHand;
-    public Weapon RightHand
-    {
-        get { return rightHand; }
-        set { rightHand = value; }
-    }
+    public Weapon RightHand { get; set; }
 
-    Shield leftHand;
-    public Shield LeftHand
-    {
-        get { return leftHand; }
-        set { leftHand = value; }
-    }
+    public Shield LeftHand { get; set; }
 
-    Helmet helmet;
-    public Helmet Helmet
-    {
-        get { return helmet; }
-        set { helmet = value; }
-    }
+    public Helmet Helmet { get; set; }
 
-    Torso torso;
-    public Torso Torso
-    {
-        get { return torso; }
-        set { torso = value; }
-    }
+    public Torso Torso { get; set; }
 
-    Boots boots;
-    public Boots Boots
-    {
-        get { return boots; }
-        set { boots = value; }
-    }
+    public Boots Boots { get; set; }
 
     #endregion
 
     #region Exp
-    int xp = 0;
-    public int Xp { get { return xp; } }
+
+    public int Xp { get; private set; }
 
     int xpToLevelUp = 100;
     public int XpToLevelUp { get { return xpToLevelUp; } }
@@ -53,9 +26,9 @@ public class Player : ACharacter
     {
         base.Start();
 
-        PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
-        if (playerWeapons == null)
-            Debug.LogError("Player.Start() - could not find child of name \"" + GameManager.c_weaponChildName + "\" of type PlayerWeapons");
+        //PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
+        //if (playerWeapons == null)
+        //    Debug.LogError("Player.Start() - could not find child of name \"" + GameManager.c_weaponChildName + "\" of type PlayerWeapons");
         //playerWeapons.SetPlayer(this);
 
         UnitSpells.PlayerBasicSpellInit();
@@ -63,14 +36,20 @@ public class Player : ACharacter
    
     void LevelUp()
     {
-        if (xp < xpToLevelUp)
+        if (Xp < xpToLevelUp)
             return;
 
-        xp -= xpToLevelUp;
+        Xp -= xpToLevelUp;
         xpToLevelUp *= 2;
     }
 
     int attributePointToAssign = 10;
+
+    public Player()
+    {
+        Xp = 0;
+    }
+
     public int AttributePointToAssign
     {
         get { return attributePointToAssign; }

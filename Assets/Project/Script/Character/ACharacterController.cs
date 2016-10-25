@@ -18,10 +18,10 @@ public abstract class ACharacterController : APausableObject
     }
 
     [SerializeField]
-    protected Rigidbody rb = null;
+    private Rigidbody rb = null;
 
     [SerializeField]
-    protected Animator animator = null;
+    private Animator animator = null;
 
     [SerializeField]
     protected ACharacter character = null;
@@ -32,10 +32,10 @@ public abstract class ACharacterController : APausableObject
     #endregion
     
     private bool bIsGrounded = true;
-    public bool IsGrounded
+    protected bool IsGrounded
     {
         get { return bIsGrounded; }
-        protected set { bIsGrounded = value; }
+        set { bIsGrounded = value; }
     }
 
     protected void Awake()
@@ -96,13 +96,13 @@ public abstract class ACharacterController : APausableObject
         animator.SetFloat("LookY", lookY);
     }
 
-    public virtual void ControllerMove(float xAxis, float zAxis)
+    protected virtual void ControllerMove(float xAxis, float zAxis)
     {
         animator.SetFloat("MoveX", xAxis, character.MoveSpeed / 10, Time.deltaTime);
         animator.SetFloat("MoveZ", zAxis, character.MoveSpeed / 10, Time.deltaTime);
     }
 
-    public virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
+    protected virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
     {
         animator.SetFloat("MoveX", xAxis, character.MoveSpeed / 10, Time.deltaTime);
         animator.SetFloat("MoveZ", zAxis, character.MoveSpeed / 10, Time.deltaTime);
@@ -130,7 +130,7 @@ public abstract class ACharacterController : APausableObject
         }
     }
 
-    public virtual void ControllerLeftHand(bool bIsPressed = true)
+    protected virtual void ControllerLeftHand(bool bIsPressed = true)
     {
         if (animator.GetBool("IsUsingSwordAndShield"))
             animator.SetBool("IsBlocking", bIsPressed);
@@ -138,7 +138,7 @@ public abstract class ACharacterController : APausableObject
             animator.SetTrigger("TriggerLeftHand");
     }
 
-    public virtual void ControllerRightHand()
+    protected virtual void ControllerRightHand()
     {
         animator.SetTrigger("TriggerRightHand");
     }
@@ -148,12 +148,12 @@ public abstract class ACharacterController : APausableObject
         throw new NotImplementedException();
     }
 
-    public virtual void ControllerCrouch(bool bIsCrouch)
+    protected virtual void ControllerCrouch(bool bIsCrouch)
     {
         animator.SetBool("IsCrouching", bIsCrouch);
     }
 
-    public virtual void ControllerSelectMagic(int magicId)
+    protected virtual void ControllerSelectMagic(int magicId)
     {
         if (animator.GetBool("IsUsing" + character.StuffType.ToString())
             || !Enum.IsDefined(typeof(MagicManager.MagicID), magicId))
@@ -164,28 +164,28 @@ public abstract class ACharacterController : APausableObject
         animator.SetBool("IsUsingMagic", true);
     }
 
-    public virtual void ControllerUnselectMagic()
+    protected virtual void ControllerUnselectMagic()
     {
         characterWeapons.SetActiveMagic(MagicManager.MagicID.NONE);
         animator.SetInteger("SpellType", 0);
         animator.SetBool("IsUsingMagic", false);
     }
 
-    public virtual void ControllerCastSpell()
+    protected virtual void ControllerCastSpell()
     {
         animator.SetTrigger("TriggerSpell");
         if (!animator.GetBool("IsUsing" + character.StuffType.ToString()))
             characterWeapons.InstanciateMagic();
     }
 
-    public virtual void ControllerDrawSheathSword()
+    protected virtual void ControllerDrawSheathSword()
     {
         string animBoolName = "IsUsing" + character.StuffType.ToString();
         animator.SetBool(animBoolName, !animator.GetBool(animBoolName));
     }
     #endregion
 
-    public virtual void MagicActivation()
+    public void MagicActivation()
     {
         characterWeapons.ActivateMagic();
     }

@@ -17,9 +17,9 @@ public class MagicPanel : MonoBehaviour
         buttonPrefab = transform.FindChild("SpellSelector").GetChild(0).GetChild(0).GetChild(0).gameObject;
         UpdateSpells();
     }
-	
-	
-	public void UpdateSpells ()
+
+
+    private void UpdateSpells ()
     {
         if (spells == null)
             return;
@@ -53,7 +53,7 @@ public class MagicPanel : MonoBehaviour
 
         if (spell.Power > 0)
             gao.GetComponent<Image>().color  = Color.green;
-        else if (spell.Power == 0)
+        else if (spell.Power == 0f)
             gao.GetComponent<Image>().color = Color.cyan;
         else
             gao.GetComponent<Image>().color = Color.magenta;

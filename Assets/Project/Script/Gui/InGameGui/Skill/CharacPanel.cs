@@ -14,7 +14,7 @@ public class CharacPanel : MonoBehaviour
         UpdateStats();
     }
 
-    public void UpdateStats()
+    private void UpdateStats()
     {
         if (!player)
             return;
@@ -59,7 +59,7 @@ public class CharacPanel : MonoBehaviour
         Reset();
     }
 
-    public void Reset()
+    private void Reset()
     {
         foreach (Transform child in transform)
             if (child.name != "Charac")

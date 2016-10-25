@@ -10,12 +10,7 @@ public class MusicGroup : MonoBehaviour {
     AudioClip main_clip = null;
     AudioSource main_source = null;
 
-    private AudioMixerGroup mixer_group;
-    public AudioMixerGroup MixerGroup
-    {
-        get { return mixer_group; }
-        set { mixer_group = value; }
-    }
+    public AudioMixerGroup MixerGroup { private get; set; }
 
     public enum EPlayState
     {
@@ -94,7 +89,7 @@ public class MusicGroup : MonoBehaviour {
         StartCoroutine(CrossFadeUp(source));
     }
 
-    public IEnumerator Stop()
+    private IEnumerator Stop()
     {
         if (sub_sources.Count > 0)
         {

@@ -21,7 +21,7 @@ public class AttribPanel : MonoBehaviour {
         UpdateStats();
     }
 
-    public void UpdateStats()
+    private void UpdateStats()
     {
         if (attrib == null)
             return;

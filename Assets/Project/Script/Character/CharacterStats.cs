@@ -19,10 +19,10 @@ public class CharacterStats
 
     public void SetCharacteristics(ACharacter player)
     {
-        UnitCharacteristics.Attack = Mathf.Exp(((float)player.UnitLevel / 8f)) * UnitAttributes.Strength;
-        UnitCharacteristics.Defense = Mathf.Exp(((float)player.UnitLevel / 8f)) * UnitAttributes.Constitution;
+        UnitCharacteristics.Attack = Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Strength;
+        UnitCharacteristics.Defense = Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Constitution;
         UnitCharacteristics.Weight = (UnitAttributes.Strength + player.UnitLevel) * 10;
-        UnitCharacteristics.MaxHealth = Mathf.Exp((float)player.UnitLevel / 6f) * UnitAttributes.Constitution + 100;
+        UnitCharacteristics.MaxHealth = Mathf.Exp(player.UnitLevel / 6f) * UnitAttributes.Constitution + 100;
         UnitCharacteristics.HealthRegeneration = UnitCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f));
         UnitCharacteristics.MaxMana = UnitAttributes.Intelligence * 10;
         UnitCharacteristics.SpellPower = 1 + ((float)player.UnitLevel * UnitAttributes.Intelligence) / 100;
@@ -50,10 +50,10 @@ public class CharacterStats
     {
         Characteristics characs = new Characteristics();
 
-        characs.Attack = Mathf.Exp(((float)level / 8f)) * strength;
-        characs.Defense = Mathf.Exp(((float)level / 8f)) * constit;
+        characs.Attack = Mathf.Exp((level / 8f)) * strength;
+        characs.Defense = Mathf.Exp((level / 8f)) * constit;
         characs.Weight = (strength + level) * 10;
-        characs.MaxHealth = Mathf.Exp((float)level / 6f) * constit + 100;
+        characs.MaxHealth = Mathf.Exp(level / 6f) * constit + 100;
         characs.HealthRegeneration = characs.MaxHealth / (50 - (constit * 0.25f));
         characs.MaxMana = intel * 10;
         characs.SpellPower = 1 + ((float)level * intel) / 100;

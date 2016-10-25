@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour {
         Any
     }
     [SerializeField]
-    public EMusic_Type current_music_type = EMusic_Type.Any;
+    private EMusic_Type current_music_type = EMusic_Type.Any;
     public enum ESound_Type
     {
         Sword,
@@ -51,8 +51,6 @@ public class AudioManager : MonoBehaviour {
     AudioMixerGroup music_mixer_group = null;
     [SerializeField]
     AudioMixerGroup sounds_mixer_group = null;
-
-    List<AudioSource> sound_sources = new List<AudioSource>();
 
     MusicGroup current_music_group = null;
 
@@ -90,7 +88,7 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    public void AddMusic(AudioClip clip)
+    private void AddMusic(AudioClip clip)
     {
         if (current_music_group == null)
             current_music_group = gameObject.AddComponent<MusicGroup>();
@@ -99,7 +97,7 @@ public class AudioManager : MonoBehaviour {
         current_music_group.Add(clip);
     }
 
-    public void ChangeMusic(AudioClip clip)
+    private void ChangeMusic(AudioClip clip)
     {
         if (current_music_group != null)
             current_music_group.State = MusicGroup.EPlayState.Stop;
@@ -131,7 +129,6 @@ public class AudioManager : MonoBehaviour {
             source.spatialBlend = 1.0f;
             source.dopplerLevel = 0f;
             source.Play();
-            sound_sources.Add(source);
             StartCoroutine(ManageSourceDestruct(source));
         }
         else
@@ -147,7 +144,6 @@ public class AudioManager : MonoBehaviour {
     {
         while (source.isPlaying)
             yield return new WaitUntil(delegate { return source.isPlaying; });
-        sound_sources.Remove(source);
         Destroy(source.gameObject);
     }
     

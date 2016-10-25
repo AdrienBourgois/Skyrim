@@ -82,7 +82,7 @@ public class PlayerController : ACharacterController
 
     #region Controller
 
-    public override void ControllerRightHand()
+    protected override void ControllerRightHand()
     {
         base.ControllerRightHand();
 
@@ -90,11 +90,11 @@ public class PlayerController : ACharacterController
             OnRightDown.Invoke();
     }
 
-    public override void ControllerLeftHand(bool bIsPressed = true)
+    protected override void ControllerLeftHand(bool bIsPressed = true)
     {
         base.ControllerLeftHand(bIsPressed);
 
-        if (bIsPressed == true)
+        if (bIsPressed)
         {
             if (OnLeftDown != null)
                 OnLeftDown.Invoke();

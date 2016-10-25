@@ -134,7 +134,7 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
         SetColliderCapsule();
     }
 
-    protected void SetColliderCapsule()
+    private void SetColliderCapsule()
     {
         capsuleCollider.center = finalColliderValues.Center;
         capsuleCollider.radius = finalColliderValues.Radius;

@@ -27,7 +27,7 @@ public class Spell
     public void Init(string name, float value, int cost, string description)
     {
         this.name = name;
-        this.power = value;
+        power = value;
         this.cost = cost;
         this.description = description;
     }
@@ -37,7 +37,7 @@ public class Spell
         if (memberName == "Name")
             return name;
 
-        else if (memberName == "Power")
+        if (memberName == "Power")
         {
             if (useToDisplay)
                 return Mathf.Abs(power).ToString();
@@ -49,7 +49,7 @@ public class Spell
             return cost.ToString();
 
         else if (memberName == "Description")
-            return description.ToString();
+            return description;
 
         return "none";
     }

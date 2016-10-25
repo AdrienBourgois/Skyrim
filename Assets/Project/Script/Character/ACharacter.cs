@@ -8,12 +8,7 @@ public abstract class ACharacter : APausableObject
     public delegate void DelegateWeapons(Item leftWeapon, Item rightWeapon);
     public event DelegateWeapons OnChangedWeapons;
 
-    private int unitMaxLevel;
-    public int MaxUnitLevel
-    {
-        get { return unitMaxLevel; }
-        protected set { unitMaxLevel = value; }
-    }
+    public int MaxUnitLevel { get; protected set; }
 
     #region Serialized Fields
     [SerializeField]

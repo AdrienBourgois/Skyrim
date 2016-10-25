@@ -13,7 +13,7 @@ public class InventoryGUI : MonoBehaviour
             if (instance != null)
                 return instance;
 
-            instance = GameObject.FindObjectOfType<InventoryGUI>();
+            instance = FindObjectOfType<InventoryGUI>();
             return instance;
         }
     }
@@ -56,7 +56,7 @@ public class InventoryGUI : MonoBehaviour
     private Inventory inventory;
     public Inventory Inventory
     {
-        get { return inventory; }
+        private get { return inventory; }
         set { inventory = value; }
     }
 
@@ -172,7 +172,7 @@ public class InventoryGUI : MonoBehaviour
         ColorItem(panel, item);
     }
 
-    public void DisplayItem(Item item)
+    private void DisplayItem(Item item)
     {
         selected_item = item;
         if (item != null)

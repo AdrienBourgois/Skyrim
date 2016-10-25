@@ -2,19 +2,19 @@
 
 public class Weapon : Item, ITypeItem {
 
-    public enum weapon_type
+    protected enum weapon_type
     {
         Sword,
         Axe
     }
-    public weapon_type WeaponType;
-    public Characteristics characteristics = new Characteristics();
+    protected weapon_type WeaponType;
+    private Characteristics characteristics = new Characteristics();
 
     private int damage_value;
     public int Damage
     {
         get { return damage_value; }
-        set { damage_value = value; }
+        protected set { damage_value = value; }
     }
 
     public string GetItemInformations()

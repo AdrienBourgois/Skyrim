@@ -57,7 +57,7 @@ public class Characteristics
 
     private float mana;
     public float Mana
-    { get { return mana; } set { mana = value; } }
+    { get { return mana; } private set { mana = value; } }
 
     #endregion
 

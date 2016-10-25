@@ -2,21 +2,21 @@
 
 public class Armor : Item, ITypeItem {
 
-public enum armor_type
+    protected enum armor_type
     {
         Helmet,
         Torso,
         Boots,
         Shield
     }
-    public armor_type ArmorType;
-    public Characteristics characteristics = new Characteristics();
+    protected armor_type ArmorType;
+    private Characteristics characteristics = new Characteristics();
 
     private int defense_value;
     public int Defense
     {
         get { return defense_value; }
-        set { defense_value = value; }
+        protected set { defense_value = value; }
     }
 
     public string GetItemInformations()
