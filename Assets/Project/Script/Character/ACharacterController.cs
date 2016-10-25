@@ -193,7 +193,7 @@ public abstract class ACharacterController : MonoBehaviour
             return;
         if (corGrounded != null)
         {
-            print("OnStopCoroutine");
+           // print("OnStopCoroutine");
             StopCoroutine(corGrounded);
             corGrounded = null;
         }

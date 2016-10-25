@@ -37,10 +37,7 @@ public class ItemsGenerator : MonoBehaviour {
     void Start () {
 	
 	}
-	
-	void Update () {
-	
-	}
+
 
     public void CreateRandItem()
     {
@@ -50,14 +47,14 @@ public class ItemsGenerator : MonoBehaviour {
         if (score >= 90)
         {
             print("Chest Created");
-            Object chestPrefab = Resources.Load("Dungeon/chest_epic");
-            GameObject chest = (GameObject)Instantiate(chestPrefab, transform.position, transform.rotation);
+            Object chestPrefab = ResourceManager.Instance.Load("Dungeon/chest_epic");
+            GameObject chest = Instantiate(chestPrefab, transform.position, transform.rotation) as GameObject;
             chest.transform.SetParent(transform);
         }
         else if (score >= 60)
         {
             print("Torch Created");
-            Object torchPrefab = Resources.Load("Dungeon/Torch");
+            Object torchPrefab = ResourceManager.Instance.Load("Dungeon/Torch");
             GameObject torch = (GameObject)Instantiate(torchPrefab, transform.position, transform.rotation);
             torch.transform.SetParent(transform);
         }
@@ -67,13 +64,13 @@ public class ItemsGenerator : MonoBehaviour {
 
             if (propScore < 50)
             {
-                Object barrelPrefab = Resources.Load("Dungeon/Barrel");
+                Object barrelPrefab = ResourceManager.Instance.Load("Dungeon/Barrel");
                 GameObject barrel = (GameObject)Instantiate(barrelPrefab, transform.position, transform.rotation);
                 barrel.transform.SetParent(transform);
             }
             else
             {
-                Object boxPrefab = Resources.Load("Dungeon/Box");
+                Object boxPrefab = ResourceManager.Instance.Load("Dungeon/Box");
                 GameObject box = (GameObject)Instantiate(boxPrefab, transform.position, transform.rotation);
                 box.transform.SetParent(transform);
             }

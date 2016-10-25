@@ -24,6 +24,7 @@ public class InventoryGUI : MonoBehaviour
         PlayerInventory,
         VendorInventory,
         EnemyInventory,
+        ChestInventory,
     }
     public Inventory_Gui_Type current_gui_action = Inventory_Gui_Type.PlayerInventory;
 
@@ -210,7 +211,8 @@ public class InventoryGUI : MonoBehaviour
             equip_button.enabled = true;
             action_button.GetComponentInChildren<Text>().text = "Drop";
             action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate {
+            action_button.onClick.AddListener(delegate
+            {
                 Inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
                 DisplayItem(null);
@@ -221,7 +223,8 @@ public class InventoryGUI : MonoBehaviour
             equip_button.enabled = false;
             action_button.GetComponentInChildren<Text>().text = "Take";
             action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate {
+            action_button.onClick.AddListener(delegate
+            {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
                 Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
@@ -239,6 +242,20 @@ public class InventoryGUI : MonoBehaviour
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
                 Inventory player_inventory = FindObjectOfType<Player>().UnitInventory;
+                player_inventory.AddItem(selected_item);
+                DisplayItem(null);
+            });
+        }
+        else if (current_gui_action == Inventory_Gui_Type.ChestInventory)
+        {
+            equip_button.enabled = false;
+            action_button.GetComponentInChildren<Text>().text = "Take";
+            action_button.onClick.RemoveAllListeners();
+            action_button.onClick.AddListener(delegate
+            {
+                inventory.RemoveItem(selected_item);
+                ApplyFilterAndSort();
+                Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
                 player_inventory.AddItem(selected_item);
                 DisplayItem(null);
             });

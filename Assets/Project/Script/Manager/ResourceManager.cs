@@ -22,6 +22,24 @@ public class ResourceManager : MonoBehaviour
 
     private Dictionary<string, GameObject> mapCachePrefab = new Dictionary<string, GameObject>();
 
+    public GameObject Load(string pathPrefab)
+    {
+        GameObject prefab;
+
+        if (!mapCachePrefab.TryGetValue(pathPrefab, out prefab))
+        {
+            prefab = Resources.Load<GameObject>(pathPrefab);
+            if (prefab == null)
+            {
+                Debug.LogError("ResourceManager.Load() couldn't load prefab with path \"" + pathPrefab + "\"");
+                return null;
+            }
+            mapCachePrefab.Add(pathPrefab, prefab);
+        }
+
+        return prefab;
+    }
+
     public T Load<T>(string pathPrefab)
     {
         GameObject prefab;
