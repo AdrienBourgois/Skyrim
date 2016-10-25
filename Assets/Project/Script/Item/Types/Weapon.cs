@@ -10,12 +10,7 @@ public class Weapon : Item, ITypeItem {
     protected weapon_type WeaponType;
     private Characteristics characteristics = new Characteristics();
 
-    private int damage_value;
-    public int Damage
-    {
-        get { return damage_value; }
-        protected set { damage_value = value; }
-    }
+    public int Damage { get; protected set; }
 
     public string GetItemInformations()
     {
@@ -25,7 +20,7 @@ public class Weapon : Item, ITypeItem {
             + GetBonusInformations();
     }
 
-    string GetBonusInformations()
+    private string GetBonusInformations()
     {
         string bonus_informations = "\n================ BONUS ===============";
         if (characteristics.Attack != 0)

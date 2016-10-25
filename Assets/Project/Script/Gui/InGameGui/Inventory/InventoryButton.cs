@@ -2,11 +2,11 @@
 
 public class InventoryButton : MonoBehaviour
 {
-    InventoryGUI invGui;
-    GameObject pausePanel;
-    Player player;
+    private InventoryGUI invGui;
+    private GameObject pausePanel;
+    private Player player;
 
-    void Start()
+    private void Start()
     {
         player = LevelManager.Instance.Player;
         invGui = InventoryGUI.Instance;

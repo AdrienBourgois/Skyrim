@@ -2,11 +2,11 @@
 
 public class Spell
 {
-    string name;
-    float power;
-    int cost;
+    private string name;
+    private float power;
+    private int cost;
 
-    string description;
+    private string description;
 
     #region GetterProperties
 

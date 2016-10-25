@@ -27,7 +27,7 @@ public class Armor : Item, ITypeItem {
             + GetBonusInformations();
     }
 
-    string GetBonusInformations()
+    private string GetBonusInformations()
     {
         string bonus_informations = "\n================ BONUS ===============";
         if (characteristics.Attack != 0)

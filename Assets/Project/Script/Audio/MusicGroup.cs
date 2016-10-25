@@ -4,11 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MusicGroup : MonoBehaviour {
-
-    List<AudioSource> sub_sources = new List<AudioSource>();
-    List<AudioClip> sub_clips = new List<AudioClip>();
-    AudioClip main_clip = null;
-    AudioSource main_source = null;
+    private List<AudioSource> sub_sources = new List<AudioSource>();
+    private List<AudioClip> sub_clips = new List<AudioClip>();
+    private AudioClip main_clip = null;
+    private AudioSource main_source = null;
 
     public AudioMixerGroup MixerGroup { private get; set; }
 
@@ -56,7 +55,7 @@ public class MusicGroup : MonoBehaviour {
             Sync(main_clip);
     }
 
-    void ToFullPlay()
+    private void ToFullPlay()
     {
         if (!main_source.isPlaying)
             Sync(main_clip);
@@ -136,7 +135,7 @@ public class MusicGroup : MonoBehaviour {
         Destroy(source);
     }
 
-    void Destruct()
+    private void Destruct()
     {
         Destroy(main_source);
         foreach (AudioSource source in sub_sources)

@@ -2,19 +2,19 @@
 
 public class Cam : APausableObject
 {
-    [SerializeField] float lookDownMax = -70f;
-    [SerializeField] float lookUpMax = 70f;
-    [SerializeField] float sensibility = 1f;
+    [SerializeField] private float lookDownMax = -70f;
+    [SerializeField] private float lookUpMax = 70f;
+    [SerializeField] private float sensibility = 1f;
     [SerializeField]
     private float ratioOverHips = 0.75f;
 
-    PlayerController playerController;
-    Transform playerAnchor;
-    Transform compass;
+    private PlayerController playerController;
+    private Transform playerAnchor;
+    private Transform compass;
 
     private float rotY = 0f;
 
-    void Awake()
+    private void Awake()
     {
         GameManager.OnPause += PutPause;
 
@@ -34,7 +34,7 @@ public class Cam : APausableObject
                                             0f);
 	}
 
-    void Update()
+    private void Update()
     {
         transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
 
@@ -44,7 +44,7 @@ public class Cam : APausableObject
         FpsCamUpdate();
     }
 
-    void FpsCamUpdate()
+    private void FpsCamUpdate()
     {
         float rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility;
 

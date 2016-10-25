@@ -68,12 +68,7 @@ public class Item : IComparable<Item>
         protected set { price = value; }
     }
 
-    private bool is_equipped;
-    public bool Equipped
-    {
-        get { return is_equipped; }
-        set { is_equipped = value; }
-    }
+    public bool Equipped { get; set; }
 
     private string prefabPath = "";
     public string PrefabPath

@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 public class MagicPanel : MonoBehaviour
 {
-    List<Spell> printedSpells = new List<Spell>();
+    private List<Spell> printedSpells = new List<Spell>();
 
-    SpellInventory spells;
+    private SpellInventory spells;
 
-    GameObject buttonPrefab;
+    private GameObject buttonPrefab;
 
-	
-	void Start ()
+
+    private void Start ()
     {
         spells = LevelManager.Instance.Player.UnitSpells;
         buttonPrefab = transform.FindChild("SpellSelector").GetChild(0).GetChild(0).GetChild(0).gameObject;
@@ -33,7 +33,7 @@ public class MagicPanel : MonoBehaviour
         }
 	}
 
-    GameObject CreateBlankButton()
+    private GameObject CreateBlankButton()
     {
         GameObject gao = Instantiate(buttonPrefab);
         gao.GetComponent<Button>().interactable = true;
@@ -44,7 +44,7 @@ public class MagicPanel : MonoBehaviour
         return gao;
     }
 
-    void AddSpellButton(Spell spell)
+    private void AddSpellButton(Spell spell)
     {
         GameObject gao = CreateBlankButton();
         gao.name = spell.Name;
@@ -62,7 +62,7 @@ public class MagicPanel : MonoBehaviour
         printedSpells.Add(spell);
     }
 
-    void DisplaySpellButton(Spell spell)
+    private void DisplaySpellButton(Spell spell)
     {
         if (spell == null)
             return;

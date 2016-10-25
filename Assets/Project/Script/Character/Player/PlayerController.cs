@@ -10,7 +10,7 @@ public class PlayerController : ACharacterController
     #endregion
 
     // TODO: need one for enemy, to be able to shoot other than straight
-    Transform camTransform;
+    private Transform camTransform;
 
     protected override void Start()
     {

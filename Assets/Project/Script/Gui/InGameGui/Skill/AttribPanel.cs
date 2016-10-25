@@ -3,17 +3,16 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class AttribPanel : MonoBehaviour {
-
-    Player player;
-    Attributes attrib;
-    int bonusToAssign;
+    private Player player;
+    private Attributes attrib;
+    private int bonusToAssign;
     public int BonusToAssign
     {
         get { return bonusToAssign; }
         set { bonusToAssign = value; }
     }
 
-    void Start()
+    private void Start()
     {
         player = LevelManager.Instance.Player;
         attrib = player.CharacterStats.UnitAttributes;

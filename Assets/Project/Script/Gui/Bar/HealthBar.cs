@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 public class HealthBar : Bar {
-
-    void Update ()
+    private void Update ()
     {
         
         Characteristics player_stats = player.CharacterStats.UnitCharacteristics;

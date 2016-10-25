@@ -33,28 +33,21 @@ public class AudioManager : MonoBehaviour {
     }
 
     //Musics
-    [SerializeField]
-    AudioClip menu_music = null;
-    [SerializeField]
-    AudioClip game_calm_music = null;
-    [SerializeField]
-    AudioClip game_fight_music = null;
+    [SerializeField] private AudioClip menu_music = null;
+    [SerializeField] private AudioClip game_calm_music = null;
+    [SerializeField] private AudioClip game_fight_music = null;
 
     //Sounds
-    [SerializeField]
-    List<AudioClip> sword_clips = new List<AudioClip>();
-    [SerializeField]
-    List<AudioClip> sword_swish_clips = new List<AudioClip>();
+    [SerializeField] private List<AudioClip> sword_clips = new List<AudioClip>();
+    [SerializeField] private List<AudioClip> sword_swish_clips = new List<AudioClip>();
 
     //Mixer Groups
-    [SerializeField]
-    AudioMixerGroup music_mixer_group = null;
-    [SerializeField]
-    AudioMixerGroup sounds_mixer_group = null;
+    [SerializeField] private AudioMixerGroup music_mixer_group = null;
+    [SerializeField] private AudioMixerGroup sounds_mixer_group = null;
 
-    MusicGroup current_music_group = null;
+    private MusicGroup current_music_group = null;
 
-    void Start()
+    private void Start()
     {
         DontDestroyOnLoad(this);
     }
@@ -143,7 +136,7 @@ public class AudioManager : MonoBehaviour {
     private IEnumerator ManageSourceDestruct(AudioSource source)
     {
         while (source.isPlaying)
-            yield return new WaitUntil(delegate { return source.isPlaying; });
+            yield return new WaitUntil(() => source.isPlaying);
         Destroy(source.gameObject);
     }
     

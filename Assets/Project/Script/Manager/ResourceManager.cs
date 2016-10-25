@@ -7,12 +7,7 @@ public class ResourceManager : MonoBehaviour
     static private ResourceManager instance;
     static public ResourceManager Instance
     {
-        get
-        {
-            if (instance == null)
-                instance = FindObjectOfType<ResourceManager>();
-            return instance;
-        }
+        get { return instance ?? (instance = FindObjectOfType<ResourceManager>()); }
     }
 
     private void Start()
@@ -42,7 +37,7 @@ public class ResourceManager : MonoBehaviour
         if (prefabTemplate == null)
         {
             Type typeOfT = typeof(T);
-            Debug.LogError("ResourceManager.Load() couldn't get component of type \"" + typeOfT.ToString() + "\" with path \"" + pathPrefab + "\"");
+            Debug.LogError("ResourceManager.Load() couldn't get component of type \"" + typeOfT + "\" with path \"" + pathPrefab + "\"");
             return default(T);
         }
 

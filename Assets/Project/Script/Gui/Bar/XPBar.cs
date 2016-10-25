@@ -2,7 +2,7 @@
 
 public class XPBar : Bar
 {
-    void Update()
+    private void Update()
     {
         float xp_ratio = player.Xp / player.XpToLevelUp;
 

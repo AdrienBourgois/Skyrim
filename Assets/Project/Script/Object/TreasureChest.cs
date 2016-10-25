@@ -7,7 +7,7 @@ public class TreasureChest : MonoBehaviour, IUsableObject
     private bool hasBeenOpen = false;
 
 
-    void Awake()
+    private void Awake()
     {
         anim = GetComponent<Animation>();
     }

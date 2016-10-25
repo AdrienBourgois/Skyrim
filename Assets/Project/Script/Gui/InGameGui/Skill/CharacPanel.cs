@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class CharacPanel : MonoBehaviour
 {
-    Player player;
-    Characteristics charac;
+    private Player player;
+    private Characteristics charac;
 
-    void Start()
+    private void Start()
     {
         player = LevelManager.Instance.Player;
         charac = player.CharacterStats.UnitCharacteristics;
@@ -67,7 +67,7 @@ public class CharacPanel : MonoBehaviour
     }
 
 
-    string Round(string characName, float value = 1f)
+    private string Round(string characName, float value = 1f)
     {
         return (characName == "AttackSpeed"
                 || characName == "SpellPower"

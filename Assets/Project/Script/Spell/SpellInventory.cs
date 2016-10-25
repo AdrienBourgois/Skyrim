@@ -15,7 +15,7 @@ public class SpellInventory
         spellList.Add(CreateSpell("Invisibility", 0, 50, "Cast the power of the dark night to become Invisible ... But your weapon are still visible ..."));
     }
 
-    Spell CreateSpell(string name, float value, int cost, string description)
+    private Spell CreateSpell(string name, float value, int cost, string description)
     {
         Spell spell = new Spell();
         spell.Init(name, value, cost, description);

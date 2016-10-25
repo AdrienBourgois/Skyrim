@@ -34,9 +34,9 @@ public class Inventory
         }
     }
 
-    public void DisplayList<T>(List<T> list) where T : Item
+    public void DisplayList<T>(List<T> list_to_display) where T : Item
     {
-        foreach (T item in list)
+        foreach (T item in list_to_display)
         {
             if (item is ITypeItem)
             {

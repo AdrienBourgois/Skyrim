@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
-
-    Player player;
+    private Player player;
     public Player Player
     {
         get
@@ -32,17 +31,17 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    void Awake()
+    private void Awake()
     {
         instance = this;
     }
 
-    void Start ()
+    private void Start ()
     {
         player = FindObjectOfType<Player>();
 	}
-	
-	void Update () {
+
+    private void Update () {
 	
 	}
 }

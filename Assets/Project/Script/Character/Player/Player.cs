@@ -18,7 +18,7 @@
 
     public int Xp { get; private set; }
 
-    int xpToLevelUp = 100;
+    private int xpToLevelUp = 100;
     public int XpToLevelUp { get { return xpToLevelUp; } }
     #endregion
 
@@ -33,8 +33,8 @@
 
         UnitSpells.PlayerBasicSpellInit();
     }
-   
-    void LevelUp()
+
+    private void LevelUp()
     {
         if (Xp < xpToLevelUp)
             return;
@@ -43,7 +43,7 @@
         xpToLevelUp *= 2;
     }
 
-    int attributePointToAssign = 10;
+    private int attributePointToAssign = 10;
 
     public Player()
     {

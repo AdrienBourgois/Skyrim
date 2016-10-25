@@ -20,7 +20,7 @@ public class ACharacterWeapons : MonoBehaviour
     private AMagic magic = null;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         if (leftHandAnchor == null || rightHandAnchor == null)
             Debug.LogError("ACharacterWeapons.Start() - leftHandAnchor and rightHandAnchor should be initialized.");

@@ -20,14 +20,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    bool loadLevel = true;
+    private bool loadLevel = true;
 
     #region SerializeField
-    [SerializeField] GameObject dataMgrPrefab = null;
-    [SerializeField] GameObject levelMgrPrefab = null;
-    [SerializeField] GameObject itemMgrPrefab = null;
-    [SerializeField] GameObject magicMgrPrefab = null;
-    [SerializeField] GameObject resourceMgrPrefab = null;
+    [SerializeField] private GameObject dataMgrPrefab = null;
+    [SerializeField] private GameObject levelMgrPrefab = null;
+    [SerializeField] private GameObject itemMgrPrefab = null;
+    [SerializeField] private GameObject magicMgrPrefab = null;
+    [SerializeField] private GameObject resourceMgrPrefab = null;
     #endregion
 
     private DataManager dataMgr;
@@ -45,16 +45,13 @@ public class GameManager : MonoBehaviour
         Death,
         StateNb
     }
-    private GameState currGameState;
-    public GameState CurrGameState
-    {
-        get { return currGameState; }
-    }
+
+    public GameState CurrGameState { get; private set; }
 
     public delegate void Pause();
     public static event Pause OnPause;
 
-    void Awake()
+    private void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
             Destroy(gameObject);
@@ -71,8 +68,8 @@ public class GameManager : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
 	}
-	
-    void RecoverGameState()
+
+    private void RecoverGameState()
     {   
         switch (dataMgr.getActiveSceneName)
         {
@@ -113,6 +110,11 @@ public class GameManager : MonoBehaviour
                 PauseInit();
                 break;
 
+            case GameState.Death:
+                break;
+            case GameState.StateNb:
+                break;
+
             default:
                 break;
         }
@@ -121,31 +123,31 @@ public class GameManager : MonoBehaviour
             dataMgr.LoadLevelFromGameState();
     }
 
-    void IntroInit()
+    private void IntroInit()
     {
-        currGameState = GameState.Intro;
+        CurrGameState = GameState.Intro;
     }
 
-    void MainMenuInit()
+    private void MainMenuInit()
     {
-        currGameState = GameState.MainMenu;
+        CurrGameState = GameState.MainMenu;
         AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Menu);
     }
 
-    void InGameInit()
+    private void InGameInit()
     {
-        loadLevel = currGameState == GameState.Pause ? false : true;
-        currGameState = GameState.InGame;
+        loadLevel = CurrGameState != GameState.Pause;
+        CurrGameState = GameState.InGame;
 
         if (!loadLevel)
             OnPause();
         AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
     }
 
-    void PauseInit()
+    private void PauseInit()
     {
-        loadLevel = currGameState == GameState.InGame ? false : true;
-        currGameState = GameState.Pause;
+        loadLevel = CurrGameState != GameState.InGame;
+        CurrGameState = GameState.Pause;
 
         if (!loadLevel)
             OnPause();

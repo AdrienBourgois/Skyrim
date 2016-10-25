@@ -23,12 +23,12 @@ public class Door : MonoBehaviour, IUsableObject
         }
     }
 
-    void Start () {
+    private void Start () {
 
         anim = GetComponent<Animation>();
     }
-	
-	void Update () {
+
+    private void Update () {
 	
 	}
 }

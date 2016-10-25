@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 public class ManaBar : Bar {
-
-    void Update()
+    private void Update()
     {
         Characteristics player_stats = player.CharacterStats.UnitCharacteristics;
         float mana_ratio = player_stats.Mana / player_stats.MaxMana;

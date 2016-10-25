@@ -2,10 +2,10 @@
 
 public class Shop : MonoBehaviour, IUsableObject
 {
-    InventoryGUI invGui;
-    Inventory inv = new Inventory();
+    private InventoryGUI invGui;
+    private Inventory inv = new Inventory();
 
-    void Awake()
+    private void Awake()
     {
         invGui = InventoryGUI.Instance;
         if (!invGui)

@@ -7,14 +7,14 @@ public class MainMenuGui : MonoBehaviour
     [SerializeField] private MenuButton buttonLoadGame = null;
     [SerializeField] private MenuButton buttonExitGame = null;
 
-    void Start()
+    private void Start()
     {
         buttonNewGame.OnClick += DisplayConfirmationPanel;
         buttonLoadGame.OnClick += DisplayConfirmationPanel;
         buttonExitGame.OnClick += DisplayConfirmationPanel;
     }
 
-    public void DisplayConfirmationPanel(MenuButton.MenuButtonId id)
+    private void DisplayConfirmationPanel(MenuButton.MenuButtonId id)
     {
 
         panel.SetActive(true);

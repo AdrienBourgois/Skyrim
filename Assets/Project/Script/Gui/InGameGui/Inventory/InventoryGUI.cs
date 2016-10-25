@@ -26,32 +26,23 @@ public class InventoryGUI : MonoBehaviour
     }
     public Inventory_Gui_Type current_gui_action = Inventory_Gui_Type.PlayerInventory;
 
-    Player player;
+    private Player player;
 
     //Left Panel
-    [SerializeField]
-    GameObject items_list = null;
-    [SerializeField]
-    GameObject item_panel_template = null;
-    [SerializeField]
-    Dropdown filter_list = null;
-    [SerializeField]
-    Dropdown sort_list = null;
-    List<GameObject> item_panel_list = new List<GameObject>();
+    [SerializeField] private GameObject items_list = null;
+    [SerializeField] private GameObject item_panel_template = null;
+    [SerializeField] private Dropdown filter_list = null;
+    [SerializeField] private Dropdown sort_list = null;
+    private List<GameObject> item_panel_list = new List<GameObject>();
 
     //Right Panel
-    [SerializeField]
-    Text item_name = null;
-    [SerializeField]
-    Text item_caracteristics = null;
-    [SerializeField]
-    Button equip_button = null;
-    [SerializeField]
-    Button action_button = null;
-    [SerializeField]
-    Button quit_button = null;
+    [SerializeField] private Text item_name = null;
+    [SerializeField] private Text item_caracteristics = null;
+    [SerializeField] private Button equip_button = null;
+    [SerializeField] private Button action_button = null;
+    [SerializeField] private Button quit_button = null;
 
-    Item selected_item = null;
+    private Item selected_item = null;
 
     private Inventory inventory;
     public Inventory Inventory
@@ -76,9 +67,9 @@ public class InventoryGUI : MonoBehaviour
         }
     }
 
-    Dictionary<string, Type> types_conversion = new Dictionary<string, Type>();
+    private Dictionary<string, Type> types_conversion = new Dictionary<string, Type>();
 
-    void Awake()
+    private void Awake()
     {
         types_conversion.Add("<color=olive><b> -> All <- </b></color>", typeof(Item));
         types_conversion.Add("<color=teal><b>---- Armor ----</b></color>", typeof(Armor));
@@ -99,13 +90,13 @@ public class InventoryGUI : MonoBehaviour
                                                     GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame); });
     }
 
-    void Start()
+    private void Start()
     {
         player = LevelManager.Instance.Player;
         gameObject.SetActive(false);
     }
 
-    void ApplyFilterAndSort()
+    private void ApplyFilterAndSort()
     {
         Type type = types_conversion[(filter_list.options[filter_list.value].text)];
         typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(new[] { type }).Invoke(this, null);
@@ -127,7 +118,7 @@ public class InventoryGUI : MonoBehaviour
         GetComponentInChildren<ScrollRect>().normalizedPosition = scroll_rect_position;
     }
 
-    void ManageItemPanels(int panel_count_needed)
+    private void ManageItemPanels(int panel_count_needed)
     {
         Vector3 default_scale = new Vector3(1f, 1f, 1f);
         int panel_count_to_generate = panel_count_needed - item_panel_list.Count;
@@ -147,7 +138,7 @@ public class InventoryGUI : MonoBehaviour
             item_panel_list[i].SetActive(false);
     }
 
-    void FillPanel(GameObject panel, Item item)
+    private void FillPanel(GameObject panel, Item item)
     {
         Text name_label = panel.transform.FindChild("Name").GetComponent<Text>();
         Text lvl_label = panel.transform.FindChild("LVL").GetComponent<Text>();
@@ -246,13 +237,13 @@ public class InventoryGUI : MonoBehaviour
         }
     }
 
-    void ResetSelectedItemGui()
+    private void ResetSelectedItemGui()
     {
         item_name.text = "";
         item_caracteristics.text = "";
     }
 
-    void ColorItem(GameObject template, Item item)
+    private void ColorItem(GameObject template, Item item)
     {
         Image image = template.GetComponent<Image>();
         if (item is Weapon)
