@@ -133,8 +133,9 @@ public class GameManager : MonoBehaviour
         loadLevel = currGameState == GameState.Pause ? false : true;
         currGameState = GameState.InGame;
 
-
         levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+
+        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
     }
 
     void PauseInit()
