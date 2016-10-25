@@ -58,10 +58,7 @@ public class GameManager : MonoBehaviour
 
     private GameState currGameState;
 
-    public GameState CurrGameState
-    {
-        get { return currGameState; }
-    }
+  
 
     public GameState CurrGameState { get; private set; }
 
@@ -177,7 +174,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
     }
 
-    private void PauseInit()
+
     void EnterDungeonInit()
     {
         currGameState = GameState.EnterDungeon;
@@ -190,7 +187,7 @@ public class GameManager : MonoBehaviour
         currGameState = GameState.PopulateDungeon;
     }
 
-    void PauseInit()
+    private void PauseInit()
     {
         loadLevel = CurrGameState != GameState.InGame;
         CurrGameState = GameState.Pause;

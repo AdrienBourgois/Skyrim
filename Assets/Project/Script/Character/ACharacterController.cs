@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 
 /// <summary>
 /// Abstract for every Character in the game. The Controller permit to do actions and animations using ACharacter's stats.
