@@ -24,16 +24,14 @@ public class GameManager : MonoBehaviour
     bool loadLevel = true;
 
     #region SerializeField
-    [SerializeField] GameObject dataMgrPrefab;
-    [SerializeField] GameObject guiMgrPrefab;
-    [SerializeField] GameObject levelMgrPrefab;
-    [SerializeField] GameObject itemMgrPrefab;
-    [SerializeField] GameObject magicMgrPrefab;
-    [SerializeField] GameObject resourceMgrPrefab;
+    [SerializeField] GameObject dataMgrPrefab = null;
+    [SerializeField] GameObject levelMgrPrefab = null;
+    [SerializeField] GameObject itemMgrPrefab = null;
+    [SerializeField] GameObject magicMgrPrefab = null;
+    [SerializeField] GameObject resourceMgrPrefab = null;
     #endregion
 
     private DataManager dataMgr;
-    private GUIManager guiMgr;
     private LevelManager levelMgr;
     private ItemManager itemMgr;
     private MagicManager magicMgr;
@@ -61,7 +59,6 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
-        guiMgr = GUIManager.Instance ? GUIManager.Instance : Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
         magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
         resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();

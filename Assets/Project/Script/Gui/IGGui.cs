@@ -4,7 +4,6 @@ using System.Collections;
 public class IGGui : MonoBehaviour
 {
     GameObject pausePanel;
-    GameObject igPanel;
     InventoryGUI invGui;
 
     void Awake()
