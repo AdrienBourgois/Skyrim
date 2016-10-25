@@ -6,7 +6,10 @@ using System;
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
 public abstract class ACharacter : MonoBehaviour
-{    
+{
+    public delegate void DelegateWeapons(Item leftWeapon, Item rightWeapon);
+    public event DelegateWeapons OnChangedWeapons;
+
     private int unitMaxLevel;
     public int MaxUnitLevel
     {
@@ -79,9 +82,34 @@ public abstract class ACharacter : MonoBehaviour
     }
     #endregion
     
+    public enum EquipType
+    {
+        None            = -1,
+        SwordAndShield  =  0,
+        Axe             =  1,
+        COUNT,
+    }
+
+    private EquipType equipType = EquipType.None;
+    public EquipType StuffType
+    {
+        get { return equipType; }
+        protected set { equipType = value; }
+    }
+
     protected virtual void Start()
     {
         characterStats.SetCharacteristics(this);
         CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
+
+        // HACK: debug
+        equipType = EquipType.SwordAndShield;
+    }
+
+    protected virtual void EquippedItemChanged()
+    {
+        // TODO: implemement event when equipped items changed
+        //if (OnChangedWeapons != null)
+        //  OnChangedWeapons.Invoke(inventory.);
     }
 }
