@@ -47,6 +47,7 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         CheckEmptyConnection(pendingConnections, modules[2]);
+        
     }
 
     private void ModuleCreation(Module module, ModuleConnector pendingConnection, List<ModuleConnector> newConnections)
@@ -66,7 +67,7 @@ public class DungeonGenerator : MonoBehaviour {
     {
         Transform moduleTransform = module.transform;
         Vector3 modulePosition = moduleTransform.position;
-        Object spawPointPrefab = Resources.Load("Door");
+        Object spawPointPrefab = Resources.Load("Dungeon/Door");
         GameObject spawPoint = 
             (GameObject)Instantiate(spawPointPrefab, 
             new Vector3(modulePosition.x + spawnPointX, modulePosition.y + spawnPointY, modulePosition.z + spawnPointZ), 

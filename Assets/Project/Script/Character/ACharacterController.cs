@@ -10,6 +10,9 @@ using System;
 [RequireComponent(typeof(Animator))]
 public abstract class ACharacterController : MonoBehaviour
 {
+
+    Coroutine corGrounded = null;
+
     #region Serialized Fields
     [SerializeField]
     private CapsuleCollider capCol = null;
@@ -188,12 +191,24 @@ public abstract class ACharacterController : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Character"))
             return;
+        if (corGrounded != null)
+        {
+            print("OnStopCoroutine");
+            StopCoroutine(corGrounded);
+            corGrounded = null;
+        }
         bIsGrounded = true;
         animator.SetBool("IsGrounded", true);
     }
 
     protected virtual void OnCollisionExit(Collision collision)
     {
+       corGrounded = StartCoroutine(CoroutineGrounded());
+    }
+
+    IEnumerator CoroutineGrounded()
+    {
+        yield return new WaitForSeconds(3f);
         bIsGrounded = false;
         animator.SetBool("IsGrounded", false);
     }

@@ -11,6 +11,7 @@ public class Module : MonoBehaviour {
     private string[] tags;
 
     List<ModuleConnector> moduleConnectorList = new List<ModuleConnector>();
+    List<ItemsGenerator> itemsGeneratorList = new List<ItemsGenerator>();
 
     public List<ModuleConnector> ModuleConnectorList
     {
@@ -38,6 +39,19 @@ public class Module : MonoBehaviour {
         }
     }
 
+    public List<ItemsGenerator> ItemsGeneratorList
+    {
+        get
+        {
+            return itemsGeneratorList;
+        }
+
+        set
+        {
+            itemsGeneratorList = value;
+        }
+    }
+
     void Awake()
     {
         DungeonManager.Instance.RegisterModule(this);
@@ -58,5 +72,10 @@ public class Module : MonoBehaviour {
     public void AddConnector(ModuleConnector mC)
     {
         ModuleConnectorList.Add(mC);
+    }
+
+    public void AddGenerator(ItemsGenerator itGen)
+    {
+        itemsGeneratorList.Add(itGen);
     }
 }

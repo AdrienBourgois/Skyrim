@@ -45,6 +45,6 @@ public class Door : MonoBehaviour, IUsableObject
     {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.EnterDungeon);
         DontDestroyOnLoad(FindObjectOfType<DungeonManager>());
-        SceneManager.LoadSceneAsync("DungeonGeneration");
+       // SceneManager.LoadSceneAsync("DungeonGeneration");
     }
 }

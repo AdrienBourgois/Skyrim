@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
         guiMgr = GUIManager.Instance ? GUIManager.Instance : Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
-        dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
+       // dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
         magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
         resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
 
@@ -151,8 +151,8 @@ public class GameManager : MonoBehaviour
         if (onStateChanged != null)
             onStateChanged.Invoke(currGameState);
 
-        if (loadLevel)
-            dataMgr.LoadLevelFromGameState();
+        //if (loadLevel)
+           // dataMgr.LoadLevelFromGameState();
     }
 
     void IntroInit()
