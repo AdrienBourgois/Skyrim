@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public interface IUsableObject
+﻿public interface IUsableObject
 {
     /// <summary>
     /// Function called when a character uses (Player pressed "Use" button) an IUsableObject.

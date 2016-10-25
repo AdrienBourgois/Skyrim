@@ -5,7 +5,6 @@ using System;
 
 public class InventoryGUI : MonoBehaviour
 {
-
     private static InventoryGUI instance = null;
     public static InventoryGUI Instance
     {

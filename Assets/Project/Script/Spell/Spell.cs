@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Spell
 {
-
     string name;
     float power;
     int cost;

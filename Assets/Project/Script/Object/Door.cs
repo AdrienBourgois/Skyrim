@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 [RequireComponent(typeof(Animation))]
 public class Door : MonoBehaviour, IUsableObject

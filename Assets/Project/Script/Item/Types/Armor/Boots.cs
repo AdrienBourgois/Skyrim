@@ -10,7 +10,7 @@ public class Boots : Armor, IEquipableItem, IInstanciableItem
             player.CharacterStats.UnitCharacteristics.Defense -= player.Boots.Defense;
 
         player.Boots = this;
-        player.CharacterStats.UnitCharacteristics.Defense += this.Defense;
+        player.CharacterStats.UnitCharacteristics.Defense += Defense;
         //need to adjust characteristics for equipable item  
     }
 

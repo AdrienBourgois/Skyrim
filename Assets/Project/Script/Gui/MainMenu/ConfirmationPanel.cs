@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ConfirmationPanel : MonoBehaviour

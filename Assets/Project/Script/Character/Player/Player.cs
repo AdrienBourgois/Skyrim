@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Player : ACharacter
 {
@@ -46,11 +45,9 @@ public class Player : ACharacter
     int xp = 0;
     public int Xp { get { return xp; } }
 
-
     int xpToLevelUp = 100;
     public int XpToLevelUp { get { return xpToLevelUp; } }
     #endregion
-
 
     protected override void Start()
     {
@@ -59,7 +56,7 @@ public class Player : ACharacter
         PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
         if (playerWeapons == null)
             Debug.LogError("Player.Start() - could not find child of name \"" + GameManager.c_weaponChildName + "\" of type PlayerWeapons");
-        playerWeapons.SetPlayer(this);
+        //playerWeapons.SetPlayer(this);
 
         UnitSpells.PlayerBasicSpellInit();
     }
