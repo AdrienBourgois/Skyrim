@@ -5,6 +5,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     static public readonly string c_weaponChildName = "Weapons";
 
+    public delegate void DelegateState(GameState state);
+    public event DelegateState onStateChanged;
+
+
+  
     static private GameManager instance;
     static public GameManager Instance
     {
@@ -23,16 +28,19 @@ public class GameManager : MonoBehaviour
     private bool loadLevel = true;
 
     #region SerializeField
-    [SerializeField] private GameObject dataMgrPrefab = null;
-    [SerializeField] private GameObject levelMgrPrefab = null;
-    [SerializeField] private GameObject itemMgrPrefab = null;
-    [SerializeField] private GameObject magicMgrPrefab = null;
-    [SerializeField] private GameObject resourceMgrPrefab = null;
+    [SerializeField] GameObject dataMgrPrefab;
+    [SerializeField] GameObject guiMgrPrefab;
+    [SerializeField] GameObject levelMgrPrefab;
+    [SerializeField] GameObject itemMgrPrefab;
+    [SerializeField] GameObject dungeonMgrPrefab;
+    [SerializeField] GameObject magicMgrPrefab;
+    [SerializeField] GameObject resourceMgrPrefab;
     #endregion
 
     private DataManager dataMgr;
     private LevelManager levelMgr;
     private ItemManager itemMgr;
+    private DungeonManager dungeonMgr;
     private MagicManager magicMgr;
     private ResourceManager resourceMgr;
 
@@ -41,10 +49,16 @@ public class GameManager : MonoBehaviour
         Intro = 0,
         MainMenu,
         InGame,
+        EnterDungeon,
+        PopulateDungeon,
         Pause,
         Death,
         StateNb
     }
+
+    private GameState currGameState;
+
+  
 
     public GameState CurrGameState { get; private set; }
 
@@ -59,6 +73,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
+       // dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
         magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
         resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
         levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
@@ -85,6 +100,10 @@ public class GameManager : MonoBehaviour
                 InGameInit(); 
                 break;
 
+            case "DungeonGenerator":
+                EnterDungeonInit();
+                break;
+
             default:
                 break;
         }
@@ -106,6 +125,14 @@ public class GameManager : MonoBehaviour
                 InGameInit();
                 break;
 
+            case GameState.EnterDungeon:
+                EnterDungeonInit();
+                break;
+
+            case GameState.PopulateDungeon:
+                PopulateDungeonInit();
+                break;
+
             case GameState.Pause:
                 PauseInit();
                 break;
@@ -119,8 +146,11 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        if (loadLevel)
-            dataMgr.LoadLevelFromGameState();
+        if (onStateChanged != null)
+            onStateChanged.Invoke(currGameState);
+
+        //if (loadLevel)
+           // dataMgr.LoadLevelFromGameState();
     }
 
     private void IntroInit()
@@ -142,6 +172,19 @@ public class GameManager : MonoBehaviour
         if (!loadLevel)
             OnPause();
         AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
+    }
+
+
+    void EnterDungeonInit()
+    {
+        currGameState = GameState.EnterDungeon;
+
+        dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
+    }
+
+    void PopulateDungeonInit()
+    {
+        currGameState = GameState.PopulateDungeon;
     }
 
     private void PauseInit()

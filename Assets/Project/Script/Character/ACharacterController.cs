@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 
 /// <summary>
 /// Abstract for every Character in the game. The Controller permit to do actions and animations using ACharacter's stats.
@@ -9,6 +10,9 @@ using System;
 [RequireComponent(typeof(Animator))]
 public abstract class ACharacterController : APausableObject
 {
+
+    Coroutine corGrounded = null;
+
     #region Serialized Fields
     [SerializeField]
     private CapsuleCollider capCol = null;
@@ -194,12 +198,24 @@ public abstract class ACharacterController : APausableObject
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Character"))
             return;
+        if (corGrounded != null)
+        {
+           // print("OnStopCoroutine");
+            StopCoroutine(corGrounded);
+            corGrounded = null;
+        }
         bIsGrounded = true;
         animator.SetBool("IsGrounded", true);
     }
 
     protected virtual void OnCollisionExit(Collision collision)
     {
+       corGrounded = StartCoroutine(CoroutineGrounded());
+    }
+
+    IEnumerator CoroutineGrounded()
+    {
+        yield return new WaitForSeconds(3f);
         bIsGrounded = false;
         animator.SetBool("IsGrounded", false);
     }

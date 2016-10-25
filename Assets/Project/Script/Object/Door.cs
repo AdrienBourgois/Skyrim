@@ -12,9 +12,10 @@ public class Door : MonoBehaviour, IUsableObject
     {
         if (hasBeenOpen == false)
         {
-            
             anim.Play("OpenDoor");
             hasBeenOpen = true;
+            LoadLevel();
+            
         }
         else if (hasBeenOpen)
         {
@@ -31,4 +32,16 @@ public class Door : MonoBehaviour, IUsableObject
     private void Update () {
 	
 	}
+
+    void TeleportPlayerIntoTheDungeon(ACharacter player)
+    {
+        player.transform.position = transform.FindChild("SpawnPoint").transform.position;
+    }
+
+    void LoadLevel()
+    {
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.EnterDungeon);
+        DontDestroyOnLoad(FindObjectOfType<DungeonManager>());
+       // SceneManager.LoadSceneAsync("DungeonGeneration");
+    }
 }
