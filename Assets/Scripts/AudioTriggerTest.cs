@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class AudioTriggerTest : MonoBehaviour {
-
-	void OnTriggerEnter()
+    private void OnTriggerEnter()
     {
         AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Fight);
     }
 
-    void OnTriggerExit()
+    private void OnTriggerExit()
     {
         AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
     }

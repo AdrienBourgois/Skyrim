@@ -22,8 +22,8 @@ public class NameGenerator {
 
         return prefix + base_name + suffix;
     }
-	
-    static List<string> preparePrefixList()
+
+    private static List<string> preparePrefixList()
     {
         List<string> prefix_list = new List<string>();
         prefix_list.Add("Super");
@@ -233,7 +233,7 @@ public class NameGenerator {
         return prefix_list;
     }
 
-    static List<string> prepareSuffixList()
+    private static List<string> prepareSuffixList()
     {
         List<string> suffix_list = new List<string>();
         suffix_list.Add("Made by Gods");

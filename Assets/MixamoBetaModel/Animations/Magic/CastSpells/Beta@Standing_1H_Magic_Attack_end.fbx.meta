@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0940390d37fbda64ca0815b76f47310a
-timeCreated: 1477320313
+guid: c7456939d3f89e54bad26bdae6b44b05
+timeCreated: 1477406557
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -168,8 +168,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Standing_1H_Magic_Attack_end
       takeName: mixamo.com
-      firstFrame: 35
-      lastFrame: 69
+      firstFrame: 30
+      lastFrame: 66
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

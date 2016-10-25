@@ -24,10 +24,9 @@ public class InventoryGUI : MonoBehaviour
         PlayerInventory,
         VendorInventory,
         EnemyInventory,
+        ChestInventory,
     }
     public Inventory_Gui_Type current_gui_action = Inventory_Gui_Type.PlayerInventory;
-
-    Player player;
 
     //Left Panel
     [SerializeField]
@@ -51,6 +50,7 @@ public class InventoryGUI : MonoBehaviour
     Button action_button = null;
     [SerializeField]
     Button quit_button = null;
+    public Button.ButtonClickedEvent OnQuitButton = null;
 
     Item selected_item = null;
 
@@ -95,14 +95,16 @@ public class InventoryGUI : MonoBehaviour
 
         filter_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
         sort_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
-        quit_button.onClick.AddListener(delegate {  Show = false;
-                                                    FindObjectOfType<IGGui>().gameObject.SetActive(true);
-                                                    GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame); });
+        OnQuitButton = quit_button.onClick;
+        OnQuitButton.AddListener(delegate { Show = false;
+                                            FindObjectOfType<IGGui>().gameObject.SetActive(true);
+                                            GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame); });
+
+        instance = this;
     }
 
     void Start()
     {
-        player = LevelManager.Instance.Player;
         gameObject.SetActive(false);
     }
 
@@ -213,7 +215,8 @@ public class InventoryGUI : MonoBehaviour
             equip_button.enabled = true;
             action_button.GetComponentInChildren<Text>().text = "Drop";
             action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate {
+            action_button.onClick.AddListener(delegate
+            {
                 Inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
                 DisplayItem(null);
@@ -224,7 +227,8 @@ public class InventoryGUI : MonoBehaviour
             equip_button.enabled = false;
             action_button.GetComponentInChildren<Text>().text = "Take";
             action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate {
+            action_button.onClick.AddListener(delegate
+            {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
                 Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
@@ -241,7 +245,22 @@ public class InventoryGUI : MonoBehaviour
             {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
-                player.UnitInventory.AddItem(selected_item);
+                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory;
+                player_inventory.AddItem(selected_item);
+                DisplayItem(null);
+            });
+        }
+        else if (current_gui_action == Inventory_Gui_Type.ChestInventory)
+        {
+            equip_button.enabled = false;
+            action_button.GetComponentInChildren<Text>().text = "Take";
+            action_button.onClick.RemoveAllListeners();
+            action_button.onClick.AddListener(delegate
+            {
+                inventory.RemoveItem(selected_item);
+                ApplyFilterAndSort();
+                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory; 
+                player_inventory.AddItem(selected_item);
                 DisplayItem(null);
             });
         }

@@ -1,8 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public interface IHitable
+﻿public interface IHitable
 {
-
     void OnHit(ACharacter character);
 }

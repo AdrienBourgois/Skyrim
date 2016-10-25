@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour {
         Any
     }
     [SerializeField]
-    public EMusic_Type current_music_type = EMusic_Type.Any;
+    private EMusic_Type current_music_type = EMusic_Type.Any;
     public enum ESound_Type
     {
         Sword,
@@ -33,30 +33,21 @@ public class AudioManager : MonoBehaviour {
     }
 
     //Musics
-    [SerializeField]
-    AudioClip menu_music = null;
-    [SerializeField]
-    AudioClip game_calm_music = null;
-    [SerializeField]
-    AudioClip game_fight_music = null;
+    [SerializeField] private AudioClip menu_music = null;
+    [SerializeField] private AudioClip game_calm_music = null;
+    [SerializeField] private AudioClip game_fight_music = null;
 
     //Sounds
-    [SerializeField]
-    List<AudioClip> sword_clips = new List<AudioClip>();
-    [SerializeField]
-    List<AudioClip> sword_swish_clips = new List<AudioClip>();
+    [SerializeField] private List<AudioClip> sword_clips = new List<AudioClip>();
+    [SerializeField] private List<AudioClip> sword_swish_clips = new List<AudioClip>();
 
     //Mixer Groups
-    [SerializeField]
-    AudioMixerGroup music_mixer_group = null;
-    [SerializeField]
-    AudioMixerGroup sounds_mixer_group = null;
+    [SerializeField] private AudioMixerGroup music_mixer_group = null;
+    [SerializeField] private AudioMixerGroup sounds_mixer_group = null;
 
-    List<AudioSource> sound_sources = new List<AudioSource>();
+    private MusicGroup current_music_group = null;
 
-    MusicGroup current_music_group = null;
-
-    void Start()
+    private void Start()
     {
         DontDestroyOnLoad(this);
     }
@@ -90,7 +81,7 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    public void AddMusic(AudioClip clip)
+    private void AddMusic(AudioClip clip)
     {
         if (current_music_group == null)
             current_music_group = gameObject.AddComponent<MusicGroup>();
@@ -99,7 +90,7 @@ public class AudioManager : MonoBehaviour {
         current_music_group.Add(clip);
     }
 
-    public void ChangeMusic(AudioClip clip)
+    private void ChangeMusic(AudioClip clip)
     {
         if (current_music_group != null)
             current_music_group.State = MusicGroup.EPlayState.Stop;
@@ -131,7 +122,6 @@ public class AudioManager : MonoBehaviour {
             source.spatialBlend = 1.0f;
             source.dopplerLevel = 0f;
             source.Play();
-            sound_sources.Add(source);
             StartCoroutine(ManageSourceDestruct(source));
         }
         else
@@ -146,8 +136,7 @@ public class AudioManager : MonoBehaviour {
     private IEnumerator ManageSourceDestruct(AudioSource source)
     {
         while (source.isPlaying)
-            yield return new WaitUntil(delegate { return source.isPlaying; });
-        sound_sources.Remove(source);
+            yield return new WaitUntil(() => source.isPlaying);
         Destroy(source.gameObject);
     }
     

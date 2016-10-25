@@ -8,7 +8,7 @@ public class Bar : MonoBehaviour {
     protected RectTransform bar;
     protected Text point;
 
-    void Start ()
+    private void Start ()
     {
         player = FindObjectOfType<Player>();
 

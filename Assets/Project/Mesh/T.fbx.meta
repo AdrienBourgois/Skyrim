@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: 518fc17bb2c8cb844bdce50545c8bac6
+timeCreated: 1442992836
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: mirroredCutMesh1
+    100002: mur_tourne2
+    100004: pillier_tournant_01
+    100006: pillier_tournant_02
+    100008: plafond_tourne
+    100010: polySurface16
+    100012: polySurface22
+    100014: polySurface27
+    100016: polySurface28
+    100018: polySurface29
+    100020: polySurface30
+    100022: polySurface31
+    100024: sol_tourne2
+    100026: sol_tourne3
+    100028: sol_tourne4
+    100030: //RootNode
+    100032: T_01
+    100034: transform4
+    100036: transform5
+    100038: arche_03
+    100040: arche_cut_02
+    100042: mur_01
+    100044: pillier_tournant_03
+    100046: pillier_tournant_04
+    100048: plafond
+    100050: polySurface33
+    100052: polySurface34
+    100054: polySurface35
+    100056: polySurface36
+    100058: polySurface37
+    100060: polySurface38
+    100062: polySurface39
+    100064: polySurface40
+    100066: polySurface41
+    100068: polySurface42
+    100070: polySurface43
+    100072: sol2
+    100074: T_V2_01
+    100076: transform6
+    100078: droit_06
+    100080: droit_07
+    100082: droit_08
+    100084: group2
+    100086: group2 1
+    100088: group2 2
+    100090: group3
+    100092: group3 1
+    100094: group3 2
+    100096: mur_04
+    100098: mur_04 1
+    100100: mur_04 2
+    100102: mur_05
+    100104: mur_05 1
+    100106: mur_05 2
+    100108: mur_06
+    100110: plafond 1
+    100112: plafond 2
+    100114: plafond1
+    100116: polySurface45
+    100118: polySurface45 1
+    100120: polySurface45 2
+    100122: polySurface46
+    100124: polySurface46 1
+    100126: polySurface46 2
+    100128: polySurface46 3
+    100130: polySurface46 4
+    100132: polySurface46 5
+    100134: polySurface47
+    100136: polySurface47 1
+    100138: polySurface47 2
+    100140: polySurface47 3
+    100142: polySurface47 4
+    100144: polySurface47 5
+    100146: polySurface48
+    100148: polySurface48 1
+    100150: polySurface48 2
+    100152: polySurface49
+    100154: polySurface49 1
+    100156: polySurface49 2
+    100158: polySurface52
+    100160: polySurface52 1
+    100162: polySurface52 2
+    100164: polySurface53
+    100166: polySurface53 1
+    100168: polySurface53 2
+    100170: polySurface54
+    100172: polySurface54 1
+    100174: polySurface54 2
+    100176: polySurface55
+    100178: polySurface56
+    100180: polySurface57
+    100182: polySurface58
+    100184: polySurface59
+    100186: polySurface60
+    100188: polySurface61
+    100190: polySurface62
+    100192: sol2 1
+    100194: sol2 2
+    100196: sol4
+    100198: T
+    100200: T1
+    100202: T3
+    100204: T_collider
+    400000: mirroredCutMesh1
+    400002: mur_tourne2
+    400004: pillier_tournant_01
+    400006: pillier_tournant_02
+    400008: plafond_tourne
+    400010: polySurface16
+    400012: polySurface22
+    400014: polySurface27
+    400016: polySurface28
+    400018: polySurface29
+    400020: polySurface30
+    400022: polySurface31
+    400024: sol_tourne2
+    400026: sol_tourne3
+    400028: sol_tourne4
+    400030: //RootNode
+    400032: T_01
+    400034: transform4
+    400036: transform5
+    400038: arche_03
+    400040: arche_cut_02
+    400042: mur_01
+    400044: pillier_tournant_03
+    400046: pillier_tournant_04
+    400048: plafond
+    400050: polySurface33
+    400052: polySurface34
+    400054: polySurface35
+    400056: polySurface36
+    400058: polySurface37
+    400060: polySurface38
+    400062: polySurface39
+    400064: polySurface40
+    400066: polySurface41
+    400068: polySurface42
+    400070: polySurface43
+    400072: sol2
+    400074: T_V2_01
+    400076: transform6
+    400078: droit_06
+    400080: droit_07
+    400082: droit_08
+    400084: group2
+    400086: group2 1
+    400088: group2 2
+    400090: group3
+    400092: group3 1
+    400094: group3 2
+    400096: mur_04
+    400098: mur_04 1
+    400100: mur_04 2
+    400102: mur_05
+    400104: mur_05 1
+    400106: mur_05 2
+    400108: mur_06
+    400110: plafond 1
+    400112: plafond 2
+    400114: plafond1
+    400116: polySurface45
+    400118: polySurface45 1
+    400120: polySurface45 2
+    400122: polySurface46
+    400124: polySurface46 1
+    400126: polySurface46 2
+    400128: polySurface46 3
+    400130: polySurface46 4
+    400132: polySurface46 5
+    400134: polySurface47
+    400136: polySurface47 1
+    400138: polySurface47 2
+    400140: polySurface47 3
+    400142: polySurface47 4
+    400144: polySurface47 5
+    400146: polySurface48
+    400148: polySurface48 1
+    400150: polySurface48 2
+    400152: polySurface49
+    400154: polySurface49 1
+    400156: polySurface49 2
+    400158: polySurface52
+    400160: polySurface52 1
+    400162: polySurface52 2
+    400164: polySurface53
+    400166: polySurface53 1
+    400168: polySurface53 2
+    400170: polySurface54
+    400172: polySurface54 1
+    400174: polySurface54 2
+    400176: polySurface55
+    400178: polySurface56
+    400180: polySurface57
+    400182: polySurface58
+    400184: polySurface59
+    400186: polySurface60
+    400188: polySurface61
+    400190: polySurface62
+    400192: sol2 1
+    400194: sol2 2
+    400196: sol4
+    400198: T
+    400200: T1
+    400202: T3
+    400204: T_collider
+    2300000: mur_tourne2
+    2300002: pillier_tournant_01
+    2300004: pillier_tournant_02
+    2300006: plafond_tourne
+    2300008: polySurface22
+    2300010: polySurface28
+    2300012: polySurface29
+    2300014: polySurface30
+    2300016: polySurface31
+    2300018: sol_tourne4
+    2300020: mur_01
+    2300022: pillier_tournant_03
+    2300024: pillier_tournant_04
+    2300026: plafond
+    2300028: polySurface33
+    2300030: polySurface34
+    2300032: polySurface35
+    2300034: polySurface36
+    2300036: polySurface37
+    2300038: polySurface38
+    2300040: polySurface39
+    2300042: polySurface40
+    2300044: polySurface41
+    2300046: polySurface42
+    2300048: polySurface43
+    2300050: sol2
+    2300052: mur_04
+    2300054: mur_04 1
+    2300056: mur_04 2
+    2300058: mur_05
+    2300060: mur_05 1
+    2300062: mur_05 2
+    2300064: mur_06
+    2300066: plafond 1
+    2300068: plafond 2
+    2300070: plafond1
+    2300072: polySurface45
+    2300074: polySurface45 1
+    2300076: polySurface45 2
+    2300078: polySurface46
+    2300080: polySurface46 1
+    2300082: polySurface46 2
+    2300084: polySurface46 3
+    2300086: polySurface46 4
+    2300088: polySurface46 5
+    2300090: polySurface47
+    2300092: polySurface47 1
+    2300094: polySurface47 2
+    2300096: polySurface47 3
+    2300098: polySurface47 4
+    2300100: polySurface47 5
+    2300102: polySurface48
+    2300104: polySurface48 1
+    2300106: polySurface48 2
+    2300108: polySurface49
+    2300110: polySurface49 1
+    2300112: polySurface49 2
+    2300114: polySurface52
+    2300116: polySurface52 1
+    2300118: polySurface52 2
+    2300120: polySurface53
+    2300122: polySurface53 1
+    2300124: polySurface53 2
+    2300126: polySurface54
+    2300128: polySurface54 1
+    2300130: polySurface54 2
+    2300132: polySurface55
+    2300134: polySurface56
+    2300136: polySurface57
+    2300138: polySurface58
+    2300140: polySurface59
+    2300142: polySurface60
+    2300144: polySurface61
+    2300146: polySurface62
+    2300148: sol2 1
+    2300150: sol2 2
+    2300152: sol4
+    2300154: T1
+    2300156: T3
+    2300158: T_collider
+    2300160: T
+    3300000: mur_tourne2
+    3300002: pillier_tournant_01
+    3300004: pillier_tournant_02
+    3300006: plafond_tourne
+    3300008: polySurface22
+    3300010: polySurface28
+    3300012: polySurface29
+    3300014: polySurface30
+    3300016: polySurface31
+    3300018: sol_tourne4
+    3300020: mur_01
+    3300022: pillier_tournant_03
+    3300024: pillier_tournant_04
+    3300026: plafond
+    3300028: polySurface33
+    3300030: polySurface34
+    3300032: polySurface35
+    3300034: polySurface36
+    3300036: polySurface37
+    3300038: polySurface38
+    3300040: polySurface39
+    3300042: polySurface40
+    3300044: polySurface41
+    3300046: polySurface42
+    3300048: polySurface43
+    3300050: sol2
+    3300052: mur_04
+    3300054: mur_04 1
+    3300056: mur_04 2
+    3300058: mur_05
+    3300060: mur_05 1
+    3300062: mur_05 2
+    3300064: mur_06
+    3300066: plafond 1
+    3300068: plafond 2
+    3300070: plafond1
+    3300072: polySurface45
+    3300074: polySurface45 1
+    3300076: polySurface45 2
+    3300078: polySurface46
+    3300080: polySurface46 1
+    3300082: polySurface46 2
+    3300084: polySurface46 3
+    3300086: polySurface46 4
+    3300088: polySurface46 5
+    3300090: polySurface47
+    3300092: polySurface47 1
+    3300094: polySurface47 2
+    3300096: polySurface47 3
+    3300098: polySurface47 4
+    3300100: polySurface47 5
+    3300102: polySurface48
+    3300104: polySurface48 1
+    3300106: polySurface48 2
+    3300108: polySurface49
+    3300110: polySurface49 1
+    3300112: polySurface49 2
+    3300114: polySurface52
+    3300116: polySurface52 1
+    3300118: polySurface52 2
+    3300120: polySurface53
+    3300122: polySurface53 1
+    3300124: polySurface53 2
+    3300126: polySurface54
+    3300128: polySurface54 1
+    3300130: polySurface54 2
+    3300132: polySurface55
+    3300134: polySurface56
+    3300136: polySurface57
+    3300138: polySurface58
+    3300140: polySurface59
+    3300142: polySurface60
+    3300144: polySurface61
+    3300146: polySurface62
+    3300148: sol2 1
+    3300150: sol2 2
+    3300152: sol4
+    3300154: T1
+    3300156: T3
+    3300158: T_collider
+    3300160: T
+    4300000: mur_tourne2
+    4300002: polySurface22
+    4300004: pillier_tournant_01
+    4300006: plafond_tourne
+    4300008: polySurface28
+    4300010: polySurface29
+    4300012: pillier_tournant_02
+    4300014: sol_tourne4
+    4300016: polySurface30
+    4300018: polySurface31
+    4300020: mur_01
+    4300022: sol2
+    4300024: plafond
+    4300026: polySurface33
+    4300028: polySurface34
+    4300030: polySurface35
+    4300032: polySurface36
+    4300034: polySurface37
+    4300036: polySurface38
+    4300038: polySurface39
+    4300040: polySurface40
+    4300042: polySurface41
+    4300044: polySurface42
+    4300046: polySurface43
+    4300048: pillier_tournant_03
+    4300050: pillier_tournant_04
+    4300052: polySurface52
+    4300054: polySurface47
+    4300056: polySurface45
+    4300058: polySurface46
+    4300060: polySurface54
+    4300062: polySurface49
+    4300064: polySurface47
+    4300066: polySurface46
+    4300068: polySurface48
+    4300070: mur_04
+    4300072: polySurface53
+    4300074: mur_05
+    4300076: sol2
+    4300078: plafond
+    4300080: polySurface52
+    4300082: polySurface47
+    4300084: polySurface45
+    4300086: polySurface46
+    4300088: polySurface54
+    4300090: polySurface57
+    4300092: polySurface49
+    4300094: polySurface47
+    4300096: polySurface46
+    4300098: polySurface48
+    4300100: polySurface55
+    4300102: polySurface56
+    4300104: polySurface58
+    4300106: mur_04
+    4300108: polySurface53
+    4300110: mur_05
+    4300112: sol4
+    4300114: mur_06
+    4300116: sol2
+    4300118: plafond
+    4300120: polySurface52
+    4300122: polySurface47
+    4300124: polySurface45
+    4300126: polySurface46
+    4300128: polySurface54
+    4300130: polySurface59
+    4300132: polySurface60
+    4300134: polySurface61
+    4300136: polySurface49
+    4300138: polySurface47
+    4300140: polySurface46
+    4300142: polySurface48
+    4300144: mur_04
+    4300146: polySurface53
+    4300148: mur_05
+    4300150: polySurface62
+    4300152: plafond1
+    4300154: T1
+    4300156: T3
+    4300158: T_collider
+    4300160: T
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

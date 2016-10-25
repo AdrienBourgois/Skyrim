@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ConfirmationPanel : MonoBehaviour
 {
     [SerializeField]
-    private Text panelText;
+    private Text panelText = null;
 
     private delegate void DelegateClick();
     private event DelegateClick OnYes = () => { };
@@ -84,11 +82,11 @@ public class ConfirmationPanel : MonoBehaviour
 
     private void ExitGame()
     {
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#else
+    #else
         Application.Quit();
-#endif
+    #endif
     }
 
     private void SetNoButton(MenuButton.MenuButtonId id)

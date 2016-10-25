@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class ACharacterWeapons : MonoBehaviour
 {
@@ -59,7 +57,7 @@ public class ACharacterWeapons : MonoBehaviour
             oneCharSwitchBehaviour.OnSwitch += SwitchWeapon;
     }
 
-    protected void SetWeapons(Item leftWeapon, Item rightWeapon)
+    private void SetWeapons(Item leftWeapon, Item rightWeapon)
     {
         leftHand.SetWeapon(leftWeapon);
         rightHand.SetWeapon(rightWeapon);
@@ -75,7 +73,7 @@ public class ACharacterWeapons : MonoBehaviour
     {
         if (magicID != MagicManager.MagicID.NONE)
         {
-            ASpell magicGao = MagicManager.Instance.CreateSpell(magic);
+           // ASpell magicGao = MagicManager.Instance.CreateSpell(magic);
             //magic = MagicManager.Instance.CreateSpell(magicID, controller);
             //magic.gao.transform.parent = rightHandAnchor.transform;
             //magic.gao.transform.localPosition = Vector3.zero;

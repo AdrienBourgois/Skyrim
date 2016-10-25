@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class Compass : MonoBehaviour {
 
     //Transform[] targets;
-    Transform target;
-    Transform player;
+    private Transform target;
+    private Transform player;
 
-    Transform needle;
+    private Transform needle;
 
-    Transform arrowRotator;
-    Transform arrow1;
-    Transform arrow2;
+    private Transform arrowRotator;
+    private Transform arrow1;
+    private Transform arrow2;
 
-    void Start()
+    private void Start()
     {
         CheckTarget();
         FindPlayer();
@@ -25,7 +24,7 @@ public class Compass : MonoBehaviour {
         arrow2 = arrowRotator.FindChild("Arrow2");
     }
 
-    void Update()
+    private void Update()
     {
         if (!CheckTarget())
         {
@@ -40,7 +39,7 @@ public class Compass : MonoBehaviour {
 
     }
 
-    void UpdateArrow()
+    private void UpdateArrow()
     {
         if (arrow1.GetComponent<SpriteRenderer>().enabled == false)
             EnableArrow();
@@ -58,7 +57,7 @@ public class Compass : MonoBehaviour {
         arrowRotator.transform.eulerAngles = new Vector3(0f, -(rotAngle / 2f), 0f);
     }
 
-    void FindPlayer()
+    private void FindPlayer()
     {
         Player player_tmp = FindObjectOfType<Player>();
 
@@ -67,7 +66,8 @@ public class Compass : MonoBehaviour {
         else
             player = player_tmp.transform;
     }
-    bool CheckTarget()
+
+    private bool CheckTarget()
     {
         GameObject target_gao = GameObject.FindGameObjectWithTag("CompassTarget");
         if (target_gao == null)
@@ -80,7 +80,7 @@ public class Compass : MonoBehaviour {
         return true;
     }
 
-    void EnableArrow()
+    private void EnableArrow()
     {
         Vector3 player_fwd_cpy = new Vector3(player.forward.x, 0f, player.forward.z);
 
@@ -90,7 +90,8 @@ public class Compass : MonoBehaviour {
         arrow2.transform.position = transform.FindChild("CompassCylinder").position - player_fwd_cpy / 2f;
         // Bug when player is looking up or down
     }
-    void DisableArrow()
+
+    private void DisableArrow()
     {
         arrow1.GetComponent<SpriteRenderer>().enabled = false;
         arrow2.GetComponent<SpriteRenderer>().enabled = false;

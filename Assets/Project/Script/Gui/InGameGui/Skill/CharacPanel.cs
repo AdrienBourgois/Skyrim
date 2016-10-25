@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 public class CharacPanel : MonoBehaviour
 {
-    Player player;
-    Characteristics charac;
+    private Player player;
+    private Characteristics charac;
 
-    void Start()
+    private void Start()
     {
         player = LevelManager.Instance.Player;
         charac = player.CharacterStats.UnitCharacteristics;
         UpdateStats();
     }
 
-    public void UpdateStats()
+    private void UpdateStats()
     {
         if (!player)
             return;
@@ -59,7 +59,7 @@ public class CharacPanel : MonoBehaviour
         Reset();
     }
 
-    public void Reset()
+    private void Reset()
     {
         foreach (Transform child in transform)
             if (child.name != "Charac")
@@ -67,7 +67,7 @@ public class CharacPanel : MonoBehaviour
     }
 
 
-    string Round(string characName, float value = 1f)
+    private string Round(string characName, float value = 1f)
     {
         return (characName == "AttackSpeed"
                 || characName == "SpellPower"

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerController : ACharacterController
 {
@@ -11,7 +10,7 @@ public class PlayerController : ACharacterController
     #endregion
 
     // TODO: need one for enemy, to be able to shoot other than straight
-    Transform camTransform;
+    private Transform camTransform;
 
     protected override void Start()
     {
@@ -83,7 +82,7 @@ public class PlayerController : ACharacterController
 
     #region Controller
 
-    public override void ControllerRightHand()
+    protected override void ControllerRightHand()
     {
         base.ControllerRightHand();
 
@@ -91,11 +90,11 @@ public class PlayerController : ACharacterController
             OnRightDown.Invoke();
     }
 
-    public override void ControllerLeftHand(bool bIsPressed = true)
+    protected override void ControllerLeftHand(bool bIsPressed = true)
     {
         base.ControllerLeftHand(bIsPressed);
 
-        if (bIsPressed == true)
+        if (bIsPressed)
         {
             if (OnLeftDown != null)
                 OnLeftDown.Invoke();

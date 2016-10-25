@@ -19,9 +19,9 @@ public class MagicPanel : MonoBehaviour
         buttonPrefab = transform.FindChild("SpellSelector").GetChild(0).GetChild(0).GetChild(0).gameObject;
         UpdateSpells();
     }
-	
-	
-	public void UpdateSpells ()
+
+
+    private void UpdateSpells ()
     {
         if (spells == null)
             return;
@@ -35,7 +35,7 @@ public class MagicPanel : MonoBehaviour
         }
 	}
 
-    GameObject CreateBlankButton()
+    private GameObject CreateBlankButton()
     {
         GameObject gao = Instantiate(buttonPrefab);
         gao.GetComponent<Button>().interactable = true;

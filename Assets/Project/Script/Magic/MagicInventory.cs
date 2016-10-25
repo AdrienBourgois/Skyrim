@@ -12,7 +12,7 @@ public class MagicInventory
 
     public void PlayerBasicSpellInit()
     {
-        magicList.Add(MagicManager.Instance.CreateMagic<FireSpell>("FireBall", 
+        magicList.Add(MagicManager.Instance.CreateMagic("FireBall", 
                                                                     50f,
                                                                     20,
                                                                     10f,
@@ -20,7 +20,7 @@ public class MagicInventory
                                                                     MagicManager.MagicID.Fire,
                                                                     MagicManager.MagicType.Light));
 
-        magicList.Add(MagicManager.Instance.CreateMagic<HealSpell>("Heal",
+        magicList.Add(MagicManager.Instance.CreateMagic("Heal",
                                                                     30f,
                                                                     10,
                                                                     2,
@@ -28,7 +28,7 @@ public class MagicInventory
                                                                     MagicManager.MagicID.Heal,
                                                                     MagicManager.MagicType.Light));
 
-        magicList.Add(MagicManager.Instance.CreateMagic<HealSpell>("Invisibility",
+        magicList.Add(MagicManager.Instance.CreateMagic("Invisibility",
                                                                     0,
                                                                     50,
                                                                     30,
@@ -40,7 +40,7 @@ public class MagicInventory
 
     public void EnemyBasicSpellInit()
     {
-        magicList.Add(MagicManager.Instance.CreateMagic<FireSpell>("FireBall",
+        magicList.Add(MagicManager.Instance.CreateMagic("FireBall",
                                                                      30f,
                                                                      20,
                                                                      10f,

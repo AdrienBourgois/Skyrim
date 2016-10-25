@@ -20,7 +20,7 @@ public class DataManager : MonoBehaviour {
     }
 
 
-    GameManager gameMgr;
+    private GameManager gameMgr;
 
 
     public string getActiveSceneName
@@ -32,7 +32,7 @@ public class DataManager : MonoBehaviour {
         get { return SceneManager.GetActiveScene().buildIndex; }
     }
 
-    void Awake()
+    private void Awake()
     {
         instance = this;
         gameMgr = GameManager.Instance;
