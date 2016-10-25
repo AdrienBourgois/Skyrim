@@ -1,0 +1,196 @@
+fileFormatVersion: 2
+guid: 1fbac9cc17f758444a864e49201f309a
+timeCreated: 1442928396
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: arche_cut_01
+    100002: arche_cut_02
+    100004: //RootNode
+    100006: mur_01
+    100008: mur_03
+    100010: plafond
+    100012: sol2
+    100014: arche_01
+    100016: droit_01
+    100018: transform6
+    100020: arche_02
+    100022: group2
+    100024: group3
+    100026: mur_04
+    100028: mur_05
+    100030: polySurface45
+    100032: polySurface46
+    100034: polySurface46 1
+    100036: polySurface47
+    100038: polySurface47 1
+    100040: polySurface48
+    100042: polySurface49
+    100044: polySurface52
+    100046: polySurface53
+    100048: polySurface54
+    100050: droit1
+    100052: droit
+    100054: droit_colider
+    400000: arche_cut_01
+    400002: arche_cut_02
+    400004: //RootNode
+    400006: mur_01
+    400008: mur_03
+    400010: plafond
+    400012: sol2
+    400014: arche_01
+    400016: droit_01
+    400018: transform6
+    400020: arche_02
+    400022: group2
+    400024: group3
+    400026: mur_04
+    400028: mur_05
+    400030: polySurface45
+    400032: polySurface46
+    400034: polySurface46 1
+    400036: polySurface47
+    400038: polySurface47 1
+    400040: polySurface48
+    400042: polySurface49
+    400044: polySurface52
+    400046: polySurface53
+    400048: polySurface54
+    400050: droit1
+    400052: droit
+    400054: droit_colider
+    2300000: arche_cut_01
+    2300002: arche_cut_02
+    2300004: mur_01
+    2300006: mur_03
+    2300008: plafond
+    2300010: sol2
+    2300012: arche_01
+    2300014: arche_02
+    2300016: mur_04
+    2300018: mur_05
+    2300020: polySurface45
+    2300022: polySurface46
+    2300024: polySurface46 1
+    2300026: polySurface47
+    2300028: polySurface47 1
+    2300030: polySurface48
+    2300032: polySurface49
+    2300034: polySurface52
+    2300036: polySurface53
+    2300038: polySurface54
+    2300040: droit1
+    2300042: droit
+    2300044: droit_colider
+    3300000: arche_cut_01
+    3300002: arche_cut_02
+    3300004: mur_01
+    3300006: mur_03
+    3300008: plafond
+    3300010: sol2
+    3300012: arche_01
+    3300014: arche_02
+    3300016: mur_04
+    3300018: mur_05
+    3300020: polySurface45
+    3300022: polySurface46
+    3300024: polySurface46 1
+    3300026: polySurface47
+    3300028: polySurface47 1
+    3300030: polySurface48
+    3300032: polySurface49
+    3300034: polySurface52
+    3300036: polySurface53
+    3300038: polySurface54
+    3300040: droit1
+    3300042: droit
+    3300044: droit_colider
+    4300000: mur_01
+    4300002: arche_cut_01
+    4300004: arche_cut_02
+    4300006: sol2
+    4300008: plafond
+    4300010: mur_03
+    4300012: arche_01
+    4300014: arche_02
+    4300016: polySurface52
+    4300018: polySurface47
+    4300020: polySurface45
+    4300022: polySurface46
+    4300024: polySurface54
+    4300026: polySurface49
+    4300028: polySurface47
+    4300030: polySurface46
+    4300032: polySurface48
+    4300034: mur_04
+    4300036: polySurface53
+    4300038: mur_05
+    4300040: droit1
+    4300042: droit
+    4300044: droit_colider
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

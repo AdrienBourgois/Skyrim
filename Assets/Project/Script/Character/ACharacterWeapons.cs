@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class ACharacterWeapons : MonoBehaviour
 {
@@ -22,7 +20,7 @@ public class ACharacterWeapons : MonoBehaviour
     private AMagic magic = null;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         if (leftHandAnchor == null || rightHandAnchor == null)
             Debug.LogError("ACharacterWeapons.Start() - leftHandAnchor and rightHandAnchor should be initialized.");
@@ -59,7 +57,7 @@ public class ACharacterWeapons : MonoBehaviour
             oneCharSwitchBehaviour.OnSwitch += SwitchWeapon;
     }
 
-    protected void SetWeapons(Item leftWeapon, Item rightWeapon)
+    private void SetWeapons(Item leftWeapon, Item rightWeapon)
     {
         leftHand.SetWeapon(leftWeapon);
         rightHand.SetWeapon(rightWeapon);

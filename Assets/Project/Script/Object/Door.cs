@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 [RequireComponent(typeof(Animation))]
 public class Door : MonoBehaviour, IUsableObject
@@ -14,23 +12,36 @@ public class Door : MonoBehaviour, IUsableObject
     {
         if (hasBeenOpen == false)
         {
-            
             anim.Play("OpenDoor");
             hasBeenOpen = true;
+            LoadLevel();
+            
         }
-        else if (hasBeenOpen == true)
+        else if (hasBeenOpen)
         {
             anim.Play("CloseDoor");
             hasBeenOpen = false;
         }
     }
 
-    void Start () {
+    private void Start () {
 
         anim = GetComponent<Animation>();
     }
-	
-	void Update () {
+
+    private void Update () {
 	
 	}
+
+    void TeleportPlayerIntoTheDungeon(ACharacter player)
+    {
+        player.transform.position = transform.FindChild("SpawnPoint").transform.position;
+    }
+
+    void LoadLevel()
+    {
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.EnterDungeon);
+        DontDestroyOnLoad(FindObjectOfType<DungeonManager>());
+       // SceneManager.LoadSceneAsync("DungeonGeneration");
+    }
 }

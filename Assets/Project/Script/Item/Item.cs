@@ -2,7 +2,7 @@
 
 public class Item : IComparable<Item>
 {
-    public enum item_type
+    protected enum item_type
     {
         undefined,
         weapon,
@@ -37,11 +37,11 @@ public class Item : IComparable<Item>
     public float Weight
     {
         get { return weight; }
-        set { weight = value; }
+        protected set { weight = value; }
     }
 
     private item_type type = item_type.undefined;
-    public item_type Type
+    protected item_type Type
     {
         get { return type; }
         set { type = value; }
@@ -50,7 +50,7 @@ public class Item : IComparable<Item>
     private item_rarity rarity;
     public item_rarity Rarity
     {
-        get { return rarity; }
+        protected get { return rarity; }
         set { rarity = value; }
     }
 
@@ -65,15 +65,10 @@ public class Item : IComparable<Item>
     public int Price
     {
         get { return price; }
-        set { price = value; }
+        protected set { price = value; }
     }
 
-    private bool is_equipped;
-    public bool Equipped
-    {
-        get { return is_equipped; }
-        set { is_equipped = value; }
-    }
+    public bool Equipped { get; set; }
 
     private string prefabPath = "";
     public string PrefabPath

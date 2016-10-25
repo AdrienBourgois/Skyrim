@@ -1,20 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class IGGui : MonoBehaviour
 {
-    GameObject pausePanel;
-    GameObject igPanel;
-    InventoryGUI invGui;
+    private GameObject pausePanel;
+    private InventoryGUI invGui;
 
-    void Awake()
+    private void Awake()
     {
         invGui = InventoryGUI.Instance;
         pausePanel = transform.FindChild("PausePanel").gameObject;
         pausePanel.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -25,18 +23,19 @@ public class IGGui : MonoBehaviour
         }
     }
 
-    void Pause()
+    private void Pause()
     {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
         pausePanel.SetActive(true);
     }
 
-    void ReturnInGame()
+    private void ReturnInGame()
     { 
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame);
         pausePanel.SetActive(false);
         pausePanel.transform.FindChild("SkillPanel").gameObject.SetActive(false);
         pausePanel.transform.FindChild("MagicPanel").gameObject.SetActive(false);
-        invGui.Show = false;
+        if (invGui)
+            invGui.Show = false;
     }
 }

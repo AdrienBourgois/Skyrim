@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// Character is an Abstract class, used in the Character Animator to change its CapsuleCollider for some animations. Inherites from StateMachineBehaviour.
@@ -135,7 +134,7 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
         SetColliderCapsule();
     }
 
-    protected void SetColliderCapsule()
+    private void SetColliderCapsule()
     {
         capsuleCollider.center = finalColliderValues.Center;
         capsuleCollider.radius = finalColliderValues.Radius;

@@ -1,18 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 public class MagicManager : MonoBehaviour
 {
     static private MagicManager instance;
     static public MagicManager Instance
     {
-        get
-        {
-            if (instance == null)
-                instance = FindObjectOfType<MagicManager>();
-            return instance;
-        }
+        get { return instance ?? (instance = FindObjectOfType<MagicManager>()); }
     }
 
     public enum MagicID
