@@ -11,10 +11,10 @@ public class AttribGui : MonoBehaviour {
     public void Actualize()
     {
         int bonusToAssign = transform.parent.GetComponent<AttribPanel>().BonusToAssign;
-        transform.FindChild("Plus").GetComponent<Button>().enabled = bonusToAssign > 0 ? true : false;
+        transform.FindChild("Plus").GetComponent<Button>().enabled = bonusToAssign > 0;
 
         int bonusAssigned = int.Parse(transform.FindChild("Bonus").GetComponent<Text>().text);
-        transform.FindChild("Minus").GetComponent<Button>().enabled = bonusAssigned > 0 ? true : false;
+        transform.FindChild("Minus").GetComponent<Button>().enabled = bonusAssigned > 0;
     }
 
 	public void Plus()

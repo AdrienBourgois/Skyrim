@@ -1,21 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class MainMenuGui : MonoBehaviour
 {
-    [SerializeField] private GameObject panel;
-    [SerializeField] private MenuButton buttonNewGame;
-    [SerializeField] private MenuButton buttonLoadGame;
-    [SerializeField] private MenuButton buttonExitGame;
+    [SerializeField] private GameObject panel = null;
+    [SerializeField] private MenuButton buttonNewGame = null;
+    [SerializeField] private MenuButton buttonLoadGame = null;
+    [SerializeField] private MenuButton buttonExitGame = null;
 
-    void Start()
+    private void Start()
     {
         buttonNewGame.OnClick += DisplayConfirmationPanel;
         buttonLoadGame.OnClick += DisplayConfirmationPanel;
         buttonExitGame.OnClick += DisplayConfirmationPanel;
     }
 
-    public void DisplayConfirmationPanel(MenuButton.MenuButtonId id)
+    private void DisplayConfirmationPanel(MenuButton.MenuButtonId id)
     {
 
         panel.SetActive(true);

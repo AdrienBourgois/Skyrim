@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class MagicButton : MonoBehaviour
 {
-    GameObject panel;
+    private GameObject panel;
 
-	void Start ()
+    private void Start ()
     {
         panel = transform.parent.FindChild("MagicPanel").gameObject;
         panel.SetActive(false);

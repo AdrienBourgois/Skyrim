@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Attributes
 {
-    Dictionary<string, int> AttribDict = new Dictionary<string, int>();
+    private Dictionary<string, int> AttribDict = new Dictionary<string, int>();
 
     private int maxAttributePoints = 110;
     public int MaxAttributePoints

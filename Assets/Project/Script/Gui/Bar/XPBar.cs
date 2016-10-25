@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class XPBar : Bar
 {
-    void Update()
+    private void Update()
     {
-        float xp_ratio = (float)player.Xp / (float)player.XpToLevelUp;
+        float xp_ratio = player.Xp / player.XpToLevelUp;
 
         if (player.Xp <= player.XpToLevelUp)
         {

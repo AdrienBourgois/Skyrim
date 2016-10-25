@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,7 +25,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    bool loadLevel = true;
+    private bool loadLevel = true;
 
     #region SerializeField
     [SerializeField] GameObject dataMgrPrefab;
@@ -40,7 +38,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private DataManager dataMgr;
-    private GUIManager guiMgr;
     private LevelManager levelMgr;
     private ItemManager itemMgr;
     private DungeonManager dungeonMgr;
@@ -66,32 +63,31 @@ public class GameManager : MonoBehaviour
         get { return currGameState; }
     }
 
-    public bool isEnterDungeon
-    {
-        get { return currGameState == GameState.EnterDungeon; }
-    }
+    public GameState CurrGameState { get; private set; }
 
+    public delegate void Pause();
+    public static event Pause OnPause;
 
-    void Awake()
+    private void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
             Destroy(gameObject);
 
         instance = this;
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
-        guiMgr = GUIManager.Instance ? GUIManager.Instance : Instantiate(guiMgrPrefab).GetComponent<GUIManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
        // dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
         magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
         resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
+        levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
 
-        UpdateGameState();
+        RecoverGameState();
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
 	}
-	
-    void UpdateGameState()
+
+    private void RecoverGameState()
     {   
         switch (dataMgr.getActiveSceneName)
         {
@@ -144,6 +140,11 @@ public class GameManager : MonoBehaviour
                 PauseInit();
                 break;
 
+            case GameState.Death:
+                break;
+            case GameState.StateNb:
+                break;
+
             default:
                 break;
         }
@@ -155,25 +156,28 @@ public class GameManager : MonoBehaviour
            // dataMgr.LoadLevelFromGameState();
     }
 
-    void IntroInit()
+    private void IntroInit()
     {
-        currGameState = GameState.Intro;
+        CurrGameState = GameState.Intro;
     }
 
-    void MainMenuInit()
+    private void MainMenuInit()
     {
-        
-        currGameState = GameState.MainMenu;
+        CurrGameState = GameState.MainMenu;
+        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Menu);
     }
 
-    void InGameInit()
+    private void InGameInit()
     {
-        loadLevel = currGameState == GameState.Pause ? false : true;
-        currGameState = GameState.InGame;
+        loadLevel = CurrGameState != GameState.Pause;
+        CurrGameState = GameState.InGame;
 
-        levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+        if (!loadLevel)
+            OnPause();
+        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
     }
 
+    private void PauseInit()
     void EnterDungeonInit()
     {
         currGameState = GameState.EnterDungeon;
@@ -188,8 +192,11 @@ public class GameManager : MonoBehaviour
 
     void PauseInit()
     {
-        loadLevel = currGameState == GameState.InGame ? false : true;
-        currGameState = GameState.Pause;
+        loadLevel = CurrGameState != GameState.InGame;
+        CurrGameState = GameState.Pause;
+
+        if (!loadLevel)
+            OnPause();
     }
 
 }

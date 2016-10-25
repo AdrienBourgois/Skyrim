@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [RequireComponent (typeof(Animation))]
 public class TreasureChest : MonoBehaviour, IUsableObject
@@ -9,7 +8,8 @@ public class TreasureChest : MonoBehaviour, IUsableObject
     InventoryGUI invGui = null;
     Inventory inv = new Inventory();
 
-    void Awake()
+
+    private void Awake()
     {
         Debug.Log("LOLOLOLOL");
         //invGui = ResourceManager.Instance.Load<InventoryGUI>("Gui/InventoryGUI");

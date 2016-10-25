@@ -7,12 +7,7 @@ public class ItemManager : MonoBehaviour
     static private ItemManager instance;
     static public ItemManager Instance
     {
-        get
-        {
-            if (instance == null)
-                instance = FindObjectOfType<ItemManager>();
-            return instance;
-        }
+        get { return instance ?? (instance = FindObjectOfType<ItemManager>()); }
     }
 
     //TODO: to changed with IDs ?

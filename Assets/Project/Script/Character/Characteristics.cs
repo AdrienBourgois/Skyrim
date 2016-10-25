@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Characteristics
 {
-    Dictionary<string, float> characDict = new Dictionary<string, float>();
+    private Dictionary<string, float> characDict = new Dictionary<string, float>();
 
     #region Attack
 
@@ -57,7 +57,7 @@ public class Characteristics
 
     private float mana;
     public float Mana
-    { get { return mana; } set { mana = value; } }
+    { get { return mana; } private set { mana = value; } }
 
     #endregion
 

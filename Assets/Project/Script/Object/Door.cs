@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animation))]
 public class Door : MonoBehaviour, IUsableObject
@@ -20,19 +17,19 @@ public class Door : MonoBehaviour, IUsableObject
             LoadLevel();
             
         }
-        else if (hasBeenOpen == true)
+        else if (hasBeenOpen)
         {
             anim.Play("CloseDoor");
             hasBeenOpen = false;
         }
     }
 
-    void Start () {
+    private void Start () {
 
         anim = GetComponent<Animation>();
     }
-	
-	void Update () {
+
+    private void Update () {
 	
 	}
 

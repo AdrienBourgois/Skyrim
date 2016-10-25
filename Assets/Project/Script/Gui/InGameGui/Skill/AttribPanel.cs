@@ -3,25 +3,28 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class AttribPanel : MonoBehaviour {
-
-    Player player;
-    Attributes attrib;
-    int bonusToAssign;
+    private Player player;
+    private Attributes attrib;
+    private int bonusToAssign;
     public int BonusToAssign
     {
         get { return bonusToAssign; }
         set { bonusToAssign = value; }
     }
 
-    void Awake()
+    private void Start()
     {
         player = LevelManager.Instance.Player;
         attrib = player.CharacterStats.UnitAttributes;
         bonusToAssign = player.AttributePointToAssign;
+        UpdateStats();
     }
 
-    public void UpdateStats()
+    private void UpdateStats()
     {
+        if (attrib == null)
+            return;
+
         attrib.UpdateAttribDict();
 
         foreach (Transform child in transform)
@@ -53,6 +56,11 @@ public class AttribPanel : MonoBehaviour {
                 child.GetComponent<AttribGui>().ResetBonus();
             }
         }
+
+        player.CharacterStats.SetCharacteristics(player);
+
+        if (player.AttributePointToAssign != bonusToAssign)
+            player.CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
 
         player.AttributePointToAssign = bonusToAssign;
         UpdateStats();

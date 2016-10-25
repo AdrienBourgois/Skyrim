@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ConfirmationPanel : MonoBehaviour
 {
     [SerializeField]
-    private Text panelText;
+    private Text panelText = null;
 
     private delegate void DelegateClick();
     private event DelegateClick OnYes = () => { };
