@@ -11,17 +11,14 @@ public class TreasureChest : MonoBehaviour, IUsableObject
 
     private void Awake()
     {
-        Debug.Log("LOLOLOLOL");
         //invGui = ResourceManager.Instance.Load<InventoryGUI>("Gui/InventoryGUI");
         anim = GetComponent<Animation>();
 
         invGui = InventoryGUI.Instance;
-        Debug.Log(invGui);
     }
 
     void Start()
     {
-        Debug.Log("LALALALA");
         invGui.Inventory = inv;
         inv.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, 10);
 
