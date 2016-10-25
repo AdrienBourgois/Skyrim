@@ -12,10 +12,13 @@ public class ACharacterWeapons : MonoBehaviour
     private GameObject rightHandAnchor = null;
     #endregion
 
+    private ACharacterController controller = null;
+
     private WeaponAnchor leftHand = null;
     private WeaponAnchor rightHand = null;
 
     private MagicManager.MagicID magicID = MagicManager.MagicID.NONE;
+    public MagicManager.MagicID ActiveMagic { get { return magicID; } }
     private AMagic magic = null;
 
     // Use this for initialization
@@ -36,8 +39,15 @@ public class ACharacterWeapons : MonoBehaviour
         rightHand.SetWeapon(ItemManager.Instance.CreateObject<Sword>());
     }
 
+    public void SetCharacter(ACharacter _character)
+    {
+        _character.OnChangedWeapons += SetWeapons;
+    }
+
     public void SetController(ACharacterController characterController)
     {
+        controller = characterController;
+
         Animator characterAnimator = characterController.GetComponent<Animator>();
         if (characterAnimator == null)
             Debug.LogError("ACharacterWeapons.SetController() - couldn't get component of type Animator in ACharacterController");
@@ -66,16 +76,22 @@ public class ACharacterWeapons : MonoBehaviour
         if (magic != null)
             return;
         if (magicID != MagicManager.MagicID.NONE)
-            magic = MagicManager.Instance.CreateSpell(magicID);
-
-        magic.gameObject.transform.parent = rightHandAnchor.transform;
-        magic.gameObject.transform.localPosition = Vector3.zero;
+        {
+            magic = MagicManager.Instance.CreateSpell(magicID, controller);
+            magic.gameObject.transform.parent = rightHandAnchor.transform;
+            magic.gameObject.transform.localPosition = Vector3.zero;
+        }
     }
 
     public void ActivateMagic()
     {
-        magic.Activate();
-        magic = null;
+        if (magic != null)
+        {
+            magic.Activate();
+            magic = null;
+        }
+        else
+            Debug.LogWarning("ACharacterWeapon.ActivateMagic() - member \"magic\" is null");
     }
 
     public void SetActiveMagic(MagicManager.MagicID id)

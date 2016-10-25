@@ -3,6 +3,13 @@ using System.Collections;
 
 public class MagicFire : AMagic
 {
+    public override void Activate()
+    {
+        transform.parent = null;
+        Debug.Log("FIRE");
+        // TODO: launch using line of sight from selfController
+    }
+
     protected override void OnDestroy()
     {
         // TODO: Make Explosion ?
@@ -14,7 +21,7 @@ public class MagicFire : AMagic
 
         if (character != null)
         {
-            if (character == selfCharacter)
+            if (character == selfController.Character)
                 return;
             // TODO: damages
             Debug.Log("DAMAGES");

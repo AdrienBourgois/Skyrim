@@ -45,7 +45,7 @@ public class MagicManager : MonoBehaviour
             mapCachePrefabPaths.Add(id, "Magic/" + id.ToString());
     }
 
-    public AMagic CreateSpell(MagicID magicID)
+    public AMagic CreateSpell(MagicID magicID, ACharacterController controller)
     {
         string prefabPath;
 
@@ -55,6 +55,9 @@ public class MagicManager : MonoBehaviour
             return null;
         }
 
-        return Instantiate(ResourceManager.Instance.Load<AMagic>(prefabPath));
+        AMagic spellInstance = Instantiate(ResourceManager.Instance.Load<AMagic>(prefabPath));
+        spellInstance.SetController(controller);
+
+        return spellInstance;
     }
 }

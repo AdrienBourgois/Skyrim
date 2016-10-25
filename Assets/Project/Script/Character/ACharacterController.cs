@@ -26,6 +26,7 @@ public abstract class ACharacterController : MonoBehaviour
 
     [SerializeField]
     protected ACharacter character = null;
+    public ACharacter Character { get { return character; } }
 
     [SerializeField]
     protected ACharacterWeapons characterWeapons = null;
@@ -73,7 +74,6 @@ public abstract class ACharacterController : MonoBehaviour
         animator.ResetTrigger("TriggerSpell");
         animator.ResetTrigger("TriggerRightHand");
         animator.ResetTrigger("TriggerLeftHand");
-        animator.ResetTrigger("TriggerWeapon");
         animator.ResetTrigger("TriggerDeath");
     }
     
@@ -149,6 +149,9 @@ public abstract class ACharacterController : MonoBehaviour
 
     public virtual void ControllerSelectMagic(int magicId)
     {
+        if (animator.GetBool("IsUsing" + character.StuffType.ToString())
+            || !Enum.IsDefined(typeof(MagicManager.MagicID), magicId))
+            return;
         // TODO: select magic in Character and set SpellType from magicType
         characterWeapons.SetActiveMagic( (MagicManager.MagicID)magicId );
         animator.SetInteger("SpellType", magicId);
@@ -165,12 +168,14 @@ public abstract class ACharacterController : MonoBehaviour
     public virtual void ControllerCastSpell()
     {
         animator.SetTrigger("TriggerSpell");
-        characterWeapons.InstanciateMagic();
+        if (!animator.GetBool("IsUsing" + character.StuffType.ToString()))
+            characterWeapons.InstanciateMagic();
     }
 
     public virtual void ControllerDrawSheathSword()
     {
-        animator.SetTrigger("TriggerWeapon");
+        string animBoolName = "IsUsing" + character.StuffType.ToString();
+        animator.SetBool(animBoolName, !animator.GetBool(animBoolName));
     }
     #endregion
 
