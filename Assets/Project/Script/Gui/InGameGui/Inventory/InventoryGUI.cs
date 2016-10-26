@@ -253,7 +253,7 @@ public class InventoryGUI : MonoBehaviour
         else if (current_gui_action == Inventory_Gui_Type.ChestInventory)
         {
             equip_button.enabled = false;
-            action_button.GetComponentInChildren<Text>().text = "Prendre";
+            action_button.GetComponentInChildren<Text>().text = "Take";
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate
             {
