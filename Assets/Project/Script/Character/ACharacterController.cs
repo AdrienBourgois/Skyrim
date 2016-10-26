@@ -12,6 +12,7 @@ public abstract class ACharacterController : APausableObject
     #region Serialized Fields
     [SerializeField]
     private Rigidbody rb = null;
+    public Rigidbody RBody { get { return rb; } }
 
     [SerializeField]
     private Animator animator = null;
@@ -25,10 +26,7 @@ public abstract class ACharacterController : APausableObject
 
     [SerializeField]
     private GameObject centerOfMass = null;
-    public Transform CenterOfMass
-    {
-        get { return centerOfMass.transform; }
-    }
+    public Transform CenterOfMass { get { return centerOfMass.transform; } }
     #endregion
 
     Coroutine corGrounded = null;
