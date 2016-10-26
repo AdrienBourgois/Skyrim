@@ -54,6 +54,7 @@ public class Cam : APausableObject
         playerController.ControllerLook(-rotY, rotX);
         transform.localEulerAngles = new Vector3(-rotY, rotX, 0f);
 
+
         rotX = compass.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility / 2;
         GameObject.FindGameObjectWithTag("Compass").transform.localEulerAngles = new Vector3(0f, rotX, 0f);
     }

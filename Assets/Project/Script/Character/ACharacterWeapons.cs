@@ -70,11 +70,16 @@ public class ACharacterWeapons : MonoBehaviour
 
     public void InstanciateMagic()
     {
-        if (spellProp == null || spell != null)
-            return;
 
-        if (spellProp.ID != MagicManager.MagicID.NONE && spellProp.ID < MagicManager.MagicID.COUNT)
+        if (spellProp == null || spell != null
+            || controller.Character.CharacterStats.UnitCharacteristics.Mana < spellProp.Cost)
+                return;
+
+
+        if (MagicManager.MagicID.NONE < spellProp.ID && spellProp.ID < MagicManager.MagicID.COUNT)
         {
+            controller.Character.CharacterStats.UnitCharacteristics.Mana -= spellProp.Cost;
+
             spell = MagicManager.Instance.CreateSpell(spellProp, controller);
             spell.gameObject.transform.parent = rightHandAnchor.transform;
             spell.gameObject.transform.localPosition = Vector3.zero;

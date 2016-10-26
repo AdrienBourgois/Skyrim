@@ -9,17 +9,19 @@ public abstract class ASpell : MonoBehaviour {
 
     [SerializeField]
     protected float projectileSpeed = 10f;
-
-    [SerializeField ]
-    protected SpellProperty spellProperty;
     #endregion
 
-
+    protected SpellProperty spellProperty;
     protected ACharacterController selfController;
 
     public void SetController(ACharacterController controller)
     {
         selfController = controller;
+    }
+
+    public void SetProperty(SpellProperty spellProp)
+    {
+        spellProperty = spellProp;
     }
 
     public abstract void Activate();

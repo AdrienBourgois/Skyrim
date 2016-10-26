@@ -53,26 +53,27 @@ public class MagicManager : MonoBehaviour
             mapCachePrefabPaths.Add(id, "Magic/" + id.ToString());
     }
 
-    public ASpell CreateSpell(SpellProperty magic, ACharacterController controller)
+    public ASpell CreateSpell(SpellProperty SpellProp, ACharacterController controller)
     {
         string prefabPath;
 
-        if (!mapCachePrefabPaths.TryGetValue(magic.ID, out prefabPath))
+        if (!mapCachePrefabPaths.TryGetValue(SpellProp.ID, out prefabPath))
         {
-            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + magic.ID + "] \"" + magic.ID.ToString() + "\"");
+            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + SpellProp.ID + "] \"" + SpellProp.ID.ToString() + "\"");
             return null;
         }
         Debug.Log(prefabPath);
         ASpell spellInstance = Instantiate(ResourceManager.Instance.Load(prefabPath).GetComponent<ASpell>());
         spellInstance.SetController(controller);
+        spellInstance.SetProperty(SpellProp);
 
         return spellInstance;
     }
 
-    public SpellProperty CreateMagic(MagicManager.MagicID id, MagicManager.MagicType type, float power, int cost, string description)
+    public SpellProperty CreateSpellProperties(MagicManager.MagicID id, MagicManager.MagicType type, float power, int cost, string description)
     {
-        SpellProperty magic = new SpellProperty();
-        magic.Init(id, type, power, cost, description);
-        return magic;
+        SpellProperty spellProp = new SpellProperty();
+        spellProp.Init(id, type, power, cost, description);
+        return spellProp;
     }
 }

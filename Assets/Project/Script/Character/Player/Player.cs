@@ -34,6 +34,11 @@
         UnitSpells.PlayerBasicSpellInit();
     }
 
+    void Update()
+    {
+        CharacterStats.UnitCharacteristics.Health -= 1;
+    }
+
     private void LevelUp()
     {
         if (Xp < xpToLevelUp)
@@ -49,7 +54,6 @@
     {
         Xp = 0;
     }
-
     public int AttributePointToAssign
     {
         get { return attributePointToAssign; }
