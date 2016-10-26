@@ -68,12 +68,11 @@ public class ACharacterWeapons : MonoBehaviour
         rightHand.Switch();
     }
 
-    public void InstanciateMagic()
+    public bool InstanciateMagic()
     {
-
         if (spellProp == null || spell != null
             || controller.Character.CharacterStats.BaseCharacteristics.Mana < spellProp.Cost)
-                return;
+                return false;
 
 
         if (MagicManager.MagicID.NONE < spellProp.ID && spellProp.ID < MagicManager.MagicID.COUNT)
@@ -83,7 +82,9 @@ public class ACharacterWeapons : MonoBehaviour
             spell = MagicManager.Instance.CreateSpell(spellProp, controller);
             spell.gameObject.transform.parent = rightHandAnchor.transform;
             spell.gameObject.transform.localPosition = Vector3.zero;
+            return true;
         }
+        return false;
     }
 
     public void ActivateMagic()

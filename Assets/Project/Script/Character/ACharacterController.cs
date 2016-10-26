@@ -186,9 +186,9 @@ public abstract class ACharacterController : APausableObject
 
     protected virtual void ControllerCastSpell()
     {
-        animator.SetTrigger("TriggerSpell");
         if (!animator.GetBool("IsUsing" + character.StuffType.ToString()))
-            characterWeapons.InstanciateMagic();
+            if (characterWeapons.InstanciateMagic())
+                animator.SetTrigger("TriggerSpell");
     }
 
     protected virtual void ControllerDrawSheathSword()
