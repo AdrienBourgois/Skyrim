@@ -13,6 +13,12 @@ public abstract class ACharacterController : APausableObject
 
     Coroutine corGrounded = null;
 
+    protected Transform target = null;
+    public Transform Target
+    {
+        get { return target; }
+    }
+
     #region Serialized Fields
     [SerializeField]
     private CapsuleCollider capCol = null;
@@ -65,6 +71,7 @@ public abstract class ACharacterController : APausableObject
     protected virtual void Start()
     {
         characterWeapons.SetController(this);
+        target = FindObjectOfType<Player>().transform;
     }
 
     protected override void PutPause()
@@ -163,13 +170,14 @@ public abstract class ACharacterController : APausableObject
             return;
 
         SpellProperty selectedMagic = MagicManager.Instance.MagicKeySelected[Key];
+        Debug.Log(selectedMagic.ID.ToString() + " is now selected");
 
         if (animator.GetBool("IsUsing" + character.StuffType.ToString())
             || !Enum.IsDefined(typeof(MagicManager.MagicID), selectedMagic.ID))
             return;
 
         characterWeapons.SetActiveMagic(selectedMagic);
-        animator.SetInteger("SpellType", (int)selectedMagic.ID);
+        animator.SetInteger("SpellType", (int)selectedMagic.Type);
         animator.SetBool("IsUsingMagic", true);
     }
 

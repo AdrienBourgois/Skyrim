@@ -12,19 +12,19 @@ public class MagicManager : MonoBehaviour
     public enum MagicID
     {
         NONE = 0,
-        Heal = 1,
-        Fire = 2,
-        Buff = 3,
+        Heal,
+        Fireball,
+        Invisibility,
         COUNT,
     }
 
     public enum MagicType
     {
         None = 0,
-        Self = 1,
-        Light = 2,
-        Medium = 3,
-        Heavy = 4,
+        Self,
+        Light,
+        Medium,
+        Heavy,
     }
 
     private Dictionary<MagicID, string> mapCachePrefabPaths = new Dictionary<MagicID, string>();
@@ -49,30 +49,30 @@ public class MagicManager : MonoBehaviour
 
     private void InitMap()
     {
-        for (MagicID id = MagicID.Heal; id < MagicID.COUNT; id++)
+        for (MagicID id = MagicID.NONE + 1; id < MagicID.COUNT; id++)
             mapCachePrefabPaths.Add(id, "Magic/" + id.ToString());
     }
 
-    //public ASpell CreateSpell(SpellProperty magic)
-    //{
-    //    string prefabPath;
+    public ASpell CreateSpell(SpellProperty magic, ACharacterController controller)
+    {
+        string prefabPath;
 
-    //    if (!mapCachePrefabPaths.TryGetValue(magic.ID, out prefabPath))
-    //    {
-    //        Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + (int)magicID + "] \"" + magicID.ToString() + "\"");
-    //        return null;
-    //    }
+        if (!mapCachePrefabPaths.TryGetValue(magic.ID, out prefabPath))
+        {
+            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + magic.ID + "] \"" + magic.ID.ToString() + "\"");
+            return null;
+        }
+        Debug.Log(prefabPath);
+        ASpell spellInstance = Instantiate(ResourceManager.Instance.Load(prefabPath).GetComponent<ASpell>());
+        spellInstance.SetController(controller);
 
-    //    //ASpell spellInstance = Instantiate(ResourceManager.Instance.Load(prefabPath));
-    //    //spellInstance.setController()
+        return spellInstance;
+    }
 
-    //    return spellInstance;
-    //}
-
-    public SpellProperty CreateMagic(string name, float power, int cost, float lifeTime, string description, MagicManager.MagicID id, MagicManager.MagicType type)
+    public SpellProperty CreateMagic(MagicManager.MagicID id, MagicManager.MagicType type, float power, int cost, string description)
     {
         SpellProperty magic = new SpellProperty();
-        magic.Init(name, power, cost, lifeTime, description, id, type);
+        magic.Init(id, type, power, cost, description);
         return magic;
     }
 }

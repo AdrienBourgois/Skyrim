@@ -16,7 +16,7 @@ public class PlayerController : ACharacterController
     {
         base.Start();
         characterWeapons.SetCharacter(character);
-        camTransform = FindObjectOfType<Cam>().transform;
+        target = FindObjectOfType<Cam>().transform;
     }
 
     protected override void Update()
@@ -111,7 +111,7 @@ public class PlayerController : ACharacterController
         RaycastHit hit;
         // TODO: global(?) variable for max distance
         float useMaxDistance = 3f;
-        if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
+        if (Physics.Raycast(target.position, target.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
             IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
 

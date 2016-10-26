@@ -1,20 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FireSpell : ASpell
+public class ProjectileSpell : ASpell
 {
+    bool cast = false;
+    Vector3 direction = Vector3.zero;
+
     public override void Activate()
     {
-     //   gao = new GameObject();
         Debug.Log("FIRE");
-        // Destroy (gao, lifetime)
-        // TODO: launch using line of sight from selfController
+        cast = true;
+        transform.parent = null;
+        direction = selfController.Target.transform.forward;
+
+        Destroy(gameObject, lifeTime);
     }
 
-    //protected override void OnDestroy()
-    //{
-    //    // TODO: Make Explosion ?
-    //}
+    void Update()
+    {
+        if (cast)
+            transform.position += direction * projectileSpeed * Time.deltaTime;
+    }
 
     protected virtual void OnTriggerEnter(Collider collider)
     {
@@ -27,6 +33,6 @@ public class FireSpell : ASpell
             //// TODO: damages
             Debug.Log("DAMAGES");
         }
-        //Destroy(gao);
+        Destroy(gameObject);
     }
 }

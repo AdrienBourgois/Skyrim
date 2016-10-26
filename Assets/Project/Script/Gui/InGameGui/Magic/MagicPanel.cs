@@ -49,8 +49,8 @@ public class MagicPanel : MonoBehaviour
     void AddSpellButton(SpellProperty magic)
     {
         GameObject gao = CreateBlankButton();
-        gao.name = magic.MagicName;
-        gao.transform.FindChild("Name").GetComponent<Text>().text = magic.MagicName;
+        gao.name = magic.ID.ToString();
+        gao.transform.FindChild("Name").GetComponent<Text>().text = magic.ID.ToString();
         gao.transform.FindChild("Cost").GetComponent<Text>().text = magic.Cost.ToString();
 
         if (magic.Power != 0 && magic.ID == MagicManager.MagicID.Heal)
