@@ -36,7 +36,6 @@ public class DungeonManager : MonoBehaviour {
 
         GameManager.Instance.onStateChanged += OnStateChanged;
         StartCoroutine(CreateDungeon());
-       // CheckSlot();
     }
 
     void Update () {
@@ -93,6 +92,5 @@ public class DungeonManager : MonoBehaviour {
         dungeonGenerator.GenerateDungeon();
         yield return new WaitForSeconds(0.1f);
         ItemGenerator();
-        //CheckConnector();
     }
 }

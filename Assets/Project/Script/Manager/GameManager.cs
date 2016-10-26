@@ -85,6 +85,8 @@ public class GameManager : MonoBehaviour
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
+
+       
 	}
 
     private void RecoverGameState()

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animation))]
 public class Door : MonoBehaviour, IUsableObject
@@ -10,38 +12,26 @@ public class Door : MonoBehaviour, IUsableObject
 
     public void OnUse(ACharacter character)
     {
-        if (hasBeenOpen == false)
-        {
-            anim.Play("OpenDoor");
-            hasBeenOpen = true;
-            LoadLevel();
-            
-        }
-        else if (hasBeenOpen)
-        {
-            anim.Play("CloseDoor");
-            hasBeenOpen = false;
-        }
+       StartCoroutine(TeleportToTown(character));
+        
     }
 
     private void Start () {
 
         anim = GetComponent<Animation>();
+        Door spawn = GetComponentInChildren<Door>();
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+            player.transform.position = spawn.transform.position;
     }
 
-    private void Update () {
-	
-	}
-
-    void TeleportPlayerIntoTheDungeon(ACharacter player)
+    IEnumerator TeleportToTown(ACharacter character)
     {
-        player.transform.position = transform.FindChild("SpawnPoint").transform.position;
+        Destroy(FindObjectOfType<Cam>());
+        SceneManager.LoadSceneAsync("BaseScene");
+        yield return new WaitForSeconds(0.1f);
+        
     }
 
-    void LoadLevel()
-    {
-        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.EnterDungeon);
-        DontDestroyOnLoad(FindObjectOfType<DungeonManager>());
-       // SceneManager.LoadSceneAsync("DungeonGeneration");
-    }
+     
 }

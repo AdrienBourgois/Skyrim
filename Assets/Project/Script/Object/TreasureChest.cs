@@ -50,7 +50,6 @@ public class TreasureChest : MonoBehaviour, IUsableObject
             hasBeenOpen = false;
         }
 
-        //anim.Play("idle");
     }
     
     private void CloseChest()
@@ -61,7 +60,6 @@ public class TreasureChest : MonoBehaviour, IUsableObject
             hasBeenOpen = false;
         }
 
-        //anim.Play("idle");
 
         invGui.OnQuitButton.RemoveListener(OnCloseChest);
     }
