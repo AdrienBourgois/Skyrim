@@ -76,10 +76,10 @@ public class GameManager : MonoBehaviour
         instance = this;
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
+        audioMgr = AudioManager.Instance ? AudioManager.Instance : Instantiate(audioMgrPrefab).GetComponent<AudioManager>();
         magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
         resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
         levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
-        audioMgr = AudioManager.Instance ? AudioManager.Instance : Instantiate(audioMgrPrefab).GetComponent<AudioManager>();
 
         RecoverGameState();
 
