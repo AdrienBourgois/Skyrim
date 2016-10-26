@@ -4,14 +4,16 @@ using UnityEngine.UI;
 
 public class MagicPanel : MonoBehaviour
 {
-    private List<Spell> printedSpells = new List<Spell>();
+    List<SpellProperty> printedSpells = new List<SpellProperty>();
+    MagicInventory spells;
 
-    private SpellInventory spells;
+    GameObject buttonPrefab;
 
-    private GameObject buttonPrefab;
+    SpellProperty displayedMagic = null;
+	public SpellProperty DisplayedMagic
+    { get { return displayedMagic; } }
 
-
-    private void Start ()
+	void Start ()
     {
         spells = LevelManager.Instance.Player.UnitSpells;
         buttonPrefab = transform.FindChild("SpellSelector").GetChild(0).GetChild(0).GetChild(0).gameObject;
@@ -24,7 +26,7 @@ public class MagicPanel : MonoBehaviour
         if (spells == null)
             return;
 
-        foreach (Spell spell in spells.SpellList)
+        foreach (SpellProperty spell in spells.MagicList)
         {
             if (!printedSpells.Contains(spell))
             {
@@ -44,31 +46,33 @@ public class MagicPanel : MonoBehaviour
         return gao;
     }
 
-    private void AddSpellButton(Spell spell)
+    void AddSpellButton(SpellProperty magic)
     {
         GameObject gao = CreateBlankButton();
-        gao.name = spell.Name;
-        gao.transform.FindChild("Name").GetComponent<Text>().text = spell.Name;
-        gao.transform.FindChild("Cost").GetComponent<Text>().text = spell.Cost.ToString();
+        gao.name = magic.MagicName;
+        gao.transform.FindChild("Name").GetComponent<Text>().text = magic.MagicName;
+        gao.transform.FindChild("Cost").GetComponent<Text>().text = magic.Cost.ToString();
 
-        if (spell.Power > 0)
+        if (magic.Power != 0 && magic.ID == MagicManager.MagicID.Heal)
             gao.GetComponent<Image>().color  = Color.green;
-        else if (spell.Power == 0f)
+        else if (magic.Power == 0 )
             gao.GetComponent<Image>().color = Color.cyan;
         else
             gao.GetComponent<Image>().color = Color.magenta;
 
-        gao.GetComponent<Button>().onClick.AddListener(delegate { DisplaySpellButton(spell); });
-        printedSpells.Add(spell);
+        gao.GetComponent<Button>().onClick.AddListener(delegate { DisplaySpellButton(magic); });
+        printedSpells.Add(magic);
     }
 
-    private void DisplaySpellButton(Spell spell)
+    void DisplaySpellButton(SpellProperty magic)
     {
-        if (spell == null)
+        if (magic == null)
             return;
 
+        displayedMagic = magic;
+
         foreach (Transform child in transform.FindChild("Info"))
-            child.GetChild(0).GetComponent<Text>().text = spell.GetMemberStringFromString(child.name, true);
+            child.GetChild(0).GetComponent<Text>().text = magic.GetMemberStringFromString(child.name);
 
     }
 

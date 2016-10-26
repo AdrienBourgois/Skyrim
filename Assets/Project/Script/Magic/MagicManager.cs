@@ -14,6 +14,7 @@ public class MagicManager : MonoBehaviour
         NONE = 0,
         Heal = 1,
         Fire = 2,
+        Buff = 3,
         COUNT,
     }
 
@@ -28,9 +29,22 @@ public class MagicManager : MonoBehaviour
 
     private Dictionary<MagicID, string> mapCachePrefabPaths = new Dictionary<MagicID, string>();
     
+    private List<SpellProperty> magicKeySelected = new List<SpellProperty>();
+    public List<SpellProperty> MagicKeySelected
+    { get { return magicKeySelected; } }
+
     private void Start()
     {
+        InitKeyList();
         InitMap();
+    }
+
+    private void InitKeyList()
+    {
+        int keyAvailable = 9;
+        // + 1 because of the list beginning at 0
+        for (int i = 0; i < keyAvailable + 1; i++)
+            magicKeySelected.Add(null);
     }
 
     private void InitMap()
@@ -39,19 +53,26 @@ public class MagicManager : MonoBehaviour
             mapCachePrefabPaths.Add(id, "Magic/" + id.ToString());
     }
 
-    public AMagic CreateSpell(MagicID magicID, ACharacterController controller)
+    //public ASpell CreateSpell(SpellProperty magic)
+    //{
+    //    string prefabPath;
+
+    //    if (!mapCachePrefabPaths.TryGetValue(magic.ID, out prefabPath))
+    //    {
+    //        Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + (int)magicID + "] \"" + magicID.ToString() + "\"");
+    //        return null;
+    //    }
+
+    //    //ASpell spellInstance = Instantiate(ResourceManager.Instance.Load(prefabPath));
+    //    //spellInstance.setController()
+
+    //    return spellInstance;
+    //}
+
+    public SpellProperty CreateMagic(string name, float power, int cost, float lifeTime, string description, MagicManager.MagicID id, MagicManager.MagicType type)
     {
-        string prefabPath;
-
-        if (!mapCachePrefabPaths.TryGetValue(magicID, out prefabPath))
-        {
-            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + (int)magicID + "] \"" + magicID.ToString() + "\"");
-            return null;
-        }
-
-        AMagic spellInstance = Instantiate(ResourceManager.Instance.Load<AMagic>(prefabPath));
-        spellInstance.SetController(controller);
-
-        return spellInstance;
+        SpellProperty magic = new SpellProperty();
+        magic.Init(name, power, cost, lifeTime, description, id, type);
+        return magic;
     }
 }

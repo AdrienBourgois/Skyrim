@@ -157,20 +157,25 @@ public abstract class ACharacterController : APausableObject
         animator.SetBool("IsCrouching", bIsCrouch);
     }
 
-    protected virtual void ControllerSelectMagic(int magicId)
+    public virtual void ControllerSelectMagic(int Key)
     {
-        if (animator.GetBool("IsUsing" + character.StuffType.ToString())
-            || !Enum.IsDefined(typeof(MagicManager.MagicID), magicId))
+        if (MagicManager.Instance.MagicKeySelected[Key] == null)
             return;
-        // TODO: select magic in Character and set SpellType from magicType
-        characterWeapons.SetActiveMagic( (MagicManager.MagicID)magicId );
-        animator.SetInteger("SpellType", magicId);
+
+        SpellProperty selectedMagic = MagicManager.Instance.MagicKeySelected[Key];
+
+        if (animator.GetBool("IsUsing" + character.StuffType.ToString())
+            || !Enum.IsDefined(typeof(MagicManager.MagicID), selectedMagic.ID))
+            return;
+
+        characterWeapons.SetActiveMagic(selectedMagic);
+        animator.SetInteger("SpellType", (int)selectedMagic.ID);
         animator.SetBool("IsUsingMagic", true);
     }
 
     protected virtual void ControllerUnselectMagic()
     {
-        characterWeapons.SetActiveMagic(MagicManager.MagicID.NONE);
+        characterWeapons.SetActiveMagic(null);
         animator.SetInteger("SpellType", 0);
         animator.SetBool("IsUsingMagic", false);
     }

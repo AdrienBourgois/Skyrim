@@ -17,10 +17,10 @@ public class ACharacterWeapons : MonoBehaviour
 
     private MagicManager.MagicID magicID = MagicManager.MagicID.NONE;
     public MagicManager.MagicID ActiveMagic { get { return magicID; } }
-    private AMagic magic = null;
+    private SpellProperty magic = null;
 
-    // Use this for initialization
-    private void Start()
+    
+    void Start()
     {
         if (leftHandAnchor == null || rightHandAnchor == null)
             Debug.LogError("ACharacterWeapons.Start() - leftHandAnchor and rightHandAnchor should be initialized.");
@@ -71,13 +71,12 @@ public class ACharacterWeapons : MonoBehaviour
 
     public void InstanciateMagic()
     {
-        if (magic != null)
-            return;
         if (magicID != MagicManager.MagicID.NONE)
         {
-            magic = MagicManager.Instance.CreateSpell(magicID, controller);
-            magic.gameObject.transform.parent = rightHandAnchor.transform;
-            magic.gameObject.transform.localPosition = Vector3.zero;
+           // ASpell magicGao = MagicManager.Instance.CreateSpell(magic);
+            //magic = MagicManager.Instance.CreateSpell(magicID, controller);
+            //magic.gao.transform.parent = rightHandAnchor.transform;
+            //magic.gao.transform.localPosition = Vector3.zero;
         }
     }
 
@@ -85,15 +84,16 @@ public class ACharacterWeapons : MonoBehaviour
     {
         if (magic != null)
         {
-            magic.Activate();
+            //magic.Activate();
             magic = null;
         }
         else
             Debug.LogWarning("ACharacterWeapon.ActivateMagic() - member \"magic\" is null");
     }
 
-    public void SetActiveMagic(MagicManager.MagicID id)
+    public void SetActiveMagic(SpellProperty magic)
     {
-        magicID = id;
+        this.magic = magic;
+        magicID = magic.ID;
     }
 }
