@@ -6,21 +6,10 @@ using System.Collections;
 /// Abstract for every Character in the game. The Controller permit to do actions and animations using ACharacter's stats.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Animator))]
 public abstract class ACharacterController : APausableObject
 {
-
-    Coroutine corGrounded = null;
-
     #region Serialized Fields
-    [SerializeField]
-    private CapsuleCollider capCol = null;
-    public CapsuleCollider CapsuleCollider
-    {
-        get { return capCol; }
-    }
-
     [SerializeField]
     private Rigidbody rb = null;
 
@@ -41,7 +30,9 @@ public abstract class ACharacterController : APausableObject
         get { return centerOfMass.transform; }
     }
     #endregion
-    
+
+    Coroutine corGrounded = null;
+
     private bool bIsGrounded = true;
     protected bool IsGrounded
     {
@@ -52,9 +43,6 @@ public abstract class ACharacterController : APausableObject
     protected void Awake()
     {
         GameManager.OnPause += PutPause;
-
-        if (capCol == null)
-            Debug.LogError("ACharacterController.Awake() - CapsuleCollider should not be null!");
 
         if (rb == null)
             Debug.LogError("ACharacterController.Awake() - Rigidbody should not be null!");
@@ -223,7 +211,7 @@ public abstract class ACharacterController : APausableObject
             corGrounded = StartCoroutine(CoroutineGrounded());
     }
 
-    IEnumerator CoroutineGrounded()
+    private IEnumerator CoroutineGrounded()
     {
         yield return new WaitForSeconds(0.3f);
         bIsGrounded = false;
