@@ -6,13 +6,9 @@ using System.Collections;
 /// Abstract for every Character in the game. The Controller permit to do actions and animations using ACharacter's stats.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Animator))]
 public abstract class ACharacterController : APausableObject
 {
-
-    Coroutine corGrounded = null;
-
     protected Transform target = null;
     public Transform Target
     {
@@ -21,14 +17,8 @@ public abstract class ACharacterController : APausableObject
 
     #region Serialized Fields
     [SerializeField]
-    private CapsuleCollider capCol = null;
-    public CapsuleCollider CapsuleCollider
-    {
-        get { return capCol; }
-    }
-
-    [SerializeField]
     private Rigidbody rb = null;
+    public Rigidbody RBody { get { return rb; } }
 
     [SerializeField]
     private Animator animator = null;
@@ -39,8 +29,14 @@ public abstract class ACharacterController : APausableObject
 
     [SerializeField]
     protected ACharacterWeapons characterWeapons = null;
+
+    [SerializeField]
+    private GameObject centerOfMass = null;
+    public Transform CenterOfMass { get { return centerOfMass.transform; } }
     #endregion
-    
+
+    Coroutine corGrounded = null;
+
     private bool bIsGrounded = true;
     protected bool IsGrounded
     {
@@ -52,9 +48,6 @@ public abstract class ACharacterController : APausableObject
     {
         GameManager.OnPause += PutPause;
 
-        if (capCol == null)
-            Debug.LogError("ACharacterController.Awake() - CapsuleCollider should not be null!");
-
         if (rb == null)
             Debug.LogError("ACharacterController.Awake() - Rigidbody should not be null!");
 
@@ -62,12 +55,15 @@ public abstract class ACharacterController : APausableObject
             Debug.LogError("ACharacterController.Awake() - Animator should not be null!");
 
         if (character == null)
-            Debug.LogError("ACharacterController.Awake() - ACharacter should not be null!");
+            Debug.LogError("ACharacterController.Awake() - Character should not be null!");
 
         if (characterWeapons == null)
-            Debug.LogError("ACharacterController.Awake() - ACharacterWeapons should not be null!");
+            Debug.LogError("ACharacterController.Awake() - CharacterWeapons should not be null!");
+
+        if (centerOfMass == null)
+            Debug.LogError("ACharacterController.Awake() - Center of Mass should not be null!");
     }
-    
+
     protected virtual void Start()
     {
         characterWeapons.SetController(this);
@@ -207,9 +203,9 @@ public abstract class ACharacterController : APausableObject
         characterWeapons.ActivateMagic();
     }
 
-    protected virtual void OnCollisionEnter(Collision collision)
+    protected virtual void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Character"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Character"))
             return;
         if (corGrounded != null)
         {
@@ -220,14 +216,15 @@ public abstract class ACharacterController : APausableObject
         animator.SetBool("IsGrounded", true);
     }
 
-    protected virtual void OnCollisionExit(Collision collision)
+    protected virtual void OnTriggerExit(Collider collider)
     {
-       corGrounded = StartCoroutine(CoroutineGrounded());
+        if (corGrounded == null)
+            corGrounded = StartCoroutine(CoroutineGrounded());
     }
 
-    IEnumerator CoroutineGrounded()
+    private IEnumerator CoroutineGrounded()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.3f);
         bIsGrounded = false;
         animator.SetBool("IsGrounded", false);
     }
