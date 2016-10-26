@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         {
             if (instance == null)
             {
+
                 instance = FindObjectOfType<GameManager>();
                 if (instance == null)
                     Debug.LogWarning("GameManager.Instance - failed to find object of type GameManager");
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject dungeonMgrPrefab;
     [SerializeField] GameObject magicMgrPrefab;
     [SerializeField] GameObject resourceMgrPrefab;
+    [SerializeField] GameObject audioMgrPrefab;
     #endregion
 
     private DataManager dataMgr;
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
     private DungeonManager dungeonMgr;
     private MagicManager magicMgr;
     private ResourceManager resourceMgr;
+    private AudioManager audioMgr;
 
     public enum GameState
     {
@@ -73,10 +76,10 @@ public class GameManager : MonoBehaviour
         instance = this;
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
         itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
-       // dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
         magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
         resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
         levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+        audioMgr = AudioManager.Instance ? AudioManager.Instance : Instantiate(audioMgrPrefab).GetComponent<AudioManager>();
 
         RecoverGameState();
 
