@@ -82,7 +82,7 @@ public abstract class ACharacter : APausableObject
     protected virtual void Start()
     {
         characterStats.SetCharacteristics(this);
-        CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
+        CharacterStats.BaseCharacteristics.RegenFullHealthAndMana();
 
         // HACK: debug
         equipType = EquipType.SwordAndShield;

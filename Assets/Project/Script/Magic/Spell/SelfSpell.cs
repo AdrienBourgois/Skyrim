@@ -8,7 +8,7 @@ public class SelfSpell : ASpell
         // TODO: heal selfCharacter
         Debug.Log("HEAL");
 
-        selfController.Character.CharacterStats.UnitCharacteristics.Health += spellProperty.Power;
+        selfController.Character.CharacterStats.BaseCharacteristics.Health += spellProperty.Power;
 
         Destroy(gameObject);
     }

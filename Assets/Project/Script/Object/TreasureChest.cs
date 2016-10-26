@@ -33,7 +33,7 @@ public class TreasureChest : MonoBehaviour, IUsableObject
         if (hasBeenOpen == false)
         {
             invGui.Inventory = inv;
-            invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.ChestInventory;
+            invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.EnemyInventory;
             
            
             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);

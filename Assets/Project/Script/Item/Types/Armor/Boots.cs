@@ -7,10 +7,10 @@ public class Boots : Armor, IEquipableItem, IInstanciableItem
     {
         Player player = LevelManager.Instance.Player;
         if (player.Boots != null)
-            player.CharacterStats.UnitCharacteristics.Defense -= player.Boots.Defense;
+            player.CharacterStats.BaseCharacteristics.Defense -= player.Boots.Defense;
 
         player.Boots = this;
-        player.CharacterStats.UnitCharacteristics.Defense += Defense;
+        player.CharacterStats.BaseCharacteristics.Defense += Defense;
         //need to adjust characteristics for equipable item  
     }
 

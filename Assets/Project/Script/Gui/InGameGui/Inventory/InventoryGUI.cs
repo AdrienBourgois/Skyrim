@@ -213,6 +213,7 @@ public class InventoryGUI : MonoBehaviour
         if (current_gui_action == Inventory_Gui_Type.PlayerInventory)
         {
             equip_button.enabled = true;
+            equip_button.GetComponentInChildren<Text>().text = "Equip";
             action_button.GetComponentInChildren<Text>().text = "Drop";
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate
@@ -225,21 +226,8 @@ public class InventoryGUI : MonoBehaviour
         else if (current_gui_action == Inventory_Gui_Type.EnemyInventory)
         {
             equip_button.enabled = false;
+            equip_button.GetComponentInChildren<Text>().text = "";
             action_button.GetComponentInChildren<Text>().text = "Take";
-            action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate
-            {
-                inventory.RemoveItem(selected_item);
-                ApplyFilterAndSort();
-                Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
-                player_inventory.AddItem(selected_item);
-                DisplayItem(null);
-            });
-        }
-        else if (current_gui_action == Inventory_Gui_Type.VendorInventory)
-        {
-            equip_button.enabled = false;
-            action_button.GetComponentInChildren<Text>().text = "Buy (Steal)";
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate
             {
@@ -250,16 +238,17 @@ public class InventoryGUI : MonoBehaviour
                 DisplayItem(null);
             });
         }
-        else if (current_gui_action == Inventory_Gui_Type.ChestInventory)
+        else if (current_gui_action == Inventory_Gui_Type.VendorInventory)
         {
             equip_button.enabled = false;
-            action_button.GetComponentInChildren<Text>().text = "Take";
+            equip_button.GetComponentInChildren<Text>().text = "";
+            action_button.GetComponentInChildren<Text>().text = "Buy (Steal)";
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate
             {
                 inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
-                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory; 
+                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory;
                 player_inventory.AddItem(selected_item);
                 DisplayItem(null);
             });
@@ -278,7 +267,7 @@ public class InventoryGUI : MonoBehaviour
         if (item is Weapon)
             image.color = new Color(0.412f, 0.616f, 0f);
         if (item is Armor)
-            image.color = new Color(0.09f, 0.4f, 0.77f);
+            image.color = new Color(0.09f, 0.6f, 0.9f);
         else
             image.color = new Color(1f, 0.4f, 0f);
     }

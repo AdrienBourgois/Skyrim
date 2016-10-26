@@ -10,7 +10,7 @@ public class CharacPanel : MonoBehaviour
     private void Start()
     {
         player = LevelManager.Instance.Player;
-        charac = player.CharacterStats.UnitCharacteristics;
+        charac = player.CharacterStats.BaseCharacteristics;
         UpdateStats();
     }
 
@@ -35,7 +35,7 @@ public class CharacPanel : MonoBehaviour
         Attributes attrib = player.CharacterStats.UnitAttributes;
         Dictionary<string, int> bonusAttribDic = transform.parent.GetComponentInChildren<AttribPanel>().GetBonusAttrib();
         Characteristics simulCharac = player.CharacterStats.SimulateCharac(player.UnitLevel,
-                                                                                  player.CharacterStats.UnitCharacteristics.PlayerWeight,
+                                                                                  player.CharacterStats.BaseCharacteristics.PlayerWeight,
                                                                                   attrib.Strength + bonusAttribDic["Strength"],
                                                                                   attrib.Constitution + bonusAttribDic["Constitution"],
                                                                                   attrib.Intelligence + bonusAttribDic["Intelligence"],

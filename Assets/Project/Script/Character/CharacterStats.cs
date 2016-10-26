@@ -3,10 +3,10 @@
 public class CharacterStats
 {
     #region Stats
-    private Characteristics characteristics = new Characteristics();
-    public Characteristics UnitCharacteristics
+    private Characteristics baseCharacteristics = new Characteristics();
+    public Characteristics BaseCharacteristics
     {
-        get { return characteristics; }
+        get { return baseCharacteristics; }
     }
 
     private Attributes attributes = new Attributes();
@@ -19,30 +19,30 @@ public class CharacterStats
 
     public void SetCharacteristics(ACharacter player)
     {
-        UnitCharacteristics.Attack = Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Strength;
-        UnitCharacteristics.Defense = Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Constitution;
-        UnitCharacteristics.Weight = (UnitAttributes.Strength + player.UnitLevel) * 10;
-        UnitCharacteristics.MaxHealth = Mathf.Exp(player.UnitLevel / 6f) * UnitAttributes.Constitution + 100;
-        UnitCharacteristics.HealthRegeneration = UnitCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f));
-        UnitCharacteristics.MaxMana = UnitAttributes.Intelligence * 10;
-        UnitCharacteristics.SpellPower = 1 + ((float)player.UnitLevel * UnitAttributes.Intelligence) / 100;
-        UnitCharacteristics.Precision = Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3);
-        UnitCharacteristics.AttackSpeed = 1 + ((float)player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 100;
+        BaseCharacteristics.Attack = Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Strength;
+        BaseCharacteristics.Defense = Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Constitution;
+        BaseCharacteristics.Weight = (UnitAttributes.Strength + player.UnitLevel) * 10;
+        BaseCharacteristics.MaxHealth = Mathf.Exp(player.UnitLevel / 6f) * UnitAttributes.Constitution + 100;
+        BaseCharacteristics.HealthRegeneration = BaseCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f));
+        BaseCharacteristics.MaxMana = UnitAttributes.Intelligence * 10;
+        BaseCharacteristics.SpellPower = 1 + ((float)player.UnitLevel * UnitAttributes.Intelligence) / 100;
+        BaseCharacteristics.Precision = Mathf.Min(100, 100 - (50 - (BaseCharacteristics.Weight - BaseCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3);
+        BaseCharacteristics.AttackSpeed = 1 + ((float)player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 100;
 
-        characteristics.UpdateCharacDict();
+        baseCharacteristics.UpdateCharacDict();
     }
 
     public void DisplayChara()
     {
-        Debug.Log(UnitCharacteristics.Attack);
-        Debug.Log(UnitCharacteristics.Defense);
-        Debug.Log(UnitCharacteristics.Weight);
-        Debug.Log(UnitCharacteristics.Health);
-        Debug.Log(UnitCharacteristics.HealthRegeneration);
-        Debug.Log(UnitCharacteristics.Mana);
-        Debug.Log(UnitCharacteristics.SpellPower);
-        Debug.Log(UnitCharacteristics.Precision);
-        Debug.Log(UnitCharacteristics.AttackSpeed.ToString("F2"));
+        Debug.Log(BaseCharacteristics.Attack);
+        Debug.Log(BaseCharacteristics.Defense);
+        Debug.Log(BaseCharacteristics.Weight);
+        Debug.Log(BaseCharacteristics.Health);
+        Debug.Log(BaseCharacteristics.HealthRegeneration);
+        Debug.Log(BaseCharacteristics.Mana);
+        Debug.Log(BaseCharacteristics.SpellPower);
+        Debug.Log(BaseCharacteristics.Precision);
+        Debug.Log(BaseCharacteristics.AttackSpeed.ToString("F2"));
 
     }
 
