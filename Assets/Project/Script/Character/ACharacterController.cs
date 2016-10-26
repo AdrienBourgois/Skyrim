@@ -33,6 +33,13 @@ public abstract class ACharacterController : APausableObject
 
     [SerializeField]
     protected ACharacterWeapons characterWeapons = null;
+
+    [SerializeField]
+    private GameObject centerOfMass = null;
+    public Transform CenterOfMass
+    {
+        get { return centerOfMass.transform; }
+    }
     #endregion
     
     private bool bIsGrounded = true;
@@ -56,12 +63,15 @@ public abstract class ACharacterController : APausableObject
             Debug.LogError("ACharacterController.Awake() - Animator should not be null!");
 
         if (character == null)
-            Debug.LogError("ACharacterController.Awake() - ACharacter should not be null!");
+            Debug.LogError("ACharacterController.Awake() - Character should not be null!");
 
         if (characterWeapons == null)
-            Debug.LogError("ACharacterController.Awake() - ACharacterWeapons should not be null!");
+            Debug.LogError("ACharacterController.Awake() - CharacterWeapons should not be null!");
+
+        if (centerOfMass == null)
+            Debug.LogError("ACharacterController.Awake() - Center of Mass should not be null!");
     }
-    
+
     protected virtual void Start()
     {
         characterWeapons.SetController(this);
@@ -194,13 +204,12 @@ public abstract class ACharacterController : APausableObject
         characterWeapons.ActivateMagic();
     }
 
-    protected virtual void OnCollisionEnter(Collision collision)
+    protected virtual void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Character"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Character"))
             return;
         if (corGrounded != null)
         {
-           // print("OnStopCoroutine");
             StopCoroutine(corGrounded);
             corGrounded = null;
         }
@@ -208,14 +217,15 @@ public abstract class ACharacterController : APausableObject
         animator.SetBool("IsGrounded", true);
     }
 
-    protected virtual void OnCollisionExit(Collision collision)
+    protected virtual void OnTriggerExit(Collider collider)
     {
-       corGrounded = StartCoroutine(CoroutineGrounded());
+        if (corGrounded == null)
+            corGrounded = StartCoroutine(CoroutineGrounded());
     }
 
     IEnumerator CoroutineGrounded()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.3f);
         bIsGrounded = false;
         animator.SetBool("IsGrounded", false);
     }
