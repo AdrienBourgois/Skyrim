@@ -11,7 +11,6 @@ public class TreasureChest : MonoBehaviour, IUsableObject
 
     private void Awake()
     {
-        //invGui = ResourceManager.Instance.Load<InventoryGUI>("Gui/InventoryGUI");
         anim = GetComponent<Animation>();
 
         invGui = InventoryGUI.Instance;
@@ -19,10 +18,10 @@ public class TreasureChest : MonoBehaviour, IUsableObject
 
     void Start()
     {
-        invGui.Inventory = inv;
+        
         inv.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, 10);
 
-        invGui.OnQuitButton.AddListener(delegate { OnUse(null); });
+       // invGui.OnQuitButton.AddListener(delegate { OnUse(null); });
     }
 
 
@@ -31,7 +30,7 @@ public class TreasureChest : MonoBehaviour, IUsableObject
     {
         if (hasBeenOpen == false)
         {
-           
+            invGui.Inventory = inv;
             invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.ChestInventory;
             
            
@@ -47,4 +46,6 @@ public class TreasureChest : MonoBehaviour, IUsableObject
             hasBeenOpen = false;
         }
     }
+
+   
 }
