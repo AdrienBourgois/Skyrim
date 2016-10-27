@@ -9,13 +9,13 @@ public class MagicManager : MonoBehaviour
         get { return instance ?? (instance = FindObjectOfType<MagicManager>()); }
     }
 
-    public enum MagicID
+    public enum MagicId
     {
-        NONE = 0,
+        None = 0,
         Heal,
         Fireball,
         Invisibility,
-        COUNT
+        Count
     }
 
     public enum MagicType
@@ -27,7 +27,7 @@ public class MagicManager : MonoBehaviour
         Heavy
     }
 
-    private Dictionary<MagicID, string> mapCachePrefabPaths = new Dictionary<MagicID, string>();
+    private Dictionary<MagicId, string> mapCachePrefabPaths = new Dictionary<MagicId, string>();
     
     private List<SpellProperty> magicKeySelected = new List<SpellProperty>();
     public List<SpellProperty> MagicKeySelected
@@ -49,30 +49,30 @@ public class MagicManager : MonoBehaviour
 
     private void InitMap()
     {
-        for (MagicID id = MagicID.NONE + 1; id < MagicID.COUNT; id++)
+        for (MagicId id = MagicId.None + 1; id < MagicId.Count; id++)
             mapCachePrefabPaths.Add(id, "Magic/" + id);
     }
 
-    public ASpell CreateSpell(SpellProperty SpellProp, ACharacterController controller)
+    public ASpell CreateSpell(SpellProperty _spellProp, ACharacterController _controller)
     {
         string prefabPath;
 
-        if (!mapCachePrefabPaths.TryGetValue(SpellProp.Id, out prefabPath))
+        if (!mapCachePrefabPaths.TryGetValue(_spellProp.Id, out prefabPath))
         {
-            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + SpellProp.Id + "] \"" + SpellProp.Id + "\"");
+            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + _spellProp.Id + "] \"" + _spellProp.Id + "\"");
             return null;
         }
         ASpell spellInstance = Instantiate(ResourceManager.Instance.Load(prefabPath).GetComponent<ASpell>());
-        spellInstance.SetController(controller);
-        spellInstance.SetProperty(SpellProp);
+        spellInstance.SetController(_controller);
+        spellInstance.SetProperty(_spellProp);
 
         return spellInstance;
     }
 
-    public SpellProperty CreateSpellProperties(MagicID id, MagicType type, float power, int cost, string description)
+    public SpellProperty CreateSpellProperties(MagicId _id, MagicType _type, float _power, int _cost, string _description)
     {
         SpellProperty spellProp = new SpellProperty();
-        spellProp.Init(id, type, power, cost, description);
+        spellProp.Init(_id, _type, _power, _cost, _description);
         return spellProp;
     }
 }

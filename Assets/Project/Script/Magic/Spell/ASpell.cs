@@ -13,14 +13,14 @@ public abstract class ASpell : MonoBehaviour {
     protected SpellProperty spellProperty;
     protected ACharacterController selfController;
 
-    public void SetController(ACharacterController controller)
+    public void SetController(ACharacterController _controller)
     {
-        selfController = controller;
+        selfController = _controller;
     }
 
-    public void SetProperty(SpellProperty spellProp)
+    public void SetProperty(SpellProperty _spellProp)
     {
-        spellProperty = spellProp;
+        spellProperty = _spellProp;
     }
 
     public abstract void Activate();

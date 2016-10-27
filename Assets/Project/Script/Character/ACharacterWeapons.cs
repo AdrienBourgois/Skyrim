@@ -80,7 +80,7 @@ public class ACharacterWeapons : MonoBehaviour
                 return false;
 
 
-        if (MagicManager.MagicID.NONE < spellProp.Id && spellProp.Id < MagicManager.MagicID.COUNT)
+        if (MagicManager.MagicId.None < spellProp.Id && spellProp.Id < MagicManager.MagicId.Count)
         {
             controller.Character.CharacterStats.UnitCharacteristics.Mana -= spellProp.Cost;
 

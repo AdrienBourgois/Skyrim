@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public delegate void DelegateState(GameState state);
-    public event DelegateState onStateChanged;
+    public delegate void DelegateState(GameState _state);
+    public event DelegateState OnStateChanged;
 
     private AsyncOperation asyncSceneLoading;
 
@@ -24,8 +24,6 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-
-    private bool loadLevel = true;
 
     #region SerializeField
     [SerializeField] private GameObject dataMgrPrefab;
@@ -76,9 +74,9 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 	}
 
-    public void ChangeGameStateTo(GameState nextGameState)
+    public void ChangeGameStateTo(GameState _nextGameState)
     {
-        switch (nextGameState)
+        switch (_nextGameState)
         {
             case GameState.Intro:
                 IntroInit();
@@ -114,8 +112,8 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        if (onStateChanged != null)
-            onStateChanged.Invoke(currGameState);
+        if (OnStateChanged != null)
+            OnStateChanged.Invoke(currGameState);
 
     }
 
