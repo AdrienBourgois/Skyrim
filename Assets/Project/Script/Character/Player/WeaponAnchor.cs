@@ -2,8 +2,8 @@
 
 public class WeaponAnchor : MonoBehaviour
 {
-    private Item weapon = null;
-    private WeaponInstance weaponInstance = null;
+    private Item weapon;
+    private WeaponInstance weaponInstance;
 
     public void SetWeapon(Item _weapon)
     {

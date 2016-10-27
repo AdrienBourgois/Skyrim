@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 
 public class DungeonManager : MonoBehaviour {
 
     List<Module> modules = new List<Module>();
-    DungeonGenerator dungeonGenerator = null;
+    DungeonGenerator dungeonGenerator;
 
 
     static private DungeonManager instance;

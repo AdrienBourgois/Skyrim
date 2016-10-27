@@ -66,7 +66,7 @@ public class PlayerController : ACharacterController
             ControllerRightHand();
 
         if (Input.GetButtonDown("LeftHand"))
-            ControllerLeftHand(true);
+            ControllerLeftHand();
         else if (Input.GetButtonUp("LeftHand"))
             ControllerLeftHand(false);
 

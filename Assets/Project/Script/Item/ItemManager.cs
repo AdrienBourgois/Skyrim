@@ -27,7 +27,7 @@ public class ItemManager : MonoBehaviour
         Axe = 32,
         Weapon = Sword | Axe,
 
-        All_Type = Armor | Weapon,
+        All_Type = Armor | Weapon
     }
 
     public List<Item> GenerateInventory(flags_generation flags = flags_generation.All_Type, int size = 60)

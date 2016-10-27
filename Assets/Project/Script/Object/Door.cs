@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Door : MonoBehaviour, IUsableObject
 {
 
-    private Animation anim = null;
+    private Animation anim;
     private bool hasBeenOpen = false;
 
 

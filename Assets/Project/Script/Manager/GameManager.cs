@@ -39,11 +39,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private DataManager dataMgr;
-    private LevelManager levelMgr;
-    private ItemManager itemMgr;
-    private DungeonManager dungeonMgr;
-    private MagicManager magicMgr;
-    private ResourceManager resourceMgr;
 
     public enum GameState
     {
@@ -73,10 +68,10 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
-        itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
-        magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
-        resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
-        levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+        Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
+        Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
+        Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
+        Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
 
         RecoverGameState();
 
@@ -181,7 +176,7 @@ public class GameManager : MonoBehaviour
     {
         currGameState = GameState.EnterDungeon;
 
-        dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
+        Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
     }
 
     void PopulateDungeonInit()

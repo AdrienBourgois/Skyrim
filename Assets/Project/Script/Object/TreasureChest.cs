@@ -3,11 +3,11 @@
 [RequireComponent (typeof(Animation))]
 public class TreasureChest : MonoBehaviour, IUsableObject
 {
-    private Animation anim = null;
-    private bool hasBeenOpen = false;
-    InventoryGUI invGui = null;
+    private Animation anim;
+    private bool hasBeenOpen;
+    InventoryGUI invGui;
     Inventory inv = new Inventory();
-    UnityEngine.Events.UnityAction OnCloseChest = null;
+    UnityEngine.Events.UnityAction OnCloseChest;
 
 
     private void Awake()
@@ -19,14 +19,10 @@ public class TreasureChest : MonoBehaviour, IUsableObject
 
     void Start()
     {
-        
         inv.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, 10);
 
-        OnCloseChest = delegate { CloseChest(); };
-
+        OnCloseChest = CloseChest;
     }
-
-
 
     public void OnUse(ACharacter character)
     {

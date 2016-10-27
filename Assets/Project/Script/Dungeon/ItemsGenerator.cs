@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ItemsGenerator : MonoBehaviour {
 
@@ -11,7 +10,7 @@ public class ItemsGenerator : MonoBehaviour {
 
     #endregion
 
-    private bool isConnected = false;
+    private bool isConnected;
 
     public bool IsConnected
     {

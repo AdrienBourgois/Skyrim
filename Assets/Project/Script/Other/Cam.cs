@@ -12,7 +12,7 @@ public class Cam : APausableObject
     private Transform playerAnchor;
     private Transform compass;
 
-    private float rotY = 0f;
+    private float rotY;
 
     private void Awake()
     {

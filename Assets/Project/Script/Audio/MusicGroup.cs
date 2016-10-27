@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class MusicGroup : MonoBehaviour {
     private List<AudioSource> sub_sources = new List<AudioSource>();
     private List<AudioClip> sub_clips = new List<AudioClip>();
-    private AudioClip main_clip = null;
-    private AudioSource main_source = null;
+    private AudioClip main_clip;
+    private AudioSource main_source;
 
     public AudioMixerGroup MixerGroup { private get; set; }
 
@@ -15,7 +15,7 @@ public class MusicGroup : MonoBehaviour {
     {
         PlaySingle,
         PlayFull,
-        Stop,
+        Stop
     }
 
     private EPlayState state = EPlayState.PlaySingle;

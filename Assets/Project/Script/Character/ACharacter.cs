@@ -69,7 +69,7 @@ public abstract class ACharacter : APausableObject
         None            = -1,
         SwordAndShield  =  0,
         Axe             =  1,
-        COUNT,
+        COUNT
     }
 
     private EquipType equipType = EquipType.None;

@@ -5,15 +5,15 @@
 /// </summary>
 public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
 {
-    private ACharacterController charController = null;
+    private ACharacterController charController;
     protected ACharacterController CharacterController
     {
         get { return charController; }
     }
 
-    private float moveX = 0f;
-    private float moveZ = 0f;
-    private float lastUpdateTime = 0f;
+    private float moveX;
+    private float moveZ;
+    private float lastUpdateTime;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

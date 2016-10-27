@@ -11,7 +11,7 @@ public class SpellProperty
     }
 
     [SerializeField]
-    protected int cost = 0;
+    protected int cost;
     public int Cost
     {
         get { return cost; }

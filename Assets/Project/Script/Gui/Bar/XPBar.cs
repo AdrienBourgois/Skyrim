@@ -9,7 +9,7 @@ public class XPBar : Bar
         if (player.Xp <= player.XpToLevelUp)
         {
             bar.localScale = new Vector3(xp_ratio, bar.localScale.y, bar.localScale.z);
-            point.text = player.Xp.ToString() + " / " + player.XpToLevelUp.ToString();
+            point.text = player.Xp + " / " + player.XpToLevelUp;
         }
     }
 }
