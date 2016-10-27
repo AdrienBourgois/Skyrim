@@ -22,17 +22,17 @@ public class CharacterStats
 
     public void SetCharacteristics(ACharacter _player)
     {
-        CalcEquipBonusDic(player);
+        CalcEquipBonusDic(_player);
 
-        UnitCharacteristics.Attack = ((Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Strength) + equipBonus["Damage"]) * equipBonus["Attack"];
-        UnitCharacteristics.Defense = ((Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Constitution) + equipBonus["Armor"] ) * equipBonus["Defense"];
-        UnitCharacteristics.Weight = ((UnitAttributes.Strength + player.UnitLevel) * 10) * equipBonus["Weight"];
-        UnitCharacteristics.MaxHealth = (Mathf.Exp(player.UnitLevel / 6f) * UnitAttributes.Constitution + 100) * equipBonus["MaxHealth"];
+        UnitCharacteristics.Attack = ((Mathf.Exp((_player.UnitLevel / 8f)) * UnitAttributes.Strength) + equipBonus["Damage"]) * equipBonus["Attack"];
+        UnitCharacteristics.Defense = ((Mathf.Exp((_player.UnitLevel / 8f)) * UnitAttributes.Constitution) + equipBonus["Armor"] ) * equipBonus["Defense"];
+        UnitCharacteristics.Weight = ((UnitAttributes.Strength + _player.UnitLevel) * 10) * equipBonus["Weight"];
+        UnitCharacteristics.MaxHealth = (Mathf.Exp(_player.UnitLevel / 6f) * UnitAttributes.Constitution + 100) * equipBonus["MaxHealth"];
         UnitCharacteristics.HealthRegeneration = (UnitCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f))) * equipBonus["HealthRegeneration"];
         UnitCharacteristics.MaxMana = (UnitAttributes.Intelligence * 10) * equipBonus["MaxMana"];
-        UnitCharacteristics.SpellPower = (1 + ((float)player.UnitLevel * UnitAttributes.Intelligence) / 100) * equipBonus["SpellPower"];
+        UnitCharacteristics.SpellPower = (1 + ((float)_player.UnitLevel * UnitAttributes.Intelligence) / 100) * equipBonus["SpellPower"];
         UnitCharacteristics.Precision = (Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3)) * equipBonus["Precision"];
-        UnitCharacteristics.AttackSpeed = (1 + ((float)player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 100) * equipBonus["AttackSpeed"];
+        UnitCharacteristics.AttackSpeed = (1 + ((float)_player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 100) * equipBonus["AttackSpeed"];
 
         characteristics.UpdateCharacDict();
     }
