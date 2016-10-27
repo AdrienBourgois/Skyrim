@@ -10,20 +10,7 @@ public class ItemsGenerator : MonoBehaviour {
 
     #endregion
 
-    private bool isConnected;
-
-    public bool IsConnected
-    {
-        get
-        {
-            return isConnected;
-        }
-
-        set
-        {
-            isConnected = value;
-        }
-    }
+    public bool IsConnected { get; set; }
 
     private void Awake()
     {

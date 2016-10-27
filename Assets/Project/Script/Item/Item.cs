@@ -33,12 +33,7 @@ public class Item : IComparable<Item>
         set { description = value; }
     }
 
-    private float weight = 0;
-    public float Weight
-    {
-        get { return weight; }
-        protected set { weight = value; }
-    }
+    public float Weight { get; protected set; }
 
     private ItemType type = ItemType.Undefined;
     protected ItemType Type
@@ -47,12 +42,7 @@ public class Item : IComparable<Item>
         set { type = value; }
     }
 
-    private ItemRarity rarity;
-    public ItemRarity Rarity
-    {
-        protected get { return rarity; }
-        set { rarity = value; }
-    }
+    public ItemRarity Rarity { get; set; }
 
     private int level = 1;
     public int Level
@@ -61,12 +51,7 @@ public class Item : IComparable<Item>
         set { level = value; }
     }
 
-    private int price;
-    public int Price
-    {
-        get { return price; }
-        protected set { price = value; }
-    }
+    public int Price { get; protected set; }
 
     public ACharacter Equipped { get; set; }
 
@@ -83,9 +68,9 @@ public class Item : IComparable<Item>
     {
         return "Name : " + nameObject + " (LVL " + level + ")" +
             "\nDescription : " + description +
-            "\nWeight : " + weight +
-            "\nRarity : " + rarity +
-            "\nPrice : " + price;
+            "\nWeight : " + Weight +
+            "\nRarity : " + Rarity +
+            "\nPrice : " + Price;
     }
 
     public int CompareTo(Item _item)

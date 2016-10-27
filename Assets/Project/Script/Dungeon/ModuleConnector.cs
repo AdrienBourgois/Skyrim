@@ -6,8 +6,6 @@ public class ModuleConnector : MonoBehaviour {
     public string[] Tags;
     public bool IsDefault;
 
-    private bool isConnected;
-
     private void Awake()
     {
 
@@ -19,18 +17,7 @@ public class ModuleConnector : MonoBehaviour {
     }
 
 
-    public bool IsConnected
-    {
-        get
-        {
-            return isConnected;
-        }
-
-        set
-        {
-            isConnected = value;
-        }
-    }
+    public bool IsConnected { get; set; }
 
     private void OnDrawGizmos()
     {

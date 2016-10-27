@@ -2,17 +2,17 @@
 
 public class Shop : MonoBehaviour, IUsableObject
 {
-    private InventoryGUI invGui;
+    private InventoryGui invGui;
     private Inventory inv = new Inventory();
 
     private void Awake()
     {
-        invGui = InventoryGUI.Instance;
+        invGui = InventoryGui.Instance;
         if (!invGui)
             Debug.Log("can't find inventoryGUI on Shop.Awake()");
 
         invGui.Inventory = inv;
-        invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.VendorInventory;
+        invGui.currentGuiAction = InventoryGui.InventoryGuiType.VendorInventory;
         inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
     }
 
