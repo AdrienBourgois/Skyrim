@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 public class MagicPanel : MonoBehaviour
 {
-    List<SpellProperty> printedSpells = new List<SpellProperty>();
-    MagicInventory spells;
+    private List<SpellProperty> printedSpells = new List<SpellProperty>();
+    private MagicInventory spells;
 
-    GameObject buttonPrefab;
+    private GameObject buttonPrefab;
 
-    SpellProperty displayedMagic;
+    private SpellProperty displayedMagic;
 	public SpellProperty DisplayedMagic
     { get { return displayedMagic; } }
 
-	void Start ()
+    private void Start ()
     {
         spells = LevelManager.Instance.Player.UnitSpells;
         buttonPrefab = transform.FindChild("SpellSelector").GetChild(0).GetChild(0).GetChild(0).gameObject;
@@ -46,7 +46,7 @@ public class MagicPanel : MonoBehaviour
         return gao;
     }
 
-    void AddSpellButton(SpellProperty magic)
+    private void AddSpellButton(SpellProperty magic)
     {
         GameObject gao = CreateBlankButton();
         gao.name = magic.Id.ToString();
@@ -64,7 +64,7 @@ public class MagicPanel : MonoBehaviour
         printedSpells.Add(magic);
     }
 
-    void DisplaySpellButton(SpellProperty magic)
+    private void DisplaySpellButton(SpellProperty magic)
     {
         if (magic == null)
             return;

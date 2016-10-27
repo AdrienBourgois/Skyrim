@@ -9,8 +9,8 @@ public class Module : MonoBehaviour {
     [SerializeField]
     private string[] tags;
 
-    List<ModuleConnector> moduleConnectorList = new List<ModuleConnector>();
-    List<ItemsGenerator> itemsGeneratorList = new List<ItemsGenerator>();
+    private List<ModuleConnector> moduleConnectorList = new List<ModuleConnector>();
+    private List<ItemsGenerator> itemsGeneratorList = new List<ItemsGenerator>();
 
     public List<ModuleConnector> ModuleConnectorList
     {
@@ -51,12 +51,12 @@ public class Module : MonoBehaviour {
         }
     }
 
-    void Awake()
+    private void Awake()
     {
         DungeonManager.Instance.RegisterModule(this);
     }
 
-    void Start()
+    private void Start()
     {
     }
 

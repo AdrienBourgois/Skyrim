@@ -18,8 +18,8 @@ public class ACharacterWeapons : MonoBehaviour
     private SpellProperty spellProp;
     private ASpell spell;
 
-    
-    void Start()
+
+    private void Start()
     {
         if (leftHandAnchor == null || rightHandAnchor == null)
             Debug.LogError("ACharacterWeapons.Start() - leftHandAnchor and rightHandAnchor should be initialized.");

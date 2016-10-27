@@ -29,12 +29,12 @@ public class GameManager : MonoBehaviour
     private bool loadLevel = true;
 
     #region SerializeField
-    [SerializeField] GameObject dataMgrPrefab;
-    [SerializeField] GameObject levelMgrPrefab;
-    [SerializeField] GameObject itemMgrPrefab;
-    [SerializeField] GameObject dungeonMgrPrefab;
-    [SerializeField] GameObject magicMgrPrefab;
-    [SerializeField] GameObject resourceMgrPrefab;
+    [SerializeField] private GameObject dataMgrPrefab;
+    [SerializeField] private GameObject levelMgrPrefab;
+    [SerializeField] private GameObject itemMgrPrefab;
+    [SerializeField] private GameObject dungeonMgrPrefab;
+    [SerializeField] private GameObject magicMgrPrefab;
+    [SerializeField] private GameObject resourceMgrPrefab;
     #endregion
 
     private DataManager dataMgr;
@@ -165,14 +165,14 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void EnterDungeonInit()
+    private void EnterDungeonInit()
     {
         currGameState = GameState.EnterDungeon;
 
         Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
     }
 
-    void PopulateDungeonInit()
+    private void PopulateDungeonInit()
     {
         currGameState = GameState.PopulateDungeon;
     }

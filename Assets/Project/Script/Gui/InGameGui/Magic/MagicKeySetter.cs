@@ -2,9 +2,7 @@
 using UnityEngine.UI;
 
 public class MagicKeySetter : MonoBehaviour {
-
-	
-	void Awake ()
+    private void Awake ()
     {
         foreach (Transform child in transform)
         {
@@ -27,7 +25,7 @@ public class MagicKeySetter : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    void SetMagic(int key_number)
+    private void SetMagic(int key_number)
     {
         SpellProperty selectedMagic = transform.parent.GetComponent<MagicPanel>().DisplayedMagic;
         if (selectedMagic == null)

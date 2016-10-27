@@ -34,7 +34,7 @@
         UnitSpells.PlayerBasicSpellInit();
     }
 
-    void Update()
+    private void Update()
     {
         CharacterStats.UnitCharacteristics.Health -= 1;
     }

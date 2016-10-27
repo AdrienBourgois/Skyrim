@@ -2,8 +2,8 @@
 
 public class ProjectileSpell : ASpell
 {
-    bool cast;
-    Vector3 direction = Vector3.zero;
+    private bool cast;
+    private Vector3 direction = Vector3.zero;
 
     public override void Activate()
     {
@@ -15,7 +15,7 @@ public class ProjectileSpell : ASpell
         Destroy(gameObject, lifeTime);
     }
 
-    void Update()
+    private void Update()
     {
         if (cast)
             transform.position += direction * projectileSpeed * Time.deltaTime;

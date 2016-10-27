@@ -19,7 +19,7 @@ public class Door : MonoBehaviour, IUsableObject
             player.transform.position = spawn.transform.position;
     }
 
-    IEnumerator TeleportToTown(ACharacter character)
+    private IEnumerator TeleportToTown(ACharacter character)
     {
         Destroy(FindObjectOfType<Cam>());
         SceneManager.LoadSceneAsync("BaseScene");

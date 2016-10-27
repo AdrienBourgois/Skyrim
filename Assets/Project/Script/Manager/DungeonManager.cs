@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class DungeonManager : MonoBehaviour {
-
-    List<Module> modules = new List<Module>();
-    DungeonGenerator dungeonGenerator;
+    private List<Module> modules = new List<Module>();
+    private DungeonGenerator dungeonGenerator;
 
 
     static private DungeonManager instance;
@@ -26,18 +25,18 @@ public class DungeonManager : MonoBehaviour {
         }
     }
 
-    void Awake()
+    private void Awake()
     {
         dungeonGenerator = GetComponent<DungeonGenerator>();
     }
 
-    void Start () {
+    private void Start () {
 
         GameManager.Instance.onStateChanged += OnStateChanged;
         StartCoroutine(CreateDungeon());
     }
 
-    void Update () {
+    private void Update () {
 
         
 	}
@@ -49,7 +48,7 @@ public class DungeonManager : MonoBehaviour {
     }
 
 
-    void CheckConnector()
+    private void CheckConnector()
     {
         foreach (Module m in modules)
             foreach (ModuleConnector slot in m.ModuleConnectorList)
@@ -58,7 +57,7 @@ public class DungeonManager : MonoBehaviour {
                 
     }
 
-    void ItemGenerator()
+    private void ItemGenerator()
     {
         //Use two for loop instead two foreach loop to avoid an Unity error with enumeration
 
@@ -76,7 +75,7 @@ public class DungeonManager : MonoBehaviour {
         }
     }
 
-    void OnStateChanged(GameManager.GameState state)
+    private void OnStateChanged(GameManager.GameState state)
     {
         //if (state == GameManager.GameState.EnterDungeon)
         //    StartCoroutine(CreateDungeon());
@@ -85,7 +84,7 @@ public class DungeonManager : MonoBehaviour {
         
     }
 
-    IEnumerator CreateDungeon()
+    private IEnumerator CreateDungeon()
     {
         yield return new WaitForSeconds(0.1f);
         dungeonGenerator.GenerateDungeon();

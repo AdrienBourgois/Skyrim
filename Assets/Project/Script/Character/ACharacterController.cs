@@ -35,7 +35,7 @@ public abstract class ACharacterController : APausableObject
     public Transform CenterOfMass { get { return centerOfMass.transform; } }
     #endregion
 
-    Coroutine corGrounded;
+    private Coroutine corGrounded;
 
     private bool bIsGrounded = true;
     protected bool IsGrounded
