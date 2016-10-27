@@ -25,14 +25,14 @@ public class MagicKeySetter : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    private void SetMagic(int key_number)
+    private void SetMagic(int _keyNumber)
     {
         SpellProperty selectedMagic = transform.parent.GetComponent<MagicPanel>().DisplayedMagic;
         if (selectedMagic == null)
             return;
 
-        transform.GetChild(key_number).FindChild("name").GetComponent<Text>().text = selectedMagic.Id.ToString();
-        MagicManager.Instance.MagicKeySelected[key_number] = selectedMagic;
+        transform.GetChild(_keyNumber).FindChild("name").GetComponent<Text>().text = selectedMagic.Id.ToString();
+        MagicManager.Instance.MagicKeySelected[_keyNumber] = selectedMagic;
 
     }
 }

@@ -58,7 +58,7 @@ public class LevelManager : MonoBehaviour {
         if (!FindObjectOfType<Compass>())
             Instantiate(ResourceManager.Instance.Load("Gui/Compass"));
 
-        if (!FindObjectOfType<IGGui>())
+        if (!FindObjectOfType<IgGui>())
             Instantiate(ResourceManager.Instance.Load("Gui/inGameGui"));
     }
 }

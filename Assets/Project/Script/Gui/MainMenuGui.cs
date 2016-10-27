@@ -14,11 +14,11 @@ public class MainMenuGui : MonoBehaviour
         buttonExitGame.OnClick += DisplayConfirmationPanel;
     }
 
-    private void DisplayConfirmationPanel(MenuButton.MenuButtonId id)
+    private void DisplayConfirmationPanel(MenuButton.MenuButtonId _id)
     {
 
         panel.SetActive(true);
-        panel.GetComponent<ConfirmationPanel>().SetButtons(id);
-        panel.GetComponent<ConfirmationPanel>().SetText(id);
+        panel.GetComponent<ConfirmationPanel>().SetButtons(_id);
+        panel.GetComponent<ConfirmationPanel>().SetText(_id);
     }
 }

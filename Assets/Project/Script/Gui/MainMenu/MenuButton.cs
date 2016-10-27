@@ -15,17 +15,16 @@ public abstract class MenuButton : MonoBehaviour
     {
         NewGame,
         LoadGame,
-        ExitGame,
-        COUNT
+        ExitGame
     }
 
-    public delegate void ClickAction(MenuButtonId id);
+    public delegate void ClickAction(MenuButtonId _id);
     public event ClickAction OnClick;
 
-    protected void OnButtonClick(MenuButtonId id)
+    protected void OnButtonClick(MenuButtonId _id)
     {
         if (OnClick != null)
-            OnClick.Invoke(id);
+            OnClick.Invoke(_id);
     }
 
     public abstract void OnButtonClick();

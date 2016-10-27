@@ -22,14 +22,14 @@ public class ConfirmationPanel : MonoBehaviour
         OnNo.Invoke();
     }
 
-    public void SetText(MenuButton.MenuButtonId id)
+    public void SetText(MenuButton.MenuButtonId _id)
     {
-        SetPanelConfirmText(id);
+        SetPanelConfirmText(_id);
     }
 
-    private void SetPanelConfirmText(MenuButton.MenuButtonId id)
+    private void SetPanelConfirmText(MenuButton.MenuButtonId _id)
     {
-        switch (id)
+        switch (_id)
         {
             case MenuButton.MenuButtonId.NewGame:
                 panelText.text = "Launch New Game ?";
@@ -46,15 +46,15 @@ public class ConfirmationPanel : MonoBehaviour
         }
     }
 
-    public void SetButtons(MenuButton.MenuButtonId id)
+    public void SetButtons(MenuButton.MenuButtonId _id)
     {
-        SetYesButton(id);
-        SetNoButton(id);
+        SetYesButton(_id);
+        SetNoButton();
     }
 
-    private void SetYesButton(MenuButton.MenuButtonId id)
+    private void SetYesButton(MenuButton.MenuButtonId _id)
     {
-        switch (id)
+        switch (_id)
         {
             case MenuButton.MenuButtonId.NewGame:
                 OnYes = StartNewGame;
@@ -90,7 +90,7 @@ public class ConfirmationPanel : MonoBehaviour
     #endif
     }
 
-    private void SetNoButton(MenuButton.MenuButtonId id)
+    private void SetNoButton()
     {
         OnNo = ClosePanel;
     }

@@ -4,14 +4,14 @@ public class HealthBar : Bar {
     private void Update ()
     {
         
-        Characteristics player_stats = player.CharacterStats.UnitCharacteristics;
-        float life_ratio = player_stats.Health / player_stats.MaxHealth;
+        Characteristics playerStats = player.CharacterStats.UnitCharacteristics;
+        float lifeRatio = playerStats.Health / playerStats.MaxHealth;
 
 
-        if (player_stats.Health >= 0)
+        if (playerStats.Health >= 0)
         {
-            bar.localScale = new Vector3(life_ratio, bar.localScale.y, bar.localScale.z);
-            point.text = player_stats.Health.ToString("0") + " / " + player_stats.MaxHealth.ToString("0");
+            bar.localScale = new Vector3(lifeRatio, bar.localScale.y, bar.localScale.z);
+            point.text = playerStats.Health.ToString("0") + " / " + playerStats.MaxHealth.ToString("0");
         }
    }
 }

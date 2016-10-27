@@ -44,33 +44,33 @@ public class MagicPanel : MonoBehaviour
         return gao;
     }
 
-    private void AddSpellButton(SpellProperty magic)
+    private void AddSpellButton(SpellProperty _magic)
     {
         GameObject gao = CreateBlankButton();
-        gao.name = magic.Id.ToString();
-        gao.transform.FindChild("Name").GetComponent<Text>().text = magic.Id.ToString();
-        gao.transform.FindChild("Cost").GetComponent<Text>().text = magic.Cost.ToString();
+        gao.name = _magic.Id.ToString();
+        gao.transform.FindChild("Name").GetComponent<Text>().text = _magic.Id.ToString();
+        gao.transform.FindChild("Cost").GetComponent<Text>().text = _magic.Cost.ToString();
 
-        if (magic.Power != 0 && magic.Id == MagicManager.MagicId.Heal)
+        if (_magic.Power != 0 && _magic.Id == MagicManager.MagicId.Heal)
             gao.GetComponent<Image>().color  = Color.green;
-        else if (magic.Power == 0 )
+        else if (_magic.Power == 0 )
             gao.GetComponent<Image>().color = Color.cyan;
         else
             gao.GetComponent<Image>().color = Color.magenta;
 
-        gao.GetComponent<Button>().onClick.AddListener(delegate { DisplaySpellButton(magic); });
-        printedSpells.Add(magic);
+        gao.GetComponent<Button>().onClick.AddListener(delegate { DisplaySpellButton(_magic); });
+        printedSpells.Add(_magic);
     }
 
-    private void DisplaySpellButton(SpellProperty magic)
+    private void DisplaySpellButton(SpellProperty _magic)
     {
-        if (magic == null)
+        if (_magic == null)
             return;
 
-        DisplayedMagic = magic;
+        DisplayedMagic = _magic;
 
         foreach (Transform child in transform.FindChild("Info"))
-            child.GetChild(0).GetComponent<Text>().text = magic.GetMemberStringFromString(child.name);
+            child.GetChild(0).GetComponent<Text>().text = _magic.GetMemberStringFromString(child.name);
 
     }
 
