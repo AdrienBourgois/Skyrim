@@ -2,7 +2,7 @@
 
 public class LevelManager : MonoBehaviour {
 
-    private Player player;
+    private Player player = null;
     public Player Player
     {
         get
@@ -24,8 +24,6 @@ public class LevelManager : MonoBehaviour {
                 GameObject gao = GameObject.FindGameObjectWithTag("LevelManager");
                 if (gao)
                     instance = gao.GetComponent<LevelManager>();
-
-                //Debug.Log(gao);
             }
 
             return instance;
@@ -35,27 +33,32 @@ public class LevelManager : MonoBehaviour {
     private void Awake()
     {
         instance = this;
-        if (player == null && GameManager.Instance.CurrGameState == GameManager.GameState.InGame)
-            CreatePlayer();
+        InstanceGame();
     }
 
-    private void Start ()
+    private void InstanceGame()
     {
-        player = FindObjectOfType<Player>();
-        
+        if (!player)
+        {
+            GameObject playerObject = Instantiate(ResourceManager.Instance.Load("Character/Player"));
+            player = playerObject.GetComponent<Player>();
+            
+            if (player == null)
+                Debug.LogError("LevelManager.Awake() - could not load Player from Prefab Character/Player.");
+        }
 
-    }
+        if (!FindObjectOfType<Cam>())
+        {
+            GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            if (mainCamera != null)
+                Destroy(mainCamera);
+            Instantiate(ResourceManager.Instance.Load("Character/Main Camera"));
+        }
 
-    private void Update () {
+        if (!FindObjectOfType<Compass>())
+            Instantiate(ResourceManager.Instance.Load("Gui/Compass"));
 
-        //if (GameObject.FindGameObjectsWithTag("Player").Length > 1)
-            //Destroy(Player);
-
-	}
-
-    private void CreatePlayer()
-    {
-        GameObject playerPrefab = ResourceManager.Instance.Load("Character/Player");
-        GameObject player = Instantiate(playerPrefab);
+        if (!FindObjectOfType<IGGui>())
+            Instantiate(ResourceManager.Instance.Load("Gui/inGameGui"));
     }
 }

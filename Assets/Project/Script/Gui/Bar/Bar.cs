@@ -10,7 +10,9 @@ public class Bar : MonoBehaviour {
 
     private void Start ()
     {
-        player = LevelManager.Instance.Player;
+        player = FindObjectOfType<Player>();
+        if (player == null)
+            Debug.Log("bar.Start() - couldn't find object of type Player");
 
         Debug.Log("plop");
 

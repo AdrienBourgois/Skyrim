@@ -3,7 +3,7 @@
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
-public abstract class ACharacter : APausableObject
+public abstract class ACharacter : APausableObject, IHitable
 {    
     public delegate void DelegateWeapons(Item _leftWeapon, Item _rightWeapon);
     public event DelegateWeapons OnChangedWeapons;
@@ -42,7 +42,7 @@ public abstract class ACharacter : APausableObject
     }    
 
     [SerializeField]
-    private float jumpEfficiency = 5.5f;
+    private float jumpEfficiency = 8f;
     public float JumpEfficiency
     {
         get { return jumpEfficiency; }
@@ -50,7 +50,7 @@ public abstract class ACharacter : APausableObject
     }
 
     [SerializeField]
-    private float baseMoveSpeed = 3f;
+    private float baseMoveSpeed = 1.5f;
     public float MoveSpeed
     {
         get { return baseMoveSpeed; }
@@ -128,5 +128,17 @@ public abstract class ACharacter : APausableObject
         // TODO: implemement event when equipped items changed
         //if (OnChangedWeapons != null)
         //  OnChangedWeapons.Invoke(inventory.);
+    }
+
+    protected virtual void TakeDamages(float damages)
+    {
+        characterStats.UnitCharacteristics.Health -= damages;
+    }
+
+    public virtual void OnHit(ACharacter character)
+    {
+        if (character == this)
+            return;
+        TakeDamages(character.CharacterStats.UnitCharacteristics.Attack - characterStats.UnitCharacteristics.Defense);
     }
 }

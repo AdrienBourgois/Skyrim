@@ -8,8 +8,7 @@ public class PlayerController : ACharacterController
     public event DelegateAction OnLeftUp;
     public event DelegateAction OnRightDown;
     #endregion
-
-
+    
     protected override void Start()
     {
         base.Start();
