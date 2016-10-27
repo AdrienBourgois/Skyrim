@@ -11,6 +11,7 @@ public class Module : MonoBehaviour {
 
     private List<ModuleConnector> moduleConnectorList = new List<ModuleConnector>();
     private List<ItemsGenerator> itemsGeneratorList = new List<ItemsGenerator>();
+    private List<EnemySpawner> enemySpawnersList = new List<EnemySpawner>();
 
     public List<ModuleConnector> ModuleConnectorList
     {
@@ -51,6 +52,19 @@ public class Module : MonoBehaviour {
         }
     }
 
+    public List<EnemySpawner> EnemySpawnersList
+    {
+        get
+        {
+            return enemySpawnersList;
+        }
+
+        set
+        {
+            enemySpawnersList = value;
+        }
+    }
+
     private void Awake()
     {
         DungeonManager.Instance.RegisterModule(this);
@@ -66,15 +80,18 @@ public class Module : MonoBehaviour {
         return GetComponentsInChildren<ModuleConnector>();
     }
 
- 
-
-    public void AddConnector(ModuleConnector mC)
+    public void AddConnector(ModuleConnector moduleConnector)
     {
-        ModuleConnectorList.Add(mC);
+        ModuleConnectorList.Add(moduleConnector);
     }
 
-    public void AddGenerator(ItemsGenerator itGen)
+    public void AddGenerator(ItemsGenerator itemGenerator)
     {
-        itemsGeneratorList.Add(itGen);
+        ItemsGeneratorList.Add(itemGenerator);
+    }
+
+    public void AddEnemySpawner(EnemySpawner enemySpawn)
+    {
+        enemySpawnersList.Add(enemySpawn);
     }
 }

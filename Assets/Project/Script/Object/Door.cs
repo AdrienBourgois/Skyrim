@@ -10,15 +10,6 @@ public class Door : MonoBehaviour, IUsableObject
        StartCoroutine(TeleportToTown(character));
     }
 
-    private void Start () {
-
-        GetComponent<Animation>();
-        Door spawn = GetComponentInChildren<Door>();
-        GameObject player = GameObject.Find("Player");
-        if (player != null)
-            player.transform.position = spawn.transform.position;
-    }
-
     private IEnumerator TeleportToTown(ACharacter character)
     {
         Destroy(FindObjectOfType<Cam>());

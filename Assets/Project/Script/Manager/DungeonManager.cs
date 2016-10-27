@@ -72,6 +72,13 @@ public class DungeonManager : MonoBehaviour {
         }
     }
 
+    private void EnemyGeneration()
+    {
+        foreach (Module m in modules.ToArray())
+            foreach (EnemySpawner enemySpawner in m.EnemySpawnersList.ToArray())
+                enemySpawner.CreateEnemy();
+    }
+
     private void OnStateChanged(GameManager.GameState state)
     {
         //print("stateChanged");
@@ -88,5 +95,6 @@ public class DungeonManager : MonoBehaviour {
         dungeonGenerator.GenerateDungeon();
         yield return new WaitForSeconds(0.1f);
         ItemGenerator();
+        EnemyGeneration();
     }
 }
