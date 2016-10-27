@@ -28,7 +28,7 @@ public abstract class ACharacter : APausableObject, IHitable
     }    
 
     [SerializeField]
-    private float jumpEfficiency = 5.5f;
+    private float jumpEfficiency = 8f;
     public float JumpEfficiency
     {
         get { return jumpEfficiency; }
@@ -36,7 +36,7 @@ public abstract class ACharacter : APausableObject, IHitable
     }
 
     [SerializeField]
-    private float baseMoveSpeed = 100f;
+    private float baseMoveSpeed = 1.5f;
     public float MoveSpeed
     {
         get { return baseMoveSpeed; }
