@@ -53,7 +53,7 @@ public class LevelManager : MonoBehaviour {
 
 	}
 
-    void CreatePlayer()
+    private void CreatePlayer()
     {
         GameObject playerPrefab = ResourceManager.Instance.Load("Character/Player");
         GameObject player = Instantiate(playerPrefab);

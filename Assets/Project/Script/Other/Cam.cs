@@ -43,7 +43,7 @@ public class Cam : APausableObject
     {
         if (playerAnchor != null)
         {
-            transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
+            transform.position = playerAnchor.position + Vector3.up * ratioOverHips;
 
             if (paused)
                 return;
@@ -69,7 +69,7 @@ public class Cam : APausableObject
     }
 
 
-    IEnumerator FindPlayer()
+    private IEnumerator FindPlayer()
     {
         yield return new WaitForSeconds(0.1f);
         playerController = FindObjectOfType<PlayerController>();

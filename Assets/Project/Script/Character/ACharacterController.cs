@@ -125,7 +125,7 @@ public abstract class ACharacterController : APausableObject
     {
         RaycastHit hit;
         // TODO: global(?) variable for max distance
-        float useMaxDistance = 2f;
+        const float useMaxDistance = 2f;
         if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
             IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
@@ -160,7 +160,7 @@ public abstract class ACharacterController : APausableObject
         animator.SetBool("IsCrouching", _bIsCrouch);
     }
 
-    public virtual void ControllerSelectMagic(int _key)
+    protected virtual void ControllerSelectMagic(int _key)
     {
         if (MagicManager.Instance.MagicKeySelected[_key] == null)
             return;
@@ -186,7 +186,7 @@ public abstract class ACharacterController : APausableObject
 
     protected virtual void ControllerCastSpell()
     {
-        if (!animator.GetBool("IsUsing" + character.StuffType.ToString()))
+        if (!animator.GetBool("IsUsing" + character.StuffType))
             if (characterWeapons.InstanciateMagic())
                 animator.SetTrigger("TriggerSpell");
     }

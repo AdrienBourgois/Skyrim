@@ -16,7 +16,7 @@ public class CharacterStats
         get { return attributes; }
     }
 
-    Dictionary<string, float> equipBonus = new Dictionary<string, float>();
+    private Dictionary<string, float> equipBonus = new Dictionary<string, float>();
 
     #endregion  
 
@@ -24,48 +24,50 @@ public class CharacterStats
     {
         CalcEquipBonusDic(_player);
 
-        UnitCharacteristics.Attack = ((Mathf.Exp((_player.UnitLevel / 8f)) * UnitAttributes.Strength) + equipBonus["Damage"]) * equipBonus["Attack"];
-        UnitCharacteristics.Defense = ((Mathf.Exp((_player.UnitLevel / 8f)) * UnitAttributes.Constitution) + equipBonus["Armor"] ) * equipBonus["Defense"];
-        UnitCharacteristics.Weight = ((UnitAttributes.Strength + _player.UnitLevel) * 10) * equipBonus["Weight"];
+        UnitCharacteristics.Attack = (Mathf.Exp(_player.UnitLevel / 8f) * UnitAttributes.Strength + equipBonus["Damage"]) * equipBonus["Attack"];
+        UnitCharacteristics.Defense = (Mathf.Exp(_player.UnitLevel / 8f) * UnitAttributes.Constitution + equipBonus["Armor"] ) * equipBonus["Defense"];
+        UnitCharacteristics.Weight = (UnitAttributes.Strength + _player.UnitLevel) * 10 * equipBonus["Weight"];
         UnitCharacteristics.MaxHealth = (Mathf.Exp(_player.UnitLevel / 6f) * UnitAttributes.Constitution + 100) * equipBonus["MaxHealth"];
-        UnitCharacteristics.HealthRegeneration = (UnitCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f))) * equipBonus["HealthRegeneration"];
-        UnitCharacteristics.MaxMana = (UnitAttributes.Intelligence * 10) * equipBonus["MaxMana"];
-        UnitCharacteristics.SpellPower = (1 + ((float)_player.UnitLevel * UnitAttributes.Intelligence) / 100) * equipBonus["SpellPower"];
-        UnitCharacteristics.Precision = (Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3)) * equipBonus["Precision"];
-        UnitCharacteristics.AttackSpeed = (1 + ((float)_player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 100) * equipBonus["AttackSpeed"];
+        UnitCharacteristics.HealthRegeneration = UnitCharacteristics.MaxHealth / (50 - UnitAttributes.Constitution * 0.25f) * equipBonus["HealthRegeneration"];
+        UnitCharacteristics.MaxMana = UnitAttributes.Intelligence * 10 * equipBonus["MaxMana"];
+        UnitCharacteristics.SpellPower = (1 + (float)_player.UnitLevel * UnitAttributes.Intelligence / 100) * equipBonus["SpellPower"];
+        UnitCharacteristics.Precision = Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3) * equipBonus["Precision"];
+        UnitCharacteristics.AttackSpeed = (1 + ((float)_player.UnitLevel + UnitAttributes.Dexterity / 2) / 100) * equipBonus["AttackSpeed"];
 
         characteristics.UpdateCharacDict();
     }
 
-    public Characteristics SimulateCharac(int level,float playerWeigth, int strength, int constit, int intel, int dexterity)
+    public Characteristics SimulateCharac(int _level,float _playerWeigth, int _strength, int _constit, int _intel, int _dexterity)
     {
-        Characteristics characs = new Characteristics(0);
+        Characteristics characs = new Characteristics(0)
+        {
+            Attack = (Mathf.Exp(_level/8f)*_strength + equipBonus["Damage"])*equipBonus["Attack"],
+            Defense = (Mathf.Exp(_level/8f)*_constit + equipBonus["Armor"])*equipBonus["Defense"],
+            Weight = (_strength + _level)*10*equipBonus["Weight"],
+            MaxHealth = (Mathf.Exp(_level/6f)*_constit + 100)*equipBonus["MaxHealth"]
+        };
 
-        characs.Attack = ((Mathf.Exp((level / 8f)) * strength) + equipBonus["Damage"]) * equipBonus["Attack"];
-        characs.Defense = ((Mathf.Exp((level / 8f)) * constit) + equipBonus["Armor"]) * equipBonus["Defense"];
-        characs.Weight = ((strength + level) * 10) * equipBonus["Weight"];
-        characs.MaxHealth = (Mathf.Exp(level / 6f) * constit + 100) * equipBonus["MaxHealth"];
-        characs.HealthRegeneration = (characs.MaxHealth / (50 - (constit * 0.25f))) * equipBonus["HealthRegeneration"];
-        characs.MaxMana = (intel * 10) * equipBonus["MaxMana"];
-        characs.SpellPower = (1 + ((float)level * intel) / 100) * equipBonus["SpellPower"];
-        characs.Precision = (Mathf.Min(100, 100 - (50 - (characs.Weight - playerWeigth) / 10) + dexterity / 3)) * equipBonus["Precision"];
-        characs.AttackSpeed = (1 + ((float)level + (dexterity / 2)) / 100) * equipBonus["AttackSpeed"];
+        characs.HealthRegeneration = characs.MaxHealth / (50 - _constit * 0.25f) * equipBonus["HealthRegeneration"];
+        characs.MaxMana = _intel * 10 * equipBonus["MaxMana"];
+        characs.SpellPower = (1 + (float)_level * _intel / 100) * equipBonus["SpellPower"];
+        characs.Precision = Mathf.Min(100, 100 - (50 - (characs.Weight - _playerWeigth) / 10) + _dexterity / 3) * equipBonus["Precision"];
+        characs.AttackSpeed = (1 + ((float)_level + _dexterity / 2) / 100) * equipBonus["AttackSpeed"];
 
         characs.UpdateCharacDict();
 
         return characs;
     }
 
-    private Dictionary<string, float> CalcEquipBonusDic(ACharacter player)
+    private Dictionary<string, float> CalcEquipBonusDic(ACharacter _player)
     {
         if (equipBonus.Count == 0)
             InitEquibBonusDic();
 
-        Weapon weapon = player.RightHand != null ? player.RightHand : new Weapon();
-        Shield shield = player.LeftHand != null ? player.LeftHand : new Shield();
-        Helmet helmet = player.Helmet != null ? player.Helmet : new Helmet();
-        Torso chest = player.Torso != null ? player.Torso : new Torso();
-        Boots boots = player.Boots != null ? player.Boots : new Boots();
+        Weapon weapon = _player.RightHand ?? new Weapon();
+        Shield shield = _player.LeftHand ?? new Shield();
+        Helmet helmet = _player.Helmet ?? new Helmet();
+        Torso chest = _player.Torso ?? new Torso();
+        Boots boots = _player.Boots ?? new Boots();
 
         equipBonus["Damage"] = weapon.Damage;
         equipBonus["Armor"] = shield.Defense 
@@ -73,23 +75,23 @@ public class CharacterStats
                                 + chest.Defense
                                 + boots.Defense;
 
-        Characteristics weapon_c = weapon != null ? weapon.Characteristics : new Characteristics(0);
-        Characteristics shield_c = shield != null ? shield.Characteristics : new Characteristics(0);
-        Characteristics helmet_c = helmet != null ? helmet.Characteristics : new Characteristics(0);
-        Characteristics chest_c = chest != null ? chest.Characteristics : new Characteristics(0);
-        Characteristics boots_c = boots != null ? boots.Characteristics : new Characteristics(0);
+        Characteristics weaponC = weapon.Characteristics;
+        Characteristics shieldC = shield.Characteristics;
+        Characteristics helmetC = helmet.Characteristics;
+        Characteristics chestC = chest.Characteristics;
+        Characteristics bootsC = boots.Characteristics;
 
-        Debug.Log(weapon_c.MaxHealth);
+        Debug.Log(weaponC.MaxHealth);
 
-        equipBonus["Attack"] = 1f + (weapon_c.Attack + shield_c.Attack + helmet_c.Attack + chest_c.Attack + boots_c.Attack);// 100;
-        equipBonus["Defense"] = 1f + (weapon_c.Defense + shield_c.Defense + helmet_c.Defense + chest_c.Defense + boots_c.Defense);// 100;
-        equipBonus["Weight"] = 1f + (weapon_c.Weight + shield_c.Weight + helmet_c.Weight + chest_c.Weight + boots_c.Weight);// 100;
-        equipBonus["MaxHealth"] = 1f + (weapon_c.MaxHealth + shield_c.MaxHealth + helmet_c.MaxHealth + chest_c.MaxHealth + boots_c.MaxHealth);// 100;
-        equipBonus["HealthRegeneration"] = 1f + (weapon_c.HealthRegeneration + shield_c.HealthRegeneration + helmet_c.HealthRegeneration + chest_c.HealthRegeneration + boots_c.HealthRegeneration);// 100;
-        equipBonus["MaxMana"] = 1f + (weapon_c.MaxMana + shield_c.MaxMana + helmet_c.MaxMana + chest_c.MaxMana + boots_c.MaxMana);// 100;
-        equipBonus["SpellPower"] = 1f + (weapon_c.SpellPower + shield_c.SpellPower + helmet_c.SpellPower + chest_c.SpellPower + boots_c.SpellPower);// 100;
-        equipBonus["Precision"] = 1f + (weapon_c.Precision + shield_c.Precision + helmet_c.Precision + chest_c.Precision + boots_c.Precision);// 100;
-        equipBonus["AttackSpeed"] = 1f + (weapon_c.AttackSpeed + shield_c.AttackSpeed + helmet_c.AttackSpeed + chest_c.AttackSpeed + boots_c.AttackSpeed);// 100;
+        equipBonus["Attack"] = 1f + (weaponC.Attack + shieldC.Attack + helmetC.Attack + chestC.Attack + bootsC.Attack);// 100;
+        equipBonus["Defense"] = 1f + (weaponC.Defense + shieldC.Defense + helmetC.Defense + chestC.Defense + bootsC.Defense);// 100;
+        equipBonus["Weight"] = 1f + (weaponC.Weight + shieldC.Weight + helmetC.Weight + chestC.Weight + bootsC.Weight);// 100;
+        equipBonus["MaxHealth"] = 1f + (weaponC.MaxHealth + shieldC.MaxHealth + helmetC.MaxHealth + chestC.MaxHealth + bootsC.MaxHealth);// 100;
+        equipBonus["HealthRegeneration"] = 1f + (weaponC.HealthRegeneration + shieldC.HealthRegeneration + helmetC.HealthRegeneration + chestC.HealthRegeneration + bootsC.HealthRegeneration);// 100;
+        equipBonus["MaxMana"] = 1f + (weaponC.MaxMana + shieldC.MaxMana + helmetC.MaxMana + chestC.MaxMana + bootsC.MaxMana);// 100;
+        equipBonus["SpellPower"] = 1f + (weaponC.SpellPower + shieldC.SpellPower + helmetC.SpellPower + chestC.SpellPower + bootsC.SpellPower);// 100;
+        equipBonus["Precision"] = 1f + (weaponC.Precision + shieldC.Precision + helmetC.Precision + chestC.Precision + bootsC.Precision);// 100;
+        equipBonus["AttackSpeed"] = 1f + (weaponC.AttackSpeed + shieldC.AttackSpeed + helmetC.AttackSpeed + chestC.AttackSpeed + bootsC.AttackSpeed);// 100;
 
         return equipBonus;
     }

@@ -21,7 +21,7 @@ public class ModuleConnector : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-        var scale = 1.0f;
+        const float scale = 1.0f;
 
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * scale);

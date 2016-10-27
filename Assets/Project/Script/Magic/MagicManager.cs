@@ -41,7 +41,7 @@ public class MagicManager : MonoBehaviour
 
     private void InitKeyList()
     {
-        int keyAvailable = 9;
+        const int keyAvailable = 9;
         // + 1 because of the list beginning at 0
         for (int i = 0; i < keyAvailable + 1; i++)
             magicKeySelected.Add(null);
