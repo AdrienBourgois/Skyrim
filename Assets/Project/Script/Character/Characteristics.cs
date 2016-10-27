@@ -45,7 +45,17 @@ public class Characteristics
 
     private float health;
     public float Health
-    { get { return health; } set { health = value; } }
+    {
+        get { return health; }
+        set
+        {
+            health = value;
+            if (health > maxHealth)
+                health = maxHealth;
+            if (health < 0)
+                health = 0;
+        }
+    }
 
     #endregion
 
@@ -57,7 +67,16 @@ public class Characteristics
 
     private float mana;
     public float Mana
-    { get { return mana; } private set { mana = value; } }
+    {
+        get { return mana; }
+        set
+        { mana = value;
+            if (mana > maxMana)
+                mana = maxMana;
+            if (mana < 0)
+                mana = 0;
+        }
+    }
 
     #endregion
 

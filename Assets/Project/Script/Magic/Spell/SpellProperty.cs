@@ -5,13 +5,6 @@ public class SpellProperty
 {
     #region Serialized Fields
     [SerializeField]
-    protected string magicName;
-    public string MagicName
-    {
-        get { return magicName; }
-    }
-
-    [SerializeField]
     protected float power = 10f;
     public float Power
     {
@@ -33,9 +26,6 @@ public class SpellProperty
     }
 
     [SerializeField]
-    protected float lifeTime = 10f;
-
-    [SerializeField]
     protected MagicManager.MagicID id = MagicManager.MagicID.NONE;
     public MagicManager.MagicID ID
     {
@@ -50,33 +40,20 @@ public class SpellProperty
     }
     #endregion
 
-    //protected virtual void Start()
-    //{
-    //    Destroy(gameObject, lifeTime);
-    //}
-
-
-    
-    //protected virtual void OnDestroy()
-    //{
-
-    //}
-
-    public void Init(string name, float power, int cost, float lifeTime, string description, MagicManager.MagicID id, MagicManager.MagicType type)
+    public void Init(MagicManager.MagicID id, MagicManager.MagicType type , float power, int cost, string description)
     {
-        this.magicName = name;
-        this.power = power;
-        this.cost = cost;
-        this.lifeTime = lifeTime;
-        this.description = description;
         this.id = id;
         this.type = type;
+        this.power = power;
+        this.cost = cost;
+        this.description = description;
+        
     }
 
     public string GetMemberStringFromString(string memberName)
     {
         if (memberName == "Name")
-            return magicName;
+            return id.ToString();
 
         else if (memberName == "Power")
             return power.ToString();

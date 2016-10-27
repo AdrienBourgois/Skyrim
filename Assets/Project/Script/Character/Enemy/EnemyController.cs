@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using System.Collections;
 
-public class PlayerController : ACharacterController
+public class EnemyController : ACharacterController
 {
+
     #region Delegates and events
     public delegate void DelegateAction();
     public event DelegateAction OnLeftDown;
@@ -15,6 +17,8 @@ public class PlayerController : ACharacterController
         base.Start();
         characterWeapons.SetCharacter(character);
         target = FindObjectOfType<Cam>().transform;
+
+        ControllerDrawSheathSword();
     }
 
     protected override void Update()
@@ -27,55 +31,25 @@ public class PlayerController : ACharacterController
             return;
         }
 
-        UpdateInput();
+        UpdateIA();
     }
 
-    private void UpdateInput()
+    private void UpdateIA()
     {
-        #region Movement / Locomotion
-        if (IsGrounded)
-        {
-            if (Input.GetButtonDown("Jump"))
-                ControllerJump(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            else
-                ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        }
 
-        ControllerCrouch(Input.GetButton("Crouch"));
-        #endregion
+        ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        #region Magic
-        for (int i = 1; i <= 9; i++)
-        {
-            if (Input.GetButtonDown("Magic " + i))
-            {
-                ControllerSelectMagic(i);
-                break;
-            }
-        }
-
-        if (Input.GetButtonDown("No Magic"))
-            ControllerUnselectMagic();
-
-        if (Input.GetButtonDown("CastSpell"))
-            ControllerCastSpell();
-        #endregion
+        //if (Input.GetButtonDown("CastSpell"))
+        //    ControllerCastSpell();
 
         #region Hands actions
-        if (Input.GetButtonDown("RightHand"))
-            ControllerRightHand();
+            //ControllerRightHand();
 
-        if (Input.GetButtonDown("LeftHand"))
-            ControllerLeftHand(true);
-        else if (Input.GetButtonUp("LeftHand"))
-            ControllerLeftHand(false);
+            //ControllerLeftHand(true);
+            //ControllerLeftHand(false);
 
-        if (Input.GetButtonDown("SwitchWeapon"))
-            ControllerDrawSheathSword();
+            //ControllerDrawSheathSword();
         #endregion
-
-        if (Input.GetButtonDown("Use"))
-            ControllerUse();
     }
 
     #region Controller

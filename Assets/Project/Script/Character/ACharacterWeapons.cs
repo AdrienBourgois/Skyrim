@@ -15,9 +15,8 @@ public class ACharacterWeapons : MonoBehaviour
     private WeaponAnchor leftHand = null;
     private WeaponAnchor rightHand = null;
 
-    private MagicManager.MagicID magicID = MagicManager.MagicID.NONE;
-    public MagicManager.MagicID ActiveMagic { get { return magicID; } }
-    private SpellProperty magic = null;
+    private SpellProperty spellProp = null;
+    private ASpell spell = null;
 
     
     void Start()
@@ -71,29 +70,35 @@ public class ACharacterWeapons : MonoBehaviour
 
     public void InstanciateMagic()
     {
-        if (magicID != MagicManager.MagicID.NONE)
+
+        if (spellProp == null || spell != null
+            || controller.Character.CharacterStats.UnitCharacteristics.Mana < spellProp.Cost)
+                return;
+
+
+        if (MagicManager.MagicID.NONE < spellProp.ID && spellProp.ID < MagicManager.MagicID.COUNT)
         {
-           // ASpell magicGao = MagicManager.Instance.CreateSpell(magic);
-            //magic = MagicManager.Instance.CreateSpell(magicID, controller);
-            //magic.gao.transform.parent = rightHandAnchor.transform;
-            //magic.gao.transform.localPosition = Vector3.zero;
+            controller.Character.CharacterStats.UnitCharacteristics.Mana -= spellProp.Cost;
+
+            spell = MagicManager.Instance.CreateSpell(spellProp, controller);
+            spell.gameObject.transform.parent = rightHandAnchor.transform;
+            spell.gameObject.transform.localPosition = Vector3.zero;
         }
     }
 
     public void ActivateMagic()
     {
-        if (magic != null)
+        if (spell != null)
         {
-            //magic.Activate();
-            magic = null;
+            spell.Activate();
+            spell = null;
         }
         else
             Debug.LogWarning("ACharacterWeapon.ActivateMagic() - member \"magic\" is null");
     }
 
-    public void SetActiveMagic(SpellProperty magic)
+    public void SetActiveMagic(SpellProperty spellProp)
     {
-        this.magic = magic;
-        magicID = magic.ID;
+        this.spellProp = spellProp;
     }
 }
