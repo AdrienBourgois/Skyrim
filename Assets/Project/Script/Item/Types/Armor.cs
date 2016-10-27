@@ -12,18 +12,13 @@ public class Armor : Item, ITypeItem {
     protected armor_type armorType;
     private Characteristics characteristics = new Characteristics();
 
-    private int defenseValue;
-    public int Defense
-    {
-        get { return defenseValue; }
-        protected set { defenseValue = value; }
-    }
+    public int Defense { get; protected set; }
 
     public string GetItemInformations()
     {
         return GetItemGeneralInformations() +
             "\n=====================================" +
-            "\nArmor : " + defenseValue
+            "\nArmor : " + Defense
             + GetBonusInformations();
     }
 

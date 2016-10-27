@@ -7,41 +7,29 @@ public class Characteristics
 
     #region Attack
 
-    private float attack;
-    public float Attack
-    { get { return attack; } set { attack = value; } }
+    public float Attack { get; set; }
 
     #endregion
 
     #region Defense
 
-    private float defense;
-    public float Defense
-    { get { return defense; } set { defense = value; } }
+    public float Defense { get; set; }
 
     #endregion
 
     #region Weight
 
-    private float playerWeight;
-    public float PlayerWeight
-    { get { return playerWeight; } set { playerWeight = value; } }
+    public float PlayerWeight { get; set; }
 
-    private float weight;
-    public float Weight
-    { get { return weight; } set { weight = value; } }
+    public float Weight { get; set; }
 
     #endregion
 
     #region Health
 
-    private float maxHealth;
-    public float MaxHealth
-    { get { return maxHealth; } set { maxHealth = value; } }
+    public float MaxHealth { get; set; }
 
-    private float healthRegeneration;
-    public float HealthRegeneration
-    { get { return healthRegeneration; } set { healthRegeneration = value; } }
+    public float HealthRegeneration { get; set; }
 
     private float health;
     public float Health
@@ -50,8 +38,8 @@ public class Characteristics
         set
         {
             health = value;
-            if (health > maxHealth)
-                health = maxHealth;
+            if (health > MaxHealth)
+                health = MaxHealth;
             if (health < 0)
                 health = 0;
         }
@@ -61,9 +49,7 @@ public class Characteristics
 
     #region Mana
 
-    private float maxMana;
-    public float MaxMana
-    { get { return maxMana; } set { maxMana = value; } }
+    public float MaxMana { get; set; }
 
     private float mana;
     public float Mana
@@ -71,8 +57,8 @@ public class Characteristics
         get { return mana; }
         set
         { mana = value;
-            if (mana > maxMana)
-                mana = maxMana;
+            if (mana > MaxMana)
+                mana = MaxMana;
             if (mana < 0)
                 mana = 0;
         }
@@ -82,42 +68,36 @@ public class Characteristics
 
     #region SpellPower
 
-    private float spellPower;
-    public float SpellPower
-    { get { return spellPower; } set { spellPower = value; } }
+    public float SpellPower { get; set; }
 
     #endregion
 
     #region Precision
 
-    private float precision;
-    public float Precision
-    { get { return precision; } set { precision = value; } }
+    public float Precision { get; set; }
 
     #endregion
 
     #region AttackSpeed
 
-    private float attackSpeed;
-    public float AttackSpeed
-    { get { return attackSpeed; } set { attackSpeed = value; } }
+    public float AttackSpeed { get; set; }
 
     #endregion
 
     public void UpdateCharacDict()
     {
-        characDict["Attack"] = attack;
-        characDict["Defense"] = defense;
-        characDict["PlayerWeigth"] = playerWeight;
-        characDict["Weight"] = weight;
-        characDict["MaxHealth"] = maxHealth;
+        characDict["Attack"] = Attack;
+        characDict["Defense"] = Defense;
+        characDict["PlayerWeigth"] = PlayerWeight;
+        characDict["Weight"] = Weight;
+        characDict["MaxHealth"] = MaxHealth;
         characDict["Health"] = health;
-        characDict["HealthRegeneration"] = healthRegeneration;
-        characDict["MaxMana"] = maxMana;
+        characDict["HealthRegeneration"] = HealthRegeneration;
+        characDict["MaxMana"] = MaxMana;
         characDict["Mana"] = mana;
-        characDict["SpellPower"] = spellPower;
-        characDict["Precision"] = precision;
-        characDict["AttackSpeed"] = attackSpeed;
+        characDict["SpellPower"] = SpellPower;
+        characDict["Precision"] = Precision;
+        characDict["AttackSpeed"] = AttackSpeed;
     }
 
     public void RegenFullHealthAndMana()

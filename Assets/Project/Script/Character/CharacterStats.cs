@@ -48,12 +48,14 @@ public class CharacterStats
 
     public Characteristics SimulateCharac(int _level,float _playerWeigth, int _strength, int _constit, int _intel, int _dexterity)
     {
-        Characteristics characs = new Characteristics();
+        Characteristics characs = new Characteristics
+        {
+            Attack = Mathf.Exp((_level/8f))*_strength,
+            Defense = Mathf.Exp((_level/8f))*_constit,
+            Weight = (_strength + _level)*10,
+            MaxHealth = Mathf.Exp(_level/6f)*_constit + 100
+        };
 
-        characs.Attack = Mathf.Exp((_level / 8f)) * _strength;
-        characs.Defense = Mathf.Exp((_level / 8f)) * _constit;
-        characs.Weight = (_strength + _level) * 10;
-        characs.MaxHealth = Mathf.Exp(_level / 6f) * _constit + 100;
         characs.HealthRegeneration = characs.MaxHealth / (50 - (_constit * 0.25f));
         characs.MaxMana = _intel * 10;
         characs.SpellPower = 1 + ((float)_level * _intel) / 100;

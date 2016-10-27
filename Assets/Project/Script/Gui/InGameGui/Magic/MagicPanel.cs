@@ -9,9 +9,7 @@ public class MagicPanel : MonoBehaviour
 
     private GameObject buttonPrefab;
 
-    private SpellProperty displayedMagic;
-	public SpellProperty DisplayedMagic
-    { get { return displayedMagic; } }
+    public SpellProperty DisplayedMagic { get; private set; }
 
     private void Start ()
     {
@@ -69,7 +67,7 @@ public class MagicPanel : MonoBehaviour
         if (magic == null)
             return;
 
-        displayedMagic = magic;
+        DisplayedMagic = magic;
 
         foreach (Transform child in transform.FindChild("Info"))
             child.GetChild(0).GetComponent<Text>().text = magic.GetMemberStringFromString(child.name);
