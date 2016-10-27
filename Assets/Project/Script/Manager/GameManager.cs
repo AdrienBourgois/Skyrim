@@ -100,9 +100,6 @@ public class GameManager : MonoBehaviour
             case "DungeonGenerator":
                 EnterDungeonInit();
                 break;
-
-            default:
-                break;
         }
     }
 
@@ -138,9 +135,6 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.StateNb:
                 break;
-
-            default:
-                break;
         }
 
         if (onStateChanged != null)
@@ -158,7 +152,7 @@ public class GameManager : MonoBehaviour
     private void MainMenuInit()
     {
         CurrGameState = GameState.MainMenu;
-        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Menu);
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Menu);
     }
 
     private void InGameInit()
@@ -168,7 +162,7 @@ public class GameManager : MonoBehaviour
 
         if (!loadLevel)
             OnPause();
-        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
     }
 
 

@@ -5,20 +5,14 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Animation))]
 public class Door : MonoBehaviour, IUsableObject
 {
-
-    private Animation anim;
-    private bool hasBeenOpen = false;
-
-
     public void OnUse(ACharacter character)
     {
        StartCoroutine(TeleportToTown(character));
-        
     }
 
     private void Start () {
 
-        anim = GetComponent<Animation>();
+        GetComponent<Animation>();
         Door spawn = GetComponentInChildren<Door>();
         GameObject player = GameObject.Find("Player");
         if (player != null)
@@ -30,8 +24,5 @@ public class Door : MonoBehaviour, IUsableObject
         Destroy(FindObjectOfType<Cam>());
         SceneManager.LoadSceneAsync("BaseScene");
         yield return new WaitForSeconds(0.1f);
-        
-    }
-
-     
+    }     
 }
