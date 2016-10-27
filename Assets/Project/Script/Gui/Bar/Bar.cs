@@ -10,7 +10,9 @@ public class Bar : MonoBehaviour {
 
     private void Start ()
     {
-        player = FindObjectOfType<Player>();
+        player = LevelManager.Instance.Player;
+
+        Debug.Log("plop");
 
         bar = transform.FindChild("Bar").GetComponent<RectTransform>();
         point = transform.FindChild("Point").GetComponent<Text>();
