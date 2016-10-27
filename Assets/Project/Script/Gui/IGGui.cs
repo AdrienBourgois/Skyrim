@@ -4,7 +4,7 @@ public class IGGui : MonoBehaviour
 {
     private GameObject pausePanel;
     private GameObject gameMenuPanel;
-    private InventoryGui invGui;
+    private InventoryPanelGui invPanelGui;
 
     private void Awake()
     {
@@ -48,7 +48,7 @@ public class IGGui : MonoBehaviour
         pausePanel.SetActive(false);
         pausePanel.transform.FindChild("SkillPanel").gameObject.SetActive(false);
         pausePanel.transform.FindChild("MagicPanel").gameObject.SetActive(false);
-        if (invGui)
-            invGui.Show = false;
+        if (invPanelGui)
+            invPanelGui.Show = false;
     }
 }
