@@ -7,7 +7,7 @@ public class Player : ACharacter
     public int Xp
     {
         get { return xpToLevelUp; }
-        set { xp = value; }
+        private set { xp = value; }
     }
 
     private int xpToLevelUp = 100;

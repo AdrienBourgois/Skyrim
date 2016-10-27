@@ -45,7 +45,7 @@ public class InventoryPanelGui : MonoBehaviour
 
     private Item selectedItem;
 
-    public Inventory Inventory { get; set; }
+    public Inventory Inventory { private get; set; }
 
     private bool isShow;
     public bool Show
@@ -161,7 +161,7 @@ public class InventoryPanelGui : MonoBehaviour
         ColorItem(_panel, _item);
     }
 
-    public void DisplayItem(Item _item)
+    private void DisplayItem(Item _item)
     {
         selectedItem = _item;
         if (_item != null)

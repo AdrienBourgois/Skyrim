@@ -8,7 +8,7 @@ public class CharacterFalling : ACharacterAnimatorBehaviour
         UpdateMove(_stateInfo);
 
         RaycastHit hit;
-        float distanceToLand = 3f;
+        const float distanceToLand = 3f;
         if (Physics.Raycast(CharacterController.CenterOfMass.position, -Vector3.up, out hit, distanceToLand, ~(1 << LayerMask.NameToLayer("Player"))))
         {
             _animator.SetBool("IsGrounded", true);

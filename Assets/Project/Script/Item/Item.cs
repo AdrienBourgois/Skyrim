@@ -42,7 +42,7 @@ public class Item : IComparable<Item>
         set { type = value; }
     }
 
-    public ItemRarity Rarity { get; set; }
+    public ItemRarity Rarity { protected get; set; }
 
     private int level = 1;
     public int Level
@@ -53,7 +53,7 @@ public class Item : IComparable<Item>
 
     public int Price { get; protected set; }
 
-    public ACharacter Equipped { get; set; }
+    public ACharacter Equipped { get; protected set; }
 
     private string prefabPath = "";
     public string PrefabPath
@@ -62,7 +62,7 @@ public class Item : IComparable<Item>
         protected set { prefabPath = value; }
     }
 
-    protected float rangeOfGeneration = 10;
+    protected const float rangeOfGeneration = 10;
 
     public string GetItemGeneralInformations()
     {

@@ -20,7 +20,7 @@ public class MagicKeySetter : MonoBehaviour {
         gameObject.SetActive(!gameObject.activeSelf);
     }
 
-    public void Close()
+    private void Close()
     {
         gameObject.SetActive(false);
     }
