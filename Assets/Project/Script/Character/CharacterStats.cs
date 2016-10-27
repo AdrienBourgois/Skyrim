@@ -79,8 +79,6 @@ public class CharacterStats
         Characteristics chest_c = chest != null ? chest.Characteristics : new Characteristics(0);
         Characteristics boots_c = boots != null ? boots.Characteristics : new Characteristics(0);
 
-        Debug.Log(weapon_c.MaxHealth);
-
         equipBonus["Attack"] = 1f + (weapon_c.Attack + shield_c.Attack + helmet_c.Attack + chest_c.Attack + boots_c.Attack);// 100;
         equipBonus["Defense"] = 1f + (weapon_c.Defense + shield_c.Defense + helmet_c.Defense + chest_c.Defense + boots_c.Defense);// 100;
         equipBonus["Weight"] = 1f + (weapon_c.Weight + shield_c.Weight + helmet_c.Weight + chest_c.Weight + boots_c.Weight);// 100;
