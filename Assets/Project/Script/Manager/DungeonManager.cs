@@ -39,16 +39,6 @@ public class DungeonManager : MonoBehaviour {
         modules.Add(_m);
     }
 
-
-    private void CheckConnector()
-    {
-        foreach (Module m in modules)
-            foreach (ModuleConnector slot in m.ModuleConnectorList)
-                if (slot.IsConnected == false)
-                    print(slot.transform.position);
-                
-    }
-
     private void ItemGenerator()
     {
 

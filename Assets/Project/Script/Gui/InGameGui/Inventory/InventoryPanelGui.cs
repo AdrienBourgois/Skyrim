@@ -50,7 +50,6 @@ public class InventoryPanelGui : MonoBehaviour
     private bool isShow;
     public bool Show
     {
-        get { return isShow; }
         set
         {
             if (isShow != value)
