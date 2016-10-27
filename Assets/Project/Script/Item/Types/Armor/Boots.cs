@@ -6,12 +6,9 @@ public class Boots : Armor, IEquipableItem, IInstanciableItem
     public void Equip()
     {
         Player player = LevelManager.Instance.Player;
-        if (player.Boots != null)
-            player.CharacterStats.BaseCharacteristics.Defense -= player.Boots.Defense;
-
         player.Boots = this;
-        player.CharacterStats.BaseCharacteristics.Defense += Defense;
-        //need to adjust characteristics for equipable item  
+        player.CharacterStats.SetCharacteristics(player);
+        Equipped = player;
     }
 
     public void Instantiate()

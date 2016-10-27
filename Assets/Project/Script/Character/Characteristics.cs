@@ -104,6 +104,21 @@ public class Characteristics
 
     #endregion
 
+    public Characteristics(int value)
+    {
+            attack = value;
+            defense = value;
+            weight = value;
+            maxHealth = value;
+            health = value;
+            healthRegeneration = value;
+            maxMana = value;
+            mana = value;
+            spellPower = value;
+            precision = value;
+            attackSpeed = value;
+    }
+
     public void UpdateCharacDict()
     {
         characDict["Attack"] = attack;

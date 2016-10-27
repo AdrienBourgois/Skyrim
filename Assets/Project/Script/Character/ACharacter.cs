@@ -10,6 +10,35 @@ public abstract class ACharacter : APausableObject
 
     public int MaxUnitLevel { get; protected set; }
 
+    #region Equipement
+
+    protected Weapon rightHand;
+    public Weapon RightHand
+    { get { return rightHand; }
+      set { rightHand = value; } }
+
+    protected Shield leftHand;
+    public Shield LeftHand
+    { get { return leftHand; }
+      set { leftHand = value; } }
+
+    protected Helmet helmet;
+    public Helmet Helmet
+    { get { return helmet; }
+      set { helmet = value; } }
+
+    protected Torso torso;
+    public Torso Torso
+    { get { return torso; }
+      set { torso = value; } }
+
+    protected Boots boots;
+    public Boots Boots
+    { get { return boots; }
+      set { boots = value; } }
+
+    #endregion
+
     #region Serialized Fields
     [SerializeField]
     private string unitName;
@@ -82,10 +111,23 @@ public abstract class ACharacter : APausableObject
     protected virtual void Start()
     {
         characterStats.SetCharacteristics(this);
-        CharacterStats.BaseCharacteristics.RegenFullHealthAndMana();
+        CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
 
-        // HACK: debug
         equipType = EquipType.SwordAndShield;
+    }
+
+    public void RemoveEquipement(Item equip)
+    {
+        if (RightHand == equip)
+            RightHand = null;
+        else if (LeftHand == equip)
+            LeftHand = null;
+        else if (Helmet == equip)
+            Helmet = null;
+        else if (Torso == equip)
+            Torso = null;
+        else if (Boots == equip)
+            Boots = null;
     }
 
     protected virtual void EquippedItemChanged()

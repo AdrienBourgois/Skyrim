@@ -218,6 +218,8 @@ public class InventoryGUI : MonoBehaviour
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate
             {
+                if (selected_item.Equipped)
+                    selected_item.Equipped.RemoveEquipement(selected_item);
                 Inventory.RemoveItem(selected_item);
                 ApplyFilterAndSort();
                 DisplayItem(null);

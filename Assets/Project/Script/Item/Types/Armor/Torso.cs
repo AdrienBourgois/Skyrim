@@ -5,7 +5,10 @@ public class Torso : Armor, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        LevelManager.Instance.Player.Torso = this;
+        Player player = LevelManager.Instance.Player;
+        player.Torso = this;
+        player.CharacterStats.SetCharacteristics(player);
+        Equipped = player;
     }
 
     public void Instantiate()

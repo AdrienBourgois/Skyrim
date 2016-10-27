@@ -5,7 +5,10 @@ public class Sword : Weapon, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        LevelManager.Instance.Player.RightHand = this;
+        Player player = LevelManager.Instance.Player;
+        player.RightHand = this;
+        player.CharacterStats.SetCharacteristics(player);
+        Equipped = player;
     }
 
     public void Instantiate()

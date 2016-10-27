@@ -4,7 +4,7 @@ public class HealthBar : Bar {
     private void Update ()
     {
         
-        Characteristics player_stats = player.CharacterStats.BaseCharacteristics;
+        Characteristics player_stats = player.CharacterStats.UnitCharacteristics;
         float life_ratio = player_stats.Health / player_stats.MaxHealth;
 
 

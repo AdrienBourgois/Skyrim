@@ -1,22 +1,12 @@
 ﻿public class Player : ACharacter
 {
-    #region Equipement
-
-    public Weapon RightHand { get; set; }
-
-    public Shield LeftHand { get; set; }
-
-    public Helmet Helmet { get; set; }
-
-    public Torso Torso { get; set; }
-
-    public Boots Boots { get; set; }
-
-    #endregion
-
     #region Exp
-
-    public int Xp { get; private set; }
+    private int xp = 0;
+    public int Xp
+    {
+        get { return xpToLevelUp; }
+        set { xp = value; }
+    }
 
     private int xpToLevelUp = 100;
     public int XpToLevelUp { get { return xpToLevelUp; } }
@@ -26,14 +16,7 @@
     {
         base.Start();
 
-        
-
         UnitSpells.PlayerBasicSpellInit();
-    }
-
-    void Update()
-    {
-        CharacterStats.BaseCharacteristics.Health -= 1;
     }
 
     private void LevelUp()
@@ -46,18 +29,10 @@
     }
 
     private int attributePointToAssign = 10;
-
-    public Player()
-    {
-        Xp = 0;
-    }
     public int AttributePointToAssign
     {
         get { return attributePointToAssign; }
-        set
-        {
-            if (value >= 0)
-                attributePointToAssign = value;
-        }
+        set {   if (value >= 0)
+                attributePointToAssign = value; }
     }
 }

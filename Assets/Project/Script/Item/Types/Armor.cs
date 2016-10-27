@@ -10,7 +10,9 @@ public class Armor : Item, ITypeItem {
         Shield
     }
     protected armor_type ArmorType;
-    private Characteristics characteristics = new Characteristics();
+    private Characteristics characteristics = new Characteristics(0);
+    public Characteristics Characteristics
+    { get { return characteristics; } }
 
     private int defense_value;
     public int Defense

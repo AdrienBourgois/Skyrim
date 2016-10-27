@@ -5,7 +5,10 @@ public class Shield : Armor, IEquipableItem, IInstanciableItem
 {
     public void Equip()
     {
-        LevelManager.Instance.Player.LeftHand = this;
+        Player player = LevelManager.Instance.Player;
+        player.LeftHand = this;
+        player.CharacterStats.SetCharacteristics(player);
+        Equipped = player;
     }
 
     public void Instantiate()

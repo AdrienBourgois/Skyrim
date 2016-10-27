@@ -60,7 +60,7 @@ public class AttribPanel : MonoBehaviour {
         player.CharacterStats.SetCharacteristics(player);
 
         if (player.AttributePointToAssign != bonusToAssign)
-            player.CharacterStats.BaseCharacteristics.RegenFullHealthAndMana();
+            player.CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
 
         player.AttributePointToAssign = bonusToAssign;
         UpdateStats();

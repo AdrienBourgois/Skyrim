@@ -8,7 +8,9 @@ public class Weapon : Item, ITypeItem {
         Axe
     }
     protected weapon_type WeaponType;
-    private Characteristics characteristics = new Characteristics();
+    private Characteristics characteristics = new Characteristics(0);
+    public Characteristics Characteristics
+    { get { return characteristics; } }
 
     public int Damage { get; protected set; }
 

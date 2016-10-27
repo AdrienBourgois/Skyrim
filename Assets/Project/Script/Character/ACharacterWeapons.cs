@@ -71,13 +71,13 @@ public class ACharacterWeapons : MonoBehaviour
     public bool InstanciateMagic()
     {
         if (spellProp == null || spell != null
-            || controller.Character.CharacterStats.BaseCharacteristics.Mana < spellProp.Cost)
+            || controller.Character.CharacterStats.UnitCharacteristics.Mana < spellProp.Cost)
                 return false;
 
 
         if (MagicManager.MagicID.NONE < spellProp.ID && spellProp.ID < MagicManager.MagicID.COUNT)
         {
-            controller.Character.CharacterStats.BaseCharacteristics.Mana -= spellProp.Cost;
+            controller.Character.CharacterStats.UnitCharacteristics.Mana -= spellProp.Cost;
 
             spell = MagicManager.Instance.CreateSpell(spellProp, controller);
             spell.gameObject.transform.parent = rightHandAnchor.transform;

@@ -68,7 +68,7 @@ public class Item : IComparable<Item>
         protected set { price = value; }
     }
 
-    public bool Equipped { get; set; }
+    public ACharacter Equipped { get; set; }
 
     private string prefabPath = "";
     public string PrefabPath
