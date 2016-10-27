@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ConfirmationPanel : MonoBehaviour
 {
@@ -73,6 +74,7 @@ public class ConfirmationPanel : MonoBehaviour
     private void StartNewGame()
     {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame);
+        SceneManager.LoadSceneAsync("BaseScene");
     }
 
     private void LoadSaveGame()
