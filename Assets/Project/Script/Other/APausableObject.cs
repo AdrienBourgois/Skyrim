@@ -2,7 +2,7 @@
 
 public class APausableObject : MonoBehaviour {
 
-    protected bool paused = false;
+    protected bool paused;
 
 	virtual protected void PutPause()
     {

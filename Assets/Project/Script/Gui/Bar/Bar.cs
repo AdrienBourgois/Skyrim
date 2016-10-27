@@ -11,6 +11,8 @@ public class Bar : MonoBehaviour {
     private void Start ()
     {
         player = FindObjectOfType<Player>();
+        if (player == null)
+            Debug.Log("bar.Start() - couldn't find object of type Player");
 
         bar = transform.FindChild("Bar").GetComponent<RectTransform>();
         point = transform.FindChild("Point").GetComponent<Text>();

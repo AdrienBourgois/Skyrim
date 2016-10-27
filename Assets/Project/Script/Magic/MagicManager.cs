@@ -15,7 +15,7 @@ public class MagicManager : MonoBehaviour
         Heal,
         Fireball,
         Invisibility,
-        COUNT,
+        COUNT
     }
 
     public enum MagicType
@@ -24,7 +24,7 @@ public class MagicManager : MonoBehaviour
         Self,
         Light,
         Medium,
-        Heavy,
+        Heavy
     }
 
     private Dictionary<MagicID, string> mapCachePrefabPaths = new Dictionary<MagicID, string>();
@@ -50,16 +50,16 @@ public class MagicManager : MonoBehaviour
     private void InitMap()
     {
         for (MagicID id = MagicID.NONE + 1; id < MagicID.COUNT; id++)
-            mapCachePrefabPaths.Add(id, "Magic/" + id.ToString());
+            mapCachePrefabPaths.Add(id, "Magic/" + id);
     }
 
     public ASpell CreateSpell(SpellProperty SpellProp, ACharacterController controller)
     {
         string prefabPath;
 
-        if (!mapCachePrefabPaths.TryGetValue(SpellProp.ID, out prefabPath))
+        if (!mapCachePrefabPaths.TryGetValue(SpellProp.Id, out prefabPath))
         {
-            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + SpellProp.ID + "] \"" + SpellProp.ID.ToString() + "\"");
+            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + SpellProp.Id + "] \"" + SpellProp.Id + "\"");
             return null;
         }
         Debug.Log(prefabPath);
@@ -70,7 +70,7 @@ public class MagicManager : MonoBehaviour
         return spellInstance;
     }
 
-    public SpellProperty CreateSpellProperties(MagicManager.MagicID id, MagicManager.MagicType type, float power, int cost, string description)
+    public SpellProperty CreateSpellProperties(MagicID id, MagicType type, float power, int cost, string description)
     {
         SpellProperty spellProp = new SpellProperty();
         spellProp.Init(id, type, power, cost, description);

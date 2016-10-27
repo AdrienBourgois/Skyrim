@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Cam : APausableObject
 {
@@ -12,12 +13,15 @@ public class Cam : APausableObject
     private Transform playerAnchor;
     private Transform compass;
 
-    private float rotY = 0f;
+    private float rotY;
 
     private void Awake()
     {
         GameManager.OnPause += PutPause;
+	}
 
+    private void Start()
+    {
         playerController = FindObjectOfType<PlayerController>();
         if (playerController == null)
             Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
@@ -26,22 +30,25 @@ public class Cam : APausableObject
         if (playerAnchor == null)
             Debug.LogError("Cam.Awake() - could not find child of name Hips in playerController");
 
-        compass = GameObject.FindGameObjectWithTag("Compass").transform;
+        compass = FindObjectOfType<Compass>().transform;
 
         transform.rotation = new Quaternion(playerController.transform.forward.x,
                                             playerController.transform.forward.y,
                                             playerController.transform.forward.z,
                                             0f);
-	}
+    }
 
     private void Update()
     {
-        transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
+        if (playerAnchor != null)
+        {
+            transform.position = playerAnchor.position + Vector3.up * ratioOverHips;
 
-        if (paused)
-            return;
+            if (paused)
+                return;
 
-        FpsCamUpdate();
+            FpsCamUpdate();
+        }
     }
 
     private void FpsCamUpdate()
@@ -53,9 +60,10 @@ public class Cam : APausableObject
 
         playerController.ControllerLook(-rotY, rotX);
         transform.localEulerAngles = new Vector3(-rotY, rotX, 0f);
-
-
-        rotX = compass.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility / 2;
-        GameObject.FindGameObjectWithTag("Compass").transform.localEulerAngles = new Vector3(0f, rotX, 0f);
+        if (compass != null)
+        {
+            rotX = compass.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibility / 2;
+            GameObject.FindGameObjectWithTag("Compass").transform.localEulerAngles = new Vector3(0f, rotX, 0f);
+        }
     }
 }

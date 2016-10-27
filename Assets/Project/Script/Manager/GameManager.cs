@@ -1,15 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    static public readonly string c_weaponChildName = "Weapons";
-
     public delegate void DelegateState(GameState state);
     public event DelegateState onStateChanged;
 
+    private AsyncOperation asyncSceneLoading = null;
 
-  
     static private GameManager instance;
     static public GameManager Instance
     {
@@ -29,23 +28,15 @@ public class GameManager : MonoBehaviour
     private bool loadLevel = true;
 
     #region SerializeField
-    [SerializeField] GameObject dataMgrPrefab;
-    [SerializeField] GameObject guiMgrPrefab;
-    [SerializeField] GameObject levelMgrPrefab;
-    [SerializeField] GameObject itemMgrPrefab;
-    [SerializeField] GameObject dungeonMgrPrefab;
-    [SerializeField] GameObject magicMgrPrefab;
-    [SerializeField] GameObject resourceMgrPrefab;
-    [SerializeField] GameObject audioMgrPrefab;
+    [SerializeField] private GameObject dataMgrPrefab;
+    [SerializeField] private GameObject levelMgrPrefab;
+    [SerializeField] private GameObject itemMgrPrefab;
+    [SerializeField] private GameObject dungeonMgrPrefab;
+    [SerializeField] private GameObject magicMgrPrefab;
+    [SerializeField] private GameObject resourceMgrPrefab;
     #endregion
 
     private DataManager dataMgr;
-    private LevelManager levelMgr;
-    private ItemManager itemMgr;
-    private DungeonManager dungeonMgr;
-    private MagicManager magicMgr;
-    private ResourceManager resourceMgr;
-    private AudioManager audioMgr;
 
     public enum GameState
     {
@@ -60,10 +51,11 @@ public class GameManager : MonoBehaviour
     }
 
     private GameState currGameState;
-
-  
-
-    public GameState CurrGameState { get; private set; }
+    public GameState CurrGameState
+    {
+        get { return currGameState; }
+        private set { currGameState = value; }
+    }
 
     public delegate void Pause();
     public static event Pause OnPause;
@@ -75,42 +67,13 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
-        itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
-        audioMgr = AudioManager.Instance ? AudioManager.Instance : Instantiate(audioMgrPrefab).GetComponent<AudioManager>();
-        magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
-        resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
-        levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
-
-        RecoverGameState();
+        Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
+        Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
+        Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
 	}
-
-    private void RecoverGameState()
-    {   
-        switch (dataMgr.getActiveSceneName)
-        {
-            case "Intro":
-                IntroInit(); 
-                break;
-
-            case "MainMenu":
-                MainMenuInit(); 
-                break;
-
-            case "BaseScene":
-                InGameInit(); 
-                break;
-
-            case "DungeonGenerator":
-                EnterDungeonInit();
-                break;
-
-            default:
-                break;
-        }
-    }
 
     public void ChangeGameStateTo(GameState nextGameState)
     {
@@ -144,16 +107,11 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.StateNb:
                 break;
-
-            default:
-                break;
         }
 
         if (onStateChanged != null)
             onStateChanged.Invoke(currGameState);
 
-        //if (loadLevel)
-           // dataMgr.LoadLevelFromGameState();
     }
 
     private void IntroInit()
@@ -164,7 +122,7 @@ public class GameManager : MonoBehaviour
     private void MainMenuInit()
     {
         CurrGameState = GameState.MainMenu;
-        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Menu);
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Menu);
     }
 
     private void InGameInit()
@@ -174,18 +132,33 @@ public class GameManager : MonoBehaviour
 
         if (!loadLevel)
             OnPause();
-        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
+
+        asyncSceneLoading = SceneManager.LoadSceneAsync("BaseScene");
+        StartCoroutine(WaitForLoad());
+
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
     }
 
+    private IEnumerator WaitForLoad()
+    {
+        yield return new WaitUntil(CheckIfSceneChanged);
+        if (LevelManager.Instance == null)
+            Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+    }
 
-    void EnterDungeonInit()
+    private bool CheckIfSceneChanged()
+    {
+        return asyncSceneLoading.isDone;
+    }
+
+    private void EnterDungeonInit()
     {
         currGameState = GameState.EnterDungeon;
 
-        dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
+        Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
     }
 
-    void PopulateDungeonInit()
+    private void PopulateDungeonInit()
     {
         currGameState = GameState.PopulateDungeon;
     }

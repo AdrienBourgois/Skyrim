@@ -8,8 +8,7 @@ public class PlayerController : ACharacterController
     public event DelegateAction OnLeftUp;
     public event DelegateAction OnRightDown;
     #endregion
-
-
+    
     protected override void Start()
     {
         base.Start();
@@ -20,6 +19,9 @@ public class PlayerController : ACharacterController
     protected override void Update()
     {
         ResetTriggers();
+
+        if (target == null)
+            target = FindObjectOfType<Cam>().transform;
 
         if (paused)
         {
@@ -66,7 +68,7 @@ public class PlayerController : ACharacterController
             ControllerRightHand();
 
         if (Input.GetButtonDown("LeftHand"))
-            ControllerLeftHand(true);
+            ControllerLeftHand();
         else if (Input.GetButtonUp("LeftHand"))
             ControllerLeftHand(false);
 
@@ -88,11 +90,11 @@ public class PlayerController : ACharacterController
             OnRightDown.Invoke();
     }
 
-    protected override void ControllerLeftHand(bool bIsPressed = true)
+    protected override void ControllerLeftHand(bool _bIsPressed = true)
     {
-        base.ControllerLeftHand(bIsPressed);
+        base.ControllerLeftHand(_bIsPressed);
 
-        if (bIsPressed)
+        if (_bIsPressed)
         {
             if (OnLeftDown != null)
                 OnLeftDown.Invoke();

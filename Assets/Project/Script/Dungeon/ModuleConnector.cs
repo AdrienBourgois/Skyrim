@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-
 
 
 public class ModuleConnector : MonoBehaviour {
@@ -8,9 +6,7 @@ public class ModuleConnector : MonoBehaviour {
     public string[] Tags;
     public bool IsDefault;
 
-    private bool isConnected;
-
-    void Awake()
+    private void Awake()
     {
 
         // transform.parent is the Module, this ModuleConnector is connected to
@@ -21,20 +17,9 @@ public class ModuleConnector : MonoBehaviour {
     }
 
 
-    public bool IsConnected
-    {
-        get
-        {
-            return isConnected;
-        }
+    public bool IsConnected { get; set; }
 
-        set
-        {
-            isConnected = value;
-        }
-    }
-
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         var scale = 1.0f;
 

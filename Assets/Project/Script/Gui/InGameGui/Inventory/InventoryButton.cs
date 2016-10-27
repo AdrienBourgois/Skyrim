@@ -2,14 +2,14 @@
 
 public class InventoryButton : MonoBehaviour
 {
-    private InventoryGUI invGui;
+    private InventoryPanelGui invPanelGui;
     private GameObject pausePanel;
     private Player player;
 
     private void Start()
     {
         player = LevelManager.Instance.Player;
-        invGui = InventoryGUI.Instance;
+        invPanelGui = InventoryPanelGui.Instance;
         pausePanel = GameObject.Find("PausePanel");
     }
 	
@@ -17,8 +17,8 @@ public class InventoryButton : MonoBehaviour
     {
         pausePanel.SetActive(false);
         Inventory inventory = player.UnitInventory;
-        invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.PlayerInventory;
-        invGui.Inventory = inventory;
-        invGui.Show = true;
+        invPanelGui.currentGuiAction = InventoryPanelGui.InventoryGuiType.PlayerInventory;
+        invPanelGui.Inventory = inventory;
+        invPanelGui.Show = true;
     }
 }

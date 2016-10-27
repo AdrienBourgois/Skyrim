@@ -47,7 +47,7 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         CheckEmptyConnection(pendingConnections, modules[2]);
-        
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.PopulateDungeon);
     }
 
     private void ModuleCreation(Module module, ModuleConnector pendingConnection, List<ModuleConnector> newConnections)

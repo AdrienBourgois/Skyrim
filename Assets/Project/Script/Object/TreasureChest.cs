@@ -3,43 +3,39 @@
 [RequireComponent (typeof(Animation))]
 public class TreasureChest : MonoBehaviour, IUsableObject
 {
-    private Animation anim = null;
-    private bool hasBeenOpen = false;
-    InventoryGUI invGui = null;
-    Inventory inv = new Inventory();
-    UnityEngine.Events.UnityAction OnCloseChest = null;
+    private Animation anim;
+    private bool hasBeenOpen;
+    private InventoryPanelGui invPanelGui;
+    private Inventory inv = new Inventory();
+    private UnityEngine.Events.UnityAction OnCloseChest;
 
 
     private void Awake()
     {
         anim = GetComponent<Animation>();
 
-        invGui = InventoryGUI.Instance;
+        invPanelGui = InventoryPanelGui.Instance;
     }
 
-    void Start()
+    private void Start()
     {
-        
-        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, 10);
+        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
 
-        OnCloseChest = delegate { CloseChest(); };
-
+        OnCloseChest = CloseChest;
     }
-
-
 
     public void OnUse(ACharacter character)
     {
         if (hasBeenOpen == false)
         {
-            invGui.Inventory = inv;
-            invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.ChestInventory;
+            invPanelGui.Inventory = inv;
+            invPanelGui.currentGuiAction = InventoryPanelGui.InventoryGuiType.ChestInventory;
             
            
             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
-            invGui.Show = true;
+            invPanelGui.Show = true;
             if (OnCloseChest != null)
-                invGui.OnQuitButton.AddListener(OnCloseChest);
+                invPanelGui.onQuitButton.AddListener(OnCloseChest);
 
             anim.Play("open");
             hasBeenOpen = true;
@@ -50,20 +46,18 @@ public class TreasureChest : MonoBehaviour, IUsableObject
             hasBeenOpen = false;
         }
 
-        //anim.Play("idle");
     }
     
     private void CloseChest()
     {
-        if (hasBeenOpen == true)
+        if (hasBeenOpen)
         {
             anim.Play("close");
             hasBeenOpen = false;
         }
 
-        //anim.Play("idle");
 
-        invGui.OnQuitButton.RemoveListener(OnCloseChest);
+        invPanelGui.onQuitButton.RemoveListener(OnCloseChest);
     }
 
 }

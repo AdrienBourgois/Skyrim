@@ -10,14 +10,14 @@ public class Inventory
         set { list = value; }
     }
 
-    public void AddItem<T>(T item) where T : Item
+    public void AddItem<T>(T _item) where T : Item
     {
-        list.Add(item);
+        list.Add(_item);
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(Item _item)
     {
-        list.Remove(item);
+        list.Remove(_item);
     }
 
     public void DisplayInventory()
@@ -26,22 +26,22 @@ public class Inventory
         {
             if (item is ITypeItem)
             {
-                ITypeItem instanciable_item = (ITypeItem)item;
-                Debug.Log(instanciable_item.GetItemInformations());
+                ITypeItem instanciableItem = (ITypeItem)item;
+                Debug.Log(instanciableItem.GetItemInformations());
             }
             else
                 Debug.Log(item.GetItemGeneralInformations());
         }
     }
 
-    public void DisplayList<T>(List<T> list_to_display) where T : Item
+    public void DisplayList<T>(List<T> _listToDisplay) where T : Item
     {
-        foreach (T item in list_to_display)
+        foreach (T item in _listToDisplay)
         {
             if (item is ITypeItem)
             {
-                ITypeItem instanciable_item = (ITypeItem)item;
-                Debug.Log(instanciable_item.GetItemInformations());
+                ITypeItem instanciableItem = (ITypeItem)item;
+                Debug.Log(instanciableItem.GetItemInformations());
             }
             else
                 Debug.Log(item.GetItemGeneralInformations());
@@ -50,46 +50,46 @@ public class Inventory
 
     public List<Item> GetItems<T>() where T : Item
     {
-        List<Item> items_list = new List<Item>();
+        List<Item> itemsList = new List<Item>();
         foreach (Item item in list)
         {
             if (item is T)
-                items_list.Add(item);
+                itemsList.Add(item);
         }
 
-        return items_list;
+        return itemsList;
     }
 
     public List<Item> GetItemsByType<T>() where T : Item
     {
-        List<Item> items_list = new List<Item>();
+        List<Item> itemsList = new List<Item>();
         foreach (Item item in list)
         {
             if (item is T)
-                items_list.Add(item);
+                itemsList.Add(item);
         }
 
-        return items_list;
+        return itemsList;
     }
 
-    public List<Item> GetItemsByTypeSorted<T>(string sort_type)
+    public List<Item> GetItemsByTypeSorted<T>(string _sortType)
     {
-        List<Item> items_list = new List<Item>();
+        List<Item> itemsList = new List<Item>();
         foreach (Item item in list)
         {
             if (item is T)
-                items_list.Add(item);
+                itemsList.Add(item);
         }
 
-        if (sort_type == "LVL")
-            items_list.Sort(new ItemLVLComparer());
-        else if (sort_type == "Name")
-            items_list.Sort(new ItemNameComparer());
-        else if (sort_type == "Weight")
-            items_list.Sort(new ItemWeightComparer());
-        else if (sort_type == "Price")
-            items_list.Sort(new ItemPriceComparer());
+        if (_sortType == "LVL")
+            itemsList.Sort(new ItemLvlComparer());
+        else if (_sortType == "Name")
+            itemsList.Sort(new ItemNameComparer());
+        else if (_sortType == "Weight")
+            itemsList.Sort(new ItemWeightComparer());
+        else if (_sortType == "Price")
+            itemsList.Sort(new ItemPriceComparer());
 
-        return items_list;
+        return itemsList;
     }
 }

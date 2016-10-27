@@ -10,46 +10,43 @@ public class Armor : Item, ITypeItem {
         Shield
     }
     protected armor_type ArmorType;
-    private Characteristics characteristics = new Characteristics();
+    private Characteristics characteristics = new Characteristics(0);
+    public Characteristics Characteristics
+    { get { return characteristics; } }
 
-    private int defense_value;
-    public int Defense
-    {
-        get { return defense_value; }
-        protected set { defense_value = value; }
-    }
+    public int Defense { get; protected set; }
 
     public string GetItemInformations()
     {
         return GetItemGeneralInformations() +
             "\n=====================================" +
-            "\nArmor : " + defense_value
+            "\nArmor : " + Defense
             + GetBonusInformations();
     }
 
     private string GetBonusInformations()
     {
-        string bonus_informations = "\n================ BONUS ===============";
+        string bonusInformations = "\n================ BONUS ===============";
         if (characteristics.Attack != 0)
-            bonus_informations += "\nAttack : +" + (int)(characteristics.Attack * 100) + "%";
+            bonusInformations += "\nAttack : +" + (int)(characteristics.Attack * 100f) + "%";
         if (characteristics.AttackSpeed != 0)
-            bonus_informations += "\nAttackSpeed : +" + (int)(characteristics.AttackSpeed * 100) + "%";
+            bonusInformations += "\nAttackSpeed : +" + (int)(characteristics.AttackSpeed * 100f) + "%";
         if (characteristics.Defense != 0)
-            bonus_informations += "\nDefense : +" + (int)(characteristics.Defense * 100) + "%";
-        if (characteristics.Health != 0)
-            bonus_informations += "\nHealth : +" + (int)(characteristics.Health * 100) + "%";
-        if (characteristics.Health != 0)
-            bonus_informations += "\nHealth : +" + (int)(characteristics.Health * 100) + "%";
+            bonusInformations += "\nDefense : +" + (int)(characteristics.Defense * 100f) + "%";
+        if (characteristics.MaxHealth != 0)
+            bonusInformations += "\nHealth : +" + (int)(characteristics.MaxHealth * 100f) + "%";
+        if (characteristics.HealthRegeneration != 0)
+            bonusInformations += "\nHealthRegeneration : +" + (int)(characteristics.HealthRegeneration * 100f) + "%";
         if (characteristics.Mana != 0)
-            bonus_informations += "\nMana : +" + (int)(characteristics.Mana * 100) + "%";
+            bonusInformations += "\nMana : +" + (int)(characteristics.Mana * 100f) + "%";
         if (characteristics.Precision != 0)
-            bonus_informations += "\nPrecision : +" + (int)(characteristics.Precision * 100) + "%";
+            bonusInformations += "\nPrecision : +" + (int)(characteristics.Precision * 100f) + "%";
         if (characteristics.SpellPower != 0)
-            bonus_informations += "\nSpellPower : +" + (int)(characteristics.SpellPower * 100) + "%";
+            bonusInformations += "\nSpellPower : +" + (int)(characteristics.SpellPower * 100f) + "%";
         if (characteristics.Weight != 0)
-            bonus_informations += "\nWeight : +" + (int)(characteristics.Weight * 100) + "%";
+            bonusInformations += "\nWeight : +" + (int)(characteristics.Weight * 100f) + "%";
 
-        return bonus_informations;
+        return bonusInformations;
     }
 
     protected void SetRandAttributes()
