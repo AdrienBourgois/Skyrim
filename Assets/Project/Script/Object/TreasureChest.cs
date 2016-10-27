@@ -54,7 +54,7 @@ public class TreasureChest : MonoBehaviour, IUsableObject
     
     private void CloseChest()
     {
-        if (hasBeenOpen == true)
+        if (hasBeenOpen)
         {
             anim.Play("close");
             hasBeenOpen = false;

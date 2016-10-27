@@ -24,7 +24,7 @@ public class InventoryGUI : MonoBehaviour
         PlayerInventory,
         VendorInventory,
         EnemyInventory,
-        ChestInventory,
+        ChestInventory
     }
     public Inventory_Gui_Type current_gui_action = Inventory_Gui_Type.PlayerInventory;
 
@@ -111,7 +111,7 @@ public class InventoryGUI : MonoBehaviour
     void ApplyFilterAndSort()
     {
         Type type = types_conversion[(filter_list.options[filter_list.value].text)];
-        typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(new[] { type }).Invoke(this, null);
+        typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(type).Invoke(this, null);
     }
 
     public void DisplayInventory<T>() where T : Item
