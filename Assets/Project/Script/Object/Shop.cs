@@ -13,6 +13,10 @@ public class Shop : MonoBehaviour, IUsableObject
 
         invGui.Inventory = inv;
         invGui.currentGuiAction = InventoryGui.InventoryGuiType.VendorInventory;
+    }
+
+    void Start()
+    {
         inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
     }
 

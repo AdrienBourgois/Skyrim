@@ -198,56 +198,56 @@ public class InventoryGui : MonoBehaviour
 
         if (currentGuiAction == InventoryGuiType.PlayerInventory)
         {
-            equip_button.enabled = true;
-            equip_button.GetComponentInChildren<Text>().text = "Equip";
-            action_button.GetComponentInChildren<Text>().text = "Drop";
-            action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate
+            equipButton.enabled = true;
+            equipButton.GetComponentInChildren<Text>().text = "Equip";
+            actionButton.GetComponentInChildren<Text>().text = "Drop";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(delegate
             {
-                FindObjectOfType<Player>().CharacterStats.UnitCharacteristics.PlayerWeight -= selected_item.Weight;
-                if (selected_item.Equipped)
-                    selected_item.Equipped.RemoveEquipement(selected_item);
-                Inventory.RemoveItem(selected_item);
+                FindObjectOfType<Player>().CharacterStats.UnitCharacteristics.PlayerWeight -= selectedItem.Weight;
+                if (selectedItem.Equipped)
+                    selectedItem.Equipped.RemoveEquipement(selectedItem);
+                Inventory.RemoveItem(selectedItem);
                 ApplyFilterAndSort();
                 DisplayItem(null);
             });
         }
         else if (currentGuiAction == InventoryGuiType.EnemyInventory)
         {
-            equip_button.enabled = false;
-            equip_button.GetComponentInChildren<Text>().text = "";
-            action_button.GetComponentInChildren<Text>().text = "Take";
-            action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate
+            equipButton.enabled = false;
+            equipButton.GetComponentInChildren<Text>().text = "";
+            actionButton.GetComponentInChildren<Text>().text = "Take";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(delegate
             {
                 Player player = FindObjectOfType<Player>();
-                if (player.CanCarry(selected_item))
+                if (player.CanCarry(selectedItem))
                 {
-                    player.CharacterStats.UnitCharacteristics.PlayerWeight += selected_item.Weight;
-                    inventory.RemoveItem(selected_item);
+                    player.CharacterStats.UnitCharacteristics.PlayerWeight += selectedItem.Weight;
+                    Inventory.RemoveItem(selectedItem);
                     ApplyFilterAndSort();
                     Inventory player_inventory = player.UnitInventory;
-                    player_inventory.AddItem(selected_item);
+                    player_inventory.AddItem(selectedItem);
                     DisplayItem(null);
                 }
             });
         }
         else if (currentGuiAction == InventoryGuiType.VendorInventory)
         {
-            equip_button.enabled = false;
-            equip_button.GetComponentInChildren<Text>().text = "";
-            action_button.GetComponentInChildren<Text>().text = "Buy (Steal)";
-            action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate
+            equipButton.enabled = false;
+            equipButton.GetComponentInChildren<Text>().text = "";
+            actionButton.GetComponentInChildren<Text>().text = "Buy (Steal)";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(delegate
             {
                 Player player = FindObjectOfType<Player>();
-                if (player.CanCarry(selected_item))
+                if (player.CanCarry(selectedItem))
                 {
-                    player.CharacterStats.UnitCharacteristics.PlayerWeight += selected_item.Weight;
-                    inventory.RemoveItem(selected_item);
+                    player.CharacterStats.UnitCharacteristics.PlayerWeight += selectedItem.Weight;
+                    Inventory.RemoveItem(selectedItem);
                     ApplyFilterAndSort();
                     Inventory player_inventory = player.UnitInventory;
-                    player_inventory.AddItem(selected_item);
+                    player_inventory.AddItem(selectedItem);
                     DisplayItem(null);
                 }
             });
@@ -265,7 +265,7 @@ public class InventoryGui : MonoBehaviour
         Image image = _template.GetComponent<Image>();
         if (_item is Weapon)
             image.color = new Color(0.412f, 0.616f, 0f);
-        if (item is Armor)
+        if (_item is Armor)
             image.color = new Color(0.09f, 0.6f, 0.9f);
         else
             image.color = new Color(1f, 0.4f, 0f);

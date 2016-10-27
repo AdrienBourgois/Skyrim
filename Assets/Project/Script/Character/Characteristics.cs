@@ -86,17 +86,17 @@ public class Characteristics
 
     public Characteristics(int value)
     {
-            attack = value;
-            defense = value;
-            weight = value;
-            maxHealth = value;
-            health = value;
-            healthRegeneration = value;
-            maxMana = value;
-            mana = value;
-            spellPower = value;
-            precision = value;
-            attackSpeed = value;
+            Attack = value;
+            Defense = value;
+            Weight = value;
+            MaxHealth = value;
+            Health = value;
+            HealthRegeneration = value;
+            MaxMana = value;
+            Mana = value;
+            SpellPower = value;
+            Precision = value;
+            AttackSpeed = value;
     }
 
     public void UpdateCharacDict()
