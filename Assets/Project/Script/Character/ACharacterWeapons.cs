@@ -17,8 +17,8 @@ public class ACharacterWeapons : MonoBehaviour
 
     private SpellProperty spellProp = null;
     private ASpell spell = null;
-    
-    void Awake()
+
+    private void Awake()
     {
         if (leftHandAnchor == null || rightHandAnchor == null)
             Debug.LogError("ACharacterWeapons.Start() - leftHandAnchor and rightHandAnchor should be initialized.");
@@ -32,7 +32,7 @@ public class ACharacterWeapons : MonoBehaviour
             Debug.LogError("ACharacterWeapons.Start() - couldn't get component of type WeaponAnchor in rightHandAnchor");
     }
 
-    void Start()
+    private void Start()
     {        
         leftHand.SetWeapon(ItemManager.Instance.CreateObject<Shield>());
         rightHand.SetWeapon(ItemManager.Instance.CreateObject<Sword>());
