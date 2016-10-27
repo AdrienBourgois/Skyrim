@@ -3,14 +3,12 @@ using System.Collections;
 
 public class EnemyController : ACharacterController
 {
-
     #region Delegates and events
     public delegate void DelegateAction();
     public event DelegateAction OnLeftDown;
     public event DelegateAction OnLeftUp;
     public event DelegateAction OnRightDown;
     #endregion
-
 
     protected override void Start()
     {
@@ -37,7 +35,7 @@ public class EnemyController : ACharacterController
     private void UpdateIA()
     {
 
-        ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         //if (Input.GetButtonDown("CastSpell"))
         //    ControllerCastSpell();

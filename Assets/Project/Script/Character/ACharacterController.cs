@@ -105,19 +105,20 @@ public abstract class ACharacterController : APausableObject
 
     protected virtual void ControllerMove(float xAxis, float zAxis)
     {
-        animator.SetFloat("MoveX", xAxis, 10 / character.MoveSpeed, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, 10 / character.MoveSpeed, Time.deltaTime);
+        animator.SetFloat("MoveSpeed", character.MoveSpeed);
+        animator.SetFloat("MoveX", xAxis, 0.4f, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, 0.4f, Time.deltaTime);
     }
 
     protected virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
     {
-        animator.SetFloat("MoveX", xAxis, 10 / character.MoveSpeed, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, 10 / character.MoveSpeed, Time.deltaTime);
+        animator.SetFloat("MoveX", xAxis, 0.4f, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, 0.4f, Time.deltaTime);
         animator.SetTrigger("TriggerJump");
-        Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
-        direction.Normalize();
-        direction.y = 1;
-        rb.AddForce(transform.up * character.JumpEfficiency, ForceMode.Impulse);
+        //Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
+        //direction.Normalize();
+        //direction.y = 1;
+        //rb.AddForce(transform.up * character.JumpEfficiency, ForceMode.Impulse);
         animator.SetFloat("JumpEfficiency", character.JumpEfficiency);
     }
 
@@ -214,6 +215,22 @@ public abstract class ACharacterController : APausableObject
         }
         bIsGrounded = true;
         animator.SetBool("IsGrounded", true);
+    }
+
+    protected virtual void OnTriggerStay(Collider collider)
+    {
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Character"))
+            return;
+        if (bIsGrounded == false)
+        {
+            bIsGrounded = true;
+            animator.SetBool("IsGrounded", true);
+        }
+        if (corGrounded != null)
+        {
+            StopCoroutine(corGrounded);
+            corGrounded = null;
+        }
     }
 
     protected virtual void OnTriggerExit(Collider collider)
