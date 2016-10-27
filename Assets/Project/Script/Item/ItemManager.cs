@@ -82,9 +82,11 @@ public class ItemManager : MonoBehaviour
 
     public T CreateObject<T>() where T : Item, IInstanciableItem, new()
     {
-        T item = new T();
-        item.Level = UnityEngine.Random.Range(1, 51);
-        item.Rarity = GetRandRarity();
+        T item = new T
+        {
+            Level = UnityEngine.Random.Range(1, 51),
+            Rarity = GetRandRarity()
+        };
         item.SetRandName();
         item.Instantiate();
         return item;

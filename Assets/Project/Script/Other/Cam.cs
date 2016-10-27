@@ -18,26 +18,25 @@ public class Cam : APausableObject
     private void Awake()
     {
         GameManager.OnPause += PutPause;
-
-        StartCoroutine(FindPlayer());
-
-        //playerController = FindObjectOfType<PlayerController>();
-        //if (playerController == null)
-        //    Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
-
-        //playerAnchor = playerController.transform.FindChild("Hips");
-        //if (playerAnchor == null)
-        //    Debug.LogError("Cam.Awake() - could not find child of name Hips in playerController");
-
-        //compass = GameObject.FindGameObjectWithTag("Compass").transform;
-
-        //transform.rotation = new Quaternion(playerController.transform.forward.x,
-        //                                    playerController.transform.forward.y,
-        //                                    playerController.transform.forward.z,
-        //                                    0f);
 	}
 
-    
+    private void Start()
+    {
+        playerController = FindObjectOfType<PlayerController>();
+        if (playerController == null)
+            Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
+
+        playerAnchor = playerController.transform.FindChild("Hips");
+        if (playerAnchor == null)
+            Debug.LogError("Cam.Awake() - could not find child of name Hips in playerController");
+
+        compass = FindObjectOfType<Compass>().transform;
+
+        transform.rotation = new Quaternion(playerController.transform.forward.x,
+                                            playerController.transform.forward.y,
+                                            playerController.transform.forward.z,
+                                            0f);
+    }
 
     private void Update()
     {
@@ -67,25 +66,4 @@ public class Cam : APausableObject
             GameObject.FindGameObjectWithTag("Compass").transform.localEulerAngles = new Vector3(0f, rotX, 0f);
         }
     }
-
-
-    private IEnumerator FindPlayer()
-    {
-        yield return new WaitForSeconds(0.1f);
-        playerController = FindObjectOfType<PlayerController>();
-        if (playerController == null)
-            Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
-
-        playerAnchor = playerController.transform.FindChild("Hips");
-        if (playerAnchor == null)
-            Debug.LogError("Cam.Awake() - could not find child of name Hips in playerController");
-
-        compass = GameObject.FindGameObjectWithTag("Compass").transform;
-
-        transform.rotation = new Quaternion(playerController.transform.forward.x,
-                                            playerController.transform.forward.y,
-                                            playerController.transform.forward.z,
-                                            0f);
-    }
-   
 }

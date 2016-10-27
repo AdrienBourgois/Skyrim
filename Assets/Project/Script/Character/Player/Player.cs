@@ -16,10 +16,10 @@ public class Player : ACharacter
 
     private void Awake()
     {
-        //GameObject[] playerArray = GameObject.FindGameObjectsWithTag("Player");
+    //    GameObject[] playerArray = GameObject.FindGameObjectsWithTag("Player");
 
-        //if (playerArray.Length > 1)
-        //    Destroy(gameObject);
+    //    if (playerArray.Length > 1)
+    //        Destroy(gameObject);
     }
 
     protected override void Start()
