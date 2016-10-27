@@ -1,15 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    static public readonly string c_weaponChildName = "Weapons";
-
     public delegate void DelegateState(GameState state);
     public event DelegateState onStateChanged;
 
+    private AsyncOperation asyncSceneLoading = null;
 
-  
     static private GameManager instance;
     static public GameManager Instance
     {
@@ -52,10 +51,11 @@ public class GameManager : MonoBehaviour
     }
 
     private GameState currGameState;
-
-  
-
-    public GameState CurrGameState { get; private set; }
+    public GameState CurrGameState
+    {
+        get { return currGameState; }
+        private set { currGameState = value; }
+    }
 
     public delegate void Pause();
     public static event Pause OnPause;
@@ -70,37 +70,10 @@ public class GameManager : MonoBehaviour
         Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
         Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
         Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
-        Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
-
-        RecoverGameState();
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
-
-       
 	}
-
-    private void RecoverGameState()
-    {   
-        switch (dataMgr.getActiveSceneName)
-        {
-            case "Intro":
-                IntroInit(); 
-                break;
-
-            case "MainMenu":
-                MainMenuInit(); 
-                break;
-
-            case "BaseScene":
-                InGameInit(); 
-                break;
-
-            case "DungeonGenerator":
-                EnterDungeonInit();
-                break;
-        }
-    }
 
     public void ChangeGameStateTo(GameState nextGameState)
     {
@@ -159,9 +132,24 @@ public class GameManager : MonoBehaviour
 
         if (!loadLevel)
             OnPause();
+
+        asyncSceneLoading = SceneManager.LoadSceneAsync("BaseScene");
+        StartCoroutine(WaitForLoad());
+
         AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
     }
 
+    private IEnumerator WaitForLoad()
+    {
+        yield return new WaitUntil(CheckIfSceneChanged);
+        if (LevelManager.Instance == null)
+            Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+    }
+
+    private bool CheckIfSceneChanged()
+    {
+        return asyncSceneLoading.isDone;
+    }
 
     private void EnterDungeonInit()
     {

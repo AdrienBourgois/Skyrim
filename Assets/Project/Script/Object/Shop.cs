@@ -2,20 +2,20 @@
 
 public class Shop : MonoBehaviour, IUsableObject
 {
-    private InventoryGui invGui;
+    private InventoryPanelGui invPanelGui;
     private Inventory inv = new Inventory();
 
     private void Awake()
     {
-        invGui = InventoryGui.Instance;
-        if (!invGui)
+        invPanelGui = InventoryPanelGui.Instance;
+        if (!invPanelGui)
             Debug.Log("can't find inventoryGUI on Shop.Awake()");
 
-        invGui.Inventory = inv;
-        invGui.currentGuiAction = InventoryGui.InventoryGuiType.VendorInventory;
+        invPanelGui.Inventory = inv;
+        invPanelGui.currentGuiAction = InventoryPanelGui.InventoryGuiType.VendorInventory;
     }
 
-    void Start()
+    private void Start()
     {
         inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
     }
@@ -23,6 +23,6 @@ public class Shop : MonoBehaviour, IUsableObject
     public void OnUse(ACharacter character)
     {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
-        invGui.Show = true;
+        invPanelGui.Show = true;
     }
 }

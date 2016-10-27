@@ -67,7 +67,9 @@ public abstract class ACharacterController : APausableObject
     protected virtual void Start()
     {
         characterWeapons.SetController(this);
-        target = FindObjectOfType<Player>().transform;
+        Player playerTarget = FindObjectOfType<Player>();
+        if (playerTarget != null)
+            target = playerTarget.transform;
     }
 
     protected override void PutPause()
@@ -105,19 +107,20 @@ public abstract class ACharacterController : APausableObject
 
     protected virtual void ControllerMove(float _xAxis, float _zAxis)
     {
-        animator.SetFloat("MoveX", _xAxis, character.MoveSpeed / 10, Time.deltaTime);
-        animator.SetFloat("MoveZ", _zAxis, character.MoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveSpeed", character.MoveSpeed);
+        animator.SetFloat("MoveX", _xAxis, 0.4f, Time.deltaTime);
+        animator.SetFloat("MoveZ", _zAxis, 0.4f, Time.deltaTime);
     }
 
     protected virtual void ControllerJump(float _xAxis = 0f, float _zAxis = 0f)
     {
-        animator.SetFloat("MoveX", _xAxis, character.MoveSpeed / 10, Time.deltaTime);
-        animator.SetFloat("MoveZ", _zAxis, character.MoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveX", _xAxis, 0.4f, Time.deltaTime);
+        animator.SetFloat("MoveZ", _zAxis, 0.4f, Time.deltaTime);
         animator.SetTrigger("TriggerJump");
-        Vector3 direction = transform.forward * _zAxis + transform.right * _xAxis;
-        direction.Normalize();
-        direction.y = 1;
-        rb.AddForce(transform.up * character.JumpEfficiency, ForceMode.Impulse);
+        //Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
+        //direction.Normalize();
+        //direction.y = 1;
+        //rb.AddForce(transform.up * character.JumpEfficiency, ForceMode.Impulse);
         animator.SetFloat("JumpEfficiency", character.JumpEfficiency);
     }
 
@@ -125,7 +128,7 @@ public abstract class ACharacterController : APausableObject
     {
         RaycastHit hit;
         // TODO: global(?) variable for max distance
-        float useMaxDistance = 2f;
+        const float useMaxDistance = 2f;
         if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
             IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
@@ -160,7 +163,7 @@ public abstract class ACharacterController : APausableObject
         animator.SetBool("IsCrouching", _bIsCrouch);
     }
 
-    public virtual void ControllerSelectMagic(int _key)
+    protected virtual void ControllerSelectMagic(int _key)
     {
         if (MagicManager.Instance.MagicKeySelected[_key] == null)
             return;
@@ -186,7 +189,7 @@ public abstract class ACharacterController : APausableObject
 
     protected virtual void ControllerCastSpell()
     {
-        if (!animator.GetBool("IsUsing" + character.StuffType.ToString()))
+        if (!animator.GetBool("IsUsing" + character.StuffType))
             if (characterWeapons.InstanciateMagic())
                 animator.SetTrigger("TriggerSpell");
     }
@@ -216,7 +219,23 @@ public abstract class ACharacterController : APausableObject
         animator.SetBool("IsGrounded", true);
     }
 
-    protected virtual void OnTriggerExit(Collider _collider)
+    protected virtual void OnTriggerStay(Collider collider)
+    {
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Character"))
+            return;
+        if (bIsGrounded == false)
+        {
+            bIsGrounded = true;
+            animator.SetBool("IsGrounded", true);
+        }
+        if (corGrounded != null)
+        {
+            StopCoroutine(corGrounded);
+            corGrounded = null;
+        }
+    }
+
+    protected virtual void OnTriggerExit(Collider collider)
     {
         if (corGrounded == null)
             corGrounded = StartCoroutine(CoroutineGrounded());

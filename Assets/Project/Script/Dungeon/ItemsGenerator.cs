@@ -20,11 +20,6 @@ public class ItemsGenerator : MonoBehaviour {
             m.AddGenerator(this);
     }
 
-    private void Start () {
-	
-	}
-
-
     public void CreateRandItem()
     {
         int score = Random.Range(0, 100);
@@ -57,7 +52,6 @@ public class ItemsGenerator : MonoBehaviour {
                 GameObject box = (GameObject)Instantiate(boxPrefab, transform.position, transform.rotation);
                 box.transform.SetParent(transform);
             }
-        }
-            
+        }   
     }
 }

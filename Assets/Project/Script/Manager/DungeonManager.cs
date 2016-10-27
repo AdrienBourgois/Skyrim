@@ -61,12 +61,10 @@ public class DungeonManager : MonoBehaviour {
     {
         //Use two for loop instead two foreach loop to avoid an Unity error with enumeration
 
-        for (int i = 0; i < modules.Count; i++)
+        foreach (Module m in modules)
         {
-            Module m = modules[i];
-            for (int it = 0; it < m.ItemsGeneratorList.Count; it++)
+            foreach (ItemsGenerator itGen in m.ItemsGeneratorList)
             {
-                ItemsGenerator itGen = m.ItemsGeneratorList[it];
                 if (itGen.IsConnected == false)
                 {
                     itGen.CreateRandItem();

@@ -7,19 +7,19 @@ public class Player : ACharacter
     public int Xp
     {
         get { return xpToLevelUp; }
-        set { xp = value; }
+        private set { xp = value; }
     }
 
     private int xpToLevelUp = 100;
     public int XpToLevelUp { get { return xpToLevelUp; } }
     #endregion
 
-    void Awake()
+    private void Awake()
     {
-        GameObject[] playerArray = GameObject.FindGameObjectsWithTag("Player");
+    //    GameObject[] playerArray = GameObject.FindGameObjectsWithTag("Player");
 
-        if (playerArray.Length > 1)
-            Destroy(gameObject);
+    //    if (playerArray.Length > 1)
+    //        Destroy(gameObject);
     }
 
     protected override void Start()

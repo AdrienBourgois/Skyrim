@@ -25,526 +25,530 @@ public class NameGenerator {
 
     private static List<string> PreparePrefixList()
     {
-        List<string> prefixList = new List<string>();
-        prefixList.Add("Super");
-        prefixList.Add("Mega");
-        prefixList.Add("Supra");
-        prefixList.Add("Cool");
-        prefixList.Add("Elegant");
-        prefixList.Add("Classic");
-        prefixList.Add("Strong");
-        prefixList.Add("Weird");
-        prefixList.Add("Strange");
-        prefixList.Add("Visionary");
-        prefixList.Add("Massive");
-        prefixList.Add("Cruel");
-        prefixList.Add("Savage");
-        prefixList.Add("Master's");
-        prefixList.Add("Lunar");
-        prefixList.Add("Celestial");
-        prefixList.Add("Pure");
-        prefixList.Add("Divine");
-        prefixList.Add("Sacred");
-        prefixList.Add("Glorious");
-        prefixList.Add("Victorious");
-        prefixList.Add("Acclaimed");
-        prefixList.Add("Admired");
-        prefixList.Add("Almighty");
-        prefixList.Add("Anticipated");
-        prefixList.Add("Arching");
-        prefixList.Add("Assured");
-        prefixList.Add("Astonishing");
-        prefixList.Add("Avoiding");
-        prefixList.Add("Blocking");
-        prefixList.Add("Bold");
-        prefixList.Add("Brawling");
-        prefixList.Add("Brawny");
-        prefixList.Add("Brilliant");
-        prefixList.Add("Brute");
-        prefixList.Add("Burly");
-        prefixList.Add("Butchering");
-        prefixList.Add("Calloused");
-        prefixList.Add("Celebrated");
-        prefixList.Add("Clandestine");
-        prefixList.Add("Combating");
-        prefixList.Add("Conflicting");
-        prefixList.Add("Conserving");
-        prefixList.Add("Constant");
-        prefixList.Add("Cunning");
-        prefixList.Add("Curious");
-        prefixList.Add("Daring");
-        prefixList.Add("Darting");
-        prefixList.Add("Dashing");
-        prefixList.Add("Defensive");
-        prefixList.Add("Defiant");
-        prefixList.Add("Deflecting");
-        prefixList.Add("Demolishing");
-        prefixList.Add("Dense");
-        prefixList.Add("Devastating");
-        prefixList.Add("Dignified");
-        prefixList.Add("Distinct");
-        prefixList.Add("Distinguished");
-        prefixList.Add("Diverting");
-        prefixList.Add("Divine");
-        prefixList.Add("Driving");
-        prefixList.Add("Earthen");
-        prefixList.Add("Eccentric");
-        prefixList.Add("Elevated");
-        prefixList.Add("Elite");
-        prefixList.Add("Elusive");
-        prefixList.Add("Enforced");
-        prefixList.Add("Eradicating");
-        prefixList.Add("Essential");
-        prefixList.Add("Esteemed");
-        prefixList.Add("Exalted");
-        prefixList.Add("Exceptional");
-        prefixList.Add("Excessive");
-        prefixList.Add("Fabled");
-        prefixList.Add("Fantastic");
-        prefixList.Add("Fighting");
-        prefixList.Add("Firm");
-        prefixList.Add("Flourishing");
-        prefixList.Add("Foretold");
-        prefixList.Add("Forgotten");
-        prefixList.Add("Formidable");
-        prefixList.Add("Girded");
-        prefixList.Add("Gleaming");
-        prefixList.Add("Gliding");
-        prefixList.Add("Glimmering");
-        prefixList.Add("Goring");
-        prefixList.Add("Grounded");
-        prefixList.Add("Hallowed");
-        prefixList.Add("Harsh");
-        prefixList.Add("Hefty");
-        prefixList.Add("Hulking");
-        prefixList.Add("Husky");
-        prefixList.Add("Illustrious");
-        prefixList.Add("Immaculate");
-        prefixList.Add("Immense");
-        prefixList.Add("Impeding");
-        prefixList.Add("Impressive");
-        prefixList.Add("Incomparable");
-        prefixList.Add("Incredible");
-        prefixList.Add("Informal");
-        prefixList.Add("Infused");
-        prefixList.Add("Inspired");
-        prefixList.Add("Intact");
-        prefixList.Add("Intense");
-        prefixList.Add("Launching");
-        prefixList.Add("Legendary");
-        prefixList.Add("Loyal");
-        prefixList.Add("Lurid");
-        prefixList.Add("Majestic");
-        prefixList.Add("Marvelous");
-        prefixList.Add("Merciless");
-        prefixList.Add("Meticulous");
-        prefixList.Add("Miraculous");
-        prefixList.Add("Momentous");
-        prefixList.Add("Mystic");
-        prefixList.Add("Negating");
-        prefixList.Add("Neutralizing");
-        prefixList.Add("Noble");
-        prefixList.Add("Notable");
-        prefixList.Add("Notorious");
-        prefixList.Add("Novel");
-        prefixList.Add("Obedient");
-        prefixList.Add("Obscure");
-        prefixList.Add("Obstructing");
-        prefixList.Add("Optimistic");
-        prefixList.Add("Organic");
-        prefixList.Add("Outlandish");
-        prefixList.Add("Outrageous");
-        prefixList.Add("Palpable");
-        prefixList.Add("Peerless");
-        prefixList.Add("Persevering");
-        prefixList.Add("Praised");
-        prefixList.Add("Predestined");
-        prefixList.Add("Preeminent");
-        prefixList.Add("Prevailing");
-        prefixList.Add("Pristine");
-        prefixList.Add("Prized");
-        prefixList.Add("Propelling");
-        prefixList.Add("Protective");
-        prefixList.Add("Pummeling");
-        prefixList.Add("Radiant");
-        prefixList.Add("Ravaging");
-        prefixList.Add("Recoiling");
-        prefixList.Add("Refined");
-        prefixList.Add("Relentless");
-        prefixList.Add("Reliant");
-        prefixList.Add("Remarkable");
-        prefixList.Add("Renowned");
-        prefixList.Add("Repellant");
-        prefixList.Add("Resilient");
-        prefixList.Add("Resistant");
-        prefixList.Add("Respected");
-        prefixList.Add("Retreating");
-        prefixList.Add("Revered");
-        prefixList.Add("Rough");
-        prefixList.Add("Rugged");
-        prefixList.Add("Rushing");
-        prefixList.Add("Ruthless");
-        prefixList.Add("Sabotaging");
-        prefixList.Add("Sacred");
-        prefixList.Add("Scuffling");
-        prefixList.Add("Secret");
-        prefixList.Add("Skirmishing");
-        prefixList.Add("Soaring");
-        prefixList.Add("Solemn");
-        prefixList.Add("Solid");
-        prefixList.Add("Spectacular");
-        prefixList.Add("Splendid");
-        prefixList.Add("Splendorous");
-        prefixList.Add("Stately");
-        prefixList.Add("Staunch");
-        prefixList.Add("Steadfast");
-        prefixList.Add("Stern");
-        prefixList.Add("Strategic");
-        prefixList.Add("Stringent");
-        prefixList.Add("Stupendous");
-        prefixList.Add("Sublime");
-        prefixList.Add("Superior");
-        prefixList.Add("Superlative");
-        prefixList.Add("Supreme");
-        prefixList.Add("Sustained");
-        prefixList.Add("Tactile");
-        prefixList.Add("Talismanic");
-        prefixList.Add("Tenacious");
-        prefixList.Add("Terranean");
-        prefixList.Add("Terrestrial");
-        prefixList.Add("Thwarting");
-        prefixList.Add("Treasured");
-        prefixList.Add("Trusted");
-        prefixList.Add("Uncommon");
-        prefixList.Add("Uncompromising");
-        prefixList.Add("Unequivocal");
-        prefixList.Add("Unfathomable");
-        prefixList.Add("Unparalleled");
-        prefixList.Add("Unsurpassed");
-        prefixList.Add("Unwavering");
-        prefixList.Add("Unwearied");
-        prefixList.Add("Unyielding");
-        prefixList.Add("Utmost");
-        prefixList.Add("Valued");
-        prefixList.Add("Vengeful");
-        prefixList.Add("Warring");
-        prefixList.Add("Wiley");
+        List<string> prefixList = new List<string>
+        {
+            "Super",
+            "Mega",
+            "Supra",
+            "Cool",
+            "Elegant",
+            "Classic",
+            "Strong",
+            "Weird",
+            "Strange",
+            "Visionary",
+            "Massive",
+            "Cruel",
+            "Savage",
+            "Master's",
+            "Lunar",
+            "Celestial",
+            "Pure",
+            "Divine",
+            "Sacred",
+            "Glorious",
+            "Victorious",
+            "Acclaimed",
+            "Admired",
+            "Almighty",
+            "Anticipated",
+            "Arching",
+            "Assured",
+            "Astonishing",
+            "Avoiding",
+            "Blocking",
+            "Bold",
+            "Brawling",
+            "Brawny",
+            "Brilliant",
+            "Brute",
+            "Burly",
+            "Butchering",
+            "Calloused",
+            "Celebrated",
+            "Clandestine",
+            "Combating",
+            "Conflicting",
+            "Conserving",
+            "Constant",
+            "Cunning",
+            "Curious",
+            "Daring",
+            "Darting",
+            "Dashing",
+            "Defensive",
+            "Defiant",
+            "Deflecting",
+            "Demolishing",
+            "Dense",
+            "Devastating",
+            "Dignified",
+            "Distinct",
+            "Distinguished",
+            "Diverting",
+            "Divine",
+            "Driving",
+            "Earthen",
+            "Eccentric",
+            "Elevated",
+            "Elite",
+            "Elusive",
+            "Enforced",
+            "Eradicating",
+            "Essential",
+            "Esteemed",
+            "Exalted",
+            "Exceptional",
+            "Excessive",
+            "Fabled",
+            "Fantastic",
+            "Fighting",
+            "Firm",
+            "Flourishing",
+            "Foretold",
+            "Forgotten",
+            "Formidable",
+            "Girded",
+            "Gleaming",
+            "Gliding",
+            "Glimmering",
+            "Goring",
+            "Grounded",
+            "Hallowed",
+            "Harsh",
+            "Hefty",
+            "Hulking",
+            "Husky",
+            "Illustrious",
+            "Immaculate",
+            "Immense",
+            "Impeding",
+            "Impressive",
+            "Incomparable",
+            "Incredible",
+            "Informal",
+            "Infused",
+            "Inspired",
+            "Intact",
+            "Intense",
+            "Launching",
+            "Legendary",
+            "Loyal",
+            "Lurid",
+            "Majestic",
+            "Marvelous",
+            "Merciless",
+            "Meticulous",
+            "Miraculous",
+            "Momentous",
+            "Mystic",
+            "Negating",
+            "Neutralizing",
+            "Noble",
+            "Notable",
+            "Notorious",
+            "Novel",
+            "Obedient",
+            "Obscure",
+            "Obstructing",
+            "Optimistic",
+            "Organic",
+            "Outlandish",
+            "Outrageous",
+            "Palpable",
+            "Peerless",
+            "Persevering",
+            "Praised",
+            "Predestined",
+            "Preeminent",
+            "Prevailing",
+            "Pristine",
+            "Prized",
+            "Propelling",
+            "Protective",
+            "Pummeling",
+            "Radiant",
+            "Ravaging",
+            "Recoiling",
+            "Refined",
+            "Relentless",
+            "Reliant",
+            "Remarkable",
+            "Renowned",
+            "Repellant",
+            "Resilient",
+            "Resistant",
+            "Respected",
+            "Retreating",
+            "Revered",
+            "Rough",
+            "Rugged",
+            "Rushing",
+            "Ruthless",
+            "Sabotaging",
+            "Sacred",
+            "Scuffling",
+            "Secret",
+            "Skirmishing",
+            "Soaring",
+            "Solemn",
+            "Solid",
+            "Spectacular",
+            "Splendid",
+            "Splendorous",
+            "Stately",
+            "Staunch",
+            "Steadfast",
+            "Stern",
+            "Strategic",
+            "Stringent",
+            "Stupendous",
+            "Sublime",
+            "Superior",
+            "Superlative",
+            "Supreme",
+            "Sustained",
+            "Tactile",
+            "Talismanic",
+            "Tenacious",
+            "Terranean",
+            "Terrestrial",
+            "Thwarting",
+            "Treasured",
+            "Trusted",
+            "Uncommon",
+            "Uncompromising",
+            "Unequivocal",
+            "Unfathomable",
+            "Unparalleled",
+            "Unsurpassed",
+            "Unwavering",
+            "Unwearied",
+            "Unyielding",
+            "Utmost",
+            "Valued",
+            "Vengeful",
+            "Warring",
+            "Wiley"
+        };
 
         return prefixList;
     }
 
     private static List<string> PrepareSuffixList()
     {
-        List<string> suffixList = new List<string>();
-        suffixList.Add("Made by Gods");
-        suffixList.Add("of Gold");
-        suffixList.Add("Cheated");
-        suffixList.Add("of Fire");
-        suffixList.Add("of Abundance");
-        suffixList.Add("of Acceleration");
-        suffixList.Add("of Accuracy");
-        suffixList.Add("of Adversaries");
-        suffixList.Add("of Afar");
-        suffixList.Add("of Affluence");
-        suffixList.Add("of Aggression");
-        suffixList.Add("of Agility");
-        suffixList.Add("of Agony");
-        suffixList.Add("of Ailment");
-        suffixList.Add("of Animation");
-        suffixList.Add("of Antagonism");
-        suffixList.Add("of Aptitude");
-        suffixList.Add("of Ash");
-        suffixList.Add("of Aspiration");
-        suffixList.Add("of Attainment");
-        suffixList.Add("of Awareness");
-        suffixList.Add("of Beyond");
-        suffixList.Add("of Blistering");
-        suffixList.Add("of Blizzards");
-        suffixList.Add("of Boundlessness");
-        suffixList.Add("of Bounty");
-        suffixList.Add("of Breadth");
-        suffixList.Add("of Briars");
-        suffixList.Add("of Burning");
-        suffixList.Add("of Calculation");
-        suffixList.Add("of Carnage");
-        suffixList.Add("of Carving");
-        suffixList.Add("of Cautery");
-        suffixList.Add("of Certainty");
-        suffixList.Add("of Chilling");
-        suffixList.Add("of Cinders");
-        suffixList.Add("of Clashing");
-        suffixList.Add("of Claws");
-        suffixList.Add("of Coals");
-        suffixList.Add("of Coldness");
-        suffixList.Add("of Colossus");
-        suffixList.Add("of Confidence");
-        suffixList.Add("of Consumption");
-        suffixList.Add("of Contempt");
-        suffixList.Add("of Contention");
-        suffixList.Add("of Conviction");
-        suffixList.Add("of Courage");
-        suffixList.Add("of Craft");
-        suffixList.Add("of Creation");
-        suffixList.Add("of Currents");
-        suffixList.Add("of Cyclones");
-        suffixList.Add("of Dawn");
-        suffixList.Add("of Daylight");
-        suffixList.Add("of Deception");
-        suffixList.Add("of Defiance");
-        suffixList.Add("of Design");
-        suffixList.Add("of Detail");
-        suffixList.Add("of Diligence");
-        suffixList.Add("of Discord");
-        suffixList.Add("of Disease");
-        suffixList.Add("of Disparity");
-        suffixList.Add("of Dispute");
-        suffixList.Add("of Dissension");
-        suffixList.Add("of Distance");
-        suffixList.Add("of Dread");
-        suffixList.Add("of Dusk");
-        suffixList.Add("of Embers");
-        suffixList.Add("of Emphasis");
-        suffixList.Add("of Endeavor");
-        suffixList.Add("of Endowment");
-        suffixList.Add("of Energy");
-        suffixList.Add("of Enhancement");
-        suffixList.Add("of Enormity");
-        suffixList.Add("of Epidemic");
-        suffixList.Add("of Equity");
-        suffixList.Add("of Exactness");
-        suffixList.Add("of Excellence");
-        suffixList.Add("of Excess");
-        suffixList.Add("of Exchange");
-        suffixList.Add("of Exhilaration");
-        suffixList.Add("of Expanse");
-        suffixList.Add("of Extension");
-        suffixList.Add("of Faith");
-        suffixList.Add("of Fangs");
-        suffixList.Add("of Fire");
-        suffixList.Add("of Flame");
-        suffixList.Add("of Focus");
-        suffixList.Add("of Foes");
-        suffixList.Add("of Foresight");
-        suffixList.Add("of Fortitude");
-        suffixList.Add("of Freezing");
-        suffixList.Add("of Frigidity");
-        suffixList.Add("of Frostbite");
-        suffixList.Add("of Glaciers");
-        suffixList.Add("of Glory");
-        suffixList.Add("of Grandeur");
-        suffixList.Add("of Greatness");
-        suffixList.Add("of Greed");
-        suffixList.Add("of Hail");
-        suffixList.Add("of Hardiness");
-        suffixList.Add("of Haste");
-        suffixList.Add("of Honor");
-        suffixList.Add("of Hope");
-        suffixList.Add("of Horizon");
-        suffixList.Add("of Hostility");
-        suffixList.Add("of Hurricanes");
-        suffixList.Add("of Ice");
-        suffixList.Add("of Icebergs");
-        suffixList.Add("of Ignition");
-        suffixList.Add("of Illness");
-        suffixList.Add("of Impalement");
-        suffixList.Add("of Impulse");
-        suffixList.Add("of Independence");
-        suffixList.Add("of Infection");
-        suffixList.Add("of Infirmity");
-        suffixList.Add("of Influence");
-        suffixList.Add("of Ingenuity");
-        suffixList.Add("of Insight");
-        suffixList.Add("of Intellect");
-        suffixList.Add("of Intent");
-        suffixList.Add("of Invigoration");
-        suffixList.Add("of Joviality");
-        suffixList.Add("of Judgment");
-        suffixList.Add("of Knowledge");
-        suffixList.Add("of Laceration");
-        suffixList.Add("of Lechery");
-        suffixList.Add("of Length");
-        suffixList.Add("of Lightning");
-        suffixList.Add("of Liveliness");
-        suffixList.Add("of Magnitude");
-        suffixList.Add("of Malady");
-        suffixList.Add("of Malevolence");
-        suffixList.Add("of Measure");
-        suffixList.Add("of Midnight");
-        suffixList.Add("of Might");
-        suffixList.Add("of Momentum");
-        suffixList.Add("of Monstrosity");
-        suffixList.Add("of Mortality");
-        suffixList.Add("of Numbness");
-        suffixList.Add("of Objection");
-        suffixList.Add("of Old");
-        suffixList.Add("of Omniscience");
-        suffixList.Add("of Opposition");
-        suffixList.Add("of Patience");
-        suffixList.Add("of Perfection");
-        suffixList.Add("of Perforation");
-        suffixList.Add("of Perjury");
-        suffixList.Add("of Pestilence");
-        suffixList.Add("of Precision");
-        suffixList.Add("of Premeditation");
-        suffixList.Add("of Pretense");
-        suffixList.Add("of Privilege");
-        suffixList.Add("of Projection");
-        suffixList.Add("of Prominence");
-        suffixList.Add("of Promise");
-        suffixList.Add("of Prosperity");
-        suffixList.Add("of Protest");
-        suffixList.Add("of Puncture");
-        suffixList.Add("of Purpose");
-        suffixList.Add("of Reach");
-        suffixList.Add("of Reclamation");
-        suffixList.Add("of Recovery");
-        suffixList.Add("of Recuperation");
-        suffixList.Add("of Refreshment");
-        suffixList.Add("of Refuge");
-        suffixList.Add("of Regard");
-        suffixList.Add("of Reinvention");
-        suffixList.Add("of Rejoicing");
-        suffixList.Add("of Rejuvenation");
-        suffixList.Add("of Reliance");
-        suffixList.Add("of Remoteness");
-        suffixList.Add("of Renewal");
-        suffixList.Add("of Repression");
-        suffixList.Add("of Reprieval");
-        suffixList.Add("of Resolution");
-        suffixList.Add("of Resolve");
-        suffixList.Add("of Restoration");
-        suffixList.Add("of Retaliation");
-        suffixList.Add("of Retribution");
-        suffixList.Add("of Revendication");
-        suffixList.Add("of Revenge");
-        suffixList.Add("of Reversal");
-        suffixList.Add("of Revival");
-        suffixList.Add("of Risk");
-        suffixList.Add("of Rivalry");
-        suffixList.Add("of Robustness");
-        suffixList.Add("of Scorching");
-        suffixList.Add("of Score");
-        suffixList.Add("of Searing");
-        suffixList.Add("of Seasons");
-        suffixList.Add("of Secrecy");
-        suffixList.Add("of Shadows");
-        suffixList.Add("of Sharpness");
-        suffixList.Add("of Shivering");
-        suffixList.Add("of Sickness");
-        suffixList.Add("of Singeing");
-        suffixList.Add("of Sleet");
-        suffixList.Add("of Slicing");
-        suffixList.Add("of Slush");
-        suffixList.Add("of Smoke");
-        suffixList.Add("of Snowflakes");
-        suffixList.Add("of Snowstorms");
-        suffixList.Add("of Sorrows");
-        suffixList.Add("of Span");
-        suffixList.Add("of Spikes");
-        suffixList.Add("of Stabbing");
-        suffixList.Add("of Stability");
-        suffixList.Add("of Starlight");
-        suffixList.Add("of Stretch");
-        suffixList.Add("of Stride");
-        suffixList.Add("of Strife");
-        suffixList.Add("of Strike");
-        suffixList.Add("of Struggle");
-        suffixList.Add("of Sturdiness");
-        suffixList.Add("of Sunrise");
-        suffixList.Add("of Sunset");
-        suffixList.Add("of Surplus");
-        suffixList.Add("of Survival");
-        suffixList.Add("of Symptoms");
-        suffixList.Add("of Talent");
-        suffixList.Add("of Talons");
-        suffixList.Add("of Target");
-        suffixList.Add("of Teeth");
-        suffixList.Add("of Tempests");
-        suffixList.Add("of the Badger");
-        suffixList.Add("of the Banished");
-        suffixList.Add("of the Bear");
-        suffixList.Add("of the Boar");
-        suffixList.Add("of the Deft");
-        suffixList.Add("of the Destructive");
-        suffixList.Add("of the Dexterous");
-        suffixList.Add("of the Dog");
-        suffixList.Add("of the Dove");
-        suffixList.Add("of the Eagle");
-        suffixList.Add("of the Effortless");
-        suffixList.Add("of the Falcon");
-        suffixList.Add("of the Feral");
-        suffixList.Add("of the Forgiven");
-        suffixList.Add("of the Fox");
-        suffixList.Add("of the Gull");
-        suffixList.Add("of the Haughty");
-        suffixList.Add("of the Hawk");
-        suffixList.Add("of the Heron");
-        suffixList.Add("of the Honed");
-        suffixList.Add("of the Hunter");
-        suffixList.Add("of the Jarred");
-        suffixList.Add("of the Jolted");
-        suffixList.Add("of the Leopard");
-        suffixList.Add("of the Lion");
-        suffixList.Add("of the Looter");
-        suffixList.Add("of the Nimble");
-        suffixList.Add("of the Oppressive");
-        suffixList.Add("of the Owl");
-        suffixList.Add("of the Panther");
-        suffixList.Add("of the Parasite");
-        suffixList.Add("of the Pillager");
-        suffixList.Add("of the Plunderer");
-        suffixList.Add("of the Predator");
-        suffixList.Add("of the Proud");
-        suffixList.Add("of the Provoked");
-        suffixList.Add("of the Rabid");
-        suffixList.Add("of the Raider");
-        suffixList.Add("of the Ram");
-        suffixList.Add("of the Raven");
-        suffixList.Add("of the Redeemed");
-        suffixList.Add("of the Savage");
-        suffixList.Add("of the Serpent");
-        suffixList.Add("of the Shaken");
-        suffixList.Add("of the Shocked");
-        suffixList.Add("of the Slayer");
-        suffixList.Add("of the Sparrow");
-        suffixList.Add("of the Speedy");
-        suffixList.Add("of the Spry");
-        suffixList.Add("of the Startled");
-        suffixList.Add("of the Swift");
-        suffixList.Add("of the Thief");
-        suffixList.Add("of the Unbridled");
-        suffixList.Add("of the Untamed");
-        suffixList.Add("of the Venomous");
-        suffixList.Add("of the Wild");
-        suffixList.Add("of the Wolf");
-        suffixList.Add("of the Zapped");
-        suffixList.Add("of Thorns");
-        suffixList.Add("of Threat");
-        suffixList.Add("of Thunder");
-        suffixList.Add("of Torment");
-        suffixList.Add("of Transcendence");
-        suffixList.Add("of Transience");
-        suffixList.Add("of Truth");
-        suffixList.Add("of Tusks");
-        suffixList.Add("of Twilight");
-        suffixList.Add("of Urgency");
-        suffixList.Add("of Valor");
-        suffixList.Add("of Vastness");
-        suffixList.Add("of Velocity");
-        suffixList.Add("of Vengeance");
-        suffixList.Add("of Vibrancy");
-        suffixList.Add("of Vigilance");
-        suffixList.Add("of Vindication");
-        suffixList.Add("of Virtue");
-        suffixList.Add("of Virulence");
-        suffixList.Add("of Vitality");
-        suffixList.Add("of Wealth");
-        suffixList.Add("of Winter");
-        suffixList.Add("of Wisdom");
-        suffixList.Add("of Wounding");
-        suffixList.Add("of Youth");
-        suffixList.Add("of Marc");
-        suffixList.Add("of 42");
+        List<string> suffixList = new List<string>
+        {
+            "Made by Gods",
+            "of Gold",
+            "Cheated",
+            "of Fire",
+            "of Abundance",
+            "of Acceleration",
+            "of Accuracy",
+            "of Adversaries",
+            "of Afar",
+            "of Affluence",
+            "of Aggression",
+            "of Agility",
+            "of Agony",
+            "of Ailment",
+            "of Animation",
+            "of Antagonism",
+            "of Aptitude",
+            "of Ash",
+            "of Aspiration",
+            "of Attainment",
+            "of Awareness",
+            "of Beyond",
+            "of Blistering",
+            "of Blizzards",
+            "of Boundlessness",
+            "of Bounty",
+            "of Breadth",
+            "of Briars",
+            "of Burning",
+            "of Calculation",
+            "of Carnage",
+            "of Carving",
+            "of Cautery",
+            "of Certainty",
+            "of Chilling",
+            "of Cinders",
+            "of Clashing",
+            "of Claws",
+            "of Coals",
+            "of Coldness",
+            "of Colossus",
+            "of Confidence",
+            "of Consumption",
+            "of Contempt",
+            "of Contention",
+            "of Conviction",
+            "of Courage",
+            "of Craft",
+            "of Creation",
+            "of Currents",
+            "of Cyclones",
+            "of Dawn",
+            "of Daylight",
+            "of Deception",
+            "of Defiance",
+            "of Design",
+            "of Detail",
+            "of Diligence",
+            "of Discord",
+            "of Disease",
+            "of Disparity",
+            "of Dispute",
+            "of Dissension",
+            "of Distance",
+            "of Dread",
+            "of Dusk",
+            "of Embers",
+            "of Emphasis",
+            "of Endeavor",
+            "of Endowment",
+            "of Energy",
+            "of Enhancement",
+            "of Enormity",
+            "of Epidemic",
+            "of Equity",
+            "of Exactness",
+            "of Excellence",
+            "of Excess",
+            "of Exchange",
+            "of Exhilaration",
+            "of Expanse",
+            "of Extension",
+            "of Faith",
+            "of Fangs",
+            "of Fire",
+            "of Flame",
+            "of Focus",
+            "of Foes",
+            "of Foresight",
+            "of Fortitude",
+            "of Freezing",
+            "of Frigidity",
+            "of Frostbite",
+            "of Glaciers",
+            "of Glory",
+            "of Grandeur",
+            "of Greatness",
+            "of Greed",
+            "of Hail",
+            "of Hardiness",
+            "of Haste",
+            "of Honor",
+            "of Hope",
+            "of Horizon",
+            "of Hostility",
+            "of Hurricanes",
+            "of Ice",
+            "of Icebergs",
+            "of Ignition",
+            "of Illness",
+            "of Impalement",
+            "of Impulse",
+            "of Independence",
+            "of Infection",
+            "of Infirmity",
+            "of Influence",
+            "of Ingenuity",
+            "of Insight",
+            "of Intellect",
+            "of Intent",
+            "of Invigoration",
+            "of Joviality",
+            "of Judgment",
+            "of Knowledge",
+            "of Laceration",
+            "of Lechery",
+            "of Length",
+            "of Lightning",
+            "of Liveliness",
+            "of Magnitude",
+            "of Malady",
+            "of Malevolence",
+            "of Measure",
+            "of Midnight",
+            "of Might",
+            "of Momentum",
+            "of Monstrosity",
+            "of Mortality",
+            "of Numbness",
+            "of Objection",
+            "of Old",
+            "of Omniscience",
+            "of Opposition",
+            "of Patience",
+            "of Perfection",
+            "of Perforation",
+            "of Perjury",
+            "of Pestilence",
+            "of Precision",
+            "of Premeditation",
+            "of Pretense",
+            "of Privilege",
+            "of Projection",
+            "of Prominence",
+            "of Promise",
+            "of Prosperity",
+            "of Protest",
+            "of Puncture",
+            "of Purpose",
+            "of Reach",
+            "of Reclamation",
+            "of Recovery",
+            "of Recuperation",
+            "of Refreshment",
+            "of Refuge",
+            "of Regard",
+            "of Reinvention",
+            "of Rejoicing",
+            "of Rejuvenation",
+            "of Reliance",
+            "of Remoteness",
+            "of Renewal",
+            "of Repression",
+            "of Reprieval",
+            "of Resolution",
+            "of Resolve",
+            "of Restoration",
+            "of Retaliation",
+            "of Retribution",
+            "of Revendication",
+            "of Revenge",
+            "of Reversal",
+            "of Revival",
+            "of Risk",
+            "of Rivalry",
+            "of Robustness",
+            "of Scorching",
+            "of Score",
+            "of Searing",
+            "of Seasons",
+            "of Secrecy",
+            "of Shadows",
+            "of Sharpness",
+            "of Shivering",
+            "of Sickness",
+            "of Singeing",
+            "of Sleet",
+            "of Slicing",
+            "of Slush",
+            "of Smoke",
+            "of Snowflakes",
+            "of Snowstorms",
+            "of Sorrows",
+            "of Span",
+            "of Spikes",
+            "of Stabbing",
+            "of Stability",
+            "of Starlight",
+            "of Stretch",
+            "of Stride",
+            "of Strife",
+            "of Strike",
+            "of Struggle",
+            "of Sturdiness",
+            "of Sunrise",
+            "of Sunset",
+            "of Surplus",
+            "of Survival",
+            "of Symptoms",
+            "of Talent",
+            "of Talons",
+            "of Target",
+            "of Teeth",
+            "of Tempests",
+            "of the Badger",
+            "of the Banished",
+            "of the Bear",
+            "of the Boar",
+            "of the Deft",
+            "of the Destructive",
+            "of the Dexterous",
+            "of the Dog",
+            "of the Dove",
+            "of the Eagle",
+            "of the Effortless",
+            "of the Falcon",
+            "of the Feral",
+            "of the Forgiven",
+            "of the Fox",
+            "of the Gull",
+            "of the Haughty",
+            "of the Hawk",
+            "of the Heron",
+            "of the Honed",
+            "of the Hunter",
+            "of the Jarred",
+            "of the Jolted",
+            "of the Leopard",
+            "of the Lion",
+            "of the Looter",
+            "of the Nimble",
+            "of the Oppressive",
+            "of the Owl",
+            "of the Panther",
+            "of the Parasite",
+            "of the Pillager",
+            "of the Plunderer",
+            "of the Predator",
+            "of the Proud",
+            "of the Provoked",
+            "of the Rabid",
+            "of the Raider",
+            "of the Ram",
+            "of the Raven",
+            "of the Redeemed",
+            "of the Savage",
+            "of the Serpent",
+            "of the Shaken",
+            "of the Shocked",
+            "of the Slayer",
+            "of the Sparrow",
+            "of the Speedy",
+            "of the Spry",
+            "of the Startled",
+            "of the Swift",
+            "of the Thief",
+            "of the Unbridled",
+            "of the Untamed",
+            "of the Venomous",
+            "of the Wild",
+            "of the Wolf",
+            "of the Zapped",
+            "of Thorns",
+            "of Threat",
+            "of Thunder",
+            "of Torment",
+            "of Transcendence",
+            "of Transience",
+            "of Truth",
+            "of Tusks",
+            "of Twilight",
+            "of Urgency",
+            "of Valor",
+            "of Vastness",
+            "of Velocity",
+            "of Vengeance",
+            "of Vibrancy",
+            "of Vigilance",
+            "of Vindication",
+            "of Virtue",
+            "of Virulence",
+            "of Vitality",
+            "of Wealth",
+            "of Winter",
+            "of Wisdom",
+            "of Wounding",
+            "of Youth",
+            "of Marc",
+            "of 42"
+        };
 
         return suffixList;
     }

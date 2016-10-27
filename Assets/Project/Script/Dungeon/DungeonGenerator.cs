@@ -19,9 +19,9 @@ public class DungeonGenerator : MonoBehaviour {
 
     #endregion
 
-    private float spawnPointX = 3.5f;
-    private float spawnPointY = 1f;
-    private float spawnPointZ = 6f;
+    private const float SpawnPointX = 3.5f;
+    private const float SpawnPointY = 1f;
+    private const float SpawnPointZ = 6f;
 
     public void GenerateDungeon()
     {
@@ -50,94 +50,94 @@ public class DungeonGenerator : MonoBehaviour {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.PopulateDungeon);
     }
 
-    private void ModuleCreation(Module module, ModuleConnector pendingConnection, List<ModuleConnector> newConnections)
+    private void ModuleCreation(Module _module, ModuleConnector _pendingConnection, List<ModuleConnector> _newConnections)
     {
         
-            Module newModule = Instantiate(module);
+            Module newModule = Instantiate(_module);
             ModuleConnector[] newModuleConnection = newModule.GetExits();
-            ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnection);
-            MatchConnection(pendingConnection, connectionToMatch);
-            newConnections.AddRange(newModuleConnection.Where(c => c != connectionToMatch));
+            ModuleConnector connectionToMatch = newModuleConnection.FirstOrDefault(_x => _x.IsDefault) ?? GetRandom(newModuleConnection);
+            MatchConnection(_pendingConnection, connectionToMatch);
+            _newConnections.AddRange(newModuleConnection.Where(_c => _c != connectionToMatch));
             connectionToMatch.IsConnected = true;
             newModule.transform.SetParent(transform);
         
     }
 
-    private void AddSpawnPoint(Module module)
+    private void AddSpawnPoint(Module _module)
     {
-        Transform moduleTransform = module.transform;
+        Transform moduleTransform = _module.transform;
         Vector3 modulePosition = moduleTransform.position;
         Object spawPointPrefab = Resources.Load("Dungeon/Door");
         GameObject spawPoint = 
             (GameObject)Instantiate(spawPointPrefab, 
-            new Vector3(modulePosition.x + spawnPointX, modulePosition.y + spawnPointY, modulePosition.z + spawnPointZ), 
+            new Vector3(modulePosition.x + SpawnPointX, modulePosition.y + SpawnPointY, modulePosition.z + SpawnPointZ), 
             moduleTransform.rotation);
 
         spawPoint.transform.SetParent(moduleTransform);
         
     }
 
-    private void CheckEmptyConnection(List<ModuleConnector> pendingConnections, Module fillingModule)
+    private void CheckEmptyConnection(List<ModuleConnector> _pendingConnections, Module _fillingModule)
     {
-        foreach (ModuleConnector connection in pendingConnections)
+        foreach (ModuleConnector connection in _pendingConnections)
         {
             if (connection.IsConnected == false)
             {
                 List<ModuleConnector> newConnections = new List<ModuleConnector>();
-                ModuleCreation(fillingModule, connection, newConnections);
+                ModuleCreation(_fillingModule, connection, newConnections);
             }
         }
     }
 
-    private void MatchConnection(ModuleConnector oldConnection, ModuleConnector newConnection)
+    private void MatchConnection(ModuleConnector _oldConnection, ModuleConnector _newConnection)
     {
-        Transform newModule = newConnection.transform.parent;
-        Vector3 forwardVectorToMatch = -oldConnection.transform.forward;
-        float correctiveRotation = Azimuth(forwardVectorToMatch) - Azimuth(newConnection.transform.forward);
-        newModule.RotateAround(newConnection.transform.position, Vector3.up, correctiveRotation);
-        Vector3 correctiveTranslation = oldConnection.transform.position - newConnection.transform.position;
+        Transform newModule = _newConnection.transform.parent;
+        Vector3 forwardVectorToMatch = -_oldConnection.transform.forward;
+        float correctiveRotation = Azimuth(forwardVectorToMatch) - Azimuth(_newConnection.transform.forward);
+        newModule.RotateAround(_newConnection.transform.position, Vector3.up, correctiveRotation);
+        Vector3 correctiveTranslation = _oldConnection.transform.position - _newConnection.transform.position;
         newModule.transform.position += correctiveTranslation;
         
     }
 
     #region GetRandom
 
-    private static Module GetRandom(Module[] array)
+    private static Module GetRandom(Module[] _array)
     {
-        if (array.Length <= 0)
+        if (_array.Length <= 0)
             return null;
 
-        return array[Random.Range(0, array.Length)];
+        return _array[Random.Range(0, _array.Length)];
     }
 
-    private static string GetRandom(string[] array)
+    private static string GetRandom(string[] _array)
     {
-        if (array.Length <= 0)
+        if (_array.Length <= 0)
             return null;
 
-        return array[Random.Range(0, array.Length)];
+        return _array[Random.Range(0, _array.Length)];
     }
 
    
 
-    private static ModuleConnector GetRandom(ModuleConnector[] array)
+    private static ModuleConnector GetRandom(ModuleConnector[] _array)
     {
-        if (array.Length <= 0)
+        if (_array.Length <= 0)
             return null;
 
-        return array[Random.Range(0, array.Length)];
+        return _array[Random.Range(0, _array.Length)];
     }
 
     #endregion
 
-    private static Module GetRandomWithTag(IEnumerable<Module> modules, string tagToMatch)
+    private static Module GetRandomWithTag(IEnumerable<Module> _modules, string _tagToMatch)
     {
-        Module[] matchingModules = modules.Where(module => module.Tags.Contains(tagToMatch)).ToArray();
+        Module[] matchingModules = _modules.Where(_module => _module.Tags.Contains(_tagToMatch)).ToArray();
         return GetRandom(matchingModules);
     }
 
-    private static float Azimuth(Vector3 vector)
+    private static float Azimuth(Vector3 _vector)
     {
-        return Vector3.Angle(Vector3.forward, vector) * Mathf.Sign(vector.x);
+        return Vector3.Angle(Vector3.forward, _vector) * Mathf.Sign(_vector.x);
     }
 }

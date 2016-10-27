@@ -3,7 +3,7 @@
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
-public abstract class ACharacter : APausableObject
+public abstract class ACharacter : APausableObject, IHitable
 {    
     public delegate void DelegateWeapons(Item _leftWeapon, Item _rightWeapon);
     public event DelegateWeapons OnChangedWeapons;
@@ -12,30 +12,15 @@ public abstract class ACharacter : APausableObject
 
     #region Equipement
 
-    protected Weapon rightHand;
-    public Weapon RightHand
-    { get { return rightHand; }
-      set { rightHand = value; } }
+    public Weapon RightHand { get; set; }
 
-    protected Shield leftHand;
-    public Shield LeftHand
-    { get { return leftHand; }
-      set { leftHand = value; } }
+    public Shield LeftHand { get; set; }
 
-    protected Helmet helmet;
-    public Helmet Helmet
-    { get { return helmet; }
-      set { helmet = value; } }
+    public Helmet Helmet { get; set; }
 
-    protected Torso torso;
-    public Torso Torso
-    { get { return torso; }
-      set { torso = value; } }
+    public Torso Torso { get; set; }
 
-    protected Boots boots;
-    public Boots Boots
-    { get { return boots; }
-      set { boots = value; } }
+    public Boots Boots { get; set; }
 
     #endregion
 
@@ -57,7 +42,7 @@ public abstract class ACharacter : APausableObject
     }    
 
     [SerializeField]
-    private float jumpEfficiency = 5.5f;
+    private float jumpEfficiency = 8f;
     public float JumpEfficiency
     {
         get { return jumpEfficiency; }
@@ -65,7 +50,7 @@ public abstract class ACharacter : APausableObject
     }
 
     [SerializeField]
-    private float baseMoveSpeed = 3f;
+    private float baseMoveSpeed = 1.5f;
     public float MoveSpeed
     {
         get { return baseMoveSpeed; }
@@ -116,25 +101,25 @@ public abstract class ACharacter : APausableObject
         equipType = EquipType.SwordAndShield;
     }
 
-    public bool CanCarry(Item item)
+    public bool CanCarry(Item _item)
     {
-        if (CharacterStats.UnitCharacteristics.PlayerWeight + item.Weight <= CharacterStats.UnitCharacteristics.Weight)
+        if (CharacterStats.UnitCharacteristics.PlayerWeight + _item.Weight <= CharacterStats.UnitCharacteristics.Weight)
             return true;
 
         return false;
     }
 
-    public void RemoveEquipement(Item equip)
+    public void RemoveEquipement(Item _equip)
     {
-        if (RightHand == equip)
+        if (RightHand == _equip)
             RightHand = null;
-        else if (LeftHand == equip)
+        else if (LeftHand == _equip)
             LeftHand = null;
-        else if (Helmet == equip)
+        else if (Helmet == _equip)
             Helmet = null;
-        else if (Torso == equip)
+        else if (Torso == _equip)
             Torso = null;
-        else if (Boots == equip)
+        else if (Boots == _equip)
             Boots = null;
     }
 
@@ -143,5 +128,17 @@ public abstract class ACharacter : APausableObject
         // TODO: implemement event when equipped items changed
         //if (OnChangedWeapons != null)
         //  OnChangedWeapons.Invoke(inventory.);
+    }
+
+    protected virtual void TakeDamages(float damages)
+    {
+        characterStats.UnitCharacteristics.Health -= damages;
+    }
+
+    public virtual void OnHit(ACharacter character)
+    {
+        if (character == this)
+            return;
+        TakeDamages(character.CharacterStats.UnitCharacteristics.Attack - characterStats.UnitCharacteristics.Defense);
     }
 }

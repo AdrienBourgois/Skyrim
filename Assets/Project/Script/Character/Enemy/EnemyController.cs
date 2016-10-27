@@ -2,7 +2,6 @@
 
 public class EnemyController : ACharacterController
 {
-
     #region Delegates and events
     public delegate void DelegateAction();
     public event DelegateAction OnLeftDown;
@@ -10,12 +9,10 @@ public class EnemyController : ACharacterController
     public event DelegateAction OnRightDown;
     #endregion
 
-
     protected override void Start()
     {
         base.Start();
         characterWeapons.SetCharacter(character);
-        target = FindObjectOfType<Cam>().transform;
 
         ControllerDrawSheathSword();
     }
@@ -36,7 +33,7 @@ public class EnemyController : ACharacterController
     private void UpdateIa()
     {
 
-        ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         //if (Input.GetButtonDown("CastSpell"))
         //    ControllerCastSpell();
@@ -81,7 +78,7 @@ public class EnemyController : ACharacterController
     {
         RaycastHit hit;
         // TODO: global(?) variable for max distance
-        float useMaxDistance = 3f;
+        const float useMaxDistance = 3f;
         if (Physics.Raycast(target.position, target.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
             IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
