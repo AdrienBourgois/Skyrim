@@ -2,15 +2,15 @@
 
 public class CharacterOverrideWeight : ACharacterAnimatorBehaviour
 {
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateEnter(Animator _animator, AnimatorStateInfo _stateInfo, int _layerIndex)
     {
-        base.OnStateEnter(animator, stateInfo, layerIndex);
-        animator.SetLayerWeight(layerIndex, 1.0f);
+        base.OnStateEnter(_animator, _stateInfo, _layerIndex);
+        _animator.SetLayerWeight(_layerIndex, 1.0f);
     }
 
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateExit(Animator _animator, AnimatorStateInfo _stateInfo, int _layerIndex)
     {
-        base.OnStateExit(animator, stateInfo, layerIndex);
-        animator.SetLayerWeight(layerIndex, 0.0f);
+        base.OnStateExit(_animator, _stateInfo, _layerIndex);
+        _animator.SetLayerWeight(_layerIndex, 0.0f);
     }
 }

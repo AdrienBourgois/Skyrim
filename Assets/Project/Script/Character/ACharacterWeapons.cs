@@ -18,8 +18,8 @@ public class ACharacterWeapons : MonoBehaviour
     private SpellProperty spellProp;
     private ASpell spell;
 
-    
-    void Start()
+
+    private void Start()
     {
         if (leftHandAnchor == null || rightHandAnchor == null)
             Debug.LogError("ACharacterWeapons.Start() - leftHandAnchor and rightHandAnchor should be initialized.");
@@ -41,11 +41,11 @@ public class ACharacterWeapons : MonoBehaviour
         _character.OnChangedWeapons += SetWeapons;
     }
 
-    public void SetController(ACharacterController characterController)
+    public void SetController(ACharacterController _characterController)
     {
-        controller = characterController;
+        controller = _characterController;
 
-        Animator characterAnimator = characterController.GetComponent<Animator>();
+        Animator characterAnimator = _characterController.GetComponent<Animator>();
         if (characterAnimator == null)
             Debug.LogError("ACharacterWeapons.SetController() - couldn't get component of type Animator in ACharacterController");
 
@@ -56,10 +56,10 @@ public class ACharacterWeapons : MonoBehaviour
             oneCharSwitchBehaviour.OnSwitch += SwitchWeapon;
     }
 
-    private void SetWeapons(Item leftWeapon, Item rightWeapon)
+    private void SetWeapons(Item _leftWeapon, Item _rightWeapon)
     {
-        leftHand.SetWeapon(leftWeapon);
-        rightHand.SetWeapon(rightWeapon);
+        leftHand.SetWeapon(_leftWeapon);
+        rightHand.SetWeapon(_rightWeapon);
     }
 
     private void SwitchWeapon()
@@ -75,7 +75,7 @@ public class ACharacterWeapons : MonoBehaviour
                 return false;
 
 
-        if (MagicManager.MagicID.NONE < spellProp.ID && spellProp.ID < MagicManager.MagicID.COUNT)
+        if (MagicManager.MagicID.NONE < spellProp.Id && spellProp.Id < MagicManager.MagicID.COUNT)
         {
             controller.Character.CharacterStats.UnitCharacteristics.Mana -= spellProp.Cost;
 
@@ -98,8 +98,8 @@ public class ACharacterWeapons : MonoBehaviour
             Debug.LogWarning("ACharacterWeapon.ActivateMagic() - member \"magic\" is null");
     }
 
-    public void SetActiveMagic(SpellProperty spellProp)
+    public void SetActiveMagic(SpellProperty _spellProp)
     {
-        this.spellProp = spellProp;
+        spellProp = _spellProp;
     }
 }

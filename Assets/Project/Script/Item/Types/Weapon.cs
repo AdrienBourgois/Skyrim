@@ -24,7 +24,7 @@ public class Weapon : Item, ITypeItem {
 
     private string GetBonusInformations()
     {
-        string bonus_informations = "\n================ BONUS ===============";
+        string bonusInformations = "\n================ BONUS ===============";
         if (characteristics.Attack != 0)
             bonus_informations += "\nAttack : +" + (int)(characteristics.Attack * 100f) + "%";
         if (characteristics.AttackSpeed != 0)
@@ -44,7 +44,7 @@ public class Weapon : Item, ITypeItem {
         if (characteristics.Weight != 0)
             bonus_informations += "\nWeight : +" + (int)(characteristics.Weight * 100f) + "%";
 
-        return bonus_informations;
+        return bonusInformations;
     }
 
     protected void SetRandAttributes()

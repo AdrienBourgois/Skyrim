@@ -16,13 +16,13 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
     private float lastUpdateTime;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override public void OnStateEnter(Animator _animator, AnimatorStateInfo _stateInfo, int _layerIndex)
     {
-        charController = animator.gameObject.GetComponent<ACharacterController>();
+        charController = _animator.gameObject.GetComponent<ACharacterController>();
 
-        moveX = animator.GetFloat("MoveX");
-        moveZ = animator.GetFloat("MoveZ");
-        lastUpdateTime = stateInfo.normalizedTime;
+        moveX = _animator.GetFloat("MoveX");
+        moveZ = _animator.GetFloat("MoveZ");
+        lastUpdateTime = _stateInfo.normalizedTime;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -30,10 +30,10 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
     //{
     //}
     
-    protected void UpdateMove(AnimatorStateInfo stateInfo)
+    protected void UpdateMove(AnimatorStateInfo _stateInfo)
     {
-        float deltaTime = stateInfo.normalizedTime - lastUpdateTime;
-        lastUpdateTime = stateInfo.normalizedTime;
+        float deltaTime = _stateInfo.normalizedTime - lastUpdateTime;
+        lastUpdateTime = _stateInfo.normalizedTime;
 
         Vector3 forwardTimesX = charController.transform.right * moveX;
         Vector3 forwardTimesZ = charController.transform.forward * moveZ;

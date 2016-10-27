@@ -5,9 +5,9 @@ public class TreasureChest : MonoBehaviour, IUsableObject
 {
     private Animation anim;
     private bool hasBeenOpen;
-    InventoryGUI invGui;
-    Inventory inv = new Inventory();
-    UnityEngine.Events.UnityAction OnCloseChest;
+    private InventoryGUI invGui;
+    private Inventory inv = new Inventory();
+    private UnityEngine.Events.UnityAction OnCloseChest;
 
 
     private void Awake()
@@ -17,9 +17,9 @@ public class TreasureChest : MonoBehaviour, IUsableObject
         invGui = InventoryGUI.Instance;
     }
 
-    void Start()
+    private void Start()
     {
-        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, 10);
+        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
 
         OnCloseChest = CloseChest;
     }

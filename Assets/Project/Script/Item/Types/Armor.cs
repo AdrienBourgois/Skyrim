@@ -14,24 +14,24 @@ public class Armor : Item, ITypeItem {
     public Characteristics Characteristics
     { get { return characteristics; } }
 
-    private int defense_value;
+    private int defenseValue;
     public int Defense
     {
-        get { return defense_value; }
-        protected set { defense_value = value; }
+        get { return defenseValue; }
+        protected set { defenseValue = value; }
     }
 
     public string GetItemInformations()
     {
         return GetItemGeneralInformations() +
             "\n=====================================" +
-            "\nArmor : " + defense_value
+            "\nArmor : " + defenseValue
             + GetBonusInformations();
     }
 
     private string GetBonusInformations()
     {
-        string bonus_informations = "\n================ BONUS ===============";
+        string bonusInformations = "\n================ BONUS ===============";
         if (characteristics.Attack != 0)
             bonus_informations += "\nAttack : +" + (int)(characteristics.Attack * 100f) + "%";
         if (characteristics.AttackSpeed != 0)
@@ -51,7 +51,7 @@ public class Armor : Item, ITypeItem {
         if (characteristics.Weight != 0)
             bonus_informations += "\nWeight : +" + (int)(characteristics.Weight * 100f) + "%";
 
-        return bonus_informations;
+        return bonusInformations;
     }
 
     protected void SetRandAttributes()

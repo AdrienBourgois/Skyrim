@@ -57,9 +57,9 @@ public class MagicManager : MonoBehaviour
     {
         string prefabPath;
 
-        if (!mapCachePrefabPaths.TryGetValue(SpellProp.ID, out prefabPath))
+        if (!mapCachePrefabPaths.TryGetValue(SpellProp.Id, out prefabPath))
         {
-            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + SpellProp.ID + "] \"" + SpellProp.ID + "\"");
+            Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + SpellProp.Id + "] \"" + SpellProp.Id + "\"");
             return null;
         }
         Debug.Log(prefabPath);

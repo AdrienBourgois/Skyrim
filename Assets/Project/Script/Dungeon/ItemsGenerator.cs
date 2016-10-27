@@ -25,7 +25,7 @@ public class ItemsGenerator : MonoBehaviour {
         }
     }
 
-    void Awake()
+    private void Awake()
     {
         GameObject mGO = transform.parent.gameObject;
         Module m = mGO.GetComponent<Module>();
@@ -33,7 +33,7 @@ public class ItemsGenerator : MonoBehaviour {
             m.AddGenerator(this);
     }
 
-    void Start () {
+    private void Start () {
 	
 	}
 

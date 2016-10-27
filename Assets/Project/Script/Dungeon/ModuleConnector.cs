@@ -8,7 +8,7 @@ public class ModuleConnector : MonoBehaviour {
 
     private bool isConnected;
 
-    void Awake()
+    private void Awake()
     {
 
         // transform.parent is the Module, this ModuleConnector is connected to
@@ -32,7 +32,7 @@ public class ModuleConnector : MonoBehaviour {
         }
     }
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         var scale = 1.0f;
 

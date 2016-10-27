@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    public enum EMusic_Type
+    public enum EMusicType
     {
         Menu,
         Game,
@@ -22,100 +22,100 @@ public class AudioManager : MonoBehaviour {
         Any
     }
     [SerializeField]
-    private EMusic_Type current_music_type = EMusic_Type.Any;
-    public enum ESound_Type
+    private EMusicType currentMusicType = EMusicType.Any;
+    public enum ESoundType
     {
         Sword,
         SwordSwish
     }
 
     //Musics
-    [SerializeField] private AudioClip menu_music;
-    [SerializeField] private AudioClip game_calm_music;
-    [SerializeField] private AudioClip game_fight_music;
+    [SerializeField] private AudioClip menuMusic;
+    [SerializeField] private AudioClip gameCalmMusic;
+    [SerializeField] private AudioClip gameFightMusic;
 
     //Sounds
-    [SerializeField] private List<AudioClip> sword_clips = new List<AudioClip>();
-    [SerializeField] private List<AudioClip> sword_swish_clips = new List<AudioClip>();
+    [SerializeField] private List<AudioClip> swordClips = new List<AudioClip>();
+    [SerializeField] private List<AudioClip> swordSwishClips = new List<AudioClip>();
 
     //Mixer Groups
-    [SerializeField] private AudioMixerGroup music_mixer_group;
-    [SerializeField] private AudioMixerGroup sounds_mixer_group;
+    [SerializeField] private AudioMixerGroup musicMixerGroup;
+    [SerializeField] private AudioMixerGroup soundsMixerGroup;
 
-    private MusicGroup current_music_group;
+    private MusicGroup currentMusicGroup;
 
     private void Start()
     {
         DontDestroyOnLoad(this);
     }
 
-    public void PlayMusic(EMusic_Type music)
+    public void PlayMusic(EMusicType _music)
     {
-        if (music != current_music_type)
+        if (_music != currentMusicType)
         {
-            if (music == EMusic_Type.Menu)
+            if (_music == EMusicType.Menu)
             {
-                ChangeMusic(menu_music);
-                current_music_type = EMusic_Type.Menu;
+                ChangeMusic(menuMusic);
+                currentMusicType = EMusicType.Menu;
             }
-            else if (music == EMusic_Type.Game)
+            else if (_music == EMusicType.Game)
             {
-                if (current_music_type != EMusic_Type.Fight)
+                if (currentMusicType != EMusicType.Fight)
                 {
-                    ChangeMusic(game_calm_music);
-                    AddMusic(game_fight_music);
+                    ChangeMusic(gameCalmMusic);
+                    AddMusic(gameFightMusic);
                 }
                 else
-                    current_music_group.State = MusicGroup.EPlayState.PlaySingle;
-                current_music_type = EMusic_Type.Game;
+                    currentMusicGroup.State = MusicGroup.EPlayState.PlaySingle;
+                currentMusicType = EMusicType.Game;
             }
-            else if (music == EMusic_Type.Fight)
-                if (current_music_type == EMusic_Type.Game)
+            else if (_music == EMusicType.Fight)
+                if (currentMusicType == EMusicType.Game)
                 {
-                    current_music_group.State = MusicGroup.EPlayState.PlayFull;
-                    current_music_type = EMusic_Type.Fight;
+                    currentMusicGroup.State = MusicGroup.EPlayState.PlayFull;
+                    currentMusicType = EMusicType.Fight;
                 }
         }
     }
 
-    private void AddMusic(AudioClip clip)
+    private void AddMusic(AudioClip _clip)
     {
-        if (current_music_group == null)
-            current_music_group = gameObject.AddComponent<MusicGroup>();
+        if (currentMusicGroup == null)
+            currentMusicGroup = gameObject.AddComponent<MusicGroup>();
 
-        current_music_group.MixerGroup = music_mixer_group;
-        current_music_group.Add(clip);
+        currentMusicGroup.MixerGroup = musicMixerGroup;
+        currentMusicGroup.Add(_clip);
     }
 
-    private void ChangeMusic(AudioClip clip)
+    private void ChangeMusic(AudioClip _clip)
     {
-        if (current_music_group != null)
-            current_music_group.State = MusicGroup.EPlayState.Stop;
+        if (currentMusicGroup != null)
+            currentMusicGroup.State = MusicGroup.EPlayState.Stop;
 
-        current_music_group = gameObject.AddComponent<MusicGroup>();
-        current_music_group.MixerGroup = music_mixer_group;
-        current_music_group.Add(clip);
-        current_music_group.State = MusicGroup.EPlayState.PlaySingle;
+        currentMusicGroup = gameObject.AddComponent<MusicGroup>();
+        currentMusicGroup.MixerGroup = musicMixerGroup;
+        currentMusicGroup.Add(_clip);
+        currentMusicGroup.State = MusicGroup.EPlayState.PlaySingle;
     }
 
     #region sounds
 
-    public void PlaySound(ESound_Type sound, Vector3 position)
+    public void PlaySound(ESoundType _sound, Vector3 _position)
     {
         AudioClip clip = null;
-        if (sound == ESound_Type.Sword)
-            clip = GetRandClip(sword_clips);
-        else if (sound == ESound_Type.SwordSwish)
-            clip = GetRandClip(sword_swish_clips);
+        if (_sound == ESoundType.Sword)
+            clip = GetRandClip(swordClips);
+        else if (_sound == ESoundType.SwordSwish)
+            clip = GetRandClip(swordSwishClips);
 
         if (clip)
         {
             GameObject go = new GameObject();
-            go.transform.position = position;
+            go.transform.position = _position;
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = clip;
             go.name = "Sound : " + source.clip.name;
-            source.outputAudioMixerGroup = sounds_mixer_group;
+            source.outputAudioMixerGroup = soundsMixerGroup;
             source.spatialBlend = 1.0f;
             source.dopplerLevel = 0f;
             source.Play();
@@ -125,16 +125,16 @@ public class AudioManager : MonoBehaviour {
             throw new UnassignedReferenceException("Sound Missing !");
     }
 
-    private AudioClip GetRandClip(List<AudioClip> clips)
+    private AudioClip GetRandClip(List<AudioClip> _clips)
     {
-        return clips[Random.Range(0, clips.Count)];
+        return _clips[Random.Range(0, _clips.Count)];
     }
 
-    private IEnumerator ManageSourceDestruct(AudioSource source)
+    private IEnumerator ManageSourceDestruct(AudioSource _source)
     {
-        while (source.isPlaying)
-            yield return new WaitUntil(() => source.isPlaying);
-        Destroy(source.gameObject);
+        while (_source.isPlaying)
+            yield return new WaitUntil(() => _source.isPlaying);
+        Destroy(_source.gameObject);
     }
     
     #endregion

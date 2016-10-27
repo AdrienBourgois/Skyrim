@@ -20,7 +20,7 @@ public class CharacterStats
 
     #endregion  
 
-    public void SetCharacteristics(ACharacter player)
+    public void SetCharacteristics(ACharacter _player)
     {
         CalcEquipBonusDic(player);
 

@@ -29,13 +29,12 @@ public class GameManager : MonoBehaviour
     private bool loadLevel = true;
 
     #region SerializeField
-    [SerializeField] GameObject dataMgrPrefab;
-    [SerializeField] GameObject guiMgrPrefab;
-    [SerializeField] GameObject levelMgrPrefab;
-    [SerializeField] GameObject itemMgrPrefab;
-    [SerializeField] GameObject dungeonMgrPrefab;
-    [SerializeField] GameObject magicMgrPrefab;
-    [SerializeField] GameObject resourceMgrPrefab;
+    [SerializeField] private GameObject dataMgrPrefab;
+    [SerializeField] private GameObject levelMgrPrefab;
+    [SerializeField] private GameObject itemMgrPrefab;
+    [SerializeField] private GameObject dungeonMgrPrefab;
+    [SerializeField] private GameObject magicMgrPrefab;
+    [SerializeField] private GameObject resourceMgrPrefab;
     #endregion
 
     private DataManager dataMgr;
@@ -100,9 +99,6 @@ public class GameManager : MonoBehaviour
             case "DungeonGenerator":
                 EnterDungeonInit();
                 break;
-
-            default:
-                break;
         }
     }
 
@@ -138,9 +134,6 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.StateNb:
                 break;
-
-            default:
-                break;
         }
 
         if (onStateChanged != null)
@@ -156,7 +149,7 @@ public class GameManager : MonoBehaviour
     private void MainMenuInit()
     {
         CurrGameState = GameState.MainMenu;
-        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Menu);
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Menu);
     }
 
     private void InGameInit()
@@ -166,18 +159,18 @@ public class GameManager : MonoBehaviour
 
         if (!loadLevel)
             OnPause();
-        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
     }
 
 
-    void EnterDungeonInit()
+    private void EnterDungeonInit()
     {
         currGameState = GameState.EnterDungeon;
 
         Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
     }
 
-    void PopulateDungeonInit()
+    private void PopulateDungeonInit()
     {
         currGameState = GameState.PopulateDungeon;
     }

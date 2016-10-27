@@ -13,7 +13,7 @@ public class ItemManager : MonoBehaviour
     //TODO: to changed with IDs ?
     //private Dictionary<string, WeaponInstance> mapCachePrefab = new Dictionary<string, WeaponInstance>();
 
-    [Flags] public enum flags_generation
+    [Flags] public enum FlagsGeneration
     {
         None = 0,
 
@@ -27,32 +27,32 @@ public class ItemManager : MonoBehaviour
         Axe = 32,
         Weapon = Sword | Axe,
 
-        All_Type = Armor | Weapon
+        AllType = Armor | Weapon
     }
 
-    public List<Item> GenerateInventory(flags_generation flags = flags_generation.All_Type, int size = 60)
+    public List<Item> GenerateInventory(FlagsGeneration _flags = FlagsGeneration.AllType, int _size = 60)
     {
         List<Item> inventory = new List<Item>();
-        int flags_count = GetFlagsCount(flags);
-        int objects_by_type = (int)Math.Ceiling((float)(size / flags_count));
+        int flagsCount = GetFlagsCount(_flags);
+        int objectsByType = (int)Math.Ceiling((float)(_size / flagsCount));
 
-        if ((flags & flags_generation.Helmet) != 0)
-            for (int i = 0; i < objects_by_type; i++)
+        if ((_flags & FlagsGeneration.Helmet) != 0)
+            for (int i = 0; i < objectsByType; i++)
                 inventory.Add(CreateObject<Helmet>());
-        if ((flags & flags_generation.Torso) != 0)
-            for (int i = 0; i < objects_by_type; i++)
+        if ((_flags & FlagsGeneration.Torso) != 0)
+            for (int i = 0; i < objectsByType; i++)
                 inventory.Add(CreateObject<Torso>());
-        if ((flags & flags_generation.Shield) != 0)
-            for (int i = 0; i < objects_by_type; i++)
+        if ((_flags & FlagsGeneration.Shield) != 0)
+            for (int i = 0; i < objectsByType; i++)
                 inventory.Add(CreateObject<Shield>());
-        if ((flags & flags_generation.Boots) != 0)
-            for (int i = 0; i < objects_by_type; i++)
+        if ((_flags & FlagsGeneration.Boots) != 0)
+            for (int i = 0; i < objectsByType; i++)
                 inventory.Add(CreateObject<Boots>());
-        if ((flags & flags_generation.Sword) != 0)
-            for (int i = 0; i < objects_by_type; i++)
+        if ((_flags & FlagsGeneration.Sword) != 0)
+            for (int i = 0; i < objectsByType; i++)
                 inventory.Add(CreateObject<Sword>());
-        if ((flags & flags_generation.Axe) != 0)
-            for (int i = 0; i < objects_by_type; i++)
+        if ((_flags & FlagsGeneration.Axe) != 0)
+            for (int i = 0; i < objectsByType; i++)
                 inventory.Add(CreateObject<Axe>());
 
         inventory.Sort();
@@ -60,14 +60,14 @@ public class ItemManager : MonoBehaviour
         return inventory;
     }
 
-    public WeaponInstance InstantiateItem(Item item)
+    public WeaponInstance InstantiateItem(Item _item)
     {
-        WeaponInstance itemPrefab = ResourceManager.Instance.Load<WeaponInstance>(item.PrefabPath);
+        WeaponInstance itemPrefab = ResourceManager.Instance.Load<WeaponInstance>(_item.PrefabPath);
 
         return Instantiate(itemPrefab);
     }
        
-    public T CreateObject<T>(Item.item_rarity _rarity, string _name, string _description) where T : Item, IInstanciableItem, new()
+    public T CreateObject<T>(Item.ItemRarity _rarity, string _name, string _description) where T : Item, IInstanciableItem, new()
     {
         T item = new T();
         item.NameObject = _name;
@@ -88,30 +88,30 @@ public class ItemManager : MonoBehaviour
         return item;
     }
 
-    private Item.item_rarity GetRandRarity()
+    private Item.ItemRarity GetRandRarity()
     {
         int score = UnityEngine.Random.Range(0, 100);
         if (score >= 98)
-            return Item.item_rarity.legendary;
+            return Item.ItemRarity.Legendary;
         if (score >= 90)
-            return Item.item_rarity.epic;
+            return Item.ItemRarity.Epic;
         if (score >= 85)
-            return Item.item_rarity.rare;
+            return Item.ItemRarity.Rare;
         if (score >= 50)
-            return Item.item_rarity.uncommon;
-        return Item.item_rarity.common;
+            return Item.ItemRarity.Uncommon;
+        return Item.ItemRarity.Common;
     }
 
-    private int GetFlagsCount(flags_generation flags)
+    private int GetFlagsCount(FlagsGeneration _flags)
     {
-        int flags_count = 0;
+        int flagsCount = 0;
 
-        while (flags != 0)
+        while (_flags != 0)
         {
-            flags = flags & (flags - 1);
-            flags_count++;
+            _flags = _flags & (_flags - 1);
+            flagsCount++;
         }
 
-        return flags_count;
+        return flagsCount;
     }
 }
