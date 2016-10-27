@@ -45,10 +45,10 @@ public class Compass : MonoBehaviour {
             EnableArrow();
 
         needle.forward = new Vector3(needle.forward.x, 0f, needle.forward.z);
-        Vector3 player_fwd_cpy = new Vector3(player.forward.x, 0f, player.forward.z);
+        Vector3 playerFwdCpy = new Vector3(player.forward.x, 0f, player.forward.z);
 
 
-        float rotAngle = Vector3.Angle(player_fwd_cpy, needle.forward);
+        float rotAngle = Vector3.Angle(playerFwdCpy, needle.forward);
 
         //When target is on the rightside of the player
         if (Vector3.Angle(player.right, needle.forward) > 90f)
@@ -59,35 +59,35 @@ public class Compass : MonoBehaviour {
 
     private void FindPlayer()
     {
-        Player player_tmp = FindObjectOfType<Player>();
+        Player playerTmp = FindObjectOfType<Player>();
 
-        if (player_tmp == null)
+        if (playerTmp == null)
             Debug.LogError("Compass.Start() - could not find player");
         else
-            player = player_tmp.transform;
+            player = playerTmp.transform;
     }
 
     private bool CheckTarget()
     {
-        GameObject target_gao = GameObject.FindGameObjectWithTag("CompassTarget");
-        if (target_gao == null)
+        GameObject targetGao = GameObject.FindGameObjectWithTag("CompassTarget");
+        if (targetGao == null)
         {
             Debug.LogError("Compass.CheckTarget() - any valid target");
             return false;
         }
 
-        target = target_gao.transform;
+        target = targetGao.transform;
         return true;
     }
 
     private void EnableArrow()
     {
-        Vector3 player_fwd_cpy = new Vector3(player.forward.x, 0f, player.forward.z);
+        Vector3 playerFwdCpy = new Vector3(player.forward.x, 0f, player.forward.z);
 
         arrow1.GetComponent<SpriteRenderer>().enabled = true;
         arrow2.GetComponent<SpriteRenderer>().enabled = true;
-        arrow1.transform.position = transform.FindChild("CompassCylinder").position + player_fwd_cpy / 2f;
-        arrow2.transform.position = transform.FindChild("CompassCylinder").position - player_fwd_cpy / 2f;
+        arrow1.transform.position = transform.FindChild("CompassCylinder").position + playerFwdCpy / 2f;
+        arrow2.transform.position = transform.FindChild("CompassCylinder").position - playerFwdCpy / 2f;
         // Bug when player is looking up or down
     }
 

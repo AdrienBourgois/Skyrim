@@ -1,13 +1,8 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class Attributes
 {
     private Dictionary<string, int> attribDict = new Dictionary<string, int>();
-
-    private int maxAttributePoints = 110;
-    public int MaxAttributePoints
-    { get { return maxAttributePoints; } set { maxAttributePoints = value; } }
 
     #region Strength
 

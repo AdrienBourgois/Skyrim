@@ -53,7 +53,7 @@ public class MagicManager : MonoBehaviour
             mapCachePrefabPaths.Add(id, "Magic/" + id);
     }
 
-    public ASpell CreateSpell(SpellProperty SpellProp, ACharacterController controller)
+    public ASpell CreateSpell(SpellProperty SpellProp, ACharacterController _controller)
     {
         string prefabPath;
 
@@ -63,16 +63,16 @@ public class MagicManager : MonoBehaviour
             return null;
         }
         ASpell spellInstance = Instantiate(ResourceManager.Instance.Load(prefabPath).GetComponent<ASpell>());
-        spellInstance.SetController(controller);
+        spellInstance.SetController(_controller);
         spellInstance.SetProperty(SpellProp);
 
         return spellInstance;
     }
 
-    public SpellProperty CreateSpellProperties(MagicID id, MagicType type, float power, int cost, string description)
+    public SpellProperty CreateSpellProperties(MagicID id, MagicType _type, float _power, int _cost, string _description)
     {
         SpellProperty spellProp = new SpellProperty();
-        spellProp.Init(id, type, power, cost, description);
+        spellProp.Init(id, _type, _power, _cost, _description);
         return spellProp;
     }
 }
