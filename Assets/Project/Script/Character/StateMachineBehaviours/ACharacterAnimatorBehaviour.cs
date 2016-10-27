@@ -5,24 +5,20 @@
 /// </summary>
 public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
 {
-    private ACharacterController charController = null;
-    protected ACharacterController CharacterController
-    {
-        get { return charController; }
-    }
+    protected ACharacterController CharacterController { get; private set; }
 
-    private float moveX = 0f;
-    private float moveZ = 0f;
-    private float lastUpdateTime = 0f;
+    private float moveX;
+    private float moveZ;
+    private float lastUpdateTime;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override public void OnStateEnter(Animator _animator, AnimatorStateInfo _stateInfo, int _layerIndex)
     {
-        charController = animator.gameObject.GetComponent<ACharacterController>();
+        CharacterController = _animator.gameObject.GetComponent<ACharacterController>();
 
-        moveX = animator.GetFloat("MoveX");
-        moveZ = animator.GetFloat("MoveZ");
-        lastUpdateTime = stateInfo.normalizedTime;
+        moveX = _animator.GetFloat("MoveX");
+        moveZ = _animator.GetFloat("MoveZ");
+        lastUpdateTime = _stateInfo.normalizedTime;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -30,17 +26,17 @@ public abstract class ACharacterAnimatorBehaviour : StateMachineBehaviour
     //{
     //}
     
-    protected void UpdateMove(AnimatorStateInfo stateInfo)
+    protected void UpdateMove(AnimatorStateInfo _stateInfo)
     {
-        float deltaTime = stateInfo.normalizedTime - lastUpdateTime;
-        lastUpdateTime = stateInfo.normalizedTime;
+        float deltaTime = _stateInfo.normalizedTime - lastUpdateTime;
+        lastUpdateTime = _stateInfo.normalizedTime;
 
-        Vector3 forwardTimesX = charController.transform.right * moveX;
-        Vector3 forwardTimesZ = charController.transform.forward * moveZ;
+        Vector3 forwardTimesX = CharacterController.transform.right * moveX;
+        Vector3 forwardTimesZ = CharacterController.transform.forward * moveZ;
 
         Vector3 direction = forwardTimesX + forwardTimesZ;
 
-        charController.transform.position += Vector3.Lerp(Vector3.zero, direction, deltaTime);
+        CharacterController.transform.position += Vector3.Lerp(Vector3.zero, direction, deltaTime);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

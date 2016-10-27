@@ -3,11 +3,11 @@
 public class IGGui : MonoBehaviour
 {
     private GameObject pausePanel;
-    private InventoryGUI invGui;
+    private InventoryGui invGui;
 
     private void Awake()
     {
-        invGui = InventoryGUI.Instance;
+        invGui = InventoryGui.Instance;
         pausePanel = transform.FindChild("PausePanel").gameObject;
         pausePanel.SetActive(false);
     }

@@ -3,43 +3,39 @@
 [RequireComponent (typeof(Animation))]
 public class TreasureChest : MonoBehaviour, IUsableObject
 {
-    private Animation anim = null;
-    private bool hasBeenOpen = false;
-    InventoryGUI invGui = null;
-    Inventory inv = new Inventory();
-    UnityEngine.Events.UnityAction OnCloseChest = null;
+    private Animation anim;
+    private bool hasBeenOpen;
+    private InventoryGui invGui;
+    private Inventory inv = new Inventory();
+    private UnityEngine.Events.UnityAction OnCloseChest;
 
 
     private void Awake()
     {
         anim = GetComponent<Animation>();
 
-        invGui = InventoryGUI.Instance;
+        invGui = InventoryGui.Instance;
     }
 
-    void Start()
+    private void Start()
     {
-        
-        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, 10);
+        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
 
-        OnCloseChest = delegate { CloseChest(); };
-
+        OnCloseChest = CloseChest;
     }
-
-
 
     public void OnUse(ACharacter character)
     {
         if (hasBeenOpen == false)
         {
             invGui.Inventory = inv;
-            invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.ChestInventory;
+            invGui.currentGuiAction = InventoryGui.InventoryGuiType.ChestInventory;
             
            
             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
             invGui.Show = true;
             if (OnCloseChest != null)
-                invGui.OnQuitButton.AddListener(OnCloseChest);
+                invGui.onQuitButton.AddListener(OnCloseChest);
 
             anim.Play("open");
             hasBeenOpen = true;
@@ -54,14 +50,14 @@ public class TreasureChest : MonoBehaviour, IUsableObject
     
     private void CloseChest()
     {
-        if (hasBeenOpen == true)
+        if (hasBeenOpen)
         {
             anim.Play("close");
             hasBeenOpen = false;
         }
 
 
-        invGui.OnQuitButton.RemoveListener(OnCloseChest);
+        invGui.onQuitButton.RemoveListener(OnCloseChest);
     }
 
 }

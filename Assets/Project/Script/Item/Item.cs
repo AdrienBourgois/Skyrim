@@ -2,28 +2,28 @@
 
 public class Item : IComparable<Item>
 {
-    protected enum item_type
+    protected enum ItemType
     {
-        undefined,
-        weapon,
-        armor,
-        useable
+        Undefined,
+        Weapon,
+        Armor,
+        Useable
     }
 
-    public enum item_rarity
+    public enum ItemRarity
     {
-        common = 1,
-        uncommon = 2,
-        rare = 3,
-        epic = 4,
-        legendary = 5
+        Common = 1,
+        Uncommon = 2,
+        Rare = 3,
+        Epic = 4,
+        Legendary = 5
     }
 
-    private string name_object = "Unnamed";
+    private string nameObject = "Unnamed";
     public string NameObject
     {
-        get { return name_object; }
-        set { name_object = value; }
+        get { return nameObject; }
+        set { nameObject = value; }
     }
 
     private string description = "Any description";
@@ -33,26 +33,16 @@ public class Item : IComparable<Item>
         set { description = value; }
     }
 
-    private float weight = 0;
-    public float Weight
-    {
-        get { return weight; }
-        protected set { weight = value; }
-    }
+    public float Weight { get; protected set; }
 
-    private item_type type = item_type.undefined;
-    protected item_type Type
+    private ItemType type = ItemType.Undefined;
+    protected ItemType Type
     {
         get { return type; }
         set { type = value; }
     }
 
-    private item_rarity rarity;
-    public item_rarity Rarity
-    {
-        protected get { return rarity; }
-        set { rarity = value; }
-    }
+    public ItemRarity Rarity { get; set; }
 
     private int level = 1;
     public int Level
@@ -61,14 +51,9 @@ public class Item : IComparable<Item>
         set { level = value; }
     }
 
-    private int price;
-    public int Price
-    {
-        get { return price; }
-        protected set { price = value; }
-    }
+    public int Price { get; protected set; }
 
-    public bool Equipped { get; set; }
+    public ACharacter Equipped { get; set; }
 
     private string prefabPath = "";
     public string PrefabPath
@@ -77,19 +62,19 @@ public class Item : IComparable<Item>
         protected set { prefabPath = value; }
     }
 
-    protected float RangeOfGeneration = 10;
+    protected float rangeOfGeneration = 10;
 
     public string GetItemGeneralInformations()
     {
-        return "Name : " + name_object + " (LVL " + level + ")" +
+        return "Name : " + nameObject + " (LVL " + level + ")" +
             "\nDescription : " + description +
-            "\nWeight : " + weight +
-            "\nRarity : " + rarity +
-            "\nPrice : " + price;
+            "\nWeight : " + Weight +
+            "\nRarity : " + Rarity +
+            "\nPrice : " + Price;
     }
 
-    public int CompareTo(Item item)
+    public int CompareTo(Item _item)
     {
-        return (NameObject.CompareTo(item.NameObject));
+        return (NameObject.CompareTo(_item.NameObject));
     }
 }

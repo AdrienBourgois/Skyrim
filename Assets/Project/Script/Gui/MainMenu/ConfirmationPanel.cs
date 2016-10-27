@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ConfirmationPanel : MonoBehaviour
 {
     [SerializeField]
-    private Text panelText = null;
+    private Text panelText;
 
     private delegate void DelegateClick();
     private event DelegateClick OnYes = () => { };

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ItemsGenerator : MonoBehaviour {
 
@@ -11,22 +10,9 @@ public class ItemsGenerator : MonoBehaviour {
 
     #endregion
 
-    private bool isConnected = false;
+    public bool IsConnected { get; set; }
 
-    public bool IsConnected
-    {
-        get
-        {
-            return isConnected;
-        }
-
-        set
-        {
-            isConnected = value;
-        }
-    }
-
-    void Awake()
+    private void Awake()
     {
         GameObject mGO = transform.parent.gameObject;
         Module m = mGO.GetComponent<Module>();
@@ -34,7 +20,7 @@ public class ItemsGenerator : MonoBehaviour {
             m.AddGenerator(this);
     }
 
-    void Start () {
+    private void Start () {
 	
 	}
 

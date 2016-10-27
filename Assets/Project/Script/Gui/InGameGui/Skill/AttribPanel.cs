@@ -5,18 +5,13 @@ using System.Collections.Generic;
 public class AttribPanel : MonoBehaviour {
     private Player player;
     private Attributes attrib;
-    private int bonusToAssign;
-    public int BonusToAssign
-    {
-        get { return bonusToAssign; }
-        set { bonusToAssign = value; }
-    }
+    public int BonusToAssign { get; set; }
 
     private void Start()
     {
         player = LevelManager.Instance.Player;
         attrib = player.CharacterStats.UnitAttributes;
-        bonusToAssign = player.AttributePointToAssign;
+        BonusToAssign = player.AttributePointToAssign;
         UpdateStats();
     }
 
@@ -36,7 +31,7 @@ public class AttribPanel : MonoBehaviour {
 
     public void UpdateBonusPoint()
     {
-        transform.FindChild("PointLeft").GetChild(0).GetComponent<Text>().text = bonusToAssign.ToString();
+        transform.FindChild("PointLeft").GetChild(0).GetComponent<Text>().text = BonusToAssign.ToString();
 
         foreach (Transform child in transform)
             if (child.GetComponent<AttribGui>())
@@ -59,10 +54,10 @@ public class AttribPanel : MonoBehaviour {
 
         player.CharacterStats.SetCharacteristics(player);
 
-        if (player.AttributePointToAssign != bonusToAssign)
+        if (player.AttributePointToAssign != BonusToAssign)
             player.CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
 
-        player.AttributePointToAssign = bonusToAssign;
+        player.AttributePointToAssign = BonusToAssign;
         UpdateStats();
     }
 
@@ -80,7 +75,7 @@ public class AttribPanel : MonoBehaviour {
             }
         }
 
-        bonusToAssign += bonusToRecover;
+        BonusToAssign += bonusToRecover;
         UpdateBonusPoint();
     }
 

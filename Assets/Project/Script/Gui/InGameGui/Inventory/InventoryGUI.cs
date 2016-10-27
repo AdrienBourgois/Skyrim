@@ -3,282 +3,270 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 
-public class InventoryGUI : MonoBehaviour
+public class InventoryGui : MonoBehaviour
 {
 
-    private static InventoryGUI instance = null;
-    public static InventoryGUI Instance
+    private static InventoryGui instance;
+    public static InventoryGui Instance
     {
         get
         {
             if (instance != null)
                 return instance;
 
-            instance = GameObject.FindObjectOfType<InventoryGUI>();
+            instance = FindObjectOfType<InventoryGui>();
             return instance;
         }
     }
 
-    public enum Inventory_Gui_Type
+    public enum InventoryGuiType
     {
         PlayerInventory,
         VendorInventory,
         EnemyInventory,
-        ChestInventory,
+        ChestInventory
     }
-    public Inventory_Gui_Type current_gui_action = Inventory_Gui_Type.PlayerInventory;
+    public InventoryGuiType currentGuiAction = InventoryGuiType.PlayerInventory;
 
     //Left Panel
-    [SerializeField]
-    GameObject items_list = null;
-    [SerializeField]
-    GameObject item_panel_template = null;
-    [SerializeField]
-    Dropdown filter_list = null;
-    [SerializeField]
-    Dropdown sort_list = null;
-    List<GameObject> item_panel_list = new List<GameObject>();
+    [SerializeField] private GameObject itemsList;
+    [SerializeField] private GameObject itemPanelTemplate;
+    [SerializeField] private Dropdown filterList;
+    [SerializeField] private Dropdown sortList;
+    private List<GameObject> itemPanelList = new List<GameObject>();
 
     //Right Panel
-    [SerializeField]
-    Text item_name = null;
-    [SerializeField]
-    Text item_caracteristics = null;
-    [SerializeField]
-    Button equip_button = null;
-    [SerializeField]
-    Button action_button = null;
-    [SerializeField]
-    Button quit_button = null;
-    public Button.ButtonClickedEvent OnQuitButton = null;
+    [SerializeField] private Text itemName;
+    [SerializeField] private Text itemCaracteristics;
+    [SerializeField] private Button equipButton;
+    [SerializeField] private Button actionButton;
+    [SerializeField] private Button quitButton;
+    public Button.ButtonClickedEvent onQuitButton;
 
-    Item selected_item = null;
+    private Item selectedItem;
 
-    private Inventory inventory;
-    public Inventory Inventory
-    {
-        get { return inventory; }
-        set { inventory = value; }
-    }
+    public Inventory Inventory { get; set; }
 
-    private bool is_show;
+    private bool isShow;
     public bool Show
     {
-        get { return is_show; }
+        get { return isShow; }
         set
         {
-            if (is_show != value)
+            if (isShow != value)
             {
-                is_show = value;
-                gameObject.SetActive(is_show);
-                if (is_show)
+                isShow = value;
+                gameObject.SetActive(isShow);
+                if (isShow)
                     ApplyFilterAndSort();
             }
         }
     }
 
-    Dictionary<string, Type> types_conversion = new Dictionary<string, Type>();
+    private Dictionary<string, Type> typesConversion = new Dictionary<string, Type>();
 
-    void Awake()
+    private void Awake()
     {
-        types_conversion.Add("<color=olive><b> -> All <- </b></color>", typeof(Item));
-        types_conversion.Add("<color=teal><b>---- Armor ----</b></color>", typeof(Armor));
-        types_conversion.Add("<color=teal>Boots</color>", typeof(Boots));
-        types_conversion.Add("<color=teal>Shield</color>", typeof(Shield));
-        types_conversion.Add("<color=teal>Torso</color>", typeof(Torso));
-        types_conversion.Add("<color=teal>Helmet</color>", typeof(Helmet));
-        types_conversion.Add("<color=orange><b>---- Weapon ----</b></color>", typeof(Weapon));
-        types_conversion.Add("<color=orange>Sword</color>", typeof(Sword));
-        types_conversion.Add("<color=orange>Axe</color>", typeof(Axe));
-        filter_list.ClearOptions();
-        filter_list.AddOptions(new List<string>(types_conversion.Keys));
+        typesConversion.Add("<color=olive><b> -> All <- </b></color>", typeof(Item));
+        typesConversion.Add("<color=teal><b>---- Armor ----</b></color>", typeof(Armor));
+        typesConversion.Add("<color=teal>Boots</color>", typeof(Boots));
+        typesConversion.Add("<color=teal>Shield</color>", typeof(Shield));
+        typesConversion.Add("<color=teal>Torso</color>", typeof(Torso));
+        typesConversion.Add("<color=teal>Helmet</color>", typeof(Helmet));
+        typesConversion.Add("<color=orange><b>---- Weapon ----</b></color>", typeof(Weapon));
+        typesConversion.Add("<color=orange>Sword</color>", typeof(Sword));
+        typesConversion.Add("<color=orange>Axe</color>", typeof(Axe));
+        filterList.ClearOptions();
+        filterList.AddOptions(new List<string>(typesConversion.Keys));
 
-        filter_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
-        sort_list.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
-        OnQuitButton = quit_button.onClick;
-        OnQuitButton.AddListener(delegate { Show = false;
+        filterList.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
+        sortList.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
+        onQuitButton = quitButton.onClick;
+        onQuitButton.AddListener(delegate { Show = false;
                                             FindObjectOfType<IGGui>().gameObject.SetActive(true);
                                             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame); });
 
         instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         gameObject.SetActive(false);
     }
 
-    void ApplyFilterAndSort()
+    private void ApplyFilterAndSort()
     {
-        Type type = types_conversion[(filter_list.options[filter_list.value].text)];
-        typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(new[] { type }).Invoke(this, null);
+        Type type = typesConversion[(filterList.options[filterList.value].text)];
+        typeof(InventoryGui).GetMethod("DisplayInventory").MakeGenericMethod(type).Invoke(this, null);
     }
 
     public void DisplayInventory<T>() where T : Item
     {
-        int panel_id = 0;
-        List<Item> list_to_display = inventory.GetItemsByTypeSorted<T>(sort_list.options[sort_list.value].text);
-        ManageItemPanels(list_to_display.Count);
-        foreach (Item item in list_to_display)
+        int panelId = 0;
+        List<Item> listToDisplay = Inventory.GetItemsByTypeSorted<T>(sortList.options[sortList.value].text);
+        ManageItemPanels(listToDisplay.Count);
+        foreach (Item item in listToDisplay)
         {
-            FillPanel(item_panel_list[panel_id], item);
-            panel_id++;
+            FillPanel(itemPanelList[panelId], item);
+            panelId++;
         }
 
-        Vector2 scroll_rect_position = GetComponentInChildren<ScrollRect>().normalizedPosition;
-        scroll_rect_position.y = 1;
-        GetComponentInChildren<ScrollRect>().normalizedPosition = scroll_rect_position;
+        Vector2 scrollRectPosition = GetComponentInChildren<ScrollRect>().normalizedPosition;
+        scrollRectPosition.y = 1;
+        GetComponentInChildren<ScrollRect>().normalizedPosition = scrollRectPosition;
     }
 
-    void ManageItemPanels(int panel_count_needed)
+    private void ManageItemPanels(int _panelCountNeeded)
     {
-        Vector3 default_scale = new Vector3(1f, 1f, 1f);
-        int panel_count_to_generate = panel_count_needed - item_panel_list.Count;
-        if (item_panel_list.Count < panel_count_needed)
+        Vector3 defaultScale = new Vector3(1f, 1f, 1f);
+        int panelCountToGenerate = _panelCountNeeded - itemPanelList.Count;
+        if (itemPanelList.Count < _panelCountNeeded)
         {
-            for (int i = 0; i < panel_count_to_generate; i++)
+            for (int i = 0; i < panelCountToGenerate; i++)
             {
-                GameObject item_panel = Instantiate(item_panel_template);
-                item_panel_list.Add(item_panel);
-                item_panel.transform.SetParent(items_list.transform);
-                item_panel.transform.localScale = default_scale;
+                GameObject itemPanel = Instantiate(itemPanelTemplate);
+                itemPanelList.Add(itemPanel);
+                itemPanel.transform.SetParent(itemsList.transform);
+                itemPanel.transform.localScale = defaultScale;
             }
         }
-        for (int i = 0; i < panel_count_needed; i++)
-            item_panel_list[i].SetActive(true);
-        for (int i = panel_count_needed; i < item_panel_list.Count; i++)
-            item_panel_list[i].SetActive(false);
+        for (int i = 0; i < _panelCountNeeded; i++)
+            itemPanelList[i].SetActive(true);
+        for (int i = _panelCountNeeded; i < itemPanelList.Count; i++)
+            itemPanelList[i].SetActive(false);
     }
 
-    void FillPanel(GameObject panel, Item item)
+    private void FillPanel(GameObject _panel, Item _item)
     {
-        Text name_label = panel.transform.FindChild("Name").GetComponent<Text>();
-        Text lvl_label = panel.transform.FindChild("LVL").GetComponent<Text>();
-        Text value_label = panel.transform.FindChild("Value").GetComponent<Text>();
-        Text weight_label = panel.transform.FindChild("Weight").GetComponent<Text>();
-        Text price_label = panel.transform.FindChild("Price").GetComponent<Text>();
-        Button button = panel.GetComponent<Button>();
+        Text nameLabel = _panel.transform.FindChild("Name").GetComponent<Text>();
+        Text lvlLabel = _panel.transform.FindChild("LVL").GetComponent<Text>();
+        Text valueLabel = _panel.transform.FindChild("Value").GetComponent<Text>();
+        Text weightLabel = _panel.transform.FindChild("Weight").GetComponent<Text>();
+        Text priceLabel = _panel.transform.FindChild("Price").GetComponent<Text>();
+        Button button = _panel.GetComponent<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(delegate { DisplayItem(item); });
+        button.onClick.AddListener(delegate { DisplayItem(_item); });
 
-        name_label.text = item.NameObject;
-        lvl_label.text = item.Level.ToString();
-        if (item is Armor)
-            value_label.text = ((Armor)item).Defense.ToString();
-        else if (item is Weapon)
-            value_label.text = ((Weapon)item).Damage.ToString();
+        nameLabel.text = _item.NameObject;
+        lvlLabel.text = _item.Level.ToString();
+        if (_item is Armor)
+            valueLabel.text = ((Armor)_item).Defense.ToString();
+        else if (_item is Weapon)
+            valueLabel.text = ((Weapon)_item).Damage.ToString();
         else
-            value_label.text = "-";
-        weight_label.text = item.Weight.ToString();
-        price_label.text = item.Price.ToString();
-        panel.name = item.NameObject;
-        ColorItem(panel, item);
+            valueLabel.text = "-";
+        weightLabel.text = _item.Weight.ToString();
+        priceLabel.text = _item.Price.ToString();
+        _panel.name = _item.NameObject;
+        ColorItem(_panel, _item);
     }
 
-    public void DisplayItem(Item item)
+    public void DisplayItem(Item _item)
     {
-        selected_item = item;
-        if (item != null)
+        selectedItem = _item;
+        if (_item != null)
         {
-            item_name.text = item.NameObject;
-            if (item is IInstanciableItem)
-                item_caracteristics.text = ((ITypeItem)item).GetItemInformations();
+            itemName.text = _item.NameObject;
+            if (_item is IInstanciableItem)
+                itemCaracteristics.text = ((ITypeItem)_item).GetItemInformations();
             else
-                item.GetItemGeneralInformations();
+                _item.GetItemGeneralInformations();
         }
         else
             ResetSelectedItemGui();
 
-        if (selected_item is IEquipableItem)
+        if (selectedItem is IEquipableItem)
         {
-            equip_button.GetComponentInChildren<Text>().text = "Equip";
-            equip_button.onClick.RemoveAllListeners();
-            equip_button.onClick.AddListener(delegate { ((IEquipableItem)item).Equip(); });
-            equip_button.interactable = true;
+            equipButton.GetComponentInChildren<Text>().text = "Equip";
+            equipButton.onClick.RemoveAllListeners();
+            equipButton.onClick.AddListener(delegate { ((IEquipableItem)_item).Equip(); });
+            equipButton.interactable = true;
         }
-        else if (selected_item is IUseableItem)
+        else if (selectedItem is IUseableItem)
         {
-            equip_button.GetComponentInChildren<Text>().text = "Use";
-            equip_button.onClick.RemoveAllListeners();
-            equip_button.onClick.AddListener(delegate { ((IUseableItem)item).Use(); });
-            equip_button.interactable = true;
+            equipButton.GetComponentInChildren<Text>().text = "Use";
+            equipButton.onClick.RemoveAllListeners();
+            equipButton.onClick.AddListener(delegate { ((IUseableItem)_item).Use(); });
+            equipButton.interactable = true;
         }
         else
         {
-            equip_button.GetComponentInChildren<Text>().text = "";
-            equip_button.onClick.RemoveAllListeners();
-            equip_button.interactable = false;
+            equipButton.GetComponentInChildren<Text>().text = "";
+            equipButton.onClick.RemoveAllListeners();
+            equipButton.interactable = false;
         }
 
-        if (current_gui_action == Inventory_Gui_Type.PlayerInventory)
+        if (currentGuiAction == InventoryGuiType.PlayerInventory)
         {
-            equip_button.enabled = true;
-            action_button.GetComponentInChildren<Text>().text = "Drop";
-            action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate
+            equipButton.enabled = true;
+            equipButton.GetComponentInChildren<Text>().text = "Equip";
+            actionButton.GetComponentInChildren<Text>().text = "Drop";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(delegate
             {
-                Inventory.RemoveItem(selected_item);
+                FindObjectOfType<Player>().CharacterStats.UnitCharacteristics.PlayerWeight -= selectedItem.Weight;
+                if (selectedItem.Equipped)
+                    selectedItem.Equipped.RemoveEquipement(selectedItem);
+                Inventory.RemoveItem(selectedItem);
                 ApplyFilterAndSort();
                 DisplayItem(null);
             });
         }
-        else if (current_gui_action == Inventory_Gui_Type.EnemyInventory)
+        else if (currentGuiAction == InventoryGuiType.EnemyInventory)
         {
-            equip_button.enabled = false;
-            action_button.GetComponentInChildren<Text>().text = "Take";
-            action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate
+            equipButton.enabled = false;
+            equipButton.GetComponentInChildren<Text>().text = "";
+            actionButton.GetComponentInChildren<Text>().text = "Take";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(delegate
             {
-                inventory.RemoveItem(selected_item);
-                ApplyFilterAndSort();
-                Inventory player_inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
-                player_inventory.AddItem(selected_item);
-                DisplayItem(null);
+                Player player = FindObjectOfType<Player>();
+                if (player.CanCarry(selectedItem))
+                {
+                    player.CharacterStats.UnitCharacteristics.PlayerWeight += selectedItem.Weight;
+                    Inventory.RemoveItem(selectedItem);
+                    ApplyFilterAndSort();
+                    Inventory player_inventory = player.UnitInventory;
+                    player_inventory.AddItem(selectedItem);
+                    DisplayItem(null);
+                }
             });
         }
-        else if (current_gui_action == Inventory_Gui_Type.VendorInventory)
+        else if (currentGuiAction == InventoryGuiType.VendorInventory)
         {
-            equip_button.enabled = false;
-            action_button.GetComponentInChildren<Text>().text = "Buy (Steal)";
-            action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate
+            equipButton.enabled = false;
+            equipButton.GetComponentInChildren<Text>().text = "";
+            actionButton.GetComponentInChildren<Text>().text = "Buy (Steal)";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(delegate
             {
-                inventory.RemoveItem(selected_item);
-                ApplyFilterAndSort();
-                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory;
-                player_inventory.AddItem(selected_item);
-                DisplayItem(null);
-            });
-        }
-        else if (current_gui_action == Inventory_Gui_Type.ChestInventory)
-        {
-            equip_button.enabled = false;
-            action_button.GetComponentInChildren<Text>().text = "Take";
-            action_button.onClick.RemoveAllListeners();
-            action_button.onClick.AddListener(delegate
-            {
-                inventory.RemoveItem(selected_item);
-                ApplyFilterAndSort();
-                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory; 
-                player_inventory.AddItem(selected_item);
-                DisplayItem(null);
+                Player player = FindObjectOfType<Player>();
+                if (player.CanCarry(selectedItem))
+                {
+                    player.CharacterStats.UnitCharacteristics.PlayerWeight += selectedItem.Weight;
+                    Inventory.RemoveItem(selectedItem);
+                    ApplyFilterAndSort();
+                    Inventory player_inventory = player.UnitInventory;
+                    player_inventory.AddItem(selectedItem);
+                    DisplayItem(null);
+                }
             });
         }
     }
 
-    void ResetSelectedItemGui()
+    private void ResetSelectedItemGui()
     {
-        item_name.text = "";
-        item_caracteristics.text = "";
+        itemName.text = "";
+        itemCaracteristics.text = "";
     }
 
-    void ColorItem(GameObject template, Item item)
+    private void ColorItem(GameObject _template, Item _item)
     {
-        Image image = template.GetComponent<Image>();
-        if (item is Weapon)
+        Image image = _template.GetComponent<Image>();
+        if (_item is Weapon)
             image.color = new Color(0.412f, 0.616f, 0f);
-        if (item is Armor)
-            image.color = new Color(0.09f, 0.4f, 0.77f);
+        if (_item is Armor)
+            image.color = new Color(0.09f, 0.6f, 0.9f);
         else
             image.color = new Color(1f, 0.4f, 0f);
     }
