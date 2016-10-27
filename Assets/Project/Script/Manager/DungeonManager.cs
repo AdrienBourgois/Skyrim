@@ -17,8 +17,6 @@ public class DungeonManager : MonoBehaviour {
                 GameObject gao = GameObject.FindGameObjectWithTag("DungeonManager");
                 if (gao)
                     instance = gao.GetComponent<DungeonManager>();
-
-                //Debug.Log(gao);
             }
 
             return instance;
@@ -35,12 +33,6 @@ public class DungeonManager : MonoBehaviour {
         GameManager.Instance.onStateChanged += OnStateChanged;
         StartCoroutine(CreateDungeon());
     }
-
-    private void Update () {
-
-        
-	}
-
 
     public void RegisterModule(Module m)
     {
@@ -59,8 +51,6 @@ public class DungeonManager : MonoBehaviour {
 
     private void ItemGenerator()
     {
-        //Use two for loop instead two foreach loop to avoid an Unity error with enumeration
-
         foreach (Module m in modules)
         {
             foreach (ItemsGenerator itGen in m.ItemsGeneratorList)

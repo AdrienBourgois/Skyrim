@@ -2,9 +2,9 @@
 
 public class WeaponAnchor : MonoBehaviour
 {
-    private ACharacter character = null;
-    private Item weapon = null;
-    private WeaponInstance weaponInstance = null;
+    private ACharacter character;
+    private Item weapon;
+    private WeaponInstance weaponInstance;
 
     public void SetCharacter(ACharacter _character)
     {

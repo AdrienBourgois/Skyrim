@@ -2,7 +2,7 @@
 
 public class WeaponInstance : MonoBehaviour
 {
-    private ACharacter character = null;
+    private ACharacter character;
 
     public void SetCharacter(ACharacter _character)
     {

@@ -3,15 +3,15 @@
 
 public class ModuleConnector : MonoBehaviour {
 
-    public string[] Tags;
-    public bool IsDefault;
+    public string[] tags;
+    public bool isDefault;
 
     private void Awake()
     {
 
         // transform.parent is the Module, this ModuleConnector is connected to
-        GameObject mGO = transform.parent.gameObject;
-        Module m = mGO.GetComponent<Module>();
+        GameObject mGo = transform.parent.gameObject;
+        Module m = mGo.GetComponent<Module>();
         if (m != null)
             m.AddConnector(this);
     }

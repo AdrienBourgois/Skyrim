@@ -55,10 +55,7 @@ public class Attributes
     public int GetAttribFromString(string _attribName)
     {
         if (!attribDict.ContainsKey(_attribName))
-        {
-            Debug.Log("Attributes.GetAttribFromString() try to call AttribDict with invalid key : " + _attribName);
             return -1;
-        }
 
         return attribDict[_attribName];
     }
@@ -80,10 +77,6 @@ public class Attributes
 
             case "Dexterity":
                 dexterity = _value;
-                break;
-
-            default:
-                Debug.Log("Attributes.GetAttribFromString() -> Can't find attribute named : " + _attribName);
                 break;
         }
         UpdateAttribDict();

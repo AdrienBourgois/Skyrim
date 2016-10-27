@@ -84,19 +84,19 @@ public class Characteristics
 
     #endregion
 
-    public Characteristics(int value)
+    public Characteristics(int _value)
     {
-            Attack = value;
-            Defense = value;
-            Weight = value;
-            MaxHealth = value;
-            Health = value;
-            HealthRegeneration = value;
-            MaxMana = value;
-            Mana = value;
-            SpellPower = value;
-            Precision = value;
-            AttackSpeed = value;
+            Attack = _value;
+            Defense = _value;
+            Weight = _value;
+            MaxHealth = _value;
+            Health = _value;
+            HealthRegeneration = _value;
+            MaxMana = _value;
+            Mana = _value;
+            SpellPower = _value;
+            Precision = _value;
+            AttackSpeed = _value;
     }
 
     public void UpdateCharacDict()
@@ -124,10 +124,7 @@ public class Characteristics
     public float GetCharacFromString(string _characName)
     {
         if (!characDict.ContainsKey(_characName))
-        {
-            Debug.Log("Characteristics.GetCharacFromString() try to call CharacDict with invalid key : " + _characName);
             return -1;
-        }
 
         return characDict[_characName];
     }

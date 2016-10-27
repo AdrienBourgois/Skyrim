@@ -62,7 +62,6 @@ public class MagicManager : MonoBehaviour
             Debug.LogError("MagicManager.CreateSpell() - could not find prefab path for id [" + SpellProp.Id + "] \"" + SpellProp.Id + "\"");
             return null;
         }
-        Debug.Log(prefabPath);
         ASpell spellInstance = Instantiate(ResourceManager.Instance.Load(prefabPath).GetComponent<ASpell>());
         spellInstance.SetController(controller);
         spellInstance.SetProperty(SpellProp);
