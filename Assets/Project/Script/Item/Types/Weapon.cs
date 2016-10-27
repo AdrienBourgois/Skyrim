@@ -2,12 +2,12 @@
 
 public class Weapon : Item, ITypeItem {
 
-    protected enum weapon_type
+    protected enum WeaponType
     {
         Sword,
         Axe
     }
-    protected weapon_type weaponType;
+    protected WeaponType weaponType;
     private Characteristics characteristics = new Characteristics(0);
     public Characteristics Characteristics
     { get { return characteristics; } }

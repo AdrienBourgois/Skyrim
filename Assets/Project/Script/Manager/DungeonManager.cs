@@ -30,13 +30,13 @@ public class DungeonManager : MonoBehaviour {
 
     private void Start () {
 
-        GameManager.Instance.onStateChanged += OnStateChanged;
+        GameManager.Instance.OnStateChanged += OnStateChanged;
         StartCoroutine(CreateDungeon());
     }
 
-    public void RegisterModule(Module m)
+    public void RegisterModule(Module _m)
     {
-        modules.Add(m);
+        modules.Add(_m);
     }
 
 
@@ -64,7 +64,7 @@ public class DungeonManager : MonoBehaviour {
         }
     }
 
-    private void OnStateChanged(GameManager.GameState state)
+    private void OnStateChanged(GameManager.GameState _state)
     {
         //print("stateChanged");
         //if (state == GameManager.GameState.EnterDungeon)

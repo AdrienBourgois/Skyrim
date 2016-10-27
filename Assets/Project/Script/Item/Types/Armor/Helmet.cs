@@ -14,7 +14,7 @@ public class Helmet : Armor, IEquipableItem, IInstanciableItem
     public void Instantiate()
     {
         Type = ItemType.Armor;
-        armorType = armor_type.Helmet;
+        armorType = ArmorType.Helmet;
         float powerLvl = (float)Rarity;
 
         SetRandAttributes();

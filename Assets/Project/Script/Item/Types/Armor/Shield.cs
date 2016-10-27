@@ -14,7 +14,7 @@ public class Shield : Armor, IEquipableItem, IInstanciableItem
     public void Instantiate()
     {
         Type = ItemType.Armor;
-        armorType = armor_type.Shield;
+        armorType = ArmorType.Shield;
         float powerLvl = (float)Rarity;
 
         SetRandAttributes();

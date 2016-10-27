@@ -14,7 +14,7 @@ public class Axe : Weapon, IEquipableItem, IInstanciableItem
     public void Instantiate()
     {
         Type = ItemType.Weapon;
-        weaponType = weapon_type.Axe;
+        weaponType = WeaponType.Axe;
         float powerLvl = (float)Rarity;
 
         SetRandAttributes();

@@ -14,7 +14,7 @@ public class Sword : Weapon, IEquipableItem, IInstanciableItem
     public void Instantiate()
     {
         Type = ItemType.Weapon;
-        weaponType = weapon_type.Sword;
+        weaponType = WeaponType.Sword;
         float powerLvl = (float)Rarity;
 
         SetRandAttributes();
