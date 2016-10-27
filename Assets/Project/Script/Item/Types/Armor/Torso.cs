@@ -14,7 +14,6 @@ public class Torso : Armor, IEquipableItem, IInstanciableItem
     public void Instantiate()
     {
         Type = ItemType.Armor;
-        armorType = ArmorType.Torso;
         float powerLvl = (float)Rarity;
 
         SetRandAttributes();

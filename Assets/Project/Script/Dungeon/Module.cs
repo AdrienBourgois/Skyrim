@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class Module : MonoBehaviour {
 
-
     [SerializeField]
     private string[] tags;
 
@@ -13,67 +12,16 @@ public class Module : MonoBehaviour {
     private List<ItemsGenerator> itemsGeneratorList = new List<ItemsGenerator>();
     private List<EnemySpawner> enemySpawnersList = new List<EnemySpawner>();
 
-    public List<ModuleConnector> ModuleConnectorList
-    {
-        get
-        {
-            return moduleConnectorList;
-        }
+    private List<ModuleConnector> ModuleConnectorList { get { return moduleConnectorList; }}
 
-        set
-        {
-            moduleConnectorList = value;
-        }
-    }
+    public string[] Tags { get { return tags; } }
 
-    public string[] Tags
-    {
-        get
-        {
-            return tags;
-        }
-
-        set
-        {
-            tags = value;
-        }
-    }
-
-    public List<ItemsGenerator> ItemsGeneratorList
-    {
-        get
-        {
-            return itemsGeneratorList;
-        }
-
-        set
-        {
-            itemsGeneratorList = value;
-        }
-    }
-
-    public List<EnemySpawner> EnemySpawnersList
-    {
-        get
-        {
-            return enemySpawnersList;
-        }
-
-        set
-        {
-            enemySpawnersList = value;
-        }
-    }
+    public List<ItemsGenerator> ItemsGeneratorList { get { return itemsGeneratorList; } }
 
     private void Awake()
     {
         DungeonManager.Instance.RegisterModule(this);
     }
-
-    private void Start()
-    {
-    }
-
 
     public ModuleConnector[] GetExits()
     {

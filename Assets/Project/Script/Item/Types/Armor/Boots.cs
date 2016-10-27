@@ -14,7 +14,6 @@ public class Boots : Armor, IEquipableItem, IInstanciableItem
     public void Instantiate()
     {
         Type = ItemType.Armor;
-        armorType = ArmorType.Boots;
         float powerLvl = (float)Rarity;
 
         SetRandAttributes();

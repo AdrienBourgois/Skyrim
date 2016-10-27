@@ -8,8 +8,6 @@ public abstract class ACharacter : APausableObject, IHitable
     public delegate void DelegateWeapons(Item _leftWeapon, Item _rightWeapon);
     public event DelegateWeapons OnChangedWeapons;
 
-    public int MaxUnitLevel { get; protected set; }
-
     #region Equipement
 
     public Weapon RightHand { get; set; }

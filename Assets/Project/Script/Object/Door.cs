@@ -7,10 +7,10 @@ public class Door : MonoBehaviour, IUsableObject
 {
     public void OnUse(ACharacter _character)
     {
-       StartCoroutine(TeleportToTown(_character));
+       StartCoroutine(TeleportToTown());
     }
 
-    private IEnumerator TeleportToTown(ACharacter character)
+    private IEnumerator TeleportToTown()
     {
         Destroy(FindObjectOfType<Cam>());
         SceneManager.LoadSceneAsync("BaseScene");
