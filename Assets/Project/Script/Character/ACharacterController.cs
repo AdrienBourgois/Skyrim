@@ -171,7 +171,7 @@ public abstract class ACharacterController : APausableObject
         SpellProperty selectedMagic = MagicManager.Instance.MagicKeySelected[_key];
 
         if (animator.GetBool("IsUsing" + character.StuffType)
-            || !Enum.IsDefined(typeof(MagicManager.MagicID), selectedMagic.Id))
+            || !Enum.IsDefined(typeof(MagicManager.MagicId), selectedMagic.Id))
             return;
 
         characterWeapons.SetActiveMagic(selectedMagic);

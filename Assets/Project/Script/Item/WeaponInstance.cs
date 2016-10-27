@@ -9,11 +9,11 @@ public class WeaponInstance : MonoBehaviour
         character = _character;
     }
 
-    public void HitObject(IHitable hitableObject)
+    public void HitObject(IHitable _hitableObject)
     {
         if (character == null)
             return;
 
-        hitableObject.OnHit(character);
+        _hitableObject.OnHit(character);
     }
 }

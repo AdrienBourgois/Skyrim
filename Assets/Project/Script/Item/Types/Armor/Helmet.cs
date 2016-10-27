@@ -14,14 +14,14 @@ public class Helmet : Armor, IEquipableItem, IInstanciableItem
     public void Instantiate()
     {
         Type = ItemType.Armor;
-        ArmorType = armor_type.Helmet;
+        armorType = armor_type.Helmet;
         float powerLvl = (float)Rarity;
 
         SetRandAttributes();
 
         float baseArmorValue = Mathf.Floor(Mathf.Exp(Level / (6 - powerLvl / 8)) * 3);
-        float min = baseArmorValue * (1 - rangeOfGeneration / 100);
-        float max = baseArmorValue * (1 + rangeOfGeneration / 100);
+        float min = baseArmorValue * (1 - RangeOfGeneration / 100);
+        float max = baseArmorValue * (1 + RangeOfGeneration / 100);
         Defense = (int)UnityEngine.Random.Range(min, max);
 
         Price = (int)(Mathf.Sqrt(Defense) * (10 + powerLvl * 6));

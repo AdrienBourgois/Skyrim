@@ -10,19 +10,19 @@ public class MagicInventory
 
     public void PlayerBasicSpellInit()
     {
-        magicList.Add(MagicManager.Instance.CreateSpellProperties(MagicManager.MagicID.Fireball,
+        magicList.Add(MagicManager.Instance.CreateSpellProperties(MagicManager.MagicId.Fireball,
                                                         MagicManager.MagicType.Medium,
                                                         50f,
                                                         20,
                                                         "Cast a Powerfull Fireball which can ignite the opponent"));
 
-        magicList.Add(MagicManager.Instance.CreateSpellProperties(MagicManager.MagicID.Heal,
+        magicList.Add(MagicManager.Instance.CreateSpellProperties(MagicManager.MagicId.Heal,
                                                         MagicManager.MagicType.Self,
                                                         30f,
                                                         10,
                                                         "Heal Yourself with a bright wave of light"));
 
-        magicList.Add(MagicManager.Instance.CreateSpellProperties(MagicManager.MagicID.Invisibility,
+        magicList.Add(MagicManager.Instance.CreateSpellProperties(MagicManager.MagicId.Invisibility,
                                                         MagicManager.MagicType.Self,
                                                         0,
                                                         50,
@@ -32,7 +32,7 @@ public class MagicInventory
 
     public void EnemyBasicSpellInit()
     {
-        magicList.Add(MagicManager.Instance.CreateSpellProperties(MagicManager.MagicID.Fireball,
+        magicList.Add(MagicManager.Instance.CreateSpellProperties(MagicManager.MagicId.Fireball,
                                                         MagicManager.MagicType.Light,
                                                         30f,
                                                         20,

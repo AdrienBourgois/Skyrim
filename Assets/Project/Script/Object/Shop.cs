@@ -20,7 +20,7 @@ public class Shop : MonoBehaviour, IUsableObject
         inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
     }
 
-    public void OnUse(ACharacter character)
+    public void OnUse(ACharacter _character)
     {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
         invPanelGui.Show = true;

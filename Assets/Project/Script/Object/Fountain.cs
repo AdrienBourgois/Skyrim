@@ -3,8 +3,8 @@
 public class Fountain : MonoBehaviour , IUsableObject
 {
 
-    public void OnUse(ACharacter character)
+    public void OnUse(ACharacter _character)
     {
-        character.CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
+        _character.CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
     }
 }

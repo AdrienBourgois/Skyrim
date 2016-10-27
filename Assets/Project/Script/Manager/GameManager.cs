@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool loadLevel = true;
-
     #region SerializeField
     [SerializeField] private GameObject dataMgrPrefab;
     [SerializeField] private GameObject levelMgrPrefab;

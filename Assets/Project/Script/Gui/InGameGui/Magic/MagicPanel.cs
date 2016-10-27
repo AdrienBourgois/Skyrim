@@ -51,7 +51,7 @@ public class MagicPanel : MonoBehaviour
         gao.transform.FindChild("Name").GetComponent<Text>().text = magic.Id.ToString();
         gao.transform.FindChild("Cost").GetComponent<Text>().text = magic.Cost.ToString();
 
-        if (magic.Power != 0 && magic.Id == MagicManager.MagicID.Heal)
+        if (magic.Power != 0 && magic.Id == MagicManager.MagicId.Heal)
             gao.GetComponent<Image>().color  = Color.green;
         else if (magic.Power == 0 )
             gao.GetComponent<Image>().color = Color.cyan;
