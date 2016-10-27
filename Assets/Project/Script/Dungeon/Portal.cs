@@ -12,11 +12,9 @@ public class Portal : MonoBehaviour, IUsableObject
     private void LoadLevel(ACharacter character)
     {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.EnterDungeon);
-        //DontDestroyOnLoad(FindObjectOfType<DungeonManager>());
+       
         DontDestroyOnLoad(character);
-        DontDestroyOnLoad(FindObjectOfType<Cam>());
-        //DontDestroyOnLoad(FindObjectOfType<GameManager>());
-        //DontDestroyOnLoad(FindObjectOfType<IGGui>());
+     
         SceneManager.LoadSceneAsync("DungeonGeneration");
     }
 }

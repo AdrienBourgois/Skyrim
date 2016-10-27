@@ -31,8 +31,8 @@ public class Compass : MonoBehaviour {
             DisableArrow();
             return;
         }
-
-        needle.position = player.position;
+        if (player != null)
+            needle.position = player.position;
         needle.LookAt(target);
 
         UpdateArrow();

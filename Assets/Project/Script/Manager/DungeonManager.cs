@@ -79,10 +79,11 @@ public class DungeonManager : MonoBehaviour {
 
     void OnStateChanged(GameManager.GameState state)
     {
+        //print("stateChanged");
         //if (state == GameManager.GameState.EnterDungeon)
         //    StartCoroutine(CreateDungeon());
-        if (state == GameManager.GameState.PopulateDungeon)
-           ItemGenerator();
+        //if (state == GameManager.GameState.PopulateDungeon)
+        //   ItemGenerator();
         
     }
 

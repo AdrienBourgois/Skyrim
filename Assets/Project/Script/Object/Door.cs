@@ -6,19 +6,13 @@ using UnityEngine.SceneManagement;
 public class Door : MonoBehaviour, IUsableObject
 {
 
-    private Animation anim = null;
-    private bool hasBeenOpen = false;
-
-
     public void OnUse(ACharacter character)
     {
        StartCoroutine(TeleportToTown(character));
-        
     }
 
     private void Start () {
 
-        anim = GetComponent<Animation>();
         Door spawn = GetComponentInChildren<Door>();
         GameObject player = GameObject.Find("Player");
         if (player != null)

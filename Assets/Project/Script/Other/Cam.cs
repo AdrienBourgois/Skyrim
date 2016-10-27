@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Cam : APausableObject
 {
@@ -18,30 +19,37 @@ public class Cam : APausableObject
     {
         GameManager.OnPause += PutPause;
 
-        playerController = FindObjectOfType<PlayerController>();
-        if (playerController == null)
-            Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
+        StartCoroutine(FindPlayer());
 
-        playerAnchor = playerController.transform.FindChild("Hips");
-        if (playerAnchor == null)
-            Debug.LogError("Cam.Awake() - could not find child of name Hips in playerController");
+        //playerController = FindObjectOfType<PlayerController>();
+        //if (playerController == null)
+        //    Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
 
-        compass = GameObject.FindGameObjectWithTag("Compass").transform;
+        //playerAnchor = playerController.transform.FindChild("Hips");
+        //if (playerAnchor == null)
+        //    Debug.LogError("Cam.Awake() - could not find child of name Hips in playerController");
 
-        transform.rotation = new Quaternion(playerController.transform.forward.x,
-                                            playerController.transform.forward.y,
-                                            playerController.transform.forward.z,
-                                            0f);
+        //compass = GameObject.FindGameObjectWithTag("Compass").transform;
+
+        //transform.rotation = new Quaternion(playerController.transform.forward.x,
+        //                                    playerController.transform.forward.y,
+        //                                    playerController.transform.forward.z,
+        //                                    0f);
 	}
+
+    
 
     private void Update()
     {
-        transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
+        if (playerAnchor != null)
+        {
+            transform.position = playerAnchor.position + (Vector3.up * ratioOverHips);
 
-        if (paused)
-            return;
+            if (paused)
+                return;
 
-        FpsCamUpdate();
+            FpsCamUpdate();
+        }
     }
 
     private void FpsCamUpdate()
@@ -59,4 +67,25 @@ public class Cam : APausableObject
             GameObject.FindGameObjectWithTag("Compass").transform.localEulerAngles = new Vector3(0f, rotX, 0f);
         }
     }
+
+
+    IEnumerator FindPlayer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        playerController = FindObjectOfType<PlayerController>();
+        if (playerController == null)
+            Debug.LogError("Cam.Awake() - could not find object of type PlayerController");
+
+        playerAnchor = playerController.transform.FindChild("Hips");
+        if (playerAnchor == null)
+            Debug.LogError("Cam.Awake() - could not find child of name Hips in playerController");
+
+        compass = GameObject.FindGameObjectWithTag("Compass").transform;
+
+        transform.rotation = new Quaternion(playerController.transform.forward.x,
+                                            playerController.transform.forward.y,
+                                            playerController.transform.forward.z,
+                                            0f);
+    }
+   
 }

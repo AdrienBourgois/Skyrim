@@ -12,6 +12,7 @@ public class ConfirmationPanel : MonoBehaviour
     private event DelegateClick OnYes = () => { };
     private event DelegateClick OnNo = () => { };
 
+
     public void DoYes()
     {
         OnYes.Invoke();

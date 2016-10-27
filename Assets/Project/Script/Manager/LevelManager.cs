@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
+
     private Player player;
     public Player Player
     {
@@ -34,14 +35,27 @@ public class LevelManager : MonoBehaviour {
     private void Awake()
     {
         instance = this;
+        if (player == null && GameManager.Instance.CurrGameState == GameManager.GameState.InGame)
+            CreatePlayer();
     }
 
     private void Start ()
     {
         player = FindObjectOfType<Player>();
-	}
+        
+
+    }
 
     private void Update () {
-	
+
+        //if (GameObject.FindGameObjectsWithTag("Player").Length > 1)
+            //Destroy(Player);
+
 	}
+
+    void CreatePlayer()
+    {
+        GameObject playerPrefab = ResourceManager.Instance.Load("Character/Player");
+        GameObject player = Instantiate(playerPrefab);
+    }
 }

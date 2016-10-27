@@ -1,4 +1,6 @@
-﻿public class Player : ACharacter
+﻿using UnityEngine;
+
+public class Player : ACharacter
 {
     #region Equipement
 
@@ -22,9 +24,19 @@
     public int XpToLevelUp { get { return xpToLevelUp; } }
     #endregion
 
+    void Awake()
+    {
+        GameObject[] playerArray = GameObject.FindGameObjectsWithTag("Player");
+
+        if (playerArray.Length > 1)
+            Destroy(gameObject);
+    }
+
     protected override void Start()
     {
         base.Start();
+
+       
 
         //PlayerWeapons playerWeapons = transform.FindChild(GameManager.c_weaponChildName).GetComponent<PlayerWeapons>();
         //if (playerWeapons == null)

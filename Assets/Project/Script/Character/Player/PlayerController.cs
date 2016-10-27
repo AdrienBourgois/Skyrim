@@ -21,6 +21,9 @@ public class PlayerController : ACharacterController
     {
         ResetTriggers();
 
+        if (target == null)
+            target = FindObjectOfType<Cam>().transform;
+
         if (paused)
         {
             ControllerMove(0f, 0f);
