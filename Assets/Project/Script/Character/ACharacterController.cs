@@ -219,9 +219,9 @@ public abstract class ACharacterController : APausableObject
         animator.SetBool("IsGrounded", true);
     }
 
-    protected virtual void OnTriggerStay(Collider collider)
+    protected virtual void OnTriggerStay(Collider _collider)
     {
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Character"))
+        if (_collider.gameObject.layer == LayerMask.NameToLayer("Character"))
             return;
         if (bIsGrounded == false)
         {
@@ -235,7 +235,7 @@ public abstract class ACharacterController : APausableObject
         }
     }
 
-    protected virtual void OnTriggerExit(Collider collider)
+    protected virtual void OnTriggerExit(Collider _collider)
     {
         if (corGrounded == null)
             corGrounded = StartCoroutine(CoroutineGrounded());

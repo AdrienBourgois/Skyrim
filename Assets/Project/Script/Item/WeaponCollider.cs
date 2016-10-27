@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class WeaponCollider : MonoBehaviour
 {
-    [SerializeField]
-    WeaponInstance weaponRoot = null;
+    [SerializeField] private WeaponInstance weaponRoot = null;
 
     private void Start()
     {
@@ -12,9 +10,9 @@ public class WeaponCollider : MonoBehaviour
             Debug.LogError("WeaponCollider.Start() - weaponRoot (WeaponInstance) should not be null!");
     }
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter(Collider _collider)
     {
-        IHitable hitableObject = collider.transform.root.gameObject.GetComponent<IHitable>();
+        IHitable hitableObject = _collider.transform.root.gameObject.GetComponent<IHitable>();
         if (hitableObject != null)
         {
             weaponRoot.HitObject(hitableObject);
