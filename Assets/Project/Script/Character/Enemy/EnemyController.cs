@@ -1,20 +1,67 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 public class EnemyController : ACharacterController
 {
-    #region Delegates and events
-    public delegate void DelegateAction();
-    public event DelegateAction OnLeftDown;
-    public event DelegateAction OnLeftUp;
-    public event DelegateAction OnRightDown;
-    #endregion
+    [SerializeField]
+    private float distanceMaxDetection = 10.0f;
+
+    private Transform target = null;
+    private bool bIsAttacking = false;
 
     protected override void Start()
     {
         base.Start();
-        characterWeapons.SetCharacter(character);
 
-        ControllerDrawSheathSword();
+        StartCoroutine(FindTarget());
+    }
+
+    private IEnumerator FindTarget()
+    {
+        bool searchingPlayer = true;
+
+        while (searchingPlayer)
+        {
+            Player playerTarget = FindObjectOfType<Player>();
+            if (playerTarget != null)
+            {
+                searchingPlayer = false;
+                target = playerTarget.transform;
+            }
+            else
+                yield return new WaitForSeconds(1f);
+        }
+        StartCoroutine(UpdateAggressivity());
+    }
+
+    private IEnumerator UpdateAggressivity()
+    {
+        bool needUpdate = true;
+        int layerMask = (1 << LayerMask.NameToLayer("Weapon"));
+        layerMask |= (1 << LayerMask.NameToLayer("Character"));
+        layerMask = ~layerMask;
+
+        while (needUpdate)
+        {
+            RaycastHit hit;
+            Vector3 direction = target.position - CenterOfMass.position;
+            if (Physics.Raycast(CenterOfMass.position, direction, out hit, distanceMaxDetection, layerMask) && hit.collider.transform.root.transform == target)
+            {
+                if (bIsAttacking == false)
+                {
+                    ControllerDrawSheathSword();
+                    bIsAttacking = true;
+                }
+            }
+            else if (bIsAttacking == true)
+            {
+                ControllerDrawSheathSword();
+                bIsAttacking = false;
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     protected override void Update()
@@ -27,57 +74,33 @@ public class EnemyController : ACharacterController
             return;
         }
 
-        UpdateIa();
+        if (target != null)
+            UpdateIa();
     }
 
     private void UpdateIa()
     {
-
-        //ControllerMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-        //if (Input.GetButtonDown("CastSpell"))
-        //    ControllerCastSpell();
-
-        #region Hands actions
-            //ControllerRightHand();
-
-            //ControllerLeftHand(true);
-            //ControllerLeftHand(false);
-
-            //ControllerDrawSheathSword();
-        #endregion
-    }
-
-    #region Controller
-
-    protected override void ControllerRightHand()
-    {
-        base.ControllerRightHand();
-
-        if (OnRightDown != null)
-            OnRightDown.Invoke();
-    }
-
-    protected override void ControllerLeftHand(bool _bIsPressed = true)
-    {
-        base.ControllerLeftHand(_bIsPressed);
-
-        if (_bIsPressed)
+        if (bIsAttacking == true)
         {
-            if (OnLeftDown != null)
-                OnLeftDown.Invoke();
-        }
-        else
-        {
-            if (OnLeftUp != null)
-                OnLeftUp.Invoke();
+            Vector3 direction = target.position - CenterOfMass.position;
+            transform.rotation = Quaternion.LookRotation(direction);
+            if (direction.magnitude < 2f)
+            {
+                ControllerRightHand();
+                ControllerMove(0.0f, 0.2f);
+            }
+            else
+                ControllerMove(0.0f, 1.0f);
+            //Vector3 rotation = Quaternion.FromToRotation(transform.forward, direction).eulerAngles * Time.deltaTime;
+            //Debug.Log("rotation == " + rotation);
+            //ControllerLook(rotation.x, rotation.z);
+            //ControllerMove(direction.x, direction.z);
         }
     }
 
     public override void ControllerUse()
     {
         RaycastHit hit;
-        // TODO: global(?) variable for max distance
         const float useMaxDistance = 3f;
         if (Physics.Raycast(target.position, target.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
@@ -90,6 +113,8 @@ public class EnemyController : ACharacterController
         }
     }
 
-    #endregion
-
+    public override Transform GetTarget()
+    {
+        return target;
+    }
 }
