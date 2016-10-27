@@ -10,7 +10,7 @@ public class Module : MonoBehaviour {
 
     private List<ModuleConnector> moduleConnectorList = new List<ModuleConnector>();
     private List<ItemsGenerator> itemsGeneratorList = new List<ItemsGenerator>();
-    private List<EnemySpawner> enemySpawnersList = new List<EnemySpawner>();
+    public List<EnemySpawner> enemySpawnersList = new List<EnemySpawner>();
 
     private List<ModuleConnector> ModuleConnectorList { get { return moduleConnectorList; }}
 
@@ -28,18 +28,18 @@ public class Module : MonoBehaviour {
         return GetComponentsInChildren<ModuleConnector>();
     }
 
-    public void AddConnector(ModuleConnector moduleConnector)
+    public void AddConnector(ModuleConnector _moduleConnector)
     {
-        ModuleConnectorList.Add(moduleConnector);
+        ModuleConnectorList.Add(_moduleConnector);
     }
 
-    public void AddGenerator(ItemsGenerator itemGenerator)
+    public void AddGenerator(ItemsGenerator _itemGenerator)
     {
-        ItemsGeneratorList.Add(itemGenerator);
+        ItemsGeneratorList.Add(_itemGenerator);
     }
 
-    public void AddEnemySpawner(EnemySpawner enemySpawn)
+    public void AddEnemySpawner(EnemySpawner _enemySpawn)
     {
-        enemySpawnersList.Add(enemySpawn);
+        enemySpawnersList.Add(_enemySpawn);
     }
 }

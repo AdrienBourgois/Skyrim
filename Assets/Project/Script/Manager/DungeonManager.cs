@@ -57,11 +57,11 @@ public class DungeonManager : MonoBehaviour {
     private void EnemyGeneration()
     {
         foreach (Module m in modules.ToArray())
-            foreach (EnemySpawner enemySpawner in m.EnemySpawnersList.ToArray())
+            foreach (EnemySpawner enemySpawner in m.enemySpawnersList.ToArray())
                 enemySpawner.CreateEnemy();
     }
 
-    private void OnStateChanged(GameManager.GameState state)
+    private void OnStateChanged(GameManager.GameState _state)
     {
         //print("stateChanged");
         //if (state == GameManager.GameState.EnterDungeon)

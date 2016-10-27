@@ -4,12 +4,12 @@ using System.Collections;
 public class Spawn : MonoBehaviour {
 
     
-	void Start () {
+	private void Start () {
 
         StartCoroutine(TeleportPlayer());
     }
 
-    IEnumerator TeleportPlayer()
+    private IEnumerator TeleportPlayer()
     {
         yield return new WaitForSeconds(0.1f);
         Player player = FindObjectOfType<Player>();
