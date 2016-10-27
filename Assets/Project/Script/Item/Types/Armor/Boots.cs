@@ -16,18 +16,18 @@ public class Boots : Armor, IEquipableItem, IInstanciableItem
 
     public void Instantiate()
     {
-        Type = item_type.armor;
-        ArmorType = armor_type.Boots;
-        float power_lvl = (float)Rarity;
+        Type = ItemType.Armor;
+        armorType = armor_type.Boots;
+        float powerLvl = (float)Rarity;
 
         SetRandAttributes();
 
-        float base_armor_value = Mathf.Floor(Mathf.Exp(Level / (6 - power_lvl / 8)) * 2);
-        float min = base_armor_value * (1 - (RangeOfGeneration / 100));
-        float max = base_armor_value * (1 + (RangeOfGeneration / 100));
+        float baseArmorValue = Mathf.Floor(Mathf.Exp(Level / (6 - powerLvl / 8)) * 2);
+        float min = baseArmorValue * (1 - (rangeOfGeneration / 100));
+        float max = baseArmorValue * (1 + (rangeOfGeneration / 100));
         Defense = (int)UnityEngine.Random.Range(min, max);
 
-        Price = (int)(Mathf.Sqrt(Defense) * (10 + (power_lvl * 6)));
+        Price = (int)(Mathf.Sqrt(Defense) * (10 + (powerLvl * 6)));
 
         Weight = 5 + (int)Rarity;
     }

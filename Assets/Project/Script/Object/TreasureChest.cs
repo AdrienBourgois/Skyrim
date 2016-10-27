@@ -19,7 +19,7 @@ public class TreasureChest : MonoBehaviour, IUsableObject
 
     void Start()
     {
-        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, 10);
+        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
 
         OnCloseChest = CloseChest;
     }

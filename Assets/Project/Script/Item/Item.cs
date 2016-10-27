@@ -2,28 +2,28 @@
 
 public class Item : IComparable<Item>
 {
-    protected enum item_type
+    protected enum ItemType
     {
-        undefined,
-        weapon,
-        armor,
-        useable
+        Undefined,
+        Weapon,
+        Armor,
+        Useable
     }
 
-    public enum item_rarity
+    public enum ItemRarity
     {
-        common = 1,
-        uncommon = 2,
-        rare = 3,
-        epic = 4,
-        legendary = 5
+        Common = 1,
+        Uncommon = 2,
+        Rare = 3,
+        Epic = 4,
+        Legendary = 5
     }
 
-    private string name_object = "Unnamed";
+    private string nameObject = "Unnamed";
     public string NameObject
     {
-        get { return name_object; }
-        set { name_object = value; }
+        get { return nameObject; }
+        set { nameObject = value; }
     }
 
     private string description = "Any description";
@@ -40,15 +40,15 @@ public class Item : IComparable<Item>
         protected set { weight = value; }
     }
 
-    private item_type type = item_type.undefined;
-    protected item_type Type
+    private ItemType type = ItemType.Undefined;
+    protected ItemType Type
     {
         get { return type; }
         set { type = value; }
     }
 
-    private item_rarity rarity;
-    public item_rarity Rarity
+    private ItemRarity rarity;
+    public ItemRarity Rarity
     {
         protected get { return rarity; }
         set { rarity = value; }
@@ -77,19 +77,19 @@ public class Item : IComparable<Item>
         protected set { prefabPath = value; }
     }
 
-    protected float RangeOfGeneration = 10;
+    protected float rangeOfGeneration = 10;
 
     public string GetItemGeneralInformations()
     {
-        return "Name : " + name_object + " (LVL " + level + ")" +
+        return "Name : " + nameObject + " (LVL " + level + ")" +
             "\nDescription : " + description +
             "\nWeight : " + weight +
             "\nRarity : " + rarity +
             "\nPrice : " + price;
     }
 
-    public int CompareTo(Item item)
+    public int CompareTo(Item _item)
     {
-        return (NameObject.CompareTo(item.NameObject));
+        return (NameObject.CompareTo(_item.NameObject));
     }
 }

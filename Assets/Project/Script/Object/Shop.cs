@@ -18,7 +18,7 @@ public class Shop : MonoBehaviour, IUsableObject
     {
         invGui.Inventory = inv;
         invGui.current_gui_action = InventoryGUI.Inventory_Gui_Type.VendorInventory;
-        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.flags_generation.All_Type, 50);
+        inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 50);
 
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
         invGui.Show = true;
