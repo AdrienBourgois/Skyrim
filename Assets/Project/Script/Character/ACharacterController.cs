@@ -127,7 +127,7 @@ public abstract class ACharacterController : APausableObject
     public virtual void ControllerUse()
     {
         RaycastHit hit;
-        // TODO: global(?) variable for max distance
+        
         const float useMaxDistance = 2f;
         if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {

@@ -29,9 +29,8 @@ public class TreasureChest : MonoBehaviour, IUsableObject
         if (hasBeenOpen == false)
         {
             invPanelGui.Inventory = inv;
-            invPanelGui.currentGuiAction = InventoryPanelGui.InventoryGuiType.ChestInventory;
+            invPanelGui.currentGuiAction = InventoryPanelGui.InventoryGuiType.EnemyInventory;
             
-           
             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
             invPanelGui.Show = true;
             if (OnCloseChest != null)

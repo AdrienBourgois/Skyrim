@@ -132,7 +132,6 @@ public class GameManager : MonoBehaviour
 
     private void LoadLevel()
     {
-        Debug.Log("Load base scene");
         asyncSceneLoading = SceneManager.LoadSceneAsync("BaseScene");
         StartCoroutine(WaitForLoad());
 

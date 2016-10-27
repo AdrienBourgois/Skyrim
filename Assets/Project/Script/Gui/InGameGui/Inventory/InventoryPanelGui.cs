@@ -198,6 +198,7 @@ public class InventoryPanelGui : MonoBehaviour
 
         if (currentGuiAction == InventoryGuiType.PlayerInventory)
         {
+            Debug.Log("PlayerInventory");
             equipButton.enabled = true;
             equipButton.GetComponentInChildren<Text>().text = "Equip";
             actionButton.GetComponentInChildren<Text>().text = "Drop";
@@ -214,6 +215,7 @@ public class InventoryPanelGui : MonoBehaviour
         }
         else if (currentGuiAction == InventoryGuiType.EnemyInventory)
         {
+            Debug.Log("EnemyInventory");
             equipButton.enabled = false;
             equipButton.GetComponentInChildren<Text>().text = "";
             actionButton.GetComponentInChildren<Text>().text = "Take";
@@ -234,6 +236,7 @@ public class InventoryPanelGui : MonoBehaviour
         }
         else if (currentGuiAction == InventoryGuiType.VendorInventory)
         {
+            Debug.Log("VendorInventory");
             equipButton.enabled = false;
             equipButton.GetComponentInChildren<Text>().text = "";
             actionButton.GetComponentInChildren<Text>().text = "Buy (Steal)";
