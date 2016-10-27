@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class Enemy : ACharacter
+﻿public class Enemy : ACharacter
 {
     protected override void Start()
     {
