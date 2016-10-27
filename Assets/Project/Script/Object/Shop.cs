@@ -9,7 +9,7 @@ public class Shop : MonoBehaviour, IUsableObject
     {
         invPanelGui = InventoryPanelGui.Instance;
         if (!invPanelGui)
-            Debug.Log("can't find inventoryGUI on Shop.Awake()");
+            Debug.LogError("Can't find InventoryGui on Shop.Awake()");
 
         invPanelGui.Inventory = inv;
         invPanelGui.currentGuiAction = InventoryPanelGui.InventoryGuiType.VendorInventory;

@@ -2,7 +2,7 @@
 
 public class LevelManager : MonoBehaviour {
 
-    private Player player = null;
+    private Player player;
     public Player Player
     {
         get

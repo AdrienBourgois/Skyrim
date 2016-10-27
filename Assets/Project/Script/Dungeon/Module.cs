@@ -68,13 +68,13 @@ public class Module : MonoBehaviour {
 
  
 
-    public void AddConnector(ModuleConnector mC)
+    public void AddConnector(ModuleConnector _mC)
     {
-        ModuleConnectorList.Add(mC);
+        ModuleConnectorList.Add(_mC);
     }
 
-    public void AddGenerator(ItemsGenerator itGen)
+    public void AddGenerator(ItemsGenerator _itGen)
     {
-        itemsGeneratorList.Add(itGen);
+        itemsGeneratorList.Add(_itGen);
     }
 }

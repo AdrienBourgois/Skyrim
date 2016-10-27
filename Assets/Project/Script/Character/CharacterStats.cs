@@ -58,7 +58,7 @@ public class CharacterStats
         return characs;
     }
 
-    private Dictionary<string, float> CalcEquipBonusDic(ACharacter _player)
+    private void CalcEquipBonusDic(ACharacter _player)
     {
         if (equipBonus.Count == 0)
             InitEquibBonusDic();
@@ -90,8 +90,6 @@ public class CharacterStats
         equipBonus["SpellPower"] = 1f + (weaponC.SpellPower + shieldC.SpellPower + helmetC.SpellPower + chestC.SpellPower + bootsC.SpellPower);// 100;
         equipBonus["Precision"] = 1f + (weaponC.Precision + shieldC.Precision + helmetC.Precision + chestC.Precision + bootsC.Precision);// 100;
         equipBonus["AttackSpeed"] = 1f + (weaponC.AttackSpeed + shieldC.AttackSpeed + helmetC.AttackSpeed + chestC.AttackSpeed + bootsC.AttackSpeed);// 100;
-
-        return equipBonus;
     }
 
     private void InitEquibBonusDic()

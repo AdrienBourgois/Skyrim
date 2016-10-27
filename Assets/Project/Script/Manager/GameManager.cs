@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public delegate void DelegateState(GameState state);
     public event DelegateState onStateChanged;
 
-    private AsyncOperation asyncSceneLoading = null;
+    private AsyncOperation asyncSceneLoading;
 
     static private GameManager instance;
     static public GameManager Instance
