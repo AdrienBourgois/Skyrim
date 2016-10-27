@@ -17,17 +17,17 @@ public class CharacterStats
 
     #endregion  
 
-    public void SetCharacteristics(ACharacter player)
+    public void SetCharacteristics(ACharacter _player)
     {
-        UnitCharacteristics.Attack = Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Strength;
-        UnitCharacteristics.Defense = Mathf.Exp((player.UnitLevel / 8f)) * UnitAttributes.Constitution;
-        UnitCharacteristics.Weight = (UnitAttributes.Strength + player.UnitLevel) * 10;
-        UnitCharacteristics.MaxHealth = Mathf.Exp(player.UnitLevel / 6f) * UnitAttributes.Constitution + 100;
+        UnitCharacteristics.Attack = Mathf.Exp((_player.UnitLevel / 8f)) * UnitAttributes.Strength;
+        UnitCharacteristics.Defense = Mathf.Exp((_player.UnitLevel / 8f)) * UnitAttributes.Constitution;
+        UnitCharacteristics.Weight = (UnitAttributes.Strength + _player.UnitLevel) * 10;
+        UnitCharacteristics.MaxHealth = Mathf.Exp(_player.UnitLevel / 6f) * UnitAttributes.Constitution + 100;
         UnitCharacteristics.HealthRegeneration = UnitCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f));
         UnitCharacteristics.MaxMana = UnitAttributes.Intelligence * 10;
-        UnitCharacteristics.SpellPower = 1 + ((float)player.UnitLevel * UnitAttributes.Intelligence) / 100;
+        UnitCharacteristics.SpellPower = 1 + ((float)_player.UnitLevel * UnitAttributes.Intelligence) / 100;
         UnitCharacteristics.Precision = Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3);
-        UnitCharacteristics.AttackSpeed = 1 + ((float)player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 100;
+        UnitCharacteristics.AttackSpeed = 1 + ((float)_player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 100;
 
         characteristics.UpdateCharacDict();
     }
@@ -46,19 +46,19 @@ public class CharacterStats
 
     }
 
-    public Characteristics SimulateCharac(int level,float playerWeigth, int strength, int constit, int intel, int dexterity)
+    public Characteristics SimulateCharac(int _level,float _playerWeigth, int _strength, int _constit, int _intel, int _dexterity)
     {
         Characteristics characs = new Characteristics();
 
-        characs.Attack = Mathf.Exp((level / 8f)) * strength;
-        characs.Defense = Mathf.Exp((level / 8f)) * constit;
-        characs.Weight = (strength + level) * 10;
-        characs.MaxHealth = Mathf.Exp(level / 6f) * constit + 100;
-        characs.HealthRegeneration = characs.MaxHealth / (50 - (constit * 0.25f));
-        characs.MaxMana = intel * 10;
-        characs.SpellPower = 1 + ((float)level * intel) / 100;
-        characs.Precision = Mathf.Min(100, 100 - (50 - (characs.Weight - playerWeigth) / 10) + dexterity / 3);
-        characs.AttackSpeed = 1 + ((float)level + (dexterity / 2)) / 100;
+        characs.Attack = Mathf.Exp((_level / 8f)) * _strength;
+        characs.Defense = Mathf.Exp((_level / 8f)) * _constit;
+        characs.Weight = (_strength + _level) * 10;
+        characs.MaxHealth = Mathf.Exp(_level / 6f) * _constit + 100;
+        characs.HealthRegeneration = characs.MaxHealth / (50 - (_constit * 0.25f));
+        characs.MaxMana = _intel * 10;
+        characs.SpellPower = 1 + ((float)_level * _intel) / 100;
+        characs.Precision = Mathf.Min(100, 100 - (50 - (characs.Weight - _playerWeigth) / 10) + _dexterity / 3);
+        characs.AttackSpeed = 1 + ((float)_level + (_dexterity / 2)) / 100;
 
         characs.UpdateCharacDict();
 

@@ -126,14 +126,14 @@ public class Characteristics
         Mana = MaxMana;
     }
 
-    public float GetCharacFromString(string characName)
+    public float GetCharacFromString(string _characName)
     {
-        if (!characDict.ContainsKey(characName))
+        if (!characDict.ContainsKey(_characName))
         {
-            Debug.Log("Characteristics.GetCharacFromString() try to call CharacDict with invalid key : " + characName);
+            Debug.Log("Characteristics.GetCharacFromString() try to call CharacDict with invalid key : " + _characName);
             return -1;
         }
 
-        return characDict[characName];
+        return characDict[_characName];
     }
 }

@@ -88,11 +88,11 @@ public class PlayerController : ACharacterController
             OnRightDown.Invoke();
     }
 
-    protected override void ControllerLeftHand(bool bIsPressed = true)
+    protected override void ControllerLeftHand(bool _bIsPressed = true)
     {
-        base.ControllerLeftHand(bIsPressed);
+        base.ControllerLeftHand(_bIsPressed);
 
-        if (bIsPressed)
+        if (_bIsPressed)
         {
             if (OnLeftDown != null)
                 OnLeftDown.Invoke();

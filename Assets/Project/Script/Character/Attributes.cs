@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Attributes
 {
-    private Dictionary<string, int> AttribDict = new Dictionary<string, int>();
+    private Dictionary<string, int> attribDict = new Dictionary<string, int>();
 
     private int maxAttributePoints = 110;
     public int MaxAttributePoints
@@ -46,44 +46,44 @@ public class Attributes
 
     public void UpdateAttribDict()
     {
-        AttribDict["Strength"] = strength;
-        AttribDict["Constitution"] = constitution;
-        AttribDict["Intelligence"] = intelligence;
-        AttribDict["Dexterity"] = dexterity;
+        attribDict["Strength"] = strength;
+        attribDict["Constitution"] = constitution;
+        attribDict["Intelligence"] = intelligence;
+        attribDict["Dexterity"] = dexterity;
     }
 
-    public int GetAttribFromString(string attribName)
+    public int GetAttribFromString(string _attribName)
     {
-        if (!AttribDict.ContainsKey(attribName))
+        if (!attribDict.ContainsKey(_attribName))
         {
-            Debug.Log("Attributes.GetAttribFromString() try to call AttribDict with invalid key : " + attribName);
+            Debug.Log("Attributes.GetAttribFromString() try to call AttribDict with invalid key : " + _attribName);
             return -1;
         }
 
-        return AttribDict[attribName];
+        return attribDict[_attribName];
     }
-    public void SetAttribFromString(string attribName, int value)
+    public void SetAttribFromString(string _attribName, int _value)
     {
-        switch (attribName)
+        switch (_attribName)
         {
             case "Strength":
-                strength = value;
+                strength = _value;
                 break;
 
             case "Constitution":
-                constitution = value;
+                constitution = _value;
                 break;
 
             case "Intelligence":
-                intelligence = value;
+                intelligence = _value;
                 break;
 
             case "Dexterity":
-                dexterity = value;
+                dexterity = _value;
                 break;
 
             default:
-                Debug.Log("Attributes.GetAttribFromString() -> Can't find attribute named : " + attribName);
+                Debug.Log("Attributes.GetAttribFromString() -> Can't find attribute named : " + _attribName);
                 break;
         }
         UpdateAttribDict();

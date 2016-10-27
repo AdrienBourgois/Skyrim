@@ -23,7 +23,7 @@ public class Enemy : ACharacter, IHitable
         UnitSpells.EnemyBasicSpellInit();
     }
 
-    public void OnHit(ACharacter entity)
+    public void OnHit(ACharacter _entity)
     {
         transform.position += Vector3.up;
     }

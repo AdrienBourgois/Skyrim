@@ -1,4 +1,4 @@
 ﻿public interface IHitable
 {
-    void OnHit(ACharacter character);
+    void OnHit(ACharacter _character);
 }

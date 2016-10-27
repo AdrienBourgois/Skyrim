@@ -91,30 +91,30 @@ public abstract class ACharacterController : APausableObject
     }
     
     #region Controller
-    public virtual void ControllerLook(Vector2 axis)
+    public virtual void ControllerLook(Vector2 _axis)
     {
-        transform.localEulerAngles = new Vector3(axis.x, axis.y, 0f);
+        transform.localEulerAngles = new Vector3(_axis.x, _axis.y, 0f);
     }
 
-    public virtual void ControllerLook(float xAxis, float yAxis)
+    public virtual void ControllerLook(float _xAxis, float _yAxis)
     {
-        float lookY = yAxis - transform.localEulerAngles.y;
-        transform.localEulerAngles = new Vector3(0f, yAxis, 0f);
+        float lookY = _yAxis - transform.localEulerAngles.y;
+        transform.localEulerAngles = new Vector3(0f, _yAxis, 0f);
         animator.SetFloat("LookY", lookY);
     }
 
-    protected virtual void ControllerMove(float xAxis, float zAxis)
+    protected virtual void ControllerMove(float _xAxis, float _zAxis)
     {
-        animator.SetFloat("MoveX", xAxis, character.MoveSpeed / 10, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, character.MoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveX", _xAxis, character.MoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveZ", _zAxis, character.MoveSpeed / 10, Time.deltaTime);
     }
 
-    protected virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
+    protected virtual void ControllerJump(float _xAxis = 0f, float _zAxis = 0f)
     {
-        animator.SetFloat("MoveX", xAxis, character.MoveSpeed / 10, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, character.MoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveX", _xAxis, character.MoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveZ", _zAxis, character.MoveSpeed / 10, Time.deltaTime);
         animator.SetTrigger("TriggerJump");
-        Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
+        Vector3 direction = transform.forward * _zAxis + transform.right * _xAxis;
         direction.Normalize();
         direction.y = 1;
         rb.AddForce(transform.up * character.JumpEfficiency, ForceMode.Impulse);
@@ -137,10 +137,10 @@ public abstract class ACharacterController : APausableObject
         }
     }
 
-    protected virtual void ControllerLeftHand(bool bIsPressed = true)
+    protected virtual void ControllerLeftHand(bool _bIsPressed = true)
     {
         if (animator.GetBool("IsUsingSwordAndShield"))
-            animator.SetBool("IsBlocking", bIsPressed);
+            animator.SetBool("IsBlocking", _bIsPressed);
         else
             animator.SetTrigger("TriggerLeftHand");
     }
@@ -155,17 +155,17 @@ public abstract class ACharacterController : APausableObject
         throw new NotImplementedException();
     }
 
-    protected virtual void ControllerCrouch(bool bIsCrouch)
+    protected virtual void ControllerCrouch(bool _bIsCrouch)
     {
-        animator.SetBool("IsCrouching", bIsCrouch);
+        animator.SetBool("IsCrouching", _bIsCrouch);
     }
 
-    public virtual void ControllerSelectMagic(int Key)
+    public virtual void ControllerSelectMagic(int _key)
     {
-        if (MagicManager.Instance.MagicKeySelected[Key] == null)
+        if (MagicManager.Instance.MagicKeySelected[_key] == null)
             return;
 
-        SpellProperty selectedMagic = MagicManager.Instance.MagicKeySelected[Key];
+        SpellProperty selectedMagic = MagicManager.Instance.MagicKeySelected[_key];
         Debug.Log(selectedMagic.Id + " is now selected");
 
         if (animator.GetBool("IsUsing" + character.StuffType)
@@ -203,9 +203,9 @@ public abstract class ACharacterController : APausableObject
         characterWeapons.ActivateMagic();
     }
 
-    protected virtual void OnTriggerEnter(Collider collider)
+    protected virtual void OnTriggerEnter(Collider _collider)
     {
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Character"))
+        if (_collider.gameObject.layer == LayerMask.NameToLayer("Character"))
             return;
         if (corGrounded != null)
         {
@@ -216,7 +216,7 @@ public abstract class ACharacterController : APausableObject
         animator.SetBool("IsGrounded", true);
     }
 
-    protected virtual void OnTriggerExit(Collider collider)
+    protected virtual void OnTriggerExit(Collider _collider)
     {
         if (corGrounded == null)
             corGrounded = StartCoroutine(CoroutineGrounded());

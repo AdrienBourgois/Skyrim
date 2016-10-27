@@ -21,9 +21,9 @@ public class ProjectileSpell : ASpell
             transform.position += direction * projectileSpeed * Time.deltaTime;
     }
 
-    protected virtual void OnTriggerEnter(Collider collider)
+    protected virtual void OnTriggerEnter(Collider _collider)
     {
-        ACharacter character = collider.gameObject.GetComponent<ACharacter>();
+        ACharacter character = _collider.gameObject.GetComponent<ACharacter>();
 
         if (character != null)
         {

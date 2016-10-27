@@ -41,11 +41,11 @@ public class ACharacterWeapons : MonoBehaviour
         _character.OnChangedWeapons += SetWeapons;
     }
 
-    public void SetController(ACharacterController characterController)
+    public void SetController(ACharacterController _characterController)
     {
-        controller = characterController;
+        controller = _characterController;
 
-        Animator characterAnimator = characterController.GetComponent<Animator>();
+        Animator characterAnimator = _characterController.GetComponent<Animator>();
         if (characterAnimator == null)
             Debug.LogError("ACharacterWeapons.SetController() - couldn't get component of type Animator in ACharacterController");
 
@@ -56,10 +56,10 @@ public class ACharacterWeapons : MonoBehaviour
             oneCharSwitchBehaviour.OnSwitch += SwitchWeapon;
     }
 
-    private void SetWeapons(Item leftWeapon, Item rightWeapon)
+    private void SetWeapons(Item _leftWeapon, Item _rightWeapon)
     {
-        leftHand.SetWeapon(leftWeapon);
-        rightHand.SetWeapon(rightWeapon);
+        leftHand.SetWeapon(_leftWeapon);
+        rightHand.SetWeapon(_rightWeapon);
     }
 
     private void SwitchWeapon()
@@ -97,8 +97,8 @@ public class ACharacterWeapons : MonoBehaviour
             Debug.LogWarning("ACharacterWeapon.ActivateMagic() - member \"magic\" is null");
     }
 
-    public void SetActiveMagic(SpellProperty spellProp)
+    public void SetActiveMagic(SpellProperty _spellProp)
     {
-        this.spellProp = spellProp;
+        spellProp = _spellProp;
     }
 }
