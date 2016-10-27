@@ -218,6 +218,7 @@ public class InventoryGUI : MonoBehaviour
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate
             {
+                FindObjectOfType<Player>().CharacterStats.UnitCharacteristics.PlayerWeight -= selected_item.Weight;
                 if (selected_item.Equipped)
                     selected_item.Equipped.RemoveEquipement(selected_item);
                 Inventory.RemoveItem(selected_item);
@@ -233,11 +234,16 @@ public class InventoryGUI : MonoBehaviour
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate
             {
-                inventory.RemoveItem(selected_item);
-                ApplyFilterAndSort();
-                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory;
-                player_inventory.AddItem(selected_item);
-                DisplayItem(null);
+                Player player = FindObjectOfType<Player>();
+                if (player.CanCarry(selected_item))
+                {
+                    player.CharacterStats.UnitCharacteristics.PlayerWeight += selected_item.Weight;
+                    inventory.RemoveItem(selected_item);
+                    ApplyFilterAndSort();
+                    Inventory player_inventory = player.UnitInventory;
+                    player_inventory.AddItem(selected_item);
+                    DisplayItem(null);
+                }
             });
         }
         else if (current_gui_action == Inventory_Gui_Type.VendorInventory)
@@ -248,11 +254,16 @@ public class InventoryGUI : MonoBehaviour
             action_button.onClick.RemoveAllListeners();
             action_button.onClick.AddListener(delegate
             {
-                inventory.RemoveItem(selected_item);
-                ApplyFilterAndSort();
-                Inventory player_inventory = FindObjectOfType<Player>().UnitInventory;
-                player_inventory.AddItem(selected_item);
-                DisplayItem(null);
+                Player player = FindObjectOfType<Player>();
+                if (player.CanCarry(selected_item))
+                {
+                    player.CharacterStats.UnitCharacteristics.PlayerWeight += selected_item.Weight;
+                    inventory.RemoveItem(selected_item);
+                    ApplyFilterAndSort();
+                    Inventory player_inventory = player.UnitInventory;
+                    player_inventory.AddItem(selected_item);
+                    DisplayItem(null);
+                }
             });
         }
     }

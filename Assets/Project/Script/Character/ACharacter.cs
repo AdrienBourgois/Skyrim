@@ -116,6 +116,14 @@ public abstract class ACharacter : APausableObject
         equipType = EquipType.SwordAndShield;
     }
 
+    public bool CanCarry(Item item)
+    {
+        if (CharacterStats.UnitCharacteristics.PlayerWeight + item.Weight <= CharacterStats.UnitCharacteristics.Weight)
+            return true;
+
+        return false;
+    }
+
     public void RemoveEquipement(Item equip)
     {
         if (RightHand == equip)

@@ -146,8 +146,6 @@ public class GameManager : MonoBehaviour
         if (onStateChanged != null)
             onStateChanged.Invoke(currGameState);
 
-        //if (loadLevel)
-           // dataMgr.LoadLevelFromGameState();
     }
 
     private void IntroInit()

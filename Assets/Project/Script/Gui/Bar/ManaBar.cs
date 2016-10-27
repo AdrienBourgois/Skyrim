@@ -9,7 +9,7 @@ public class ManaBar : Bar {
         if (player_stats.Mana >= 0)
         {
             bar.localScale = new Vector3(mana_ratio, bar.localScale.y, bar.localScale.z);
-            point.text = player_stats.Mana.ToString();
+            point.text = player_stats.Mana.ToString() + " / " + player_stats.MaxMana.ToString("0"); ;
         }
     }
 }
