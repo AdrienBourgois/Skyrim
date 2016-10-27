@@ -51,9 +51,10 @@ public class DungeonManager : MonoBehaviour {
 
     private void ItemGenerator()
     {
-        foreach (Module m in modules)
+
+        foreach (Module m in modules.ToArray())
         {
-            foreach (ItemsGenerator itGen in m.ItemsGeneratorList)
+            foreach (ItemsGenerator itGen in m.ItemsGeneratorList.ToArray())
             {
                 if (itGen.IsConnected == false)
                 {
