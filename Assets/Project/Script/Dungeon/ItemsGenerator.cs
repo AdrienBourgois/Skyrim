@@ -14,8 +14,8 @@ public class ItemsGenerator : MonoBehaviour {
 
     private void Awake()
     {
-        GameObject mGO = transform.parent.gameObject;
-        Module m = mGO.GetComponent<Module>();
+        GameObject mGo = transform.parent.gameObject;
+        Module m = mGo.GetComponent<Module>();
         if (m != null)
             m.AddGenerator(this);
     }

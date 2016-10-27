@@ -73,7 +73,7 @@ public class ConfirmationPanel : MonoBehaviour
 
     private void StartNewGame()
     {
-        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame);
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.LoadGame);
     }
 
     private void LoadSaveGame()

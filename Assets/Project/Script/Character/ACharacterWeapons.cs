@@ -15,8 +15,8 @@ public class ACharacterWeapons : MonoBehaviour
     private WeaponAnchor leftHand;
     private WeaponAnchor rightHand;
 
-    private SpellProperty spellProp = null;
-    private ASpell spell = null;
+    private SpellProperty spellProp;
+    private ASpell spell;
 
     private void Awake()
     {
@@ -38,12 +38,12 @@ public class ACharacterWeapons : MonoBehaviour
         rightHand.SetWeapon(ItemManager.Instance.CreateObject<Sword>());
     }
 
-    public void SetCharacter(ACharacter character)
+    public void SetCharacter(ACharacter _character)
     {
-        leftHand.SetCharacter(character);
-        rightHand.SetCharacter(character);
+        leftHand.SetCharacter(_character);
+        rightHand.SetCharacter(_character);
 
-        character.OnChangedWeapons += SetWeapons;
+        _character.OnChangedWeapons += SetWeapons;
     }
 
     public void SetController(ACharacterController _characterController)
@@ -80,7 +80,7 @@ public class ACharacterWeapons : MonoBehaviour
                 return false;
 
 
-        if (MagicManager.MagicID.NONE < spellProp.Id && spellProp.Id < MagicManager.MagicID.COUNT)
+        if (MagicManager.MagicId.None < spellProp.Id && spellProp.Id < MagicManager.MagicId.Count)
         {
             controller.Character.CharacterStats.UnitCharacteristics.Mana -= spellProp.Cost;
 

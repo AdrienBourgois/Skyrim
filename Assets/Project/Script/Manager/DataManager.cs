@@ -23,11 +23,11 @@ public class DataManager : MonoBehaviour {
     private GameManager gameMgr;
 
 
-    public string getActiveSceneName
+    public string GetActiveSceneName
     {
         get { return SceneManager.GetActiveScene().name; }
     }
-    public int getActiveSceneID
+    public int GetActiveSceneId
     {
         get { return SceneManager.GetActiveScene().buildIndex; }
     }

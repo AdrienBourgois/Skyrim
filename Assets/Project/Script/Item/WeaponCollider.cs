@@ -2,7 +2,7 @@
 
 public class WeaponCollider : MonoBehaviour
 {
-    [SerializeField] private WeaponInstance weaponRoot = null;
+    [SerializeField] private WeaponInstance weaponRoot;
 
     private void Start()
     {

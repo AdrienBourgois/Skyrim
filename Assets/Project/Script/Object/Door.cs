@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Animation))]
 public class Door : MonoBehaviour, IUsableObject
 {
-    public void OnUse(ACharacter character)
+    public void OnUse(ACharacter _character)
     {
-       StartCoroutine(TeleportToTown(character));
+       StartCoroutine(TeleportToTown(_character));
     }
 
     private IEnumerator TeleportToTown(ACharacter character)

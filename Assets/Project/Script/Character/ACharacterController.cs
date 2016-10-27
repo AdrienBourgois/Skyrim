@@ -127,7 +127,7 @@ public abstract class ACharacterController : APausableObject
     public virtual void ControllerUse()
     {
         RaycastHit hit;
-        // TODO: global(?) variable for max distance
+        
         const float useMaxDistance = 2f;
         if (Physics.Raycast(transform.position, transform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
@@ -169,10 +169,9 @@ public abstract class ACharacterController : APausableObject
             return;
 
         SpellProperty selectedMagic = MagicManager.Instance.MagicKeySelected[_key];
-        Debug.Log(selectedMagic.Id + " is now selected");
 
         if (animator.GetBool("IsUsing" + character.StuffType)
-            || !Enum.IsDefined(typeof(MagicManager.MagicID), selectedMagic.Id))
+            || !Enum.IsDefined(typeof(MagicManager.MagicId), selectedMagic.Id))
             return;
 
         characterWeapons.SetActiveMagic(selectedMagic);

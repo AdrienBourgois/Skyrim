@@ -3,16 +3,16 @@
 public class IGGui : MonoBehaviour
 {
     private GameObject pausePanel;
-    //private GameObject gameMenuPanel;
-    private InventoryPanelGui invGui;
+    private GameObject gameMenuPanel;
+    private InventoryPanelGui invPanelGui;
 
     private void Awake()
     {
-        invGui = InventoryPanelGui.Instance;
+        invPanelGui = InventoryPanelGui.Instance;
         pausePanel = transform.FindChild("PausePanel").gameObject;
         pausePanel.SetActive(false);
-        //gameMenuPanel = transform.FindChild("GameMenuPanel").gameObject;
-        //gameMenuPanel.SetActive(false);
+        gameMenuPanel = transform.FindChild("GameMenuPanel").gameObject;
+        gameMenuPanel.SetActive(false);
 
     }
 
@@ -20,9 +20,9 @@ public class IGGui : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //if (GameManager.Instance.CurrGameState != GameManager.GameState.Pause)
-                //Pause(gameMenuPanel);
-            //else
+            if (GameManager.Instance.CurrGameState != GameManager.GameState.Pause)
+                Pause(gameMenuPanel);
+            else
                 ReturnInGame();
         }
 
@@ -44,11 +44,11 @@ public class IGGui : MonoBehaviour
     private void ReturnInGame()
     { 
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame);
-        //gameMenuPanel.SetActive(false);
+        gameMenuPanel.SetActive(false);
         pausePanel.SetActive(false);
         pausePanel.transform.FindChild("SkillPanel").gameObject.SetActive(false);
         pausePanel.transform.FindChild("MagicPanel").gameObject.SetActive(false);
-        if (invGui)
-            invGui.Show = false;
+        if (invPanelGui)
+            invPanelGui.Show = false;
     }
 }

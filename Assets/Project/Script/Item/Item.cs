@@ -62,7 +62,7 @@ public class Item : IComparable<Item>
         protected set { prefabPath = value; }
     }
 
-    protected const float rangeOfGeneration = 10;
+    protected const float RangeOfGeneration = 10;
 
     public string GetItemGeneralInformations()
     {

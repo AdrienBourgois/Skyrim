@@ -130,15 +130,15 @@ public abstract class ACharacter : APausableObject, IHitable
         //  OnChangedWeapons.Invoke(inventory.);
     }
 
-    protected virtual void TakeDamages(float damages)
+    protected virtual void TakeDamages(float _damages)
     {
-        characterStats.UnitCharacteristics.Health -= damages;
+        characterStats.UnitCharacteristics.Health -= _damages;
     }
 
-    public virtual void OnHit(ACharacter character)
+    public virtual void OnHit(ACharacter _character)
     {
-        if (character == this)
+        if (_character == this)
             return;
-        TakeDamages(character.CharacterStats.UnitCharacteristics.Attack - characterStats.UnitCharacteristics.Defense);
+        TakeDamages(_character.CharacterStats.UnitCharacteristics.Attack - characterStats.UnitCharacteristics.Defense);
     }
 }

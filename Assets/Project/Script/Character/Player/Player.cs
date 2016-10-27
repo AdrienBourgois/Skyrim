@@ -1,7 +1,7 @@
 ﻿public class Player : ACharacter
 {
     #region Exp
-    private int xp = 0;
+    private int xp;
     public int Xp
     {
         get { return xpToLevelUp; }

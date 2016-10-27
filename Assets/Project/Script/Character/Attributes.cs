@@ -1,13 +1,8 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class Attributes
 {
     private Dictionary<string, int> attribDict = new Dictionary<string, int>();
-
-    private int maxAttributePoints = 110;
-    public int MaxAttributePoints
-    { get { return maxAttributePoints; } set { maxAttributePoints = value; } }
 
     #region Strength
 
@@ -55,10 +50,7 @@ public class Attributes
     public int GetAttribFromString(string _attribName)
     {
         if (!attribDict.ContainsKey(_attribName))
-        {
-            Debug.Log("Attributes.GetAttribFromString() try to call AttribDict with invalid key : " + _attribName);
             return -1;
-        }
 
         return attribDict[_attribName];
     }
@@ -80,10 +72,6 @@ public class Attributes
 
             case "Dexterity":
                 dexterity = _value;
-                break;
-
-            default:
-                Debug.Log("Attributes.GetAttribFromString() -> Can't find attribute named : " + _attribName);
                 break;
         }
         UpdateAttribDict();

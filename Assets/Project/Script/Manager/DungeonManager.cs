@@ -17,8 +17,6 @@ public class DungeonManager : MonoBehaviour {
                 GameObject gao = GameObject.FindGameObjectWithTag("DungeonManager");
                 if (gao)
                     instance = gao.GetComponent<DungeonManager>();
-
-                //Debug.Log(gao);
             }
 
             return instance;
@@ -32,19 +30,13 @@ public class DungeonManager : MonoBehaviour {
 
     private void Start () {
 
-        GameManager.Instance.onStateChanged += OnStateChanged;
+        GameManager.Instance.OnStateChanged += OnStateChanged;
         StartCoroutine(CreateDungeon());
     }
 
-    private void Update () {
-
-        
-	}
-
-
-    public void RegisterModule(Module m)
+    public void RegisterModule(Module _m)
     {
-        modules.Add(m);
+        modules.Add(_m);
     }
 
 

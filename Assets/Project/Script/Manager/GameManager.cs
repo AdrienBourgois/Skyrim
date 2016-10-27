@@ -4,10 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public delegate void DelegateState(GameState state);
-    public event DelegateState onStateChanged;
+    public delegate void DelegateState(GameState _state);
+    public event DelegateState OnStateChanged;
 
-    private AsyncOperation asyncSceneLoading = null;
+    private AsyncOperation asyncSceneLoading;
 
     static private GameManager instance;
     static public GameManager Instance
@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool loadLevel = true;
-
     #region SerializeField
     [SerializeField] private GameObject dataMgrPrefab;
     [SerializeField] private GameObject levelMgrPrefab;
@@ -42,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         Intro = 0,
         MainMenu,
+        LoadGame,
         InGame,
         EnterDungeon,
         PopulateDungeon,
@@ -75,9 +74,9 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 	}
 
-    public void ChangeGameStateTo(GameState nextGameState)
+    public void ChangeGameStateTo(GameState _nextGameState)
     {
-        switch (nextGameState)
+        switch (_nextGameState)
         {
             case GameState.Intro:
                 IntroInit();
@@ -85,6 +84,10 @@ public class GameManager : MonoBehaviour
 
             case GameState.MainMenu:
                 MainMenuInit();
+                break;
+
+            case GameState.LoadGame:
+                LoadLevel();
                 break;
 
             case GameState.InGame:
@@ -109,8 +112,8 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        if (onStateChanged != null)
-            onStateChanged.Invoke(currGameState);
+        if (OnStateChanged != null)
+            OnStateChanged.Invoke(currGameState);
 
     }
 
@@ -125,14 +128,8 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Menu);
     }
 
-    private void InGameInit()
+    private void LoadLevel()
     {
-        loadLevel = CurrGameState != GameState.Pause;
-        CurrGameState = GameState.InGame;
-
-        if (!loadLevel)
-            OnPause();
-
         asyncSceneLoading = SceneManager.LoadSceneAsync("BaseScene");
         StartCoroutine(WaitForLoad());
 
@@ -144,6 +141,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(CheckIfSceneChanged);
         if (LevelManager.Instance == null)
             Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+
+        ChangeGameStateTo(GameState.InGame);
+    }
+
+    private void InGameInit()
+    {
+        if (CurrGameState == GameState.Pause)
+            OnPause();
+        CurrGameState = GameState.InGame;
     }
 
     private bool CheckIfSceneChanged()
@@ -165,11 +171,9 @@ public class GameManager : MonoBehaviour
 
     private void PauseInit()
     {
-        loadLevel = CurrGameState != GameState.InGame;
-        CurrGameState = GameState.Pause;
+        OnPause();
 
-        if (!loadLevel)
-            OnPause();
+        CurrGameState = GameState.Pause;
     }
 
 }

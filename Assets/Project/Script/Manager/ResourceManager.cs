@@ -17,37 +17,37 @@ public class ResourceManager : MonoBehaviour
 
     private Dictionary<string, GameObject> mapCachePrefab = new Dictionary<string, GameObject>();
 
-    public GameObject Load(string pathPrefab)
+    public GameObject Load(string _pathPrefab)
     {
         GameObject prefab;
 
-        if (!mapCachePrefab.TryGetValue(pathPrefab, out prefab))
+        if (!mapCachePrefab.TryGetValue(_pathPrefab, out prefab))
         {
-            prefab = Resources.Load<GameObject>(pathPrefab);
+            prefab = Resources.Load<GameObject>(_pathPrefab);
             if (prefab == null)
             {
-                Debug.LogError("ResourceManager.Load() couldn't load prefab with path \"" + pathPrefab + "\"");
+                Debug.LogError("ResourceManager.Load() couldn't load prefab with path \"" + _pathPrefab + "\"");
                 return null;
             }
-            mapCachePrefab.Add(pathPrefab, prefab);
+            mapCachePrefab.Add(_pathPrefab, prefab);
         }
 
         return prefab;
     }
 
-    public T Load<T>(string pathPrefab)
+    public T Load<T>(string _pathPrefab)
     {
         GameObject prefab;
 
-        if (!mapCachePrefab.TryGetValue(pathPrefab, out prefab))
+        if (!mapCachePrefab.TryGetValue(_pathPrefab, out prefab))
         {
-            prefab = Resources.Load<GameObject>(pathPrefab);
+            prefab = Resources.Load<GameObject>(_pathPrefab);
             if (prefab == null)
             {
-                Debug.LogError("ResourceManager.Load() couldn't load prefab with path \"" + pathPrefab + "\"");
+                Debug.LogError("ResourceManager.Load() couldn't load prefab with path \"" + _pathPrefab + "\"");
                 return default(T);
             }
-            mapCachePrefab.Add(pathPrefab, prefab);
+            mapCachePrefab.Add(_pathPrefab, prefab);
         }
         
         T prefabTemplate = prefab.GetComponent<T>();
@@ -55,7 +55,7 @@ public class ResourceManager : MonoBehaviour
         if (prefabTemplate == null)
         {
             Type typeOfT = typeof(T);
-            Debug.LogError("ResourceManager.Load() couldn't get component of type \"" + typeOfT + "\" with path \"" + pathPrefab + "\"");
+            Debug.LogError("ResourceManager.Load() couldn't get component of type \"" + typeOfT + "\" with path \"" + _pathPrefab + "\"");
             return default(T);
         }
 
