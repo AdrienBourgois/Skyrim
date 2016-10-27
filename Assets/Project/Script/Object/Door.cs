@@ -7,7 +7,7 @@ public class Door : MonoBehaviour, IUsableObject
 {
     public void OnUse(ACharacter _character)
     {
-       StartCoroutine(TeleportToTown(_character));
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.LoadGame);//StartCoroutine(TeleportToTown(_character));
     }
 
     private IEnumerator TeleportToTown(ACharacter character)
