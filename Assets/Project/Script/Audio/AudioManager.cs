@@ -26,23 +26,23 @@ public class AudioManager : MonoBehaviour {
     public enum ESound_Type
     {
         Sword,
-        SwordSwish,
+        SwordSwish
     }
 
     //Musics
-    [SerializeField] private AudioClip menu_music = null;
-    [SerializeField] private AudioClip game_calm_music = null;
-    [SerializeField] private AudioClip game_fight_music = null;
+    [SerializeField] private AudioClip menu_music;
+    [SerializeField] private AudioClip game_calm_music;
+    [SerializeField] private AudioClip game_fight_music;
 
     //Sounds
     [SerializeField] private List<AudioClip> sword_clips = new List<AudioClip>();
     [SerializeField] private List<AudioClip> sword_swish_clips = new List<AudioClip>();
 
     //Mixer Groups
-    [SerializeField] private AudioMixerGroup music_mixer_group = null;
-    [SerializeField] private AudioMixerGroup sounds_mixer_group = null;
+    [SerializeField] private AudioMixerGroup music_mixer_group;
+    [SerializeField] private AudioMixerGroup sounds_mixer_group;
 
-    private MusicGroup current_music_group = null;
+    private MusicGroup current_music_group;
 
     private void Start()
     {

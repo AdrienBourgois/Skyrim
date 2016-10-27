@@ -2,10 +2,10 @@
 
 public class MainMenuGui : MonoBehaviour
 {
-    [SerializeField] private GameObject panel = null;
-    [SerializeField] private MenuButton buttonNewGame = null;
-    [SerializeField] private MenuButton buttonLoadGame = null;
-    [SerializeField] private MenuButton buttonExitGame = null;
+    [SerializeField] private GameObject panel;
+    [SerializeField] private MenuButton buttonNewGame;
+    [SerializeField] private MenuButton buttonLoadGame;
+    [SerializeField] private MenuButton buttonExitGame;
 
     private void Start()
     {

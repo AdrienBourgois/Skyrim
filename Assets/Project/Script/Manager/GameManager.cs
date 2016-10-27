@@ -36,16 +36,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject dungeonMgrPrefab;
     [SerializeField] GameObject magicMgrPrefab;
     [SerializeField] GameObject resourceMgrPrefab;
-    [SerializeField] GameObject audioMgrPrefab;
     #endregion
 
     private DataManager dataMgr;
-    private LevelManager levelMgr;
-    private ItemManager itemMgr;
-    private DungeonManager dungeonMgr;
-    private MagicManager magicMgr;
-    private ResourceManager resourceMgr;
-    private AudioManager audioMgr;
 
     public enum GameState
     {
@@ -75,16 +68,17 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
-        itemMgr = ItemManager.Instance ? ItemManager.Instance : Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
-        audioMgr = AudioManager.Instance ? AudioManager.Instance : Instantiate(audioMgrPrefab).GetComponent<AudioManager>();
-        magicMgr = MagicManager.Instance ? MagicManager.Instance : Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
-        resourceMgr = ResourceManager.Instance ? ResourceManager.Instance : Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
-        levelMgr = LevelManager.Instance ? LevelManager.Instance : Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+        Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
+        Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
+        Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
+        Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
 
         RecoverGameState();
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
+
+       
 	}
 
     private void RecoverGameState()
@@ -182,7 +176,7 @@ public class GameManager : MonoBehaviour
     {
         currGameState = GameState.EnterDungeon;
 
-        dungeonMgr = DungeonManager.Instance ? DungeonManager.Instance : Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
+        Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
     }
 
     void PopulateDungeonInit()

@@ -9,7 +9,7 @@ public class MagicPanel : MonoBehaviour
 
     GameObject buttonPrefab;
 
-    SpellProperty displayedMagic = null;
+    SpellProperty displayedMagic;
 	public SpellProperty DisplayedMagic
     { get { return displayedMagic; } }
 

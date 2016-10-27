@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ConfirmationPanel : MonoBehaviour
 {
     [SerializeField]
-    private Text panelText = null;
+    private Text panelText;
 
     private delegate void DelegateClick();
     private event DelegateClick OnYes = () => { };
@@ -73,6 +74,7 @@ public class ConfirmationPanel : MonoBehaviour
     private void StartNewGame()
     {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame);
+        SceneManager.LoadSceneAsync("BaseScene");
     }
 
     private void LoadSaveGame()

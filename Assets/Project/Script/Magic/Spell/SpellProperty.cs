@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SpellProperty
 {
@@ -12,7 +11,7 @@ public class SpellProperty
     }
 
     [SerializeField]
-    protected int cost = 0;
+    protected int cost;
     public int Cost
     {
         get { return cost; }
@@ -55,14 +54,14 @@ public class SpellProperty
         if (memberName == "Name")
             return id.ToString();
 
-        else if (memberName == "Power")
+        if (memberName == "Power")
             return power.ToString();
 
-        else if (memberName == "Cost")
+        if (memberName == "Cost")
             return cost.ToString();
 
-        else if (memberName == "Description")
-            return description.ToString();
+        if (memberName == "Description")
+            return description;
 
         return "none";
     }

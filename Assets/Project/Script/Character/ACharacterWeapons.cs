@@ -4,19 +4,19 @@ public class ACharacterWeapons : MonoBehaviour
 {
     #region Serialized Fields
     [SerializeField]
-    private GameObject leftHandAnchor = null;
+    private GameObject leftHandAnchor;
 
     [SerializeField]
-    private GameObject rightHandAnchor = null;
+    private GameObject rightHandAnchor;
     #endregion
 
-    private ACharacterController controller = null;
+    private ACharacterController controller;
 
-    private WeaponAnchor leftHand = null;
-    private WeaponAnchor rightHand = null;
+    private WeaponAnchor leftHand;
+    private WeaponAnchor rightHand;
 
-    private SpellProperty spellProp = null;
-    private ASpell spell = null;
+    private SpellProperty spellProp;
+    private ASpell spell;
 
     
     void Start()

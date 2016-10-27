@@ -9,7 +9,7 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public abstract class ACharacterController : APausableObject
 {
-    protected Transform target = null;
+    protected Transform target;
     public Transform Target
     {
         get { return target; }
@@ -17,25 +17,25 @@ public abstract class ACharacterController : APausableObject
 
     #region Serialized Fields
     [SerializeField]
-    private Rigidbody rb = null;
+    private Rigidbody rb;
     public Rigidbody RBody { get { return rb; } }
 
     [SerializeField]
-    private Animator animator = null;
+    private Animator animator;
 
     [SerializeField]
-    protected ACharacter character = null;
+    protected ACharacter character;
     public ACharacter Character { get { return character; } }
 
     [SerializeField]
-    protected ACharacterWeapons characterWeapons = null;
+    protected ACharacterWeapons characterWeapons;
 
     [SerializeField]
-    private GameObject centerOfMass = null;
+    private GameObject centerOfMass;
     public Transform CenterOfMass { get { return centerOfMass.transform; } }
     #endregion
 
-    Coroutine corGrounded = null;
+    Coroutine corGrounded;
 
     private bool bIsGrounded = true;
     protected bool IsGrounded
@@ -166,9 +166,9 @@ public abstract class ACharacterController : APausableObject
             return;
 
         SpellProperty selectedMagic = MagicManager.Instance.MagicKeySelected[Key];
-        Debug.Log(selectedMagic.ID.ToString() + " is now selected");
+        Debug.Log(selectedMagic.ID + " is now selected");
 
-        if (animator.GetBool("IsUsing" + character.StuffType.ToString())
+        if (animator.GetBool("IsUsing" + character.StuffType)
             || !Enum.IsDefined(typeof(MagicManager.MagicID), selectedMagic.ID))
             return;
 
@@ -193,7 +193,7 @@ public abstract class ACharacterController : APausableObject
 
     protected virtual void ControllerDrawSheathSword()
     {
-        string animBoolName = "IsUsing" + character.StuffType.ToString();
+        string animBoolName = "IsUsing" + character.StuffType;
         animator.SetBool(animBoolName, !animator.GetBool(animBoolName));
     }
     #endregion

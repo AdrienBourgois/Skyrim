@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ProjectileSpell : ASpell
 {
-    bool cast = false;
+    bool cast;
     Vector3 direction = Vector3.zero;
 
     public override void Activate()

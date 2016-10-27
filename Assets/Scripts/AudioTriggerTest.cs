@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 
 public class AudioTriggerTest : MonoBehaviour {
-    private void OnTriggerEnter()
+    private void OnTriggerEnter(Collider collider)
     {
-        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Fight);
+        if (collider.gameObject.name == "Spine")
+            AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Fight);
     }
 
-    private void OnTriggerExit()
+    private void OnTriggerExit(Collider collider)
     {
-        AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
+        if (collider.gameObject.name == "Spine")
+            AudioManager.Instance.PlayMusic(AudioManager.EMusic_Type.Game);
     }
 }

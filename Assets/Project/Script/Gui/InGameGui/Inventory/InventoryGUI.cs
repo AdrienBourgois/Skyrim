@@ -6,7 +6,7 @@ using System;
 public class InventoryGUI : MonoBehaviour
 {
 
-    private static InventoryGUI instance = null;
+    private static InventoryGUI instance;
     public static InventoryGUI Instance
     {
         get
@@ -24,35 +24,35 @@ public class InventoryGUI : MonoBehaviour
         PlayerInventory,
         VendorInventory,
         EnemyInventory,
-        ChestInventory,
+        ChestInventory
     }
     public Inventory_Gui_Type current_gui_action = Inventory_Gui_Type.PlayerInventory;
 
     //Left Panel
     [SerializeField]
-    GameObject items_list = null;
+    GameObject items_list;
     [SerializeField]
-    GameObject item_panel_template = null;
+    GameObject item_panel_template;
     [SerializeField]
-    Dropdown filter_list = null;
+    Dropdown filter_list;
     [SerializeField]
-    Dropdown sort_list = null;
+    Dropdown sort_list;
     List<GameObject> item_panel_list = new List<GameObject>();
 
     //Right Panel
     [SerializeField]
-    Text item_name = null;
+    Text item_name;
     [SerializeField]
-    Text item_caracteristics = null;
+    Text item_caracteristics;
     [SerializeField]
-    Button equip_button = null;
+    Button equip_button;
     [SerializeField]
-    Button action_button = null;
+    Button action_button;
     [SerializeField]
-    Button quit_button = null;
-    public Button.ButtonClickedEvent OnQuitButton = null;
+    Button quit_button;
+    public Button.ButtonClickedEvent OnQuitButton;
 
-    Item selected_item = null;
+    Item selected_item;
 
     private Inventory inventory;
     public Inventory Inventory
@@ -111,7 +111,7 @@ public class InventoryGUI : MonoBehaviour
     void ApplyFilterAndSort()
     {
         Type type = types_conversion[(filter_list.options[filter_list.value].text)];
-        typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(new[] { type }).Invoke(this, null);
+        typeof(InventoryGUI).GetMethod("DisplayInventory").MakeGenericMethod(type).Invoke(this, null);
     }
 
     public void DisplayInventory<T>() where T : Item

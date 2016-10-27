@@ -33,7 +33,7 @@ public class Item : IComparable<Item>
         set { description = value; }
     }
 
-    private float weight = 0;
+    private float weight;
     public float Weight
     {
         get { return weight; }

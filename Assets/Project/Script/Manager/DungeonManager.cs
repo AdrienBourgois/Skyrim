@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 
 public class DungeonManager : MonoBehaviour {
 
     List<Module> modules = new List<Module>();
-    DungeonGenerator dungeonGenerator = null;
+    DungeonGenerator dungeonGenerator;
 
 
     static private DungeonManager instance;
@@ -36,7 +35,6 @@ public class DungeonManager : MonoBehaviour {
 
         GameManager.Instance.onStateChanged += OnStateChanged;
         StartCoroutine(CreateDungeon());
-       // CheckSlot();
     }
 
     void Update () {
@@ -93,6 +91,5 @@ public class DungeonManager : MonoBehaviour {
         dungeonGenerator.GenerateDungeon();
         yield return new WaitForSeconds(0.1f);
         ItemGenerator();
-        //CheckConnector();
     }
 }
