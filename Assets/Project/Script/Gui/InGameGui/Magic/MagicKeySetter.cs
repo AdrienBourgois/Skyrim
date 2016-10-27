@@ -33,7 +33,7 @@ public class MagicKeySetter : MonoBehaviour {
         if (selectedMagic == null)
             return;
 
-        transform.GetChild(key_number).FindChild("name").GetComponent<Text>().text = selectedMagic.ID.ToString();
+        transform.GetChild(key_number).FindChild("name").GetComponent<Text>().text = selectedMagic.Id.ToString();
         MagicManager.Instance.MagicKeySelected[key_number] = selectedMagic;
 
     }

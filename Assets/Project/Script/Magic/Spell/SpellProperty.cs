@@ -26,7 +26,7 @@ public class SpellProperty
 
     [SerializeField]
     protected MagicManager.MagicID id = MagicManager.MagicID.NONE;
-    public MagicManager.MagicID ID
+    public MagicManager.MagicID Id
     {
         get { return id; }
     }
@@ -39,28 +39,27 @@ public class SpellProperty
     }
     #endregion
 
-    public void Init(MagicManager.MagicID id, MagicManager.MagicType type , float power, int cost, string description)
+    public void Init(MagicManager.MagicID _id, MagicManager.MagicType _type , float _power, int _cost, string _description)
     {
-        this.id = id;
-        this.type = type;
-        this.power = power;
-        this.cost = cost;
-        this.description = description;
-        
+        id = _id;
+        type = _type;
+        power = _power;
+        cost = _cost;
+        description = _description;
     }
 
-    public string GetMemberStringFromString(string memberName)
+    public string GetMemberStringFromString(string _memberName)
     {
-        if (memberName == "Name")
+        if (_memberName == "Name")
             return id.ToString();
 
-        if (memberName == "Power")
+        if (_memberName == "Power")
             return power.ToString();
 
-        if (memberName == "Cost")
+        if (_memberName == "Cost")
             return cost.ToString();
 
-        if (memberName == "Description")
+        if (_memberName == "Description")
             return description;
 
         return "none";

@@ -5,7 +5,7 @@
 /// </summary>
 public abstract class ACharacter : APausableObject
 {    
-    public delegate void DelegateWeapons(Item leftWeapon, Item rightWeapon);
+    public delegate void DelegateWeapons(Item _leftWeapon, Item _rightWeapon);
     public event DelegateWeapons OnChangedWeapons;
 
     public int MaxUnitLevel { get; protected set; }
@@ -69,7 +69,7 @@ public abstract class ACharacter : APausableObject
         None            = -1,
         SwordAndShield  =  0,
         Axe             =  1,
-        COUNT
+        Count
     }
 
     private EquipType equipType = EquipType.None;

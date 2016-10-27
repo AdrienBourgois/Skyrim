@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
 
     #region SerializeField
     [SerializeField] GameObject dataMgrPrefab;
-    [SerializeField] GameObject guiMgrPrefab;
     [SerializeField] GameObject levelMgrPrefab;
     [SerializeField] GameObject itemMgrPrefab;
     [SerializeField] GameObject dungeonMgrPrefab;

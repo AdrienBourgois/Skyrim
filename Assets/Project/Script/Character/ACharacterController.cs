@@ -166,10 +166,10 @@ public abstract class ACharacterController : APausableObject
             return;
 
         SpellProperty selectedMagic = MagicManager.Instance.MagicKeySelected[Key];
-        Debug.Log(selectedMagic.ID + " is now selected");
+        Debug.Log(selectedMagic.Id + " is now selected");
 
         if (animator.GetBool("IsUsing" + character.StuffType)
-            || !Enum.IsDefined(typeof(MagicManager.MagicID), selectedMagic.ID))
+            || !Enum.IsDefined(typeof(MagicManager.MagicID), selectedMagic.Id))
             return;
 
         characterWeapons.SetActiveMagic(selectedMagic);

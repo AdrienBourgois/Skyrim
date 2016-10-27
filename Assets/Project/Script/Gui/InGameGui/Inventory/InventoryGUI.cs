@@ -14,7 +14,7 @@ public class InventoryGUI : MonoBehaviour
             if (instance != null)
                 return instance;
 
-            instance = GameObject.FindObjectOfType<InventoryGUI>();
+            instance = FindObjectOfType<InventoryGUI>();
             return instance;
         }
     }

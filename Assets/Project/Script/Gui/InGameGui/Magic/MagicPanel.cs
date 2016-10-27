@@ -49,11 +49,11 @@ public class MagicPanel : MonoBehaviour
     void AddSpellButton(SpellProperty magic)
     {
         GameObject gao = CreateBlankButton();
-        gao.name = magic.ID.ToString();
-        gao.transform.FindChild("Name").GetComponent<Text>().text = magic.ID.ToString();
+        gao.name = magic.Id.ToString();
+        gao.transform.FindChild("Name").GetComponent<Text>().text = magic.Id.ToString();
         gao.transform.FindChild("Cost").GetComponent<Text>().text = magic.Cost.ToString();
 
-        if (magic.Power != 0 && magic.ID == MagicManager.MagicID.Heal)
+        if (magic.Power != 0 && magic.Id == MagicManager.MagicID.Heal)
             gao.GetComponent<Image>().color  = Color.green;
         else if (magic.Power == 0 )
             gao.GetComponent<Image>().color = Color.cyan;
