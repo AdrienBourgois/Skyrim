@@ -105,14 +105,14 @@ public abstract class ACharacterController : APausableObject
 
     protected virtual void ControllerMove(float xAxis, float zAxis)
     {
-        animator.SetFloat("MoveX", xAxis, character.MoveSpeed / 10, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, character.MoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveX", xAxis, 10 / character.MoveSpeed, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, 10 / character.MoveSpeed, Time.deltaTime);
     }
 
     protected virtual void ControllerJump(float xAxis = 0f, float zAxis = 0f)
     {
-        animator.SetFloat("MoveX", xAxis, character.MoveSpeed / 10, Time.deltaTime);
-        animator.SetFloat("MoveZ", zAxis, character.MoveSpeed / 10, Time.deltaTime);
+        animator.SetFloat("MoveX", xAxis, 10 / character.MoveSpeed, Time.deltaTime);
+        animator.SetFloat("MoveZ", zAxis, 10 / character.MoveSpeed, Time.deltaTime);
         animator.SetTrigger("TriggerJump");
         Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
         direction.Normalize();

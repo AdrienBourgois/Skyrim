@@ -36,7 +36,7 @@ public abstract class ACharacter : APausableObject
     }
 
     [SerializeField]
-    private float baseMoveSpeed = 3f;
+    private float baseMoveSpeed = 100f;
     public float MoveSpeed
     {
         get { return baseMoveSpeed; }
