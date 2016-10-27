@@ -3,18 +3,18 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 
-public class InventoryGui : MonoBehaviour
+public class InventoryPanelGui : MonoBehaviour
 {
 
-    private static InventoryGui instance;
-    public static InventoryGui Instance
+    private static InventoryPanelGui instance;
+    public static InventoryPanelGui Instance
     {
         get
         {
             if (instance != null)
                 return instance;
 
-            instance = FindObjectOfType<InventoryGui>();
+            instance = FindObjectOfType<InventoryPanelGui>();
             return instance;
         }
     }
@@ -96,8 +96,8 @@ public class InventoryGui : MonoBehaviour
 
     private void ApplyFilterAndSort()
     {
-        Type type = typesConversion[(filterList.options[filterList.value].text)];
-        typeof(InventoryGui).GetMethod("DisplayInventory").MakeGenericMethod(type).Invoke(this, null);
+        Type type = typesConversion[filterList.options[filterList.value].text];
+        typeof(InventoryPanelGui).GetMethod("DisplayInventory").MakeGenericMethod(type).Invoke(this, null);
     }
 
     public void DisplayInventory<T>() where T : Item

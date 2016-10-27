@@ -75,6 +75,6 @@ public class Item : IComparable<Item>
 
     public int CompareTo(Item _item)
     {
-        return (NameObject.CompareTo(_item.NameObject));
+        return NameObject.CompareTo(_item.NameObject);
     }
 }

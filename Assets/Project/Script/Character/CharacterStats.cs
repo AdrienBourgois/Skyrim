@@ -16,7 +16,7 @@ public class CharacterStats
         get { return attributes; }
     }
 
-    Dictionary<string, float> equipBonus = new Dictionary<string, float>();
+    private Dictionary<string, float> equipBonus = new Dictionary<string, float>();
 
     #endregion  
 
@@ -24,15 +24,15 @@ public class CharacterStats
     {
         CalcEquipBonusDic(_player);
 
-        UnitCharacteristics.Attack = ((Mathf.Exp((_player.UnitLevel / 8f)) * UnitAttributes.Strength) + equipBonus["Damage"]) * equipBonus["Attack"];
-        UnitCharacteristics.Defense = ((Mathf.Exp((_player.UnitLevel / 8f)) * UnitAttributes.Constitution) + equipBonus["Armor"] ) * equipBonus["Defense"];
-        UnitCharacteristics.Weight = ((UnitAttributes.Strength + _player.UnitLevel) * 10) * equipBonus["Weight"];
+        UnitCharacteristics.Attack = (Mathf.Exp(_player.UnitLevel / 8f) * UnitAttributes.Strength + equipBonus["Damage"]) * equipBonus["Attack"];
+        UnitCharacteristics.Defense = (Mathf.Exp(_player.UnitLevel / 8f) * UnitAttributes.Constitution + equipBonus["Armor"] ) * equipBonus["Defense"];
+        UnitCharacteristics.Weight = (UnitAttributes.Strength + _player.UnitLevel) * 10 * equipBonus["Weight"];
         UnitCharacteristics.MaxHealth = (Mathf.Exp(_player.UnitLevel / 6f) * UnitAttributes.Constitution + 100) * equipBonus["MaxHealth"];
-        UnitCharacteristics.HealthRegeneration = (UnitCharacteristics.MaxHealth / (50 - (UnitAttributes.Constitution * 0.25f))) * equipBonus["HealthRegeneration"];
-        UnitCharacteristics.MaxMana = (UnitAttributes.Intelligence * 10) * equipBonus["MaxMana"];
-        UnitCharacteristics.SpellPower = (1 + ((float)_player.UnitLevel * UnitAttributes.Intelligence) / 100) * equipBonus["SpellPower"];
-        UnitCharacteristics.Precision = (Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3)) * equipBonus["Precision"];
-        UnitCharacteristics.AttackSpeed = (1 + ((float)_player.UnitLevel + (UnitAttributes.Dexterity / 2)) / 100) * equipBonus["AttackSpeed"];
+        UnitCharacteristics.HealthRegeneration = UnitCharacteristics.MaxHealth / (50 - UnitAttributes.Constitution * 0.25f) * equipBonus["HealthRegeneration"];
+        UnitCharacteristics.MaxMana = UnitAttributes.Intelligence * 10 * equipBonus["MaxMana"];
+        UnitCharacteristics.SpellPower = (1 + (float)_player.UnitLevel * UnitAttributes.Intelligence / 100) * equipBonus["SpellPower"];
+        UnitCharacteristics.Precision = Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3) * equipBonus["Precision"];
+        UnitCharacteristics.AttackSpeed = (1 + ((float)_player.UnitLevel + UnitAttributes.Dexterity / 2) / 100) * equipBonus["AttackSpeed"];
 
         characteristics.UpdateCharacDict();
     }
@@ -41,15 +41,15 @@ public class CharacterStats
     {
         Characteristics characs = new Characteristics(0);
 
-        characs.Attack = ((Mathf.Exp((level / 8f)) * strength) + equipBonus["Damage"]) * equipBonus["Attack"];
-        characs.Defense = ((Mathf.Exp((level / 8f)) * constit) + equipBonus["Armor"]) * equipBonus["Defense"];
-        characs.Weight = ((strength + level) * 10) * equipBonus["Weight"];
+        characs.Attack = (Mathf.Exp(level / 8f) * strength + equipBonus["Damage"]) * equipBonus["Attack"];
+        characs.Defense = (Mathf.Exp(level / 8f) * constit + equipBonus["Armor"]) * equipBonus["Defense"];
+        characs.Weight = (strength + level) * 10 * equipBonus["Weight"];
         characs.MaxHealth = (Mathf.Exp(level / 6f) * constit + 100) * equipBonus["MaxHealth"];
-        characs.HealthRegeneration = (characs.MaxHealth / (50 - (constit * 0.25f))) * equipBonus["HealthRegeneration"];
-        characs.MaxMana = (intel * 10) * equipBonus["MaxMana"];
-        characs.SpellPower = (1 + ((float)level * intel) / 100) * equipBonus["SpellPower"];
-        characs.Precision = (Mathf.Min(100, 100 - (50 - (characs.Weight - playerWeigth) / 10) + dexterity / 3)) * equipBonus["Precision"];
-        characs.AttackSpeed = (1 + ((float)level + (dexterity / 2)) / 100) * equipBonus["AttackSpeed"];
+        characs.HealthRegeneration = characs.MaxHealth / (50 - constit * 0.25f) * equipBonus["HealthRegeneration"];
+        characs.MaxMana = intel * 10 * equipBonus["MaxMana"];
+        characs.SpellPower = (1 + (float)level * intel / 100) * equipBonus["SpellPower"];
+        characs.Precision = Mathf.Min(100, 100 - (50 - (characs.Weight - playerWeigth) / 10) + dexterity / 3) * equipBonus["Precision"];
+        characs.AttackSpeed = (1 + ((float)level + dexterity / 2) / 100) * equipBonus["AttackSpeed"];
 
         characs.UpdateCharacDict();
 

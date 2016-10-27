@@ -20,11 +20,11 @@ public class Axe : Weapon, IEquipableItem, IInstanciableItem
         SetRandAttributes();
 
         float baseDamageValue = Mathf.Floor(Mathf.Exp(Level / (6 - powerLvl / 8)) * 15);
-        float min = baseDamageValue * (1 - (rangeOfGeneration / 100));
-        float max = baseDamageValue * (1 + (rangeOfGeneration / 100));
+        float min = baseDamageValue * (1 - rangeOfGeneration / 100);
+        float max = baseDamageValue * (1 + rangeOfGeneration / 100);
         Damage = (int)UnityEngine.Random.Range(min, max);
 
-        Price = (int)(Mathf.Sqrt(Damage) * (10 + (powerLvl * 6)));
+        Price = (int)(Mathf.Sqrt(Damage) * (10 + powerLvl * 6));
         Weight = 25 + (int)Rarity;
 
         PrefabPath = "Weapons/Axe";

@@ -14,7 +14,7 @@ public class Player : ACharacter
     public int XpToLevelUp { get { return xpToLevelUp; } }
     #endregion
 
-    void Awake()
+    private void Awake()
     {
         GameObject[] playerArray = GameObject.FindGameObjectsWithTag("Player");
 
