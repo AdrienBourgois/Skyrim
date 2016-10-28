@@ -38,6 +38,7 @@ public class AttribPanel : MonoBehaviour {
                 child.GetComponent<AttribGui>().Actualize();
     }
 
+    [Useless]
     public void Validate()
     {
         foreach (Transform child in transform)

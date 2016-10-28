@@ -6,6 +6,7 @@ public class Inventory
     private List<Item> list = new List<Item>();
     public List<Item> List
     {
+        [Useless]
         get { return list; }
         set { list = value; }
     }
@@ -20,6 +21,7 @@ public class Inventory
         list.Remove(_item);
     }
 
+    [Useless]
     public void DisplayInventory()
     {
         foreach (Item item in list)
@@ -34,6 +36,7 @@ public class Inventory
         }
     }
 
+    [Useless]
     public void DisplayList<T>(List<T> _listToDisplay) where T : Item
     {
         foreach (T item in _listToDisplay)
@@ -48,6 +51,7 @@ public class Inventory
         }
     }
 
+    [Useless]
     public List<Item> GetItems<T>() where T : Item
     {
         List<Item> itemsList = new List<Item>();
@@ -60,6 +64,7 @@ public class Inventory
         return itemsList;
     }
 
+    [Useless]
     public List<Item> GetItemsByType<T>() where T : Item
     {
         List<Item> itemsList = new List<Item>();

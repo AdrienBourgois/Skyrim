@@ -7,6 +7,7 @@ public class Item : IComparable<Item>
         Undefined,
         Weapon,
         Armor,
+        [Useless]
         Useable
     }
 
@@ -29,6 +30,7 @@ public class Item : IComparable<Item>
     private string description = "Any description";
     public string Description
     {
+        [Useless]
         get { return description; }
         set { description = value; }
     }
@@ -38,6 +40,7 @@ public class Item : IComparable<Item>
     private ItemType type = ItemType.Undefined;
     protected ItemType Type
     {
+        [Useless]
         get { return type; }
         set { type = value; }
     }

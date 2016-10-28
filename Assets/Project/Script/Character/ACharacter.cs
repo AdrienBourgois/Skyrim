@@ -6,6 +6,7 @@
 public abstract class ACharacter : MonoBehaviour, IHitable
 {    
     public delegate void DelegateWeapons(Item _leftWeapon, Item _rightWeapon);
+    [Useless]
     public event DelegateWeapons OnChangedWeapons;
 
     #region Equipement
@@ -25,6 +26,7 @@ public abstract class ACharacter : MonoBehaviour, IHitable
     #region Serialized Fields
     [SerializeField]
     private string unitName;
+    [Useless]
     public string UnitName
     {
         get { return unitName; }
@@ -36,6 +38,7 @@ public abstract class ACharacter : MonoBehaviour, IHitable
     public int UnitLevel
     {
         get { return unitLevel; }
+        [Useless]
         protected set { unitLevel = value; }
     }    
 
@@ -44,6 +47,7 @@ public abstract class ACharacter : MonoBehaviour, IHitable
     public float JumpEfficiency
     {
         get { return jumpEfficiency; }
+        [Useless]
         protected set { jumpEfficiency = value; }
     }
 
@@ -52,6 +56,7 @@ public abstract class ACharacter : MonoBehaviour, IHitable
     public float MoveSpeed
     {
         get { return baseMoveSpeed; }
+        [Useless]
         protected set { baseMoveSpeed = value; }
     }
     #endregion
@@ -80,7 +85,9 @@ public abstract class ACharacter : MonoBehaviour, IHitable
     {
         None            = -1,
         SwordAndShield  =  0,
+        [Useless]
         Axe             =  1,
+        [Useless]
         Count
     }
 
@@ -88,6 +95,7 @@ public abstract class ACharacter : MonoBehaviour, IHitable
     public EquipType StuffType
     {
         get { return equipType; }
+        [Useless]
         protected set { equipType = value; }
     }
 
@@ -122,6 +130,7 @@ public abstract class ACharacter : MonoBehaviour, IHitable
             Boots = null;
     }
 
+    [Useless]
     protected virtual void EquippedItemChanged()
     {
         // TODO: implemement event when equipped items changed

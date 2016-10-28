@@ -19,6 +19,7 @@ public class SpellProperty
 
     [SerializeField]
     protected string description = "";
+    [Useless]
     public string Description
     {
         get { return description; }

@@ -12,6 +12,7 @@ public abstract class ACharacterController : APausableObject
     #region Serialized Fields
     [SerializeField]
     private Rigidbody rb;
+    [Useless]
     public Rigidbody RBody { get { return rb; } }
 
     [SerializeField]
@@ -35,6 +36,7 @@ public abstract class ACharacterController : APausableObject
     protected bool IsGrounded
     {
         get { return bIsGrounded; }
+        [Useless]
         set { bIsGrounded = value; }
     }
 
@@ -91,14 +93,15 @@ public abstract class ACharacterController : APausableObject
         animator.ResetTrigger("TriggerLeftHand");
         animator.ResetTrigger("TriggerDeath");
     }
-    
+
     #region Controller
+    [Useless]
     public virtual void ControllerLook(Vector2 _axis)
     {
         transform.localEulerAngles = new Vector3(_axis.x, _axis.y, 0f);
     }
 
-    public virtual void ControllerLook(float _xAxis, float _yAxis)
+    public virtual void ControllerLook([Useless]float _xAxis, float _yAxis)
     {
         float lookY = _yAxis - transform.localEulerAngles.y;
         transform.localEulerAngles = new Vector3(0f, _yAxis, 0f);
@@ -149,6 +152,7 @@ public abstract class ACharacterController : APausableObject
         animator.SetTrigger("TriggerRightHand");
     }
 
+    [Useless]
     public virtual void ControllerTwoHands()
     {
         throw new NotImplementedException();
