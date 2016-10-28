@@ -26,6 +26,7 @@ public class Enemy : ACharacter
             lastCollidingChar.EarnXp(XpReward);
         // TODO: Instantiate(TREASURE);
 
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
 
         Destroy(gameObject);
     }
