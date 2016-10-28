@@ -5,6 +5,8 @@ public class EnemyController : ACharacterController
 {
     [SerializeField]
     private float distanceMaxDetection = 10.0f;
+    [SerializeField]
+    private float distanceMaxAttack = 1.5f;
 
     private Transform target;
     private bool bIsAttacking;
@@ -23,11 +25,9 @@ public class EnemyController : ACharacterController
     private IEnumerator FindTarget()
     {
         bool searchingPlayer = true;
-        Debug.Log("Start FindPlayer()");
 
         while (searchingPlayer)
         {
-            Debug.Log("Searching Player");
             Player playerTarget = FindObjectOfType<Player>();
             if (playerTarget != null)
             {
@@ -37,7 +37,6 @@ public class EnemyController : ACharacterController
             else
                 yield return new WaitForSeconds(1f);
         }
-        Debug.Log("Found Player");
 
         StartCoroutine(UpdateAggressivity());
     }
@@ -49,11 +48,8 @@ public class EnemyController : ACharacterController
         layerMask |= (1 << LayerMask.NameToLayer("Character"));
         layerMask = ~layerMask;
 
-        Debug.Log("UpdateAggressivity");
-
         while (needUpdate)
         {
-            Debug.Log("CheckingAggressivity");
             RaycastHit hit;
             Vector3 direction = target.position - CenterOfMass.position;
             if (Physics.Raycast(CenterOfMass.position, direction, out hit, distanceMaxDetection, layerMask) && hit.collider.transform.root.transform == target)
@@ -97,18 +93,15 @@ public class EnemyController : ACharacterController
         if (bIsAttacking)
         {
             Vector3 direction = target.position - CenterOfMass.position;
-            transform.rotation = Quaternion.LookRotation(direction);
-            if (direction.magnitude < 2f)
+            direction.y = 0;
+            transform.rotation = Quaternion.LookRotation(direction.normalized);
+            if (direction.magnitude < distanceMaxAttack)
             {
                 ControllerRightHand();
                 ControllerMove(0.0f, 0.2f);
             }
             else
                 ControllerMove(0.0f, 1.0f);
-            //Vector3 rotation = Quaternion.FromToRotation(transform.forward, direction).eulerAngles * Time.deltaTime;
-            //Debug.Log("rotation == " + rotation);
-            //ControllerLook(rotation.x, rotation.z);
-            //ControllerMove(direction.x, direction.z);
         }
     }
 
