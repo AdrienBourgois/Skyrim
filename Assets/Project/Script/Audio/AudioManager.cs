@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour {
     {
         Menu,
         Game,
+        Calm,
         Fight,
         Any
     }
@@ -58,10 +59,23 @@ public class AudioManager : MonoBehaviour {
         {
             if (_music == EMusicType.Menu)
             {
+                countForFightMusic = 0;
                 ChangeMusic(menuMusic);
                 currentMusicType = EMusicType.Menu;
             }
-            else if (_music == EMusicType.Game && currentMusicType != EMusicType.Game)
+            else if (_music == EMusicType.Game)
+            {
+                countForFightMusic = 0;
+                if (currentMusicType == EMusicType.Game)
+                    currentMusicGroup.State = MusicGroup.EPlayState.PlaySingle;
+                else
+                {
+                    ChangeMusic(gameCalmMusic);
+                    AddMusic(gameFightMusic);
+                }
+                currentMusicType = EMusicType.Game;
+            }
+            else if (_music == EMusicType.Calm)
             {
                 if (currentMusicType == EMusicType.Fight)
                 {
@@ -71,12 +85,6 @@ public class AudioManager : MonoBehaviour {
                         currentMusicGroup.State = MusicGroup.EPlayState.PlaySingle;
                         currentMusicType = EMusicType.Game;
                     }
-                }
-                else
-                {
-                    ChangeMusic(gameCalmMusic);
-                    AddMusic(gameFightMusic);
-                    currentMusicType = EMusicType.Game;
                 }
             }
             else if (_music == EMusicType.Fight)
@@ -113,7 +121,6 @@ public class AudioManager : MonoBehaviour {
 
     #region sounds
 
-    [Useless]
     public void PlaySound(ESoundType _sound, Vector3 _position)
     {
         AudioClip clip = null;

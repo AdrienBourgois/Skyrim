@@ -62,7 +62,7 @@ public class EnemyController : ACharacterController
                 {
                     ControllerDrawSheathSword();
                     bIsAttacking = false;
-                    AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
+                    AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Calm);
                 }
                 ControllerMove(0.0f, 0.0f);
             }
