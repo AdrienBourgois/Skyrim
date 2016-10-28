@@ -14,8 +14,8 @@ public class EnemyController : ACharacterController
         base.Start();
 
         // HACK: doesnt work everytime in start.. not normal
-        if (character != null)
-            characterWeapons.SetCharacter(character);
+        //if (character != null)
+        //    characterWeapons.SetCharacter(character);
 
         StartCoroutine(FindTarget());
     }
@@ -23,9 +23,11 @@ public class EnemyController : ACharacterController
     private IEnumerator FindTarget()
     {
         bool searchingPlayer = true;
+        Debug.Log("Start FindPlayer()");
 
         while (searchingPlayer)
         {
+            Debug.Log("Searching Player");
             Player playerTarget = FindObjectOfType<Player>();
             if (playerTarget != null)
             {
@@ -35,6 +37,8 @@ public class EnemyController : ACharacterController
             else
                 yield return new WaitForSeconds(1f);
         }
+        Debug.Log("Found Player");
+
         StartCoroutine(UpdateAggressivity());
     }
 
@@ -45,8 +49,11 @@ public class EnemyController : ACharacterController
         layerMask |= (1 << LayerMask.NameToLayer("Character"));
         layerMask = ~layerMask;
 
+        Debug.Log("UpdateAggressivity");
+
         while (needUpdate)
         {
+            Debug.Log("CheckingAggressivity");
             RaycastHit hit;
             Vector3 direction = target.position - CenterOfMass.position;
             if (Physics.Raycast(CenterOfMass.position, direction, out hit, distanceMaxDetection, layerMask) && hit.collider.transform.root.transform == target)
@@ -57,14 +64,17 @@ public class EnemyController : ACharacterController
                     bIsAttacking = true;
                 }
             }
-            else if (bIsAttacking)
+            else
             {
+                if (bIsAttacking)
+                {
+                    ControllerDrawSheathSword();
+                    bIsAttacking = false;
+                }
                 ControllerMove(0.0f, 0.0f);
-                ControllerDrawSheathSword();
-                bIsAttacking = false;
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 
