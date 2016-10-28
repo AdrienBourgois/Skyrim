@@ -17,6 +17,8 @@ public class Shop : MonoBehaviour, IUsableObject
     private void Start()
     { 
         inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
+        inv.List.Add(ItemManager.Instance.CreateObject<LifePotion>());
+        inv.List.Add(ItemManager.Instance.CreateObject<PortalPotion>());
     }
 
     public void OnUse(ACharacter _character)

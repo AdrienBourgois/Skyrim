@@ -2,12 +2,12 @@
 
 public class XpBar : Bar
 {
-    int lastXpValue = 0;
-    int lastXpToLevelUpValue = 0;
+    private int lastXpValue;
+    private int lastXpToLevelUpValue;
 
     private void Update()
     {
-        float xpRatio = (float)player.Xp / (float)player.XpToLevelUp;
+        float xpRatio = (float)player.Xp / player.XpToLevelUp;
 
         if (player.Xp <= player.XpToLevelUp && (lastXpValue != player.Xp || lastXpToLevelUpValue != player.XpToLevelUp))
         {
