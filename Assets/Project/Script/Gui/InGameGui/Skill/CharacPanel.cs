@@ -29,7 +29,7 @@ public class CharacPanel : MonoBehaviour
             }
     }
 
-
+    [Useless]
     public void UpdateBonus()
     {
         Attributes attrib = player.CharacterStats.UnitAttributes;
@@ -53,6 +53,7 @@ public class CharacPanel : MonoBehaviour
             }
     }
 
+    [Useless]
     public void Validate()
     {
         UpdateStats();

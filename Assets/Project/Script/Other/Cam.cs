@@ -14,11 +14,6 @@ public class Cam : APausableObject
 
     private float rotY;
 
-    private void Awake()
-    {
-        GameManager.OnPause += PutPause;
-	}
-
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();

@@ -1,10 +1,20 @@
 ﻿using UnityEngine;
 
-public class APausableObject : MonoBehaviour {
-
+public class APausableObject : MonoBehaviour
+{
     protected bool paused;
 
-	virtual protected void PutPause()
+    protected virtual void Awake()
+    {
+        GameManager.OnPause += PutPause;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        GameManager.OnPause -= PutPause;
+    }
+
+    protected virtual void PutPause()
     {
         paused = !paused;
     }

@@ -63,7 +63,9 @@ public class GameManager : MonoBehaviour
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
-	}
+
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Menu);
+    }
 
     public void ChangeGameStateTo(GameState _nextGameState)
     {
@@ -117,15 +119,12 @@ public class GameManager : MonoBehaviour
     private void MainMenuInit()
     {
         CurrGameState = GameState.MainMenu;
-        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Menu);
     }
 
     private void LoadLevel()
     {
         asyncSceneLoading = SceneManager.LoadSceneAsync("BaseScene");
         StartCoroutine(WaitForLoad());
-
-        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
     }
 
     private IEnumerator WaitForLoad()

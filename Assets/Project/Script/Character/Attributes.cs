@@ -8,7 +8,7 @@ public class Attributes
 
     private int strength = 10;
     public int Strength
-    { get { return strength; } set { strength = value; } }
+    { get { return strength; } [Useless]set { strength = value; } }
 
     #endregion
 
@@ -17,7 +17,8 @@ public class Attributes
     private int constitution = 10;
     public int Constitution
     {
-        get { return constitution; } set { constitution = value; } }
+        get { return constitution; }
+        [Useless] set { constitution = value; } }
 
     #endregion
 
@@ -26,7 +27,8 @@ public class Attributes
     private int intelligence = 10;
     public int Intelligence
     {
-        get { return intelligence; } set { intelligence = value; } }
+        get { return intelligence; }
+        [Useless] set { intelligence = value; } }
 
     #endregion
 
@@ -35,7 +37,8 @@ public class Attributes
     private int dexterity = 10;
     public int Dexterity
     {
-        get { return dexterity; } set { dexterity = value; } }
+        get { return dexterity; }
+        [Useless] set { dexterity = value; } }
 
     #endregion
 
