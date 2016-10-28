@@ -2,8 +2,8 @@
 
 public class XpBar : Bar
 {
-    int lastXpValue = 0;
-    int lastXpToLevelUpValue = 0;
+    private int lastXpValue;
+    private int lastXpToLevelUpValue;
 
     private void Update()
     {

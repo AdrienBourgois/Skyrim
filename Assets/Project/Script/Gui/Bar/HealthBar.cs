@@ -2,8 +2,8 @@
 
 public class HealthBar : Bar
 {
-    float lastHealthValue = 0f;
-    float lastMaxHealthValue = 0f;
+    private float lastHealthValue;
+    private float lastMaxHealthValue;
 
     private void Update ()
     {

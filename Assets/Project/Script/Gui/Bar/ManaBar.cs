@@ -2,8 +2,8 @@
 
 public class ManaBar : Bar {
 
-    float lastManaValue = 0f;
-    float lastMaxManaValue = 0f;
+    private float lastManaValue;
+    private float lastMaxManaValue;
 
     private void Update()
     {
