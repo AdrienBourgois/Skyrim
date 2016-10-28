@@ -18,6 +18,9 @@ public class Module : MonoBehaviour {
 
     public List<ItemsGenerator> ItemsGeneratorList { get { return itemsGeneratorList; } }
 
+    public List<EnemySpawner> EnemySpawnersList { get { return enemySpawnersList; } }
+
+
     private void Awake()
     {
         DungeonManager.Instance.RegisterModule(this);
@@ -42,4 +45,6 @@ public class Module : MonoBehaviour {
     {
         enemySpawnersList.Add(_enemySpawn);
     }
+
+ 
 }

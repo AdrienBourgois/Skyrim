@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour {
     {
         int score = Random.Range(0, 100);
 
-        if (score > 50)
+        if (score > 80)
         {
             GameObject enemyPrefab = ResourceManager.Instance.Load("Character/Enemy");
             Instantiate(enemyPrefab, transform.position, transform.rotation);

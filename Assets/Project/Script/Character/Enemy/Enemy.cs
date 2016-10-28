@@ -39,7 +39,7 @@ public class Enemy : ACharacter
             drop.transform.position = transform.position;
         }
 
-        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Calm);
 
         Destroy(gameObject);
     }
