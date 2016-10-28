@@ -170,6 +170,6 @@ public class GameManager : MonoBehaviour
 
     private void GameOverInit()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
+        SceneManager.LoadSceneAsync("GameOver");
     }
 }

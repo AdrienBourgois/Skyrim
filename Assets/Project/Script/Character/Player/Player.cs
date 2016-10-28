@@ -43,5 +43,7 @@
     protected override void OnDeath()
     {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Death);
+        Destroy(gameObject);
+        Destroy(FindObjectOfType<Compass>());
     }
 }
