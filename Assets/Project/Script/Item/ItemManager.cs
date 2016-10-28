@@ -10,9 +10,6 @@ public class ItemManager : MonoBehaviour
         get { return instance ?? (instance = FindObjectOfType<ItemManager>()); }
     }
 
-    //TODO: to changed with IDs ?
-    //private Dictionary<string, WeaponInstance> mapCachePrefab = new Dictionary<string, WeaponInstance>();
-
     [Flags] public enum FlagsGeneration
     {
         [Useless]

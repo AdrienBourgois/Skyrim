@@ -3,7 +3,7 @@
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
-public abstract class ACharacter : MonoBehaviour, IHitable
+public abstract class ACharacter : APausableObject, IHitable
 {    
     public delegate void DelegateWeapons(Item _leftWeapon, Item _rightWeapon);
     [Useless]
@@ -133,9 +133,8 @@ public abstract class ACharacter : MonoBehaviour, IHitable
     [Useless]
     protected virtual void EquippedItemChanged()
     {
-        // TODO: implemement event when equipped items changed
-        //if (OnChangedWeapons != null)
-        //  OnChangedWeapons.Invoke(inventory.);
+        if (OnChangedWeapons != null)
+            OnChangedWeapons.Invoke(RightHand, LeftHand);
     }
 
     protected virtual void TakeDamages(float _damages)
@@ -152,9 +151,16 @@ public abstract class ACharacter : MonoBehaviour, IHitable
 
     public virtual void OnHit(ACharacter _character)
     {
-        if (_character == this)
+        if (_character == this || paused)
             return;
         TakeDamages(_character.CharacterStats.UnitCharacteristics.Attack - characterStats.UnitCharacteristics.Defense);
+    }
+
+    public virtual void OnHit(ACharacter _character, float spellDamages)
+    {
+        if (_character == this || paused)
+            return;
+        TakeDamages(spellDamages * _character.CharacterStats.UnitCharacteristics.SpellPower - characterStats.UnitCharacteristics.Defense);
     }
 
     protected abstract void OnDeath();

@@ -82,7 +82,6 @@ public class PlayerController : ACharacterController
     public override void ControllerUse()
     {
         RaycastHit hit;
-        // TODO: global(?) variable for max distance
         const float useMaxDistance = 3f;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {

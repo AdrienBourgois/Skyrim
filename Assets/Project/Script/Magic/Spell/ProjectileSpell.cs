@@ -2,12 +2,14 @@
 
 public class ProjectileSpell : ASpell
 {
+    [SerializeField]
+    protected float projectileSpeed = 10f;
+    
     private bool cast;
     private Vector3 direction = Vector3.zero;
 
     public override void Activate()
     {
-        Debug.Log("FIRE");
         cast = true;
         transform.parent = null;
         direction = selfController.GetTarget().transform.forward;
@@ -23,14 +25,12 @@ public class ProjectileSpell : ASpell
 
     protected void OnTriggerEnter(Collider _collider)
     {
-        ACharacter character = _collider.gameObject.GetComponent<ACharacter>();
-
-        if (character != null)
+        IHitable hitableObject = _collider.transform.root.gameObject.GetComponent<IHitable>();
+        if (hitableObject as ACharacter == selfController.Character)
+            return;
+        if (hitableObject != null)
         {
-            //if (character == selfController.Character)
-            //    return;
-            //// TODO: damages
-            Debug.Log("DAMAGES");
+            hitableObject.OnHit(selfController.Character, spellProperty.Power);
         }
         Destroy(gameObject);
     }

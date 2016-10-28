@@ -39,7 +39,6 @@ public class ACharacterWeapons : MonoBehaviour
 
         _character.OnChangedWeapons += SetWeapons;
 
-        // TODO: initialization for ShieldSword
         SetWeapons(ItemManager.Instance.CreateObject<Shield>(), ItemManager.Instance.CreateObject<Sword>());
     }
 
