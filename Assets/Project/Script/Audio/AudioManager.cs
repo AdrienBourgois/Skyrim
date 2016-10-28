@@ -61,7 +61,7 @@ public class AudioManager : MonoBehaviour {
                 ChangeMusic(menuMusic);
                 currentMusicType = EMusicType.Menu;
             }
-            else if (_music == EMusicType.Game)
+            else if (_music == EMusicType.Game && currentMusicType != EMusicType.Game)
             {
                 if (currentMusicType == EMusicType.Fight)
                 {
@@ -133,6 +133,7 @@ public class AudioManager : MonoBehaviour {
             source.spatialBlend = 1.0f;
             source.dopplerLevel = 0f;
             source.Play();
+            DontDestroyOnLoad(source);
             StartCoroutine(ManageSourceDestruct(source));
         }
         else
@@ -146,21 +147,14 @@ public class AudioManager : MonoBehaviour {
 
     private IEnumerator ManageSourceDestruct(AudioSource _source)
     {
+        if(_source == null)
+            yield break;
         while (_source.isPlaying)
             yield return new WaitUntil(() => _source.isPlaying);
         Destroy(_source.gameObject);
     }
     
     #endregion
-
-
-    private void Update()
-    {
-        if(Input.GetKeyDown("o"))
-            PlayMusic(EMusicType.Fight);
-        else if (Input.GetKeyDown("l"))
-            PlayMusic(EMusicType.Game);
-    }
 }
 
 

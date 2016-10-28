@@ -156,11 +156,11 @@ public abstract class ACharacter : APausableObject, IHitable
         TakeDamages(_character.CharacterStats.UnitCharacteristics.Attack - characterStats.UnitCharacteristics.Defense);
     }
 
-    public virtual void OnHit(ACharacter _character, float spellDamages)
+    public virtual void OnHit(ACharacter _character, float _spellDamages)
     {
         if (_character == this || paused)
             return;
-        TakeDamages(spellDamages * _character.CharacterStats.UnitCharacteristics.SpellPower - characterStats.UnitCharacteristics.Defense);
+        TakeDamages(_spellDamages * _character.CharacterStats.UnitCharacteristics.SpellPower - characterStats.UnitCharacteristics.Defense);
     }
 
     protected abstract void OnDeath();

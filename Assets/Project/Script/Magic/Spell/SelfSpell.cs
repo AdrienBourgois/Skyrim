@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class SelfSpell : ASpell
+﻿public class SelfSpell : ASpell
 {
     public override void Activate()
     {
