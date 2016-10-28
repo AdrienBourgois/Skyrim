@@ -10,10 +10,11 @@ public class ItemsGenerator : MonoBehaviour {
 
     #endregion
 
-    public bool IsConnected { get; set; }
+    public bool IsConnected { get; private set; }
 
     private void Awake()
     {
+        IsConnected = false;
         GameObject mGo = transform.parent.gameObject;
         Module m = mGo.GetComponent<Module>();
         if (m != null)

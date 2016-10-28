@@ -15,13 +15,13 @@ public class AttribPanel : MonoBehaviour {
         UpdateStats();
     }
 
-    public void InitBonusToAssign()
+    private void InitBonusToAssign()
     {
         if ( player != null)
             BonusToAssign = player.AttributePointToAssign;
     }
 
-    public void UpdateStats()
+    private void UpdateStats()
     {
         if (attrib == null)
             return;

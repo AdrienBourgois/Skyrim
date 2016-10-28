@@ -56,6 +56,8 @@ public class EnemyController : ACharacterController
                     AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Fight);
                 }
             }
+            else if (target.gameObject.name == "Player")
+                needUpdate = false;
             else
             {
                 if (bIsAttacking)
