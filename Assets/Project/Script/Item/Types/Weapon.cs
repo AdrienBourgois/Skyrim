@@ -2,6 +2,7 @@
 
 public class Weapon : Item, ITypeItem {
 
+    [Useless]
     protected enum WeaponType
     {
         Sword,

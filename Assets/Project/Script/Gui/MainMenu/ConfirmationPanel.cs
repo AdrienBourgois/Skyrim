@@ -11,12 +11,13 @@ public class ConfirmationPanel : MonoBehaviour
     private event DelegateClick OnYes = () => { };
     private event DelegateClick OnNo = () => { };
 
-
+    [Useless]
     public void DoYes()
     {
         OnYes.Invoke();
     }
 
+    [Useless]
     public void DoNo()
     {
         OnNo.Invoke();

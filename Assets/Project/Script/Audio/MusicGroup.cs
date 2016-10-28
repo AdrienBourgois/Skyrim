@@ -13,12 +13,13 @@ public class MusicGroup : MonoBehaviour {
 
     public enum EPlayState
     {
+        Init,
         PlaySingle,
         PlayFull,
         Stop
     }
 
-    private EPlayState state = EPlayState.PlaySingle;
+    private EPlayState state = EPlayState.Init;
     public EPlayState State
     {
         set
@@ -47,12 +48,9 @@ public class MusicGroup : MonoBehaviour {
     private void ToSinglePlay()
     {
         if (subSources.Count > 0)
-        {
             foreach (AudioSource source in subSources)
-            {
                 StartCoroutine(CrossFadeDownAndDestroy(source));
-            }
-        }
+
         if(mainSource == null)
             Sync(mainClip);
     }

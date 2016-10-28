@@ -2,5 +2,6 @@
 {
     void Instantiate();
     void SetRandName();
+    [Useless]
     void SetRandDescription();
 }

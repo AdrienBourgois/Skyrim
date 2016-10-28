@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour {
     {
         instance = this;
         InstanceGame();
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
     }
 
     private void InstanceGame()

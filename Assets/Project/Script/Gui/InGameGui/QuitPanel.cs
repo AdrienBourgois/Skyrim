@@ -2,16 +2,19 @@
 
 public class QuitPanel : MonoBehaviour {
 
+    [Useless]
     public void Show()
     {
         gameObject.SetActive(true);
     }
 
+    [Useless]
     public void Close()
     {
         gameObject.SetActive(false);
     }
 
+    [Useless]
     public void Quit()
     {
         #if UNITY_EDITOR

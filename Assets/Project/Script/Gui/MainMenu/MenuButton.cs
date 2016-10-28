@@ -5,6 +5,7 @@ public abstract class MenuButton : MonoBehaviour
 {
     [SerializeField]
     private Text confirmPanelText;
+    [Useless]
     protected Text ConfirmText
     {
         get { return confirmPanelText; }
@@ -27,5 +28,6 @@ public abstract class MenuButton : MonoBehaviour
             OnClick.Invoke(_id);
     }
 
+    [Useless]
     public abstract void OnButtonClick();
 }

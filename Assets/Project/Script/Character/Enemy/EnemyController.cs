@@ -5,6 +5,8 @@ public class EnemyController : ACharacterController
 {
     [SerializeField]
     private float distanceMaxDetection = 10.0f;
+    [SerializeField]
+    private float distanceMaxAttack = 1.5f;
 
     private Transform target;
     private bool bIsAttacking;
@@ -14,8 +16,8 @@ public class EnemyController : ACharacterController
         base.Start();
 
         // HACK: doesnt work everytime in start.. not normal
-        if (character != null)
-            characterWeapons.SetCharacter(character);
+        //if (character != null)
+        //    characterWeapons.SetCharacter(character);
 
         StartCoroutine(FindTarget());
     }
@@ -35,14 +37,15 @@ public class EnemyController : ACharacterController
             else
                 yield return new WaitForSeconds(1f);
         }
+
         StartCoroutine(UpdateAggressivity());
     }
 
     private IEnumerator UpdateAggressivity()
     {
         bool needUpdate = true;
-        int layerMask = (1 << LayerMask.NameToLayer("Weapon"));
-        layerMask |= (1 << LayerMask.NameToLayer("Character"));
+        int layerMask = 1 << LayerMask.NameToLayer("Weapon");
+        layerMask |= 1 << LayerMask.NameToLayer("Character");
         layerMask = ~layerMask;
 
         while (needUpdate)
@@ -57,14 +60,17 @@ public class EnemyController : ACharacterController
                     bIsAttacking = true;
                 }
             }
-            else if (bIsAttacking)
+            else
             {
+                if (bIsAttacking)
+                {
+                    ControllerDrawSheathSword();
+                    bIsAttacking = false;
+                }
                 ControllerMove(0.0f, 0.0f);
-                ControllerDrawSheathSword();
-                bIsAttacking = false;
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 
@@ -87,18 +93,15 @@ public class EnemyController : ACharacterController
         if (bIsAttacking)
         {
             Vector3 direction = target.position - CenterOfMass.position;
-            transform.rotation = Quaternion.LookRotation(direction);
-            if (direction.magnitude < 2f)
+            direction.y = 0;
+            transform.rotation = Quaternion.LookRotation(direction.normalized);
+            if (direction.magnitude < distanceMaxAttack)
             {
                 ControllerRightHand();
                 ControllerMove(0.0f, 0.2f);
             }
             else
                 ControllerMove(0.0f, 1.0f);
-            //Vector3 rotation = Quaternion.FromToRotation(transform.forward, direction).eulerAngles * Time.deltaTime;
-            //Debug.Log("rotation == " + rotation);
-            //ControllerLook(rotation.x, rotation.z);
-            //ControllerMove(direction.x, direction.z);
         }
     }
 

@@ -24,6 +24,7 @@ public class InventoryPanelGui : MonoBehaviour
         PlayerInventory,
         VendorInventory,
         EnemyInventory,
+        [Useless]
         ChestInventory
     }
     public InventoryGuiType currentGuiAction = InventoryGuiType.PlayerInventory;

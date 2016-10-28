@@ -12,7 +12,7 @@ public class InventoryButton : MonoBehaviour
         invPanelGui = InventoryPanelGui.Instance;
         pausePanel = GameObject.Find("PausePanel");
     }
-	
+
     public void OnClick()
     {
         pausePanel.SetActive(false);

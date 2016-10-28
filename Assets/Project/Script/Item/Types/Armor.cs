@@ -2,6 +2,7 @@
 
 public class Armor : Item, ITypeItem {
 
+    [Useless]
     protected enum ArmorType
     {
         Helmet,

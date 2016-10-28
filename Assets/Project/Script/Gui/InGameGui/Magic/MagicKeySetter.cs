@@ -15,6 +15,7 @@ public class MagicKeySetter : MonoBehaviour {
         Close();
     }
 
+    [Useless]
     public void Show()
     {
         gameObject.SetActive(!gameObject.activeSelf);
