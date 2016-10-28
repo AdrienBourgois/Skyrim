@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour {
 
     private void Awake()
     {
+        Debug.Log("Instantiate LevelMgr");
         instance = this;
         InstanceGame();
         AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);

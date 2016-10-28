@@ -32,6 +32,8 @@
 
         Xp -= xpToLevelUp;
         xpToLevelUp *= 2;
+
+        attributePointToAssign += 2;
     }
 
     public override void EarnXp(int _xpReward)
