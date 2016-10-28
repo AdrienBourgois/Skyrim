@@ -66,6 +66,7 @@ public class MusicGroup : MonoBehaviour {
     private void Sync(AudioClip _clip)
     {
         AudioSource source = gameObject.AddComponent<AudioSource>();
+        DontDestroyOnLoad(source);
 
         if (mainSource != null)
         {
@@ -107,7 +108,7 @@ public class MusicGroup : MonoBehaviour {
         float previousTime = Time.time;
         float delta = 0f;
 
-        while (_source.volume < 1f)
+        while (_source != null && _source.volume < 1f)
         {
             delta += Time.time - previousTime;
             _source.volume = delta;
