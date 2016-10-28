@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class Player : ACharacter
+﻿public class Player : ACharacter
 {
     #region Exp
     public int Xp { get; private set; }
