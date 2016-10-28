@@ -95,8 +95,6 @@ public class ACharacterWeapons : MonoBehaviour
             spell.Activate();
             spell = null;
         }
-        else
-            Debug.LogWarning("ACharacterWeapon.ActivateMagic() - member \"magic\" is null");
     }
 
     public void SetActiveMagic(SpellProperty _spellProp)
