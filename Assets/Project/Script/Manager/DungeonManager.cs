@@ -7,6 +7,9 @@ public class DungeonManager : MonoBehaviour {
     private DungeonGenerator dungeonGenerator;
 
 
+    private List<Enemy> enemies = new List<Enemy>();
+
+
     static private DungeonManager instance;
     static public DungeonManager Instance
     {
@@ -20,6 +23,19 @@ public class DungeonManager : MonoBehaviour {
             }
 
             return instance;
+        }
+    }
+
+    public List<Enemy> Enemies
+    {
+        get
+        {
+            return enemies;
+        }
+
+        set
+        {
+            enemies = value;
         }
     }
 
@@ -58,8 +74,12 @@ public class DungeonManager : MonoBehaviour {
     {
         foreach (Module m in modules.ToArray())
             foreach (EnemySpawner enemySpawner in m.enemySpawnersList.ToArray())
+            {
                 enemySpawner.CreateEnemy();
+            }
     }
+
+   
 
     private void OnStateChanged(GameManager.GameState _state)
     {

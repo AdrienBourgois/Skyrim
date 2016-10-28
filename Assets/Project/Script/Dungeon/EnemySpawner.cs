@@ -3,6 +3,8 @@
 public class EnemySpawner : MonoBehaviour {
 
 
+
+
     private void Awake()
     {
         GameObject mGo = transform.parent.gameObject;
@@ -23,8 +25,10 @@ public class EnemySpawner : MonoBehaviour {
         {
             GameObject enemyPrefab = ResourceManager.Instance.Load("Character/Enemy");
             Instantiate(enemyPrefab, transform.position, transform.rotation);
-        }
+        }           
         else
             Destroy(gameObject);
+
+
     }
 }

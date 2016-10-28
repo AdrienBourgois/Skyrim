@@ -7,6 +7,7 @@ public class DeadZone : MonoBehaviour {
     {
         if (collider.gameObject.tag == "Player")
         {
+            Debug.Log("OntriggerEnter");
             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Death);
             Destroy(collider.gameObject);
             Destroy(FindObjectOfType<Compass>());
