@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject dungeonMgrPrefab;
     [SerializeField] private GameObject magicMgrPrefab;
     [SerializeField] private GameObject resourceMgrPrefab;
+    [SerializeField] private GameObject audioMgrPrefab;
     #endregion
 
     public enum GameState
@@ -57,16 +58,22 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         if (!ItemManager.Instance)
-        Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
+            Instantiate(itemMgrPrefab);
         if (!MagicManager.Instance)
-            Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
+            Instantiate(magicMgrPrefab);
         if (!ResourceManager.Instance)
-            Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
+            Instantiate(resourceMgrPrefab);
+        if (!AudioManager.Instance)
+            Instantiate(audioMgrPrefab);
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
+    }
 
-        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Menu);
+    private void Start()
+    {
+        ChangeGameStateTo(GameState.MainMenu);
+
     }
 
     public void ChangeGameStateTo(GameState _nextGameState)
@@ -110,6 +117,7 @@ public class GameManager : MonoBehaviour
     private void MainMenuInit()
     {
         CurrGameState = GameState.MainMenu;
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Menu);
     }
 
     private void LoadLevel()
