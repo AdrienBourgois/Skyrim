@@ -18,6 +18,7 @@ public class Enemy : ACharacter
     {
         lastCollidingChar = _character;
         base.OnHit(_character);
+        AudioManager.Instance.PlaySound(AudioManager.ESoundType.Sword, transform.position);
     }
 
     protected override void OnDeath()
@@ -26,6 +27,7 @@ public class Enemy : ACharacter
             lastCollidingChar.EarnXp(XpReward);
         // TODO: Instantiate(TREASURE);
 
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
 
         Destroy(gameObject);
     }

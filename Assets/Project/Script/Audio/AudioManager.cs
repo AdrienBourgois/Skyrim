@@ -44,6 +44,9 @@ public class AudioManager : MonoBehaviour {
 
     private MusicGroup currentMusicGroup;
 
+    [SerializeField]
+    private int countForFightMusic;
+
     private void Start()
     {
         DontDestroyOnLoad(this);
@@ -51,7 +54,7 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayMusic(EMusicType _music)
     {
-        if (_music != currentMusicType)
+        if (_music != currentMusicType || _music == EMusicType.Fight)
         {
             if (_music == EMusicType.Menu)
             {
@@ -60,21 +63,31 @@ public class AudioManager : MonoBehaviour {
             }
             else if (_music == EMusicType.Game)
             {
-                if (currentMusicType != EMusicType.Fight)
+                if (currentMusicType == EMusicType.Fight)
+                {
+                    countForFightMusic--;
+                    if (countForFightMusic == 0)
+                    {
+                        currentMusicGroup.State = MusicGroup.EPlayState.PlaySingle;
+                        currentMusicType = EMusicType.Game;
+                    }
+                }
+                else
                 {
                     ChangeMusic(gameCalmMusic);
                     AddMusic(gameFightMusic);
+                    currentMusicType = EMusicType.Game;
                 }
-                else
-                    currentMusicGroup.State = MusicGroup.EPlayState.PlaySingle;
-                currentMusicType = EMusicType.Game;
             }
             else if (_music == EMusicType.Fight)
-                if (currentMusicType == EMusicType.Game)
+            {
+                if (currentMusicType == EMusicType.Game || currentMusicType == EMusicType.Fight)
                 {
+                    countForFightMusic++;
                     currentMusicGroup.State = MusicGroup.EPlayState.PlayFull;
                     currentMusicType = EMusicType.Fight;
                 }
+            }
         }
     }
 
@@ -140,6 +153,14 @@ public class AudioManager : MonoBehaviour {
     
     #endregion
 
+
+    private void Update()
+    {
+        if(Input.GetKeyDown("o"))
+            PlayMusic(EMusicType.Fight);
+        else if (Input.GetKeyDown("l"))
+            PlayMusic(EMusicType.Game);
+    }
 }
 
 

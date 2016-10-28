@@ -205,9 +205,13 @@ public class InventoryPanelGui : MonoBehaviour
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(delegate
             {
-                FindObjectOfType<Player>().CharacterStats.UnitCharacteristics.PlayerWeight -= selectedItem.Weight;
+                Player player = FindObjectOfType<Player>();
+                player.CharacterStats.UnitCharacteristics.PlayerWeight -= selectedItem.Weight;
                 if (selectedItem.Equipped)
+                {
                     selectedItem.Equipped.RemoveEquipement(selectedItem);
+                    player.CharacterStats.SetCharacteristics(player);
+                }
                 Inventory.RemoveItem(selectedItem);
                 ApplyFilterAndSort();
                 DisplayItem(null);

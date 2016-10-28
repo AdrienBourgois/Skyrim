@@ -4,15 +4,6 @@ public class PlayerController : ACharacterController
 {
     private Transform cameraTransform;
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        // HACK: doesnt work everytime in ACharacter start.. not normal - maybe will be the same in Enemy if being Instantiated
-        //if (characterWeapons != null)
-        //    characterWeapons.SetCharacter(character);
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -25,10 +16,10 @@ public class PlayerController : ACharacterController
 
         if (cameraTransform == null)
         {
-            Cam camera = FindObjectOfType<Cam>();
-            if (camera == null)
+            Cam cam = FindObjectOfType<Cam>();
+            if (cam == null)
                 Debug.LogError("PlayerController.Update() - couldn't find object of type Cam");
-            cameraTransform = camera.transform;
+            cameraTransform = cam.transform;
         }
 
         if (paused)
