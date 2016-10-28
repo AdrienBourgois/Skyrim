@@ -135,6 +135,8 @@ public class GameManager : MonoBehaviour
         if (CurrGameState == GameState.Pause)
             OnPause();
         CurrGameState = GameState.InGame;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private bool CheckIfSceneChanged()
@@ -163,6 +165,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOverInit()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadSceneAsync("GameOver");
     }
 }

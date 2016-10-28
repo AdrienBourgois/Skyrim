@@ -21,6 +21,7 @@ Implemented features:
 Limitations and bugs:
 ---------------------
 When moving up stairs, Character is very slow. Better way is going right and left while running.
+Sometimes, the dungeon bug and create a few room at the same position.
 
 ------------
 To be known:

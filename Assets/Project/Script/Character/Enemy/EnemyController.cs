@@ -14,11 +14,6 @@ public class EnemyController : ACharacterController
     protected override void Start()
     {
         base.Start();
-
-        // HACK: doesnt work everytime in start.. not normal
-        //if (character != null)
-        //    characterWeapons.SetCharacter(character);
-
         StartCoroutine(FindTarget());
     }
 
