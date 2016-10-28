@@ -2,7 +2,7 @@
 
 public class PlayerController : ACharacterController
 {
-    Transform cameraTransform = null;
+    private Transform cameraTransform;
 
     protected override void Awake()
     {

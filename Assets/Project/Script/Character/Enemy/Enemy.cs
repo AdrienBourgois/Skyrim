@@ -1,11 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : ACharacter
 {
     [SerializeField]
     private int xpReward = 10;
-    public int XPReward { get { return xpReward; } }
+    private int XpReward { get { return xpReward; } }
 
     private ACharacter lastCollidingChar;
 
@@ -24,7 +23,7 @@ public class Enemy : ACharacter
     protected override void OnDeath()
     {
         if (lastCollidingChar != null)
-            lastCollidingChar.EarnXp(XPReward);
+            lastCollidingChar.EarnXp(XpReward);
         // TODO: Instantiate(TREASURE);
 
 
