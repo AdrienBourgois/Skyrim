@@ -76,6 +76,9 @@ public class InventoryPanelGui : MonoBehaviour
         typesConversion.Add("<color=orange><b>---- Weapon ----</b></color>", typeof(Weapon));
         typesConversion.Add("<color=orange>Sword</color>", typeof(Sword));
         typesConversion.Add("<color=orange>Axe</color>", typeof(Axe));
+        typesConversion.Add("<color=red>Useable</color>", typeof(Useable));
+        typesConversion.Add("<color=orange>LifePotion</color>", typeof(LifePotion));
+        typesConversion.Add("<color=orange>PortalPotion</color>", typeof(PortalPotion));
         filterList.ClearOptions();
         filterList.AddOptions(new List<string>(typesConversion.Keys));
 
@@ -98,6 +101,8 @@ public class InventoryPanelGui : MonoBehaviour
     {
         Type type = typesConversion[filterList.options[filterList.value].text];
         typeof(InventoryPanelGui).GetMethod("DisplayInventory").MakeGenericMethod(type).Invoke(this, null);
+        equipButton.GetComponentInChildren<Text>().text = "-";
+        actionButton.GetComponentInChildren<Text>().text = "-";
     }
 
     public void DisplayInventory<T>() where T : Item
@@ -186,8 +191,9 @@ public class InventoryPanelGui : MonoBehaviour
         {
             equipButton.GetComponentInChildren<Text>().text = "Use";
             equipButton.onClick.RemoveAllListeners();
-            equipButton.onClick.AddListener(delegate { ((IUseableItem)_item).Use(); });
+            equipButton.onClick.AddListener(delegate { ((IUseableItem)_item).Use(); ApplyFilterAndSort(); });
             equipButton.interactable = true;
+            Inventory.RemoveItem(selectedItem);
         }
         else
         {
@@ -200,8 +206,6 @@ public class InventoryPanelGui : MonoBehaviour
         {
             Debug.Log("PlayerInventory");
             equipButton.enabled = true;
-            equipButton.GetComponentInChildren<Text>().text = "Equip";
-            actionButton.GetComponentInChildren<Text>().text = "Drop";
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(delegate
             {
@@ -272,8 +276,10 @@ public class InventoryPanelGui : MonoBehaviour
         Image image = _template.GetComponent<Image>();
         if (_item is Weapon)
             image.color = new Color(0.412f, 0.616f, 0f);
-        if (_item is Armor)
+        else if (_item is Armor)
             image.color = new Color(0.09f, 0.6f, 0.9f);
+        else if (_item is Useable)
+            image.color = new Color(0.83f, 0.41f, 0.41f);
         else
             image.color = new Color(1f, 0.4f, 0f);
     }

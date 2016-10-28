@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
         CurrGameState = GameState.PopulateDungeon;
     }
 
-    private void PauseInit()
+    public void PauseInit()
     {
         OnPause();
 
