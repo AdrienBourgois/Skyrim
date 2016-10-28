@@ -63,8 +63,6 @@ public class EnemyController : ACharacterController
                 ControllerDrawSheathSword();
                 bIsAttacking = false;
             }
-            else
-                needUpdate = false;
 
             yield return new WaitForSeconds(0.5f);
         }

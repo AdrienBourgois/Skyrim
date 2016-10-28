@@ -238,7 +238,6 @@ public abstract class ACharacterController : APausableObject
 
     void OnDestroy()
     {
-        Debug.Log("controller death");
         GameManager.OnPause -= PutPause;
     }
 }
