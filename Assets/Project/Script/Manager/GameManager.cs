@@ -171,6 +171,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOverInit()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadSceneAsync("GameOver");
     }
 }

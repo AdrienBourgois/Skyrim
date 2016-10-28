@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class DeadZone : MonoBehaviour {
 
-    void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter(Collider _collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (_collider.gameObject.tag == "Player")
         {
             Debug.Log("OntriggerEnter");
             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Death);
-            Destroy(collider.gameObject);
+            Destroy(_collider.gameObject);
             Destroy(FindObjectOfType<Compass>());
         }
     }

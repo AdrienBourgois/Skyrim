@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class ReturnToTheMenuButton : MonoBehaviour {
 
-	void Start () {
+	private void Start () {
 	
 	}
 	
-	void Update () {
+	private void Update () {
 	
 	}
 
