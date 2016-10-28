@@ -13,7 +13,6 @@ public class Spawn : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.1f);
         Player player = FindObjectOfType<Player>();
-        print(player);
         if (player != null)
             player.transform.position = transform.position;
     }
