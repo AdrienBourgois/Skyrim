@@ -235,4 +235,10 @@ public abstract class ACharacterController : APausableObject
     }
 
     public abstract Transform GetTarget();
+
+    void OnDestroy()
+    {
+        Debug.Log("controller death");
+        GameManager.OnPause -= PutPause;
+    }
 }

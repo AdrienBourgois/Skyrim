@@ -26,6 +26,8 @@ public class Enemy : ACharacter
         if (lastCollidingChar != null)
             lastCollidingChar.EarnXp(XPReward);
         // TODO: Instantiate(TREASURE);
+
+
         Destroy(gameObject);
     }
 }

@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Death:
-                Debug.LogWarning("Player is dead!");
+                GameOverInit();
                 break;
             case GameState.StateNb:
                 break;
@@ -168,4 +168,8 @@ public class GameManager : MonoBehaviour
         CurrGameState = GameState.Pause;
     }
 
+    private void GameOverInit()
+    {
+        SceneManager.LoadSceneAsync("MainMenu");
+    }
 }

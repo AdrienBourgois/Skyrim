@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
 /// </summary>
-public abstract class ACharacter : APausableObject, IHitable
+public abstract class ACharacter : MonoBehaviour, IHitable
 {    
     public delegate void DelegateWeapons(Item _leftWeapon, Item _rightWeapon);
     public event DelegateWeapons OnChangedWeapons;
