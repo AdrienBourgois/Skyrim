@@ -7,9 +7,8 @@ public class TreasureChest : MonoBehaviour, IUsableObject
     private bool hasBeenOpen;
     private InventoryPanelGui invPanelGui;
     private Inventory inv = new Inventory();
-    private UnityEngine.Events.UnityAction onCloseChest;
-
-
+    private UnityEngine.Events.UnityAction OnCloseChest;
+    
     private void Awake()
     {
         anim = GetComponent<Animation>();
@@ -21,7 +20,7 @@ public class TreasureChest : MonoBehaviour, IUsableObject
     {
         inv.List = ItemManager.Instance.GenerateInventory(ItemManager.FlagsGeneration.AllType, 10);
 
-        onCloseChest = CloseChest;
+        OnCloseChest = CloseChest;
     }
 
     public void OnUse(ACharacter _character)
@@ -33,8 +32,8 @@ public class TreasureChest : MonoBehaviour, IUsableObject
             
             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
             invPanelGui.Show = true;
-            if (onCloseChest != null)
-                invPanelGui.onQuitButton.AddListener(onCloseChest);
+            if (OnCloseChest != null)
+                invPanelGui.onQuitButton.AddListener(OnCloseChest);
 
             anim.Play("open");
             hasBeenOpen = true;
@@ -44,7 +43,6 @@ public class TreasureChest : MonoBehaviour, IUsableObject
             anim.Play("close");
             hasBeenOpen = false;
         }
-
     }
     
     private void CloseChest()
@@ -55,8 +53,7 @@ public class TreasureChest : MonoBehaviour, IUsableObject
             hasBeenOpen = false;
         }
 
-
-        invPanelGui.onQuitButton.RemoveListener(onCloseChest);
+        invPanelGui.onQuitButton.RemoveListener(OnCloseChest);
     }
 
 }

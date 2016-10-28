@@ -14,5 +14,6 @@ public class ReturnToTheMenuButton : MonoBehaviour {
     public void ReturnToTheMainMenu()
     {
         SceneManager.LoadSceneAsync("MainMenu");
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.MainMenu);
     }
 }
