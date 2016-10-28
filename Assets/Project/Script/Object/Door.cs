@@ -7,13 +7,8 @@ public class Door : MonoBehaviour, IUsableObject
 {
     public void OnUse(ACharacter _character)
     {
-        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.LoadGame);//StartCoroutine(TeleportToTown(_character));
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.LoadGame);
     }
 
-    [Useless]
-    private IEnumerator TeleportToTown()
-    {
-        SceneManager.LoadSceneAsync("BaseScene");
-        yield return new WaitForSeconds(0.1f);
-    }     
+
 }

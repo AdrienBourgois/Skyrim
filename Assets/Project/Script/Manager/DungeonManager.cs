@@ -79,15 +79,6 @@ public class DungeonManager : MonoBehaviour {
     }
 
 
-    private void CheckModule()
-    {
-        foreach (Module m in modules)
-        {
-            print(m.transform.position);
-        }
-    }
-
-
     private IEnumerator CreateDungeon()
     {
         yield return new WaitForSeconds(0.1f);
@@ -95,6 +86,5 @@ public class DungeonManager : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         ItemGenerator();
         EnemyGeneration();
-        CheckModule();
     }
 }

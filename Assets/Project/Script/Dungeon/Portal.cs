@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour, IUsableObject
 {
+    private Quaternion characterRotation;
 
     public void OnUse(ACharacter _character)
     {
@@ -16,5 +17,10 @@ public class Portal : MonoBehaviour, IUsableObject
         DontDestroyOnLoad(_character);
      
         SceneManager.LoadSceneAsync("DungeonGeneration");
+
+        characterRotation = _character.transform.rotation;
+        characterRotation.y = 180f;
+        _character.transform.rotation = characterRotation;
+
     }
 }
