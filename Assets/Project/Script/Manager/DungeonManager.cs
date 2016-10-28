@@ -46,7 +46,6 @@ public class DungeonManager : MonoBehaviour {
 
     private void Start () {
 
-        GameManager.Instance.OnStateChanged += OnStateChanged;
         StartCoroutine(CreateDungeon());
     }
 
@@ -73,23 +72,21 @@ public class DungeonManager : MonoBehaviour {
     private void EnemyGeneration()
     {
         foreach (Module m in modules.ToArray())
-            foreach (EnemySpawner enemySpawner in m.enemySpawnersList.ToArray())
+            foreach (EnemySpawner enemySpawner in m.EnemySpawnersList.ToArray())
             {
                 enemySpawner.CreateEnemy();
             }
     }
 
-   
 
-    private void OnStateChanged(GameManager.GameState _state)
+    private void CheckModule()
     {
-        //print("stateChanged");
-        //if (state == GameManager.GameState.EnterDungeon)
-        //    StartCoroutine(CreateDungeon());
-        //if (state == GameManager.GameState.PopulateDungeon)
-        //   ItemGenerator();
-        
+        foreach (Module m in modules)
+        {
+            print(m.transform.position);
+        }
     }
+
 
     private IEnumerator CreateDungeon()
     {
@@ -98,5 +95,6 @@ public class DungeonManager : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         ItemGenerator();
         EnemyGeneration();
+        CheckModule();
     }
 }
