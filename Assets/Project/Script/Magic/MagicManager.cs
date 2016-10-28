@@ -24,6 +24,7 @@ public class MagicManager : MonoBehaviour
         Self,
         Light,
         Medium,
+        [Useless]
         Heavy
     }
 

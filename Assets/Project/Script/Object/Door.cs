@@ -10,6 +10,7 @@ public class Door : MonoBehaviour, IUsableObject
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.LoadGame);//StartCoroutine(TeleportToTown(_character));
     }
 
+    [Useless]
     private IEnumerator TeleportToTown()
     {
         SceneManager.LoadSceneAsync("BaseScene");

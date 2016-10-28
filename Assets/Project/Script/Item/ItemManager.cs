@@ -15,6 +15,7 @@ public class ItemManager : MonoBehaviour
 
     [Flags] public enum FlagsGeneration
     {
+        [Useless]
         None = 0,
 
         Helmet = 1,
@@ -66,7 +67,8 @@ public class ItemManager : MonoBehaviour
 
         return Instantiate(itemPrefab);
     }
-       
+
+    [Useless]
     public T CreateObject<T>(Item.ItemRarity _rarity, string _name, string _description) where T : Item, IInstanciableItem, new()
     {
         T item = new T

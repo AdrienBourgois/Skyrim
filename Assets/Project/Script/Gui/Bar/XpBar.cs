@@ -4,7 +4,7 @@ public class XpBar : Bar
 {
     private void Update()
     {
-        float xpRatio = (float)player.Xp / (float)player.XpToLevelUp;
+        float xpRatio = player.Xp / player.XpToLevelUp;
 
         if (player.Xp <= player.XpToLevelUp)
         {

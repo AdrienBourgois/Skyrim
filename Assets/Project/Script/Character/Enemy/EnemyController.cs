@@ -41,8 +41,8 @@ public class EnemyController : ACharacterController
     private IEnumerator UpdateAggressivity()
     {
         bool needUpdate = true;
-        int layerMask = (1 << LayerMask.NameToLayer("Weapon"));
-        layerMask |= (1 << LayerMask.NameToLayer("Character"));
+        int layerMask = 1 << LayerMask.NameToLayer("Weapon");
+        layerMask |= 1 << LayerMask.NameToLayer("Character");
         layerMask = ~layerMask;
 
         while (needUpdate)

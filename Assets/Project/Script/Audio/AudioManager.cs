@@ -100,6 +100,7 @@ public class AudioManager : MonoBehaviour {
 
     #region sounds
 
+    [Useless]
     public void PlaySound(ESoundType _sound, Vector3 _position)
     {
         AudioClip clip = null;

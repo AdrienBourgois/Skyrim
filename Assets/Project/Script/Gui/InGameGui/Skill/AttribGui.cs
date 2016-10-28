@@ -17,7 +17,8 @@ public class AttribGui : MonoBehaviour {
         transform.FindChild("Minus").GetComponent<Button>().enabled = bonusAssigned > 0;
     }
 
-	public void Plus()
+    [Useless]
+    public void Plus()
     {
         transform.FindChild("Bonus").GetComponent<Text>().text = (int.Parse(transform.GetChild(1).GetComponent<Text>().text) + 1).ToString();
         transform.parent.GetComponent<AttribPanel>().BonusToAssign--;
@@ -25,6 +26,7 @@ public class AttribGui : MonoBehaviour {
         Actualize();
     }
 
+    [Useless]
     public void Minus()
     {
         transform.FindChild("Bonus").GetComponent<Text>().text = (int.Parse(transform.GetChild(1).GetComponent<Text>().text) - 1).ToString();
