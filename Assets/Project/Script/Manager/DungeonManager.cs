@@ -6,7 +6,6 @@ public class DungeonManager : MonoBehaviour {
     private List<Module> modules = new List<Module>();
     private DungeonGenerator dungeonGenerator;
 
-
     private List<Enemy> enemies = new List<Enemy>();
 
 
@@ -47,6 +46,7 @@ public class DungeonManager : MonoBehaviour {
     private void Start () {
 
         StartCoroutine(CreateDungeon());
+  
     }
 
     public void RegisterModule(Module _m)
