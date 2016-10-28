@@ -37,6 +37,9 @@ public class CharacterStats
         UnitCharacteristics.Precision = Mathf.Min(100, 100 - (50 - (UnitCharacteristics.Weight - UnitCharacteristics.PlayerWeight) / 10) + UnitAttributes.Dexterity / 3) * equipBonus["Precision"];
         UnitCharacteristics.AttackSpeed = (1 + ((float)_player.UnitLevel + UnitAttributes.Dexterity / 2) / 100) * equipBonus["AttackSpeed"];
 
+        UnitCharacteristics.Health = UnitCharacteristics.Health > UnitCharacteristics.MaxHealth ? UnitCharacteristics.MaxHealth : UnitCharacteristics.Health;
+        UnitCharacteristics.Mana = UnitCharacteristics.Mana > UnitCharacteristics.MaxMana ? UnitCharacteristics.MaxMana : UnitCharacteristics.Mana;
+
         characteristics.UpdateCharacDict();
         UnitCharacteristics.OnDeath += OnDeath;
     }
