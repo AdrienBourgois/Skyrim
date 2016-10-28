@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         ChangeGameStateTo(GameState.MainMenu);
-
     }
 
     public void ChangeGameStateTo(GameState _nextGameState)
