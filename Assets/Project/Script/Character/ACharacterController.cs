@@ -40,9 +40,9 @@ public abstract class ACharacterController : APausableObject
         set { bIsGrounded = value; }
     }
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
-        GameManager.OnPause += PutPause;
+        base.Awake();
 
         if (rb == null)
             Debug.LogError("ACharacterController.Awake() - Rigidbody should not be null!");
@@ -63,6 +63,15 @@ public abstract class ACharacterController : APausableObject
     protected virtual void Start()
     {
         characterWeapons.SetController(this);
+        if (character)
+            characterWeapons.SetCharacter(character);
+        else
+        {
+            character = GetComponent<ACharacter>();
+            if (character == null)
+                Debug.LogError("ACharacterController.Start() - could not get component of type ACharacter");
+            characterWeapons.SetCharacter(character);
+        }
     }
 
     protected override void PutPause()
@@ -239,9 +248,4 @@ public abstract class ACharacterController : APausableObject
     }
 
     public abstract Transform GetTarget();
-
-    private void OnDestroy()
-    {
-        GameManager.OnPause -= PutPause;
-    }
 }

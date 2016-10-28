@@ -32,18 +32,15 @@ public class ACharacterWeapons : MonoBehaviour
             Debug.LogError("ACharacterWeapons.Start() - couldn't get component of type WeaponAnchor in rightHandAnchor");
     }
 
-    private void Start()
-    {        
-        leftHand.SetWeapon(ItemManager.Instance.CreateObject<Shield>());
-        rightHand.SetWeapon(ItemManager.Instance.CreateObject<Sword>());
-    }
-
     public void SetCharacter(ACharacter _character)
     {
         leftHand.SetCharacter(_character);
         rightHand.SetCharacter(_character);
 
         _character.OnChangedWeapons += SetWeapons;
+
+        // TODO: initialization for ShieldSword
+        SetWeapons(ItemManager.Instance.CreateObject<Shield>(), ItemManager.Instance.CreateObject<Sword>());
     }
 
     public void SetController(ACharacterController _characterController)
