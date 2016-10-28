@@ -32,12 +32,11 @@ public class LevelManager : MonoBehaviour {
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         instance = this;
-        InstanceGame();
-        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
     }
 
-    private void InstanceGame()
+    public void InstanceGame()
     {
         if (!player)
         {

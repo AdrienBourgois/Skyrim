@@ -17,9 +17,8 @@ public class PlayerController : ACharacterController
         if (cameraTransform == null)
         {
             Cam cam = FindObjectOfType<Cam>();
-            if (cam == null)
-                Debug.LogError("PlayerController.Update() - couldn't find object of type Cam");
-            cameraTransform = cam.transform;
+            if (cam != null)
+                cameraTransform = cam.transform;
         }
 
         if (paused)

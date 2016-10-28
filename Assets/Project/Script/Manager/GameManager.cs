@@ -35,8 +35,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameState
     {
-        Intro = 0,
-        MainMenu,
+        MainMenu = 0,
         LoadGame,
         InGame,
         EnterDungeon,
@@ -57,9 +56,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         instance = this;
+        if (!ItemManager.Instance)
         Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
-        Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
-        Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
+        if (!MagicManager.Instance)
+            Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
+        if (!ResourceManager.Instance)
+            Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
 
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 1)
             DontDestroyOnLoad(gameObject);
@@ -71,10 +73,6 @@ public class GameManager : MonoBehaviour
     {
         switch (_nextGameState)
         {
-            case GameState.Intro:
-                IntroInit();
-                break;
-
             case GameState.MainMenu:
                 MainMenuInit();
                 break;
@@ -102,18 +100,11 @@ public class GameManager : MonoBehaviour
             case GameState.Death:
                 GameOverInit();
                 break;
-            case GameState.StateNb:
-                break;
         }
 
         if (OnStateChanged != null)
             OnStateChanged.Invoke(CurrGameState);
 
-    }
-
-    private void IntroInit()
-    {
-        CurrGameState = GameState.Intro;
     }
 
     private void MainMenuInit()
@@ -132,6 +123,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(CheckIfSceneChanged);
         if (LevelManager.Instance == null)
             Instantiate(levelMgrPrefab).GetComponent<LevelManager>();
+
+        LevelManager.Instance.InstanceGame();
+        AudioManager.Instance.PlayMusic(AudioManager.EMusicType.Game);
 
         ChangeGameStateTo(GameState.InGame);
     }
