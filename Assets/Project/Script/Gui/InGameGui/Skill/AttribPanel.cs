@@ -11,11 +11,17 @@ public class AttribPanel : MonoBehaviour {
     {
         player = LevelManager.Instance.Player;
         attrib = player.CharacterStats.UnitAttributes;
-        BonusToAssign = player.AttributePointToAssign;
+        InitBonusToAssign();
         UpdateStats();
     }
 
-    private void UpdateStats()
+    public void InitBonusToAssign()
+    {
+        if ( player != null)
+            BonusToAssign = player.AttributePointToAssign;
+    }
+
+    public void UpdateStats()
     {
         if (attrib == null)
             return;
