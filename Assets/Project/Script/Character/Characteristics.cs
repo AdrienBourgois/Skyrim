@@ -2,6 +2,9 @@
 
 public class Characteristics
 {
+    public delegate void DelegateCharac();
+    public event DelegateCharac OnDeath;
+
     private Dictionary<string, float> characDict = new Dictionary<string, float>();
 
     #region Attack
@@ -40,7 +43,11 @@ public class Characteristics
             if (health > MaxHealth)
                 health = MaxHealth;
             if (health < 0)
+            {
                 health = 0;
+                if (OnDeath != null)
+                    OnDeath.Invoke();
+            }
         }
     }
 
@@ -85,17 +92,17 @@ public class Characteristics
 
     public Characteristics(int _value)
     {
-            Attack = _value;
-            Defense = _value;
-            Weight = _value;
-            MaxHealth = _value;
-            Health = _value;
-            HealthRegeneration = _value;
-            MaxMana = _value;
-            Mana = _value;
-            SpellPower = _value;
-            Precision = _value;
-            AttackSpeed = _value;
+        Attack = _value;
+        Defense = _value;
+        Weight = _value;
+        MaxHealth = _value;
+        Health = _value;
+        HealthRegeneration = _value;
+        MaxMana = _value;
+        Mana = _value;
+        SpellPower = _value;
+        Precision = _value;
+        AttackSpeed = _value;
     }
 
     public void UpdateCharacDict()

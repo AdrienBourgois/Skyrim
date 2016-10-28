@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Death:
+                Debug.LogWarning("Player is dead!");
                 break;
             case GameState.StateNb:
                 break;

@@ -14,6 +14,10 @@ public class EnemyController : ACharacterController
     {
         base.Start();
 
+        // HACK: doesnt work everytime in start.. not normal
+        if (character != null)
+            characterWeapons.SetCharacter(character);
+
         StartCoroutine(FindTarget());
     }
 
@@ -56,6 +60,7 @@ public class EnemyController : ACharacterController
             }
             else if (bIsAttacking == true)
             {
+                ControllerMove(0.0f, 0.0f);
                 ControllerDrawSheathSword();
                 bIsAttacking = false;
             }

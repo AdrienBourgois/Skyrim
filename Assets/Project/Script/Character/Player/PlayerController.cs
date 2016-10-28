@@ -4,6 +4,15 @@ public class PlayerController : ACharacterController
 {
     Transform cameraTransform = null;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        // HACK: doesnt work everytime in ACharacter start.. not normal - maybe will be the same in Enemy if being Instantiated
+        if (characterWeapons != null)
+            characterWeapons.SetCharacter(character);
+    }
+
     protected override void Start()
     {
         base.Start();

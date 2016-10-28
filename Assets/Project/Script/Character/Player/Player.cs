@@ -1,12 +1,24 @@
-﻿public class Player : ACharacter
+﻿using System;
+
+public class Player : ACharacter
 {
     #region Exp
-
     public int Xp { get; private set; }
 
     private int xpToLevelUp = 100;
     public int XpToLevelUp { get { return xpToLevelUp; } }
     #endregion
+
+    private int attributePointToAssign = 10;
+    public int AttributePointToAssign
+    {
+        get { return attributePointToAssign; }
+        set
+        {
+            if (value >= 0)
+                attributePointToAssign = value;
+        }
+    }
 
     protected override void Start()
     {
@@ -15,7 +27,7 @@
         UnitSpells.PlayerBasicSpellInit();
     }
 
-    private void LevelUp()
+    private void LevelUpCheck()
     {
         if (Xp < xpToLevelUp)
             return;
@@ -24,11 +36,14 @@
         xpToLevelUp *= 2;
     }
 
-    private int attributePointToAssign = 10;
-    public int AttributePointToAssign
+    public override void EarnXp(int _xpReward)
     {
-        get { return attributePointToAssign; }
-        set {   if (value >= 0)
-                attributePointToAssign = value; }
+        Xp += _xpReward;
+        LevelUpCheck();
+    }
+
+    protected override void OnDeath()
+    {
+        GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Death);
     }
 }

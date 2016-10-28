@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// Abstract class for every character in the game. An ACharacter has a UnitName and Base Stats as serialized fields.
@@ -95,6 +96,7 @@ public abstract class ACharacter : APausableObject, IHitable
     {
         characterStats.SetCharacteristics(this);
         CharacterStats.UnitCharacteristics.RegenFullHealthAndMana();
+        CharacterStats.TriggerDeath += OnDeath;
 
         equipType = EquipType.SwordAndShield;
     }
@@ -130,7 +132,14 @@ public abstract class ACharacter : APausableObject, IHitable
 
     protected virtual void TakeDamages(float _damages)
     {
+        if (_damages <= 0)
+            _damages = 1;
         characterStats.UnitCharacteristics.Health -= _damages;
+    }
+
+    public virtual void EarnXp(int _xpReward)
+    {
+        // Do nothing
     }
 
     public virtual void OnHit(ACharacter _character)
@@ -139,4 +148,6 @@ public abstract class ACharacter : APausableObject, IHitable
             return;
         TakeDamages(_character.CharacterStats.UnitCharacteristics.Attack - characterStats.UnitCharacteristics.Defense);
     }
+
+    protected abstract void OnDeath();
 }

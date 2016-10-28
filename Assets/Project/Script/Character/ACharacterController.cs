@@ -38,7 +38,7 @@ public abstract class ACharacterController : APausableObject
         set { bIsGrounded = value; }
     }
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         GameManager.OnPause += PutPause;
 
@@ -61,7 +61,6 @@ public abstract class ACharacterController : APausableObject
     protected virtual void Start()
     {
         characterWeapons.SetController(this);
-        characterWeapons.SetCharacter(character);
     }
 
     protected override void PutPause()
