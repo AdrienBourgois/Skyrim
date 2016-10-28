@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class CharacterStats
 {
+    public delegate void DelegateCharacStats();
+    public event DelegateCharacStats TriggerDeath;
+
     #region Stats
     private Characteristics characteristics = new Characteristics(0);
     public Characteristics UnitCharacteristics
@@ -35,6 +38,7 @@ public class CharacterStats
         UnitCharacteristics.AttackSpeed = (1 + ((float)_player.UnitLevel + UnitAttributes.Dexterity / 2) / 100) * equipBonus["AttackSpeed"];
 
         characteristics.UpdateCharacDict();
+        UnitCharacteristics.OnDeath += OnDeath;
     }
 
     public Characteristics SimulateCharac(int _level,float _playerWeigth, int _strength, int _constit, int _intel, int _dexterity)
@@ -105,5 +109,11 @@ public class CharacterStats
         equipBonus.Add("SpellPower", 0);
         equipBonus.Add("Precision", 0);
         equipBonus.Add("AttackSpeed", 0);
+    }
+
+    private void OnDeath()
+    {
+        if (TriggerDeath != null)
+            TriggerDeath.Invoke();
     }
 }

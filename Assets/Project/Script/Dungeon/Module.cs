@@ -5,93 +5,41 @@ using System.Collections.Generic;
 
 public class Module : MonoBehaviour {
 
-
     [SerializeField]
     private string[] tags;
 
     private List<ModuleConnector> moduleConnectorList = new List<ModuleConnector>();
     private List<ItemsGenerator> itemsGeneratorList = new List<ItemsGenerator>();
-    private List<EnemySpawner> enemySpawnersList = new List<EnemySpawner>();
+    public List<EnemySpawner> enemySpawnersList = new List<EnemySpawner>();
 
-    public List<ModuleConnector> ModuleConnectorList
-    {
-        get
-        {
-            return moduleConnectorList;
-        }
+    private List<ModuleConnector> ModuleConnectorList { get { return moduleConnectorList; }}
 
-        set
-        {
-            moduleConnectorList = value;
-        }
-    }
+    public string[] Tags { get { return tags; } }
 
-    public string[] Tags
-    {
-        get
-        {
-            return tags;
-        }
-
-        set
-        {
-            tags = value;
-        }
-    }
-
-    public List<ItemsGenerator> ItemsGeneratorList
-    {
-        get
-        {
-            return itemsGeneratorList;
-        }
-
-        set
-        {
-            itemsGeneratorList = value;
-        }
-    }
-
-    public List<EnemySpawner> EnemySpawnersList
-    {
-        get
-        {
-            return enemySpawnersList;
-        }
-
-        set
-        {
-            enemySpawnersList = value;
-        }
-    }
+    public List<ItemsGenerator> ItemsGeneratorList { get { return itemsGeneratorList; } }
 
     private void Awake()
     {
         DungeonManager.Instance.RegisterModule(this);
     }
 
-    private void Start()
-    {
-    }
-
-
     public ModuleConnector[] GetExits()
     {
         return GetComponentsInChildren<ModuleConnector>();
     }
 
-    public void AddConnector(ModuleConnector moduleConnector)
+    public void AddConnector(ModuleConnector _moduleConnector)
     {
-        ModuleConnectorList.Add(moduleConnector);
+        ModuleConnectorList.Add(_moduleConnector);
     }
 
-    public void AddGenerator(ItemsGenerator itemGenerator)
+    public void AddGenerator(ItemsGenerator _itemGenerator)
     {
-        ItemsGeneratorList.Add(itemGenerator);
+        ItemsGeneratorList.Add(_itemGenerator);
     }
 
-    public void AddEnemySpawner(EnemySpawner enemySpawn)
+    public void AddEnemySpawner(EnemySpawner _enemySpawn)
     {
-        enemySpawnersList.Add(enemySpawn);
+        enemySpawnersList.Add(_enemySpawn);
     }
 }

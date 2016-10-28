@@ -39,16 +39,6 @@ public class DungeonManager : MonoBehaviour {
         modules.Add(_m);
     }
 
-
-    private void CheckConnector()
-    {
-        foreach (Module m in modules)
-            foreach (ModuleConnector slot in m.ModuleConnectorList)
-                if (slot.IsConnected == false)
-                    print(slot.transform.position);
-                
-    }
-
     private void ItemGenerator()
     {
 
@@ -67,11 +57,11 @@ public class DungeonManager : MonoBehaviour {
     private void EnemyGeneration()
     {
         foreach (Module m in modules.ToArray())
-            foreach (EnemySpawner enemySpawner in m.EnemySpawnersList.ToArray())
+            foreach (EnemySpawner enemySpawner in m.enemySpawnersList.ToArray())
                 enemySpawner.CreateEnemy();
     }
 
-    private void OnStateChanged(GameManager.GameState state)
+    private void OnStateChanged(GameManager.GameState _state)
     {
         //print("stateChanged");
         //if (state == GameManager.GameState.EnterDungeon)

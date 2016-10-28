@@ -5,8 +5,8 @@ public class EnemySpawner : MonoBehaviour {
 
     private void Awake()
     {
-        GameObject mGO = transform.parent.gameObject;
-        Module m = mGO.GetComponent<Module>();
+        GameObject mGo = transform.parent.gameObject;
+        Module m = mGo.GetComponent<Module>();
         if (m != null)
             m.AddEnemySpawner(this);
     }
@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour {
         if (score > 50)
         {
             GameObject enemyPrefab = ResourceManager.Instance.Load("Character/Enemy");
-            Object enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
+            Instantiate(enemyPrefab, transform.position, transform.rotation);
         }
         else
             Destroy(gameObject);

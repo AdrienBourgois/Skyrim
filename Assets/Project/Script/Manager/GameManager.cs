@@ -26,15 +26,12 @@ public class GameManager : MonoBehaviour
     }
 
     #region SerializeField
-    [SerializeField] private GameObject dataMgrPrefab;
     [SerializeField] private GameObject levelMgrPrefab;
     [SerializeField] private GameObject itemMgrPrefab;
     [SerializeField] private GameObject dungeonMgrPrefab;
     [SerializeField] private GameObject magicMgrPrefab;
     [SerializeField] private GameObject resourceMgrPrefab;
     #endregion
-
-    private DataManager dataMgr;
 
     public enum GameState
     {
@@ -49,12 +46,7 @@ public class GameManager : MonoBehaviour
         StateNb
     }
 
-    private GameState currGameState;
-    public GameState CurrGameState
-    {
-        get { return currGameState; }
-        private set { currGameState = value; }
-    }
+    public GameState CurrGameState { get; private set; }
 
     public delegate void Pause();
     public static event Pause OnPause;
@@ -65,7 +57,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         instance = this;
-        dataMgr = DataManager.Instance ? DataManager.Instance : Instantiate(dataMgrPrefab).GetComponent<DataManager>();
         Instantiate(itemMgrPrefab).GetComponent<ItemManager>();
         Instantiate(magicMgrPrefab).GetComponent<MagicManager>();
         Instantiate(resourceMgrPrefab).GetComponent<ResourceManager>();
@@ -107,13 +98,14 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Death:
+                Debug.LogWarning("Player is dead!");
                 break;
             case GameState.StateNb:
                 break;
         }
 
         if (OnStateChanged != null)
-            OnStateChanged.Invoke(currGameState);
+            OnStateChanged.Invoke(CurrGameState);
 
     }
 
@@ -159,14 +151,14 @@ public class GameManager : MonoBehaviour
 
     private void EnterDungeonInit()
     {
-        currGameState = GameState.EnterDungeon;
+        CurrGameState = GameState.EnterDungeon;
 
         Instantiate(dungeonMgrPrefab).GetComponent<DungeonManager>();
     }
 
     private void PopulateDungeonInit()
     {
-        currGameState = GameState.PopulateDungeon;
+        CurrGameState = GameState.PopulateDungeon;
     }
 
     private void PauseInit()

@@ -10,7 +10,7 @@ public class ProjectileSpell : ASpell
         Debug.Log("FIRE");
         cast = true;
         transform.parent = null;
-        direction = selfController.Target.transform.forward;
+        direction = selfController.GetTarget().transform.forward;
 
         Destroy(gameObject, lifeTime);
     }

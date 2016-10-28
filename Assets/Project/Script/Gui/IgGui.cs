@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class IGGui : MonoBehaviour
+public class IgGui : MonoBehaviour
 {
     private GameObject pausePanel;
     private GameObject gameMenuPanel;
@@ -35,10 +35,10 @@ public class IGGui : MonoBehaviour
         }
     }
 
-    private void Pause(GameObject panelToShow)
+    private void Pause(GameObject _panelToShow)
     {
         GameManager.Instance.ChangeGameStateTo(GameManager.GameState.Pause);
-        panelToShow.SetActive(true);
+        _panelToShow.SetActive(true);
     }
 
     private void ReturnInGame()

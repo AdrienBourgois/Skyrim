@@ -50,7 +50,6 @@ public class InventoryPanelGui : MonoBehaviour
     private bool isShow;
     public bool Show
     {
-        get { return isShow; }
         set
         {
             if (isShow != value)
@@ -83,7 +82,7 @@ public class InventoryPanelGui : MonoBehaviour
         sortList.onValueChanged.AddListener(delegate { ApplyFilterAndSort(); });
         onQuitButton = quitButton.onClick;
         onQuitButton.AddListener(delegate { Show = false;
-                                            FindObjectOfType<IGGui>().gameObject.SetActive(true);
+                                            FindObjectOfType<IgGui>().gameObject.SetActive(true);
                                             GameManager.Instance.ChangeGameStateTo(GameManager.GameState.InGame); });
 
         instance = this;
@@ -228,8 +227,8 @@ public class InventoryPanelGui : MonoBehaviour
                     player.CharacterStats.UnitCharacteristics.PlayerWeight += selectedItem.Weight;
                     Inventory.RemoveItem(selectedItem);
                     ApplyFilterAndSort();
-                    Inventory player_inventory = player.UnitInventory;
-                    player_inventory.AddItem(selectedItem);
+                    Inventory playerInventory = player.UnitInventory;
+                    playerInventory.AddItem(selectedItem);
                     DisplayItem(null);
                 }
             });
@@ -249,8 +248,8 @@ public class InventoryPanelGui : MonoBehaviour
                     player.CharacterStats.UnitCharacteristics.PlayerWeight += selectedItem.Weight;
                     Inventory.RemoveItem(selectedItem);
                     ApplyFilterAndSort();
-                    Inventory player_inventory = player.UnitInventory;
-                    player_inventory.AddItem(selectedItem);
+                    Inventory playerInventory = player.UnitInventory;
+                    playerInventory.AddItem(selectedItem);
                     DisplayItem(null);
                 }
             });

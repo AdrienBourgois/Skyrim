@@ -9,12 +9,6 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public abstract class ACharacterController : APausableObject
 {
-    protected Transform target;
-    public Transform Target
-    {
-        get { return target; }
-    }
-
     #region Serialized Fields
     [SerializeField]
     private Rigidbody rb;
@@ -44,7 +38,7 @@ public abstract class ACharacterController : APausableObject
         set { bIsGrounded = value; }
     }
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         GameManager.OnPause += PutPause;
 
@@ -67,9 +61,6 @@ public abstract class ACharacterController : APausableObject
     protected virtual void Start()
     {
         characterWeapons.SetController(this);
-        Player playerTarget = FindObjectOfType<Player>();
-        if (playerTarget != null)
-            target = playerTarget.transform;
     }
 
     protected override void PutPause()
@@ -117,10 +108,6 @@ public abstract class ACharacterController : APausableObject
         animator.SetFloat("MoveX", _xAxis, 0.4f, Time.deltaTime);
         animator.SetFloat("MoveZ", _zAxis, 0.4f, Time.deltaTime);
         animator.SetTrigger("TriggerJump");
-        //Vector3 direction = transform.forward * zAxis + transform.right * xAxis;
-        //direction.Normalize();
-        //direction.y = 1;
-        //rb.AddForce(transform.up * character.JumpEfficiency, ForceMode.Impulse);
         animator.SetFloat("JumpEfficiency", character.JumpEfficiency);
     }
 
@@ -246,4 +233,6 @@ public abstract class ACharacterController : APausableObject
         bIsGrounded = false;
         animator.SetBool("IsGrounded", false);
     }
+
+    public abstract Transform GetTarget();
 }

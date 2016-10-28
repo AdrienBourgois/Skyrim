@@ -67,11 +67,11 @@ public class CharacPanel : MonoBehaviour
     }
 
 
-    private string Round(string characName, float _value = 1f)
+    private string Round(string _characName, float _value = 1f)
     {
-        return (characName == "AttackSpeed"
-                || characName == "SpellPower"
-                || characName == "HealthRegeneration")
+        return (_characName == "AttackSpeed"
+                || _characName == "SpellPower"
+                || _characName == "HealthRegeneration")
                 && _value != 0f
                 ? "0.00" : "0";
     }

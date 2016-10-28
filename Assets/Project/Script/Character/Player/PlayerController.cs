@@ -2,26 +2,29 @@
 
 public class PlayerController : ACharacterController
 {
-    #region Delegates and events
-    public delegate void DelegateAction();
-    public event DelegateAction OnLeftDown;
-    public event DelegateAction OnLeftUp;
-    public event DelegateAction OnRightDown;
-    #endregion
-    
+    Transform cameraTransform = null;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        // HACK: doesnt work everytime in ACharacter start.. not normal - maybe will be the same in Enemy if being Instantiated
+        if (characterWeapons != null)
+            characterWeapons.SetCharacter(character);
+    }
+
     protected override void Start()
     {
         base.Start();
-        characterWeapons.SetCharacter(character);
-        target = FindObjectOfType<Cam>().transform;
+        cameraTransform = FindObjectOfType<Cam>().transform;
     }
 
     protected override void Update()
     {
         ResetTriggers();
 
-        if (target == null)
-            target = FindObjectOfType<Cam>().transform;
+        if (cameraTransform == null)
+            cameraTransform = FindObjectOfType<Cam>().transform;
 
         if (paused)
         {
@@ -80,38 +83,12 @@ public class PlayerController : ACharacterController
             ControllerUse();
     }
 
-    #region Controller
-
-    protected override void ControllerRightHand()
-    {
-        base.ControllerRightHand();
-
-        if (OnRightDown != null)
-            OnRightDown.Invoke();
-    }
-
-    protected override void ControllerLeftHand(bool _bIsPressed = true)
-    {
-        base.ControllerLeftHand(_bIsPressed);
-
-        if (_bIsPressed)
-        {
-            if (OnLeftDown != null)
-                OnLeftDown.Invoke();
-        }
-        else
-        {
-            if (OnLeftUp != null)
-                OnLeftUp.Invoke();
-        }
-    }
-
     public override void ControllerUse()
     {
         RaycastHit hit;
         // TODO: global(?) variable for max distance
         const float useMaxDistance = 3f;
-        if (Physics.Raycast(target.position, target.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, useMaxDistance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
             IUsableObject usableCollider = hit.collider.GetComponent<IUsableObject>();
 
@@ -122,6 +99,8 @@ public class PlayerController : ACharacterController
         }
     }
 
-    #endregion
-
+    public override Transform GetTarget()
+    {
+        return cameraTransform;
+    }
 }

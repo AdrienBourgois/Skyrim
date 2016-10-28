@@ -9,7 +9,7 @@ public class Armor : Item, ITypeItem {
         Boots,
         Shield
     }
-    protected ArmorType armorType;
+
     private Characteristics characteristics = new Characteristics(0);
     public Characteristics Characteristics
     { get { return characteristics; } }

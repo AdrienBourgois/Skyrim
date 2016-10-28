@@ -21,16 +21,18 @@ public class MusicGroup : MonoBehaviour {
     private EPlayState state = EPlayState.PlaySingle;
     public EPlayState State
     {
-        get { return state; }
         set
         {
-            state = value;
-            if (value == EPlayState.Stop)
-                StartCoroutine(Stop());
-            else if (value == EPlayState.PlaySingle)
-                ToSinglePlay();
-            else if (value == EPlayState.PlayFull)
-                ToFullPlay();
+            if (state != value)
+            {
+                state = value;
+                if (value == EPlayState.Stop)
+                    StartCoroutine(Stop());
+                else if (value == EPlayState.PlaySingle)
+                    ToSinglePlay();
+                else if (value == EPlayState.PlayFull)
+                    ToFullPlay();
+            }
         }
     }
 

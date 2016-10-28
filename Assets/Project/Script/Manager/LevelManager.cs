@@ -40,8 +40,7 @@ public class LevelManager : MonoBehaviour {
     {
         if (!player)
         {
-            GameObject playerObject = Instantiate(ResourceManager.Instance.Load("Character/Player"));
-            player = playerObject.GetComponent<Player>();
+            player = Instantiate(ResourceManager.Instance.Load<Player>("Character/Player"));
             
             if (player == null)
                 Debug.LogError("LevelManager.Awake() - could not load Player from Prefab Character/Player.");
@@ -52,13 +51,13 @@ public class LevelManager : MonoBehaviour {
             GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             if (mainCamera != null)
                 Destroy(mainCamera);
-            Instantiate(ResourceManager.Instance.Load("Character/Main Camera"));
+            Instantiate(ResourceManager.Instance.Load<Cam>("Character/Main Camera"));
         }
 
         if (!FindObjectOfType<Compass>())
-            Instantiate(ResourceManager.Instance.Load("Gui/Compass"));
+            Instantiate(ResourceManager.Instance.Load<Compass>("Gui/Compass"));
 
-        if (!FindObjectOfType<IGGui>())
-            Instantiate(ResourceManager.Instance.Load("Gui/inGameGui"));
+        if (!FindObjectOfType<IgGui>())
+            Instantiate(ResourceManager.Instance.Load<IgGui>("Gui/inGameGui"));
     }
 }
