@@ -16,7 +16,7 @@ public class Compass : MonoBehaviour {
     {
         CheckTarget();
         FindPlayer();
-        
+
         needle = transform.FindChild("Needle");
 
         arrowRotator = transform.FindChild("ArrowRotator");
@@ -72,7 +72,6 @@ public class Compass : MonoBehaviour {
         GameObject targetGao = GameObject.FindGameObjectWithTag("CompassTarget");
         if (targetGao == null)
         {
-            Debug.LogError("Compass.CheckTarget() - any valid target");
             return false;
         }
 
