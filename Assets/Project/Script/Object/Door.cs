@@ -12,7 +12,6 @@ public class Door : MonoBehaviour, IUsableObject
 
     private IEnumerator TeleportToTown(ACharacter character)
     {
-        Destroy(FindObjectOfType<Cam>());
         SceneManager.LoadSceneAsync("BaseScene");
         yield return new WaitForSeconds(0.1f);
     }     
